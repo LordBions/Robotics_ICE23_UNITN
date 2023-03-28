@@ -12,6 +12,24 @@ First of all, you need to set up your catkin_ws directory there are two possible
 
 1. Open your terminal and write:
 ```
-$ cd $HOME/Robotics_ICE23_UNITN
+cd $HOME/Robotics_ICE23_UNITN
 ```
-2. 
+2. Run the following command:
+```
+bash init_script.sh
+``` 
+If it *does not* work, type:
+```
+cd $HOME/Robotics_ICE23_UNITN; chmod +x ./init_script.sh; ./init_script.sh
+```
+
+### Setting up manually
+If you are too pro and/or you don't want to save the directory in the $HOME folder, you can
+set up the catkin_ws directory manually:
+1. Open your terminal and type:
+```
+cd PATH/YOU/WANT/Robotics_ICE23_UNITN/catkin_ws
+catkin_make
+. PATH/YOU/WANT/Robotics_ICE2023/catkin_ws/devel/setup.bash
+```
+
