@@ -1,0 +1,8 @@
+[credential]
+	helper = cache
+[user]
+	name = LordBions
+	mail = filippo.conti@studenti.unitn.it
+	email = filippocb@outlook.it
+[cola]
+	spellcheck = false
