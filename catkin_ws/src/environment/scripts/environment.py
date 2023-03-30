@@ -12,7 +12,7 @@ import numpy as np
 
 import xml.etree.ElementTree as ET
 
-path = rospkg.RosPack().get_path("levelManager")
+path = rospkg.RosPack().get_path("environment")
 
 costruzioni = ['costruzione-1', 'costruzione-2']
 
@@ -42,7 +42,7 @@ def getLego4Costruzione(select=None):
 	if select is not None: nome_cost = costruzioni[select]
 	print("spawning", nome_cost)
 
-	tree = ET.parse(f'{path}/lego_models/{nome_cost}/model.sdf')
+	tree = ET.parse(f'{path}/worlds/models/{nome_cost}/model.sdf')
 	root = tree.getroot()
 	costruzioneEl = root.find('model')
 
@@ -58,7 +58,7 @@ def getLego4Costruzione(select=None):
 		rot = Quaternion(*quaternion_from_euler(*pose[3:]))
 		models.pose.append(Pose(Point(*pose[:3]), rot))
 
-	rospy.init_node("levelManager")
+	rospy.init_node("environment")
 	istruzioni = rospy.Publisher("costruzioneIstruzioni", ModelStates, queue_size=1)
 	istruzioni.publish(models)
 
@@ -72,7 +72,7 @@ def changeModelColor(model_xml, color):
 
 
 #DEFAULT PARAMETERS
-package_name = "levelManager"
+package_name = "environment"
 spawn_name = '_spawn'
 level = None
 selectBrick = None
@@ -106,7 +106,7 @@ def readArgs():
 			else: raise Exception()
 			argn += 1
 	except Exception as err:
-		print("Usage: .\levelManager.py" \
+		print("Usage: .\environment.py" \
 					+ "\n\t -l | -level: assigment from 1 to 4" \
 					+ "\n\t -b | -brick: spawn specific grip from 0 to 10")
 		exit()
@@ -148,7 +148,7 @@ lego = [] 	#lego = [[name, type, pose, radius], ...]
 #get model path
 def getModelPath(model):
 	pkgPath = rospkg.RosPack().get_path(package_name)
-	return f'{pkgPath}/lego_models/{model}/model.sdf'
+	return f'{pkgPath}/worlds/models/{model}/model.sdf'
 
 #set position brick
 def randomPose(brickType, rotated):

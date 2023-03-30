@@ -8,7 +8,7 @@ import xml.etree.ElementTree as ET
 import random
 
 import rospy, rospkg
-path = rospkg.RosPack().get_path("lego_robot_vision")
+path = rospkg.RosPack().get_path("vision")
 
 costruzioni = ['costruzione-1', 'costruzione-2']
 
@@ -36,7 +36,7 @@ def getLego4Costruzione(select=None):
 	nome_cost = randomCostruzione()
 	if select is not None: nome_cost = costruzioni[select]
 
-	tree = ET.parse(f'{path}/models/{nome_cost}/model.sdf')
+	tree = ET.parse(f'{path}/worls/models/{nome_cost}/model.sdf')
 	root = tree.getroot()
 	costruzioneEl = root.find('model')
 
@@ -52,7 +52,7 @@ def getLego4Costruzione(select=None):
 		rot = Quaternion(quaternion_from_euler(*pose[3:]))
 		models.pose.append(Pose(Point(*pose[:3]), rot))
 
-	rospy.init_node("levelManager")
+	rospy.init_node("environment")
 	istruzioni = rospy.Publisher("costruzioneIstruzioni", ModelStates, queue_size=1)
 	istruzioni.publish(models)
 
