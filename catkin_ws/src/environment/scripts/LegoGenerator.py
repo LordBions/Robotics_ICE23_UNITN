@@ -10,10 +10,10 @@ import random
 import rospy, rospkg
 path = rospkg.RosPack().get_path("vision")
 
-costruzioni = ['costruzione-1', 'costruzione-2']
+legobuilds = ['build-1', 'build-2']
 
-def randomCostruzione():
-	return random.choice(costruzioni)
+def randomBuild():
+	return random.choice(legobuilds)
 
 def getPose(modelEl):
 	return modelEl.find('pose').text
@@ -32,9 +32,9 @@ def get_Parent_Child(jointEl):
 	return parent, child
 
 
-def getLego4Costruzione(select=None):
-	nome_cost = randomCostruzione()
-	if select is not None: nome_cost = costruzioni[select]
+def getLego4Build(select=None):
+	nome_cost = randomBuild()
+	if select is not None: nome_cost = legobuilds[select]
 
 	tree = ET.parse(f'{path}/worls/models/{nome_cost}/model.sdf')
 	root = tree.getroot()
@@ -53,7 +53,7 @@ def getLego4Costruzione(select=None):
 		models.pose.append(Pose(Point(*pose[:3]), rot))
 
 	rospy.init_node("environment")
-	istruzioni = rospy.Publisher("costruzioneIstruzioni", ModelStates, queue_size=1)
+	istruzioni = rospy.Publisher("buildInstructions", ModelStates, queue_size=1)
 	istruzioni.publish(models)
 
 	return models

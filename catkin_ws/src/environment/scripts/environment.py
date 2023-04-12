@@ -1,9 +1,11 @@
 #!/usr/bin/python3
+
 from pandas import array
 from gazebo_msgs.srv import SpawnModel, DeleteModel
 from geometry_msgs.msg import *
 from gazebo_msgs.msg import ModelStates
 from tf.transformations import quaternion_from_euler
+
 import rospy, rospkg, rosservice
 import sys
 import time
@@ -14,10 +16,10 @@ import xml.etree.ElementTree as ET
 
 path = rospkg.RosPack().get_path("environment")
 
-costruzioni = ['costruzione-1', 'costruzione-2']
+legobuilds = ['build-1', 'build-2']
 
 def randomCostruzione():
-	return random.choice(costruzioni)
+	return random.choice(legobuilds)
 
 def getPose(modelEl):
 	strpose = modelEl.find('pose').text
@@ -37,9 +39,9 @@ def get_Parent_Child(jointEl):
 	return parent, child
 
 
-def getLego4Costruzione(select=None):
+def getLego4Build(select=None):
 	nome_cost = randomCostruzione()
-	if select is not None: nome_cost = costruzioni[select]
+	if select is not None: nome_cost = legobuilds[select]
 	print("spawning", nome_cost)
 
 	tree = ET.parse(f'{path}/worlds/models/{nome_cost}/model.sdf')
@@ -284,7 +286,7 @@ def setUpArea(livello=None, selectBrick=None):
 				spawnaLego('X1-Y1-Z2')	
 				spawnaLego('X1-Y2-Z2-TWINFILLET')
 			else:
-				models = getLego4Costruzione()
+				models = getLego4Build()
 				r = 3
 				for brickType in models.name:
 					r -= 1

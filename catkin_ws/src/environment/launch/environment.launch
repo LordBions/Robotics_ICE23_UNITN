@@ -1,5 +1,7 @@
 <?xml version="1.0"?>
+
 <launch>
+
   <!-- Export env variable so that gazebo finds our models -->
   <env name="GAZEBO_MODEL_PATH"
        value="$(optenv GAZEBO_MODEL_PATH):$(find environment)/worlds/models" />
@@ -26,7 +28,7 @@
        something strange when unpausing it
   -->
 
-<!-- Enable PID -->
+  <!-- Enable PID -->
   <rosparam file="$(find ur5_description)/config/gazebo_ros_control_params.yaml" />
   
   <node name="spawn_gazebo_model" pkg="gazebo_ros" type="spawn_model"
@@ -46,8 +48,7 @@
 
   <include file="$(find ur5_gazebo)/launch/ur5_controllers.launch" />
 
-
-  <!-- Start Level Manager -->
+  <!-- Start environment -->
   <node pkg="environment" name="environment" type="environment.py" output="screen" />
 
 </launch>

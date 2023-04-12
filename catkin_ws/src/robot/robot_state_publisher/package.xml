@@ -1,7 +1,11 @@
 <package format="2">
+
   <name>robot_state_publisher</name>
+
   <version>1.15.2</version>
+
   <description>
+
     This package allows you to publish the state of a robot to
     <a href="http://ros.org/wiki/tf2">tf2</a>. Once the state gets published, it is
     available to all components in the system that also use <tt>tf2</tt>.
@@ -10,6 +14,7 @@
     tree model of the robot. The package can both be used as a library
     and as a ROS node.  This package has been well tested and the code
     is stable. No major changes are planned in the near future.
+
   </description>
 
   <author email="isucan@gmail.com">Ioan Sucan</author>
@@ -45,4 +50,5 @@
 
   <test_depend>rosbag</test_depend>
   <test_depend>rostest</test_depend>
+
 </package>

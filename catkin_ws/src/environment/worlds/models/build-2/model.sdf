@@ -1,10 +1,6 @@
 <?xml version='1.0'?>
 <sdf version='1.7'>
-	<!-- X1 = 0.031   X2 = 0.063 -->
-	<!-- Y1 = 0.031   Y2 = 0.063   Y3 = 0.095   Y4 = 0.127 -->
-	<!-- Z1 = 0.038   Z2 = 0.057 -->
-	<!-- pin Z = 0.019 -->
-	<model name='costruzione-2'>
+	<model name='build-2'>
 		<include>
 			<name>X1-Y2-Z2_1</name>
 			<pose>0 -0.0315 0.0285 0 0 0</pose>

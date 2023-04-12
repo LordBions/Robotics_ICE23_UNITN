@@ -1,6 +1,6 @@
 <?xml version='1.0'?>
 <sdf version='1.7'>
-  <model name='costruzione-1'>
+  <model name='build-1'>
     <model name='X1-Y1-Z2'>
       <static>0</static>
       <link name='link'>
