@@ -1,6 +1,6 @@
 set(_CATKIN_CURRENT_PACKAGE "moviment")
-set(moviment_VERSION "1.0.0")
-set(moviment_MAINTAINER "Filippo Conti, Mattia Meneghin, Nicola Gianuzzi <filippo.conti@studenti.unitn.it>")
+set(moviment_VERSION "0.0.0")
+set(moviment_MAINTAINER "utente <utente@todo.todo>")
 set(moviment_PACKAGE_FORMAT "2")
 set(moviment_BUILD_DEPENDS "roscpp" "rospy" "std_msgs")
 set(moviment_BUILD_EXPORT_DEPENDS "roscpp" "rospy" "std_msgs")

@@ -1,6 +1,6 @@
 set(_CATKIN_CURRENT_PACKAGE "environment")
-set(environment_VERSION "1.0.0")
-set(environment_MAINTAINER "Filippo Conti, Mattia Meneghin e Nicola Gianuzzi <filippo.conti@studenti.unitn.it>")
+set(environment_VERSION "0.0.0")
+set(environment_MAINTAINER "utente <utente@todo.todo>")
 set(environment_PACKAGE_FORMAT "2")
 set(environment_BUILD_DEPENDS "roscpp" "rospy" "std_msgs")
 set(environment_BUILD_EXPORT_DEPENDS "roscpp" "rospy" "std_msgs")
