@@ -18,10 +18,6 @@ cd $HOME/Robotics_ICE23_UNITN
 ```
 bash init_script.sh
 ``` 
-If it *does not* work, type:
-```
-cd $HOME/Robotics_ICE23_UNITN; chmod +x ./init_script.sh; ./init_script.sh
-```
 
 ### Setting up manually
 If you are too pro and/or you don't want to save the directory in the $HOME folder, you can
