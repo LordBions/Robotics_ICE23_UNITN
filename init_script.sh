@@ -1,5 +1,7 @@
 #!/bin/bash
 
+# EXECUTE without starting SH
+
 # the main directory must be saved in $HOME
 cd $HOME
 
