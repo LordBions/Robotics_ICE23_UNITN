@@ -1,3 +1,0 @@
-[submodule "catkin_ws/src/environment/models/zed-ros-examples"]
-	path = catkin_ws/src/environment/models/zed-ros-examples
-	url = https://github.com/stereolabs/zed-ros-examples.git
