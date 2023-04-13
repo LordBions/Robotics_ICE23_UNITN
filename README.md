@@ -29,3 +29,14 @@ catkin_make
 . PATH/YOU/WANT/Robotics_ICE2023/catkin_ws/devel/setup.bash
 ```
 
+## Start the project
+In you $HOME directory `git clone https://github.com/LordBions/Robotics_ICE23_UNITN.git`
+In a terminal run `roscore` and leave it there
+
+1. Open a new terminal
+2. `cd ~/Robotics_ICE23_UNITN/catkin_ws && ls`  and should appear just src folder
+3. `catkin_make`
+4. `source devel/setup.bash`
+> if there isn't **logs** folder you can create it manually with `mdkir -p ~/Robotics_ICE23_UNITN/catkin_ws/logs`
+5. `cd ~/Robotics_ICE23_UNITN`
+6. `roslaunch environment environment.launch` and should open a Gazebo instance
