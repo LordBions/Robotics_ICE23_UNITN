@@ -5,8 +5,8 @@
 # the main directory must be saved in $HOME
 cd $HOME
 
-# clone our repo
-git clone https://github.com/LordBions/Robotics_ICE23_UNITN
+# clone our repo ( uncomment when the repo is completed )
+# git clone https://github.com/LordBions/Robotics_ICE23_UNITN
 
 # installare tutte le dipendency ed i requirements nostri
 #............

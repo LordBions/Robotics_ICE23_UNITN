@@ -97,7 +97,7 @@ def readArgs():
 			if arg.startswith('__'):
 				None
 			elif arg[0] == '-':
-				if arg in ['-l', '-level']:
+				if arg in ['-a', '-assignment']:
 					argn += 1
 					level = int(sys.argv[argn])
 				elif arg in ['-b', '-brick']:
