@@ -1,34 +1,29 @@
 #!/bin/bash
 
-echo '\n'
-echo ' INIZIALIZATION SCRIPT'
-echo '\n'
-echo '-----------------------------------------'
-echo '\n'
-echo 'the REPO directory must be saved in $HOME'
-cd $home
+# EXECUTE without starting SH
 
-echo 'insert the password to give all permissions to our repo'
-echo '\n'
-sudo chmod -R 755 ./Robotics_ICE23_UNITN
-echo '\n'
+# the main directory must be saved in $HOME
+cd $HOME
 
-echo 'compiling the catkin packets'
-cd ./Robotics_ICE23_UNITN/catkin_ws
+# clone our repo
+git clone https://github.com/LordBions/Robotics_ICE23_UNITN
+
+# installare tutte le dipendency ed i requirements nostri
+#............
+#............
+#............
+
+# set the source
+. $HOME/Robotics_ICE2023/catkin_ws/devel/setup.bash
+
+# write the source into bash rc
+echo "source $PWD/devel/setup.bash" >> $HOME/.bashrc
+
+# setting up the catkin_ws directory
+cd $HOME/Robotics_ICE23_UNITN/catkin_ws
+
+# build the catkin packages
 catkin_make
-echo '\n'
 
-echo 'settng the source'
-devel/setup.bash
-echo '\n'
-
-echo 'starting up ros core in other terminal'
-gnome-terminal -- roscore
-echo '\n'
-
-echo 'wait the roscore starts for a minimum of seconds'
-sleep 3s
-echo '\n'
-
-echo ' INIZIALIZATION COMPLETE'
-echo '-----------------------------------------'
+# run environment
+roslaunch environment environment.launch
