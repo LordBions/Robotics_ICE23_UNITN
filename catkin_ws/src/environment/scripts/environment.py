@@ -100,7 +100,7 @@ def readArgs():
 				if arg in ['-a', '-assignment']:
 					argn += 1
 					level = int(sys.argv[argn])
-				elif arg in ['-b', '-brick']:
+				elif arg in ['-l', '-lego']:
 					argn += 1
 					selectBrick = brickList[int(sys.argv[argn])]
 				else:
@@ -109,8 +109,8 @@ def readArgs():
 			argn += 1
 	except Exception as err:
 		print("Usage: .\environment.py" \
-					+ "\n\t -l | -level: assigment from 1 to 4" \
-					+ "\n\t -b | -brick: spawn specific grip from 0 to 10")
+					+ "\n\t -a | -assignment: assigment from 1 to 4" \
+					+ "\n\t -l | -lego: spawn specific lego brick from 0 to 10")
 		exit()
 		pass
 
