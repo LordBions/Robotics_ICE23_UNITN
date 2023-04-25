@@ -25,7 +25,7 @@ ROOT = Path(os.path.relpath(ROOT, Path.cwd()))  # relative
 VISION_PATH = os.path.abspath(os.path.join(ROOT, ".."))
 IMG_ROI = os.path.abspath(os.path.join(ROOT, "log/img_ROI.png"))
 
-WEIGHTS_PATH = os.path.join(VISION_PATH, "weights/best.pt")
+WEIGHTS_PATH = os.path.join(VISION_PATH, "include/weights.pt")
 CONFIDENCE = 0.7
 MODEL = torch.hub.load('ultralytics/yolov5', 'custom', WEIGHTS_PATH)
 

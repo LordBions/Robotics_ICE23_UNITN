@@ -5,13 +5,13 @@
 */
 
 #include "ros/ros.h"
-#include "kinematics.h"
-#include "motion/pos.h"
-#include <std_msgs/Int32.h>
-#include <Eigen/Dense>
+#include "kinetics.h"
 #include <cmath>
+#include <Eigen/Dense>
 #include <iostream>
 #include <complex>
+#include "motion/pos.h"
+#include <std_msgs/Int32.h>
 
 // ------------------- DEFINES ------------------- //
 

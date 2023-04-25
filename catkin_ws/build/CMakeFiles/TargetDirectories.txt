@@ -353,6 +353,13 @@
 /home/utente/Robotics_ICE23_UNITN/catkin_ws/build/robot_urdf/base_hardware_interface/CMakeFiles/install.dir
 /home/utente/Robotics_ICE23_UNITN/catkin_ws/build/robot_urdf/base_hardware_interface/CMakeFiles/install/local.dir
 /home/utente/Robotics_ICE23_UNITN/catkin_ws/build/robot_urdf/base_hardware_interface/CMakeFiles/install/strip.dir
+/home/utente/Robotics_ICE23_UNITN/catkin_ws/build/vision/CMakeFiles/test.dir
+/home/utente/Robotics_ICE23_UNITN/catkin_ws/build/vision/CMakeFiles/edit_cache.dir
+/home/utente/Robotics_ICE23_UNITN/catkin_ws/build/vision/CMakeFiles/rebuild_cache.dir
+/home/utente/Robotics_ICE23_UNITN/catkin_ws/build/vision/CMakeFiles/list_install_components.dir
+/home/utente/Robotics_ICE23_UNITN/catkin_ws/build/vision/CMakeFiles/install.dir
+/home/utente/Robotics_ICE23_UNITN/catkin_ws/build/vision/CMakeFiles/install/local.dir
+/home/utente/Robotics_ICE23_UNITN/catkin_ws/build/vision/CMakeFiles/install/strip.dir
 /home/utente/Robotics_ICE23_UNITN/catkin_ws/build/robot_urdf/gripper_description/gripper_description/CMakeFiles/test.dir
 /home/utente/Robotics_ICE23_UNITN/catkin_ws/build/robot_urdf/gripper_description/gripper_description/CMakeFiles/edit_cache.dir
 /home/utente/Robotics_ICE23_UNITN/catkin_ws/build/robot_urdf/gripper_description/gripper_description/CMakeFiles/rebuild_cache.dir

@@ -151,6 +151,7 @@ if(NOT CMAKE_INSTALL_LOCAL_ONLY)
   include("/home/utente/Robotics_ICE23_UNITN/catkin_ws/build/environment/cmake_install.cmake")
   include("/home/utente/Robotics_ICE23_UNITN/catkin_ws/build/robot_urdf/ur_description/cmake_install.cmake")
   include("/home/utente/Robotics_ICE23_UNITN/catkin_ws/build/robot_urdf/base_hardware_interface/cmake_install.cmake")
+  include("/home/utente/Robotics_ICE23_UNITN/catkin_ws/build/vision/cmake_install.cmake")
   include("/home/utente/Robotics_ICE23_UNITN/catkin_ws/build/robot_urdf/gripper_description/gripper_description/cmake_install.cmake")
 
 endif()

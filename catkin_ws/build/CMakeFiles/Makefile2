@@ -79,6 +79,7 @@ all: robot_urdf/gripper_description/grasping_plugin/gazebo_state_plugins/all
 all: environment/all
 all: robot_urdf/ur_description/all
 all: robot_urdf/base_hardware_interface/all
+all: vision/all
 all: robot_urdf/gripper_description/gripper_description/all
 .PHONY : all
 
@@ -99,6 +100,7 @@ preinstall: robot_urdf/gripper_description/grasping_plugin/gazebo_state_plugins/
 preinstall: environment/preinstall
 preinstall: robot_urdf/ur_description/preinstall
 preinstall: robot_urdf/base_hardware_interface/preinstall
+preinstall: vision/preinstall
 preinstall: robot_urdf/gripper_description/gripper_description/preinstall
 .PHONY : preinstall
 
@@ -124,6 +126,7 @@ clean: robot_urdf/gripper_description/grasping_plugin/gazebo_state_plugins/clean
 clean: environment/clean
 clean: robot_urdf/ur_description/clean
 clean: robot_urdf/base_hardware_interface/clean
+clean: vision/clean
 clean: robot_urdf/gripper_description/gripper_description/clean
 .PHONY : clean
 
@@ -636,6 +639,21 @@ robot_urdf/ur_description/preinstall:
 # Recursive "clean" directory target.
 robot_urdf/ur_description/clean:
 .PHONY : robot_urdf/ur_description/clean
+
+#=============================================================================
+# Directory level rules for directory vision
+
+# Recursive "all" directory target.
+vision/all:
+.PHONY : vision/all
+
+# Recursive "preinstall" directory target.
+vision/preinstall:
+.PHONY : vision/preinstall
+
+# Recursive "clean" directory target.
+vision/clean:
+.PHONY : vision/clean
 
 #=============================================================================
 # Target rules for target CMakeFiles/download_extra_data.dir

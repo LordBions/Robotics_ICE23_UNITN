@@ -5,15 +5,15 @@
 */
 
 #include "ros/ros.h"
-#include "kinematics.h"
-#include <std_msgs/Float64MultiArray.h>
-#include <std_msgs/Int32.h>
-#include "motion/pos.h"
-#include <ros_impedance_controller/generic_float.h>
+#include "kinetics.h"
 #include <Eigen/Dense>
 #include <cmath>
 #include <iostream>
+#include "motion/pos.h"
+#include <ros_impedance_controller/generic_float.h>
 #include <complex>
+#include <std_msgs/Float64MultiArray.h>
+#include <std_msgs/Int32.h>
 
 // ----------- DEFINES ----------- //
 /// Loop rate of the node
