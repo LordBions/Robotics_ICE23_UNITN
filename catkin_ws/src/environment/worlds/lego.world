@@ -20,30 +20,13 @@
     <include>
       <uri>model://ground_plane</uri>
     </include>
+    
     <include>
       <name>tavolo</name>
       <uri>model://tavolo</uri>
       <pose>0.0 0.0 0.0 0 0 0</pose>
     </include>
-
-    <!-- <include>
-      <name>X1-Y2-Z2</name>
-      <uri>model://X1-Y2-Z2</uri>
-      <pose>0.16 0.79 0.9 0 0 0</pose>
-    </include>  -->   
-
-    <include>
-      <name>X1-Y3-Z2-FILLET</name>
-      <uri>model://X1-Y3-Z2-FILLET</uri>
-      <pose>0.3 0.6 0.9 0 0 0</pose>
-    </include>    
-
-    <!-- <include>
-      <name>X1-Y4-Z2</name>
-      <uri>model://X1-Y4-Z2</uri>
-      <pose>0.01 0.5 0.9 0 0 0</pose>
-    </include> --> 
-    
+  
         <!-- Table -->
     <model name="modern_table">
       <static>true</static>
@@ -80,11 +63,31 @@
       </include>
     </model>      
     
+    <!-- zed camera -->
      <gui>
     <camera name="gzclient_camera">
       <pose>1. 3.2 2.2 0. 0.4 -1.75</pose>
     </camera>
     </gui>
+    
+    <!-- lego -->
+    <include>
+      <name>X1-Y3-Z2-FILLET</name>
+      <uri>model://X1-Y3-Z2-FILLET</uri>
+      <pose>0.3 0.6 0.9 0 0 0</pose>
+    </include>  
+    
+    <include>
+      <name>X1-Y4-Z2</name>
+      <uri>model://X1-Y4-Z2</uri>
+      <pose>0.01 0.5 0.9 0 0 0</pose>
+    </include>
+    
+    <include>
+      <name>X1-Y2-Z2</name>
+      <uri>model://X1-Y2-Z2</uri>
+      <pose>0.16 0.79 0.9 0 0 0</pose>
+    </include>
 
   </world>
 </sdf>

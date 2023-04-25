@@ -1,7 +1,8 @@
 catkin_ws/devel
 catkin_ws/build
 catkin_ws/install
-.vscode
 catkin_ws/.catkin_tools
+.vscode
 .git
+.gitconfig
 **/__pycache__/
