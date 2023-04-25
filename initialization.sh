@@ -3,10 +3,12 @@
 # EXECUTE ONLY ONCE without starting SH
 
 # installare tutte le dipendency ed i requirements nostri
-# sudo apt install rospy
-# sudo apt install quaternion
+# sudo apt install Eigen3
 # sudo apt install ipython
-# sudo pip install -U rosdep
+# sudo apt install torch
+
+# git clone yolo5
+# build yolo ?
 # ............
 
 # unlock all files

@@ -1,13 +1,9 @@
-/**
- * @file kinematics.h
- * @author Davide De Martini (davide.demartini@studenti.unitn.it)
- * @brief This file contains the kinematics functions
- * @version 0.1
- * @date 2023-02-17
- * 
- * @copyright Copyright (c) 2023
- * 
- */
+/*
+*
+* Authors: Filippo Conti, Mattia Meneghin e Nicola Gianuzzi
+*
+*/
+
 #ifndef KINEMATICS_H
 #define KINEMATICS_H
 

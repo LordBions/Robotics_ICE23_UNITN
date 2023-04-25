@@ -145,8 +145,8 @@
 /home/utente/Robotics_ICE23_UNITN/catkin_ws/build/motion/CMakeFiles/motion_gennodejs.dir
 /home/utente/Robotics_ICE23_UNITN/catkin_ws/build/motion/CMakeFiles/motion_generate_messages_py.dir
 /home/utente/Robotics_ICE23_UNITN/catkin_ws/build/motion/CMakeFiles/motion_genpy.dir
-/home/utente/Robotics_ICE23_UNITN/catkin_ws/build/motion/CMakeFiles/taskManager.dir
-/home/utente/Robotics_ICE23_UNITN/catkin_ws/build/motion/CMakeFiles/motionPlanner.dir
+/home/utente/Robotics_ICE23_UNITN/catkin_ws/build/motion/CMakeFiles/planner.dir
+/home/utente/Robotics_ICE23_UNITN/catkin_ws/build/motion/CMakeFiles/moviment.dir
 /home/utente/Robotics_ICE23_UNITN/catkin_ws/build/motion/CMakeFiles/test.dir
 /home/utente/Robotics_ICE23_UNITN/catkin_ws/build/motion/CMakeFiles/edit_cache.dir
 /home/utente/Robotics_ICE23_UNITN/catkin_ws/build/motion/CMakeFiles/rebuild_cache.dir

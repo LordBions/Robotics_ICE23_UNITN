@@ -1,7 +1,8 @@
-/**
- * @file motionPlanner.cpp
- * 
- */
+/*
+*
+* Authors: Filippo Conti, Mattia Meneghin e Nicola Gianuzzi
+*
+*/
 
 #include "ros/ros.h"
 #include "kinematics.h"

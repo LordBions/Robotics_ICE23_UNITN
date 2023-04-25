@@ -18,23 +18,22 @@ catkin_package()
 
 include_directories(include ${catkin_INCLUDE_DIRS} ${EIGEN3_INCLUDE_DIRS})
 
-add_executable(taskManager src/taskManager.cpp)
+add_executable(planner src/planner.cpp)
 
-target_link_libraries(taskManager ${catkin_LIBRARIES})
+target_link_libraries(planner ${catkin_LIBRARIES})
 
-install(TARGETS taskManager
+install(TARGETS planner
   ARCHIVE DESTINATION ${CATKIN_PACKAGE_LIB_DESTINATION}
   LIBRARY DESTINATION ${CATKIN_PACKAGE_LIB_DESTINATION}
   RUNTIME DESTINATION ${CATKIN_PACKAGE_BIN_DESTINATION}
 )
 
-add_executable(motionPlanner src/motionPlanner.cpp)
+add_executable(moviment src/moviment.cpp)
 
-target_link_libraries(motionPlanner ${catkin_LIBRARIES})
+target_link_libraries(moviment ${catkin_LIBRARIES})
 
-install(TARGETS motionPlanner
+install(TARGETS moviment
   ARCHIVE DESTINATION ${CATKIN_PACKAGE_LIB_DESTINATION}
   LIBRARY DESTINATION ${CATKIN_PACKAGE_LIB_DESTINATION}
   RUNTIME DESTINATION ${CATKIN_PACKAGE_BIN_DESTINATION}
 )
-

@@ -1,13 +1,8 @@
-/**
- * @file taskManager.cpp
- * @author De Martini Davide (davide.demartini@studenti.unitn.it)
- * @brief This file contains the task manager node
- * @version 1
- * @date 2023-02-17
- * 
- * @copyright Copyright (c) 2023
- * 
- */
+/*
+*
+* Authors: Filippo Conti, Mattia Meneghin e Nicola Gianuzzi
+*
+*/
 
 #include "ros/ros.h"
 #include "kinematics.h"

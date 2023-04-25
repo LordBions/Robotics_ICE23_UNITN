@@ -1446,30 +1446,30 @@ motion_genpy/fast:
 .PHONY : motion_genpy/fast
 
 #=============================================================================
-# Target rules for targets named taskManager
+# Target rules for targets named planner
 
 # Build rule for target.
-taskManager: cmake_check_build_system
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 taskManager
-.PHONY : taskManager
+planner: cmake_check_build_system
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 planner
+.PHONY : planner
 
 # fast build rule for target.
-taskManager/fast:
-	$(MAKE) $(MAKESILENT) -f motion/CMakeFiles/taskManager.dir/build.make motion/CMakeFiles/taskManager.dir/build
-.PHONY : taskManager/fast
+planner/fast:
+	$(MAKE) $(MAKESILENT) -f motion/CMakeFiles/planner.dir/build.make motion/CMakeFiles/planner.dir/build
+.PHONY : planner/fast
 
 #=============================================================================
-# Target rules for targets named motionPlanner
+# Target rules for targets named moviment
 
 # Build rule for target.
-motionPlanner: cmake_check_build_system
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 motionPlanner
-.PHONY : motionPlanner
+moviment: cmake_check_build_system
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 moviment
+.PHONY : moviment
 
 # fast build rule for target.
-motionPlanner/fast:
-	$(MAKE) $(MAKESILENT) -f motion/CMakeFiles/motionPlanner.dir/build.make motion/CMakeFiles/motionPlanner.dir/build
-.PHONY : motionPlanner/fast
+moviment/fast:
+	$(MAKE) $(MAKESILENT) -f motion/CMakeFiles/moviment.dir/build.make motion/CMakeFiles/moviment.dir/build
+.PHONY : moviment/fast
 
 #=============================================================================
 # Target rules for targets named shape_msgs_generate_messages_cpp
@@ -3187,13 +3187,13 @@ help:
 	@echo "... gmock_main"
 	@echo "... gtest"
 	@echo "... gtest_main"
-	@echo "... motionPlanner"
+	@echo "... moviment"
 	@echo "... object_msgs_tools"
 	@echo "... object_tf_broadcaster_node"
+	@echo "... planner"
 	@echo "... register_object_client"
 	@echo "... ros_impedance_controller"
 	@echo "... set_gazebo_physics_client"
-	@echo "... taskManager"
 .PHONY : help
 
 
