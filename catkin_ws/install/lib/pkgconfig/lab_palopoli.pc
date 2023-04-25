@@ -1,0 +1,8 @@
+prefix=/home/utente/Robotics_ICE23_UNITN/catkin_ws/install
+
+Name: lab_palopoli
+Description: Description of lab_palopoli
+Version: 0.0.0
+Cflags: 
+Libs: -L${prefix}/lib 
+Requires: 

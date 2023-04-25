@@ -1,8 +1,0 @@
-prefix=/home/utente/Robotics_ICE23_UNITN/catkin_ws/devel
-
-Name: environment
-Description: Description of environment
-Version: 0.0.0
-Cflags: 
-Libs: -L${prefix}/lib 
-Requires: 
