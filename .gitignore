@@ -1,6 +1,6 @@
-devel
-build
-logs
+catkin_ws/devel
+catkin_ws/build
+catkin_ws/install
 .vscode
 .catkin_tools
 .git

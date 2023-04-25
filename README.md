@@ -24,4 +24,4 @@ Enjoy
 
 ## Manual set up
 ----------------------------
- ...to be continued..
+ ...to be continued
