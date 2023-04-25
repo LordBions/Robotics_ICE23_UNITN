@@ -1,11 +1,5 @@
 /**
  * @file motionPlanner.cpp
- * @author De Martini Davide (davide.demartini@studenti.unitn.it)
- * @brief  This file contains the motion planner node
- * @version 1
- * @date 2023-02-17
- * 
- * @copyright Copyright (c) 2023
  * 
  */
 

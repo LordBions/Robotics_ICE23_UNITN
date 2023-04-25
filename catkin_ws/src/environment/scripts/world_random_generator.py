@@ -1,6 +1,4 @@
 """!
-@file world_random_generator.py
-@author Giulio Zamberlan (giulio.zamberlan@studenti.unitn.it
 @brief Defines function to generate random pose in world file.
 @date 2023-02-17
 """
@@ -121,7 +119,5 @@ if __name__ == '__main__':
             #change the blocks' class randomly 
             changeblock(myroot)
         #apply the changes
-        mytree.write(WORLD_DIR+'legopiece3.world')
-
-    
+        mytree.write(WORLD_DIR+'legopiece3.world')  
         
