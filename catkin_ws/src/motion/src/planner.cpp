@@ -65,6 +65,8 @@ void ack();
 
 int main(int argc, char **argv)
 {
+    cout << "Running the planner module!" << endl << endl;
+    
     ros::init(argc, argv, "motion_planner");
     ros::NodeHandle n;
 
@@ -73,7 +75,7 @@ int main(int argc, char **argv)
 
     sub_vision = n.subscribe("/vision/pos", 1, visionCallback);
     sub_ack = n.subscribe("/motion/ack", 1, ackCallback);
-    sub_stop = n.subscribe("/taskManager/stop", 1, stopCallback);
+    sub_stop = n.subscribe("/planner/stop", 1, stopCallback);
 
     ros::Rate loop_rate(LOOP_RATE);
 
@@ -103,7 +105,7 @@ int main(int argc, char **argv)
                 cout << "Blocks coordinates received from vision" << endl;
                 cout << "Block position: " << block_pos.transpose() << endl;
                 cout << "Block rotation: " << block_rot.transpose() << endl;
-                cout << "Block class: " << block_class << endl;
+                cout << "Block class: " << block_class << endl << endl;
                 if (REAL_ROBOT)
                     block_pos = cameraToWorld(block_pos);
                 else

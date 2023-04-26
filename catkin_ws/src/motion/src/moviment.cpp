@@ -81,6 +81,8 @@ void graspit();
 
 int main(int argc, char **argv)
 {
+    cout << "Running the moviment module!" << endl << endl;
+
     // initialize ros, node handler and publisher
     ros::init(argc, argv, "custom_joint_publisher");
     ros::NodeHandle node;

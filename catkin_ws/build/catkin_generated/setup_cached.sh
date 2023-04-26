@@ -7,9 +7,8 @@
 # new environment variables
 
 # modified environment variables
-export CMAKE_PREFIX_PATH='/home/utente/Robotics_ICE23_UNITN/catkin_ws/devel:/opt/ros/noetic'
-export LD_LIBRARY_PATH='/opt/ros/noetic/lib:/opt/ros/noetic/lib/x86_64-linux-gnu'
-export PKG_CONFIG_PATH='/opt/ros/noetic/lib/pkgconfig:/opt/ros/noetic/lib/x86_64-linux-gnu/pkgconfig'
+export CMAKE_PREFIX_PATH="/home/utente/Robotics_ICE23_UNITN/catkin_ws/devel:$CMAKE_PREFIX_PATH"
+export PATH='/opt/ros/noetic/bin:/opt/openrobots/bin:/home/utente/.local/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/snap/bin'
 export PWD='/home/utente/Robotics_ICE23_UNITN/catkin_ws/build'
 export PYTHONPATH='/opt/ros/noetic/lib/python3/dist-packages:/opt/openrobots/lib/python3.8/site-packages:/home/utente/Robotics_ICE23_UNITN/catkin_ws/src/control'
 export ROSLISP_PACKAGE_DIRECTORIES='/home/utente/Robotics_ICE23_UNITN/catkin_ws/devel/share/common-lisp'

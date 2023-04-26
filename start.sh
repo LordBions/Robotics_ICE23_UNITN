@@ -4,7 +4,7 @@
 
 echo "Starting the environment..."
 gnome-terminal -- python3 $HOME/Robotics_ICE23_UNITN/catkin_ws/src/control/ur5_generic.py
-read -p "When the environment is ready, press any key... " ready_answer
+read -p "When the environment is ready and homing complete, press any key... " ready_answer
 
 echo "Starting the Planner..."
 gnome-terminal -- rosrun motion planner

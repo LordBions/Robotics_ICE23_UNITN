@@ -1,9 +1,9 @@
 """!
-@file LegoDetect.py
-@author Anh Tu Duong (anhtu.duong@studenti.unitn.it)
-@brief Defines the class Lego and LegoDetect.
-@date 2023-02-17
+
+Authors: Filippo Conti, Mattia Meneghin e Nicola Gianuzzi
+
 """
+
 # ---------------------- IMPORT ----------------------
 from pathlib import Path
 import sys
@@ -14,7 +14,7 @@ import numpy as np
 import cv2 as cv
 from IPython.display import display
 from PIL import Image
-from RegionOfInterest import RegionOfInterest
+from recogniseArea import RecogniseArea
 
 # ---------------------- GLOBAL CONSTANTS ----------------------
 FILE = Path(__file__).resolve()
@@ -23,7 +23,7 @@ if str(ROOT) not in sys.path:
     sys.path.append(str(ROOT))  # add ROOT to PATH
 ROOT = Path(os.path.relpath(ROOT, Path.cwd()))  # relative
 VISION_PATH = os.path.abspath(os.path.join(ROOT, ".."))
-IMG_ROI = os.path.abspath(os.path.join(ROOT, "log/img_ROI.png"))
+IMG_ROI = os.path.abspath(os.path.join(ROOT, "../images/Area.png"))
 
 WEIGHTS_PATH = os.path.join(VISION_PATH, "include/weights.pt")
 CONFIDENCE = 0.7
@@ -43,7 +43,7 @@ LEGO_NAMES = [  'X1-Y1-Z2',
 
 # ---------------------- CLASS ----------------------
 
-class LegoDetect:
+class RecogniseLego:
     """
     @brief This class use custom trained weights and detect lego blocks with YOLOv5
     """
@@ -90,10 +90,10 @@ class LegoDetect:
             @param img_path (String): path of input image
         """
 
-        print('Draw RegionOfInterest')
-        roi = RegionOfInterest(img_path, IMG_ROI)
+        print('Draw working Area')
+        roi = RecogniseArea(img_path, IMG_ROI)
         roi.run_auto()
-        print('Detecting RegionOfInterest...')
+        print('Detecting working area...')
         self.detect(IMG_ROI)
 
     def detect(self, img_path):

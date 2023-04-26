@@ -13,7 +13,7 @@ include_directories(include ${catkin_INCLUDE_DIRS})
 
 catkin_install_python(PROGRAMS
   scripts/vision.py
-  scripts/LegoDetect.py
-  scripts/RegionOfInterest.py
+  scripts/recogniseLego.py
+  scripts/recogniseArea.py
   DESTINATION ${CATKIN_PACKAGE_BIN_DESTINATION}
 )

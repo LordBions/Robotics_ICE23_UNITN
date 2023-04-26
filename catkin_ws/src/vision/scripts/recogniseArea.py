@@ -1,9 +1,9 @@
 """!
-@file RegionOfInterest.py
-@author Giulio Zamberlan (giulio.zamberlan@studenti.unitn.it)
-@brief Defines the class RegionOfInterest.py
-@date 2023-02-17
+
+Authors: Filippo Conti, Mattia Meneghin e Nicola Gianuzzi
+
 """
+
 # ---------------------- IMPORT ----------------------
 import cv2
 import numpy as np
@@ -21,7 +21,7 @@ USING_REAL_CAM = False
 
 # ---------------------- CLASS ----------------------
 
-class RegionOfInterest:
+class RecogniseArea:
     """
     @brief This class defines custom Region Of Interest
     """
@@ -65,7 +65,7 @@ class RegionOfInterest:
 # To use in command:
 # python3 RegionOfInterest.py /path/to/input/img /path/to/output/img
 if __name__ == '__main__':
-    roi = RegionOfInterest(img_path=sys.argv[1], output_path=sys.argv[2])
+    roi = RecogniseArea(img_path=sys.argv[1], output_path=sys.argv[2])
     roi.run()
 
 

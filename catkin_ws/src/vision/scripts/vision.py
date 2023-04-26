@@ -17,7 +17,7 @@ import sensor_msgs.point_cloud2 as point_cloud2
 from sensor_msgs.msg import PointCloud2
 from std_msgs.msg import Int32
 from motion.msg import pos
-from LegoDetect import LegoDetect
+from recogniseLego import RecogniseLego
 
 # ---------------------- GLOBAL CONSTANTS ----------------------
 FILE = Path(__file__).resolve()
@@ -25,7 +25,7 @@ ROOT = FILE.parents[0]
 if str(ROOT) not in sys.path:
     sys.path.append(str(ROOT))  # add ROOT to PATH
 ROOT = Path(os.path.relpath(ROOT, Path.cwd()))  # relative
-IMG_ZED = os.path.abspath(os.path.join(ROOT, "log/img_ZED_cam.png"))
+IMG_ZED = os.path.abspath(os.path.join(ROOT, "../images/ZED_img.png"))
 
 w_R_c = np.matrix([[0, -0.499, 0.866], [-1, 0, 0], [0, -0.866, -0.499]])
 x_c = np.array([-0.9, 0.24, -0.35])
@@ -60,7 +60,7 @@ class Vision:
         self.pointcloud_sub = ros.Subscriber("/ur5/zed_node/point_cloud/cloud_registered", PointCloud2, self.receive_pointcloud, queue_size=1)
         self.pos_pub = ros.Publisher("/vision/pos", pos, queue_size=1)
         self.ack_sub = ros.Subscriber('/vision/ack', Int32, self.ackCallbak)
-        self.ack_pub = ros.Publisher('/taskManager/stop', Int32, queue_size=1)
+        self.ack_pub = ros.Publisher('/planner/stop', Int32, queue_size=1)
         
     def receive_image(self, data):
         """ @brief Callback function whenever take msg from ZED camera
@@ -80,8 +80,8 @@ class Vision:
 
         # Save image and detect lego
         cv.imwrite(IMG_ZED, cv_image)
-        legoDetect = LegoDetect(IMG_ZED)
-        self.lego_list = legoDetect.lego_list
+        foundLego = RecogniseLego(IMG_ZED)
+        self.lego_list = foundLego.lego_list
 
         self.allow_receive_pointcloud = True
 
