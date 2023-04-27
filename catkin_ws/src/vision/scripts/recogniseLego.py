@@ -1,10 +1,7 @@
-"""!
+#!/usr/bin/python3
 
-Authors: Filippo Conti, Mattia Meneghin e Nicola Gianuzzi
+# Authors: Filippo Conti, Mattia Meneghin e Nicola Gianuzzi
 
-"""
-
-# ---------------------- IMPORT ----------------------
 from pathlib import Path
 import sys
 import os
@@ -15,8 +12,6 @@ import cv2 as cv
 from IPython.display import display
 from PIL import Image
 from recogniseArea import RecogniseArea
-
-# ---------------------- GLOBAL CONSTANTS ----------------------
 
 FILE = Path(__file__).resolve()
 
@@ -29,9 +24,9 @@ ROOT = Path(os.path.relpath(ROOT, Path.cwd()))  # relative
 
 VISION_PATH = os.path.abspath(os.path.join(ROOT, ".."))
 
-IMG_ROI = os.path.abspath(os.path.join(ROOT, "../images/img_Area.png"))
+IMG_ROI = os.path.join(VISION_PATH, "../../src/vision/images/img_Area.png")
 
-WEIGHTS_PATH = os.path.join(VISION_PATH, "include/weights.pt")
+WEIGHTS_PATH = os.path.join(VISION_PATH, "../../install/include/vision/include/weights.pt")
 
 YOLO_PATH = os.path.join(VISION_PATH, "include/yolo5")
 
@@ -51,18 +46,13 @@ LEGO_NAMES = [  'X1-Y1-Z2',
                 'X2-Y2-Z2',
                 'X2-Y2-Z2-FILLET']
 
-# ---------------------- CLASS ----------------------
-
 class RecogniseLego:
-    """
-    @brief This class use custom trained weights and detect lego blocks with YOLOv5
-    """
-
+    #    @brief This class use custom trained weights and detect lego blocks with YOLOv5
+    
     def __init__(self, img_path):
-        """ @brief Class constructor
-            @param img_path (String): path of input image
-        """
-
+        # @brief Class constructor
+        # @param img_path (String): path of input image
+        
         MODEL.conf = CONFIDENCE
         MODEL.multi_label = False
         # MODEL.iou = 0.5
@@ -96,10 +86,9 @@ class RecogniseLego:
                 choice = '0'
 
     def detect_ROI(self, img_path):
-        """ @brief Detect using Region Of Interest
-            @param img_path (String): path of input image
-        """
-
+        # @brief Detect using Region Of Interest
+        #  @param img_path (String): path of input image
+        
         print('Draw working Area')
         roi = RecogniseArea(img_path, IMG_ROI)
         roi.run_auto()
@@ -107,9 +96,9 @@ class RecogniseLego:
         self.detect(IMG_ROI)
 
     def detect(self, img_path):
-        """ @brief This function pass the image path to the model and calculate bounding boxes for each object
-            @param img_path (String): path of input image
-        """
+        # @brief This function pass the image path to the model and calculate bounding boxes for each object
+        #  @param img_path (String): path of input image
+        
         self.lego_list.clear()
 
         # Detection model
@@ -136,29 +125,24 @@ class RecogniseLego:
         self.show()
 
     def show(self):
-        """ @brief This function show infos of detected legos
-        """
+        # @brief This function show infos of detected legos
+        
         for index, lego in enumerate(self.lego_list, start=1):
             print(index)
             lego.show()
 
-# ---------------------- CLASS ----------------------
-
 class Lego:
-    """
-    @brief This class represents info of detected lego
-    """
+    # @brief This class represents info of detected lego
 
     def __init__(self, name, conf, x1, y1, x2, y2, img_source_path):
-        """ @brief Class constructor
-            @param name (String): lego name
-            @param conf (float): confidence
-            @param x1 (float): xmin of bounding box
-            @param y1 (float): ymin of bounding box
-            @param x2 (float): xmax of bounding box
-            @param y2 (float): ymax of bounding box
-            @param img_source_path (String): path to image
-        """
+        # @brief Class constructor
+        #    @param name (String): lego name
+        #    @param conf (float): confidence
+        #    @param x1 (float): xmin of bounding box
+        #    @param y1 (float): ymin of bounding box
+        #    @param x2 (float): xmax of bounding box
+        #    @param y2 (float): ymax of bounding box
+        #    @param img_source_path (String): path to image
 
         self.name = name
         self.class_id = LEGO_NAMES.index(name)
@@ -175,9 +159,8 @@ class Lego:
         self.point_world = ()
 
     def show(self):
-        """ @brief Show lego info
-        """
-
+        # @brief Show lego info
+        
         self.img = self.img_source.crop((self.xmin, self.ymin, self.xmax, self.ymax))
 
         # Resize detected obj

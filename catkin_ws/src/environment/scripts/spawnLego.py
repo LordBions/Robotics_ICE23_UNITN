@@ -1,5 +1,7 @@
 #!/usr/bin/python3
 
+# Authors: Filippo Conti, Mattia Meneghin e Nicola Gianuzzi
+
 from pandas import array
 from gazebo_msgs.srv import SpawnModel, DeleteModel
 from geometry_msgs.msg import *
@@ -81,7 +83,7 @@ selectBrick = None
 maxLego = 8
 
 spawn_pos = (0.30, 0.55, 0.9)  		#center of spawn area
-spawn_dim = (0.25, 0.225)    			#spawning area
+spawn_dim = (0.225, 0.225)    			#spawning area
 
 min_space = 0.010    				#min space between lego
 min_distance = 0.10   				#min distance between lego

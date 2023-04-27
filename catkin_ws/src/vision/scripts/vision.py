@@ -1,10 +1,7 @@
-"""!
+#!/usr/bin/python3
 
-Authors: Filippo Conti, Mattia Meneghin e Nicola Gianuzzi
+# Authors: Filippo Conti, Mattia Meneghin e Nicola Gianuzzi
 
-"""
-
-# ---------------------- IMPORT ----------------------
 from pathlib import Path
 import sys
 import os
@@ -19,32 +16,36 @@ from std_msgs.msg import Int32
 from motion.msg import pos
 from recogniseLego import RecogniseLego
 
-# ---------------------- GLOBAL CONSTANTS ----------------------
 FILE = Path(__file__).resolve()
+
 ROOT = FILE.parents[0]
+
 if str(ROOT) not in sys.path:
     sys.path.append(str(ROOT))  # add ROOT to PATH
+
 ROOT = Path(os.path.relpath(ROOT, Path.cwd()))  # relative
-IMG_ZED = os.path.abspath(os.path.join(ROOT, "../images/img_lego.png"))
+
+VISION_PATH = os.path.abspath(os.path.join(ROOT, ".."))
+
+IMG_ZED = os.path.join(VISION_PATH, "../../src/vision/images/img_lego.png")
 
 w_R_c = np.matrix([[0, -0.499, 0.866], [-1, 0, 0], [0, -0.866, -0.499]])
+
 x_c = np.array([-0.9, 0.24, -0.35])
+
 base_offset = np.array([0.5, 0.35, 1.75])
 
 OFF_SET = 0.86 + 0.1
+
 REAL_ROBOT = 0
 
-# ---------------------- CLASS ----------------------
-
 class Vision:
-    """
-    @brief This class recognizes lego blocks from ZED camera and communicates with different ROS node
-    """
-
+    
+    # @brief This class recognizes lego blocks from ZED camera and communicates with different ROS node
+    
     def __init__(self):
-        """ @brief Class constructor
-        """
-
+    # @brief Class constructor
+   
         ros.init_node('vision', anonymous=True)
 
         self.lego_list = []
@@ -63,10 +64,9 @@ class Vision:
         self.ack_pub = ros.Publisher('/planner/stop', Int32, queue_size=1)
         
     def receive_image(self, data):
-        """ @brief Callback function whenever take msg from ZED camera
-            @param data (msg): msg taken from ZED node
-        """
-
+        # @brief Callback function whenever take msg from ZED camera
+        #  @param data (msg): msg taken from ZED node
+        
         # Flag
         if not self.allow_receive_image:
             return
@@ -86,10 +86,9 @@ class Vision:
         self.allow_receive_pointcloud = True
 
     def receive_pointcloud(self, msg):
-        """ @brief Callback function whenever take point_cloud msg from ZED camera
-            @param msg (msg): msg taken from ZED node
-        """
-
+        # @brief Callback function whenever take point_cloud msg from ZED camera
+        # @param msg (msg): msg taken from ZED node
+        
         # Flag
         if not self.allow_receive_pointcloud:
             return
@@ -130,22 +129,26 @@ class Vision:
         self.send_pos_msg()
 
     def ackCallbak(self, ack_ready):
-        """ @brief check if the motion planner is ready to receive the position of the lego
-            @param ack_ready (msg): msg from Motion node
-        """
-
+        # @brief check if the motion planner is ready to receive the position of the lego
+        # @param ack_ready (msg): msg from Motion node
+        
         if self.vision_ready == 1 and ack_ready.data == 1:
             self.send_pos_msg()
             
     def send_pos_msg(self):
-        """ @brief send the position of the lego to motion planner
-        """
+        # @brief send the position of the lego to motion planner
+        
         try:
             pos_msg = self.pos_msg_list.pop()
             self.pos_pub.publish(pos_msg)
             print('\nPosition published:\n', pos_msg)
+            exit()
+            pass
+            
         except IndexError:
             print('\nFINISH ALL LEGO\n')
+            exit()
+            pass
             
 # ---------------------- MAIN ----------------------
 # To use in command:
