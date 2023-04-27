@@ -17,16 +17,26 @@ from PIL import Image
 from recogniseArea import RecogniseArea
 
 # ---------------------- GLOBAL CONSTANTS ----------------------
+
 FILE = Path(__file__).resolve()
+
 ROOT = FILE.parents[0]
+
 if str(ROOT) not in sys.path:
     sys.path.append(str(ROOT))  # add ROOT to PATH
+
 ROOT = Path(os.path.relpath(ROOT, Path.cwd()))  # relative
+
 VISION_PATH = os.path.abspath(os.path.join(ROOT, ".."))
-IMG_ROI = os.path.abspath(os.path.join(ROOT, "../images/Area.png"))
+
+IMG_ROI = os.path.abspath(os.path.join(ROOT, "../DCIM/img_Area.png"))
 
 WEIGHTS_PATH = os.path.join(VISION_PATH, "include/weights.pt")
+
+YOLO_PATH = os.path.join(VISION_PATH, "include/yolo5")
+
 CONFIDENCE = 0.7
+
 MODEL = torch.hub.load('ultralytics/yolov5', 'custom', WEIGHTS_PATH)
 
 LEGO_NAMES = [  'X1-Y1-Z2',
@@ -190,7 +200,7 @@ class Lego:
 
 # ---------------------- MAIN ----------------------
 # To use in command:
-# python3 LegoDetect.py /path/to/img...
+# python3 recogniseLego.py /path/to/img...
 
 if __name__ == '__main__':
     legoDetect = LegoDetect(img_origin_path=sys.argv[1])

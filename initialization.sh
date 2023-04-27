@@ -20,8 +20,7 @@ cd $HOME/Robotics_ICE23_UNITN/catkin_ws
 # delete old made folders if present
 rm -rf build, logs, devel, install
 
-# build the catkin packages 4 times to avoid errors
-catkin_make install
+# build the catkin packages 3 times to avoid errors
 catkin_make install
 catkin_make install
 catkin_make install
@@ -29,3 +28,5 @@ catkin_make install
 # write the source into bash rc
 # may be multiple lines if executed more than once
 echo "source $HOME/Robotics_ICE23_UNITN/catkin_ws/install/setup.bash" >> $HOME/.bashrc
+
+#CHECK THE LOCOSIM DIR ADAPTED TO OUR REPO

@@ -25,7 +25,7 @@ ROOT = FILE.parents[0]
 if str(ROOT) not in sys.path:
     sys.path.append(str(ROOT))  # add ROOT to PATH
 ROOT = Path(os.path.relpath(ROOT, Path.cwd()))  # relative
-IMG_ZED = os.path.abspath(os.path.join(ROOT, "../images/ZED_img.png"))
+IMG_ZED = os.path.abspath(os.path.join(ROOT, "../DCIM/img_lego.png"))
 
 w_R_c = np.matrix([[0, -0.499, 0.866], [-1, 0, 0], [0, -0.866, -0.499]])
 x_c = np.array([-0.9, 0.24, -0.35])
@@ -149,7 +149,7 @@ class Vision:
             
 # ---------------------- MAIN ----------------------
 # To use in command:
-# python3 Vision.py
+# python3 vision.py
  
 if __name__ == '__main__':
 

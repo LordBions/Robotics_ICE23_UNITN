@@ -63,7 +63,8 @@ class RecogniseArea:
 
 # ---------------------- MAIN ----------------------
 # To use in command:
-# python3 RegionOfInterest.py /path/to/input/img /path/to/output/img
+# python3 recogniseArea.py /path/to/input/img /path/to/output/img
+
 if __name__ == '__main__':
     roi = RecogniseArea(img_path=sys.argv[1], output_path=sys.argv[2])
     roi.run()
