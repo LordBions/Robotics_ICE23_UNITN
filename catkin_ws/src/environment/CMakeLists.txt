@@ -38,8 +38,6 @@ catkin_package(
   INCLUDE_DIRS include ${GAZEBO_INCLUDE_DIRS}
   LIBRARIES ${PROJECT_NAME} ${GAZEBO_LIBRARIES}
   CATKIN_DEPENDS message_runtime sensor_msgs geometry_msgs
-
-
 )
 
 

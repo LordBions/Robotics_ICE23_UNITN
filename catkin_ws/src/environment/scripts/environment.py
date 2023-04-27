@@ -1,7 +1,9 @@
 """!
-@brief Defines function to generate random pose in world file.
-@date 2023-02-17
+
+Authors: Filippo Conti, Mattia Meneghin e Nicola Gianuzzi
+
 """
+
 from __future__ import print_function
 
 import os
@@ -30,6 +32,7 @@ def changeposition (myroot):
     """
     counter = 0  # counter for the number of iterations
     listposition = []; # list of the position of the objects
+    
     # iterating through the price values.
     for position in myroot.iter('pose'):
         #do noting on the first and second iteration
@@ -37,15 +40,19 @@ def changeposition (myroot):
             counter = counter + 1
             continue
         print("old:"+position.text)
+        
         # create new random position and check if it is already used
         new_position = str(round(random.uniform(0, 0.5), 2)) + ' ' + str(round(random.uniform(0.2, 0.8), 2)) + ' ' + '0.9' + ' 0 0 0'
+        
         while (checkposition(new_position, listposition)):
             new_position = str(round(random.uniform(0, 0.5), 2)) + ' ' + str(round(random.uniform(0.2, 0.8), 2)) + ' ' + '0.9' + ' 0 0 0'
+        
         #update the position
         position.text = new_position        
         listposition.append(position.text)
         counter = counter + 1
         print(position.text)
+ 
     #print the list of the positions
     print("array:")
     print(listposition)  
@@ -56,8 +63,10 @@ def changeblock (myroot):
     """
     counter = 0  # counter for the number of iterations
     listposition = []; # list of the position of the objects
+ 
     # iterating through the price values.
     for block_name in myroot.iter('uri'):
+ 
         #do nothing on first 3 iterations
         if counter < 3:
             counter = counter + 1
@@ -79,7 +88,7 @@ def checkposition(actpose, listposition):
 
 # ---------------------- MAIN ----------------------
 # To use in command:
-# python3 world_random_generator.py
+# python3 environment.py
  
 if __name__ == '__main__':
 
