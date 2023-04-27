@@ -1,6 +1,6 @@
 set(_CATKIN_CURRENT_PACKAGE "vision")
-set(vision_VERSION "0.0.0")
-set(vision_MAINTAINER "utente <utente@todo.todo>")
+set(vision_VERSION "1.0.0")
+set(vision_MAINTAINER "Filippo Conti, Mattia Meneghin, Nicola Gianuzzi <filippo.conti@studenti.unitn.it>")
 set(vision_PACKAGE_FORMAT "2")
 set(vision_BUILD_DEPENDS "roscpp" "rospy" "std_msgs")
 set(vision_BUILD_EXPORT_DEPENDS "roscpp" "rospy" "std_msgs")

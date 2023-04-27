@@ -759,9 +759,6 @@ ZeroMQ_DIR:PATH=ZeroMQ_DIR-NOTFOUND
 ZeroMQ_LIBRARY_zmq:FILEPATH=/usr/lib/x86_64-linux-gnu/libzmq.so
 
 //Path to a file.
-_file_name:FILEPATH=/home/utente/Robotics_ICE23_UNITN/catkin_ws/src/robot/robot_state_publisher/test/test_default_constructor.launch
-
-//Path to a file.
 _gmock_INCLUDES:FILEPATH=/usr/src/googletest/googlemock/include/gmock/gmock.h
 
 //Path to a file.
@@ -778,6 +775,18 @@ actionlib_DIR:PATH=/opt/ros/noetic/share/actionlib/cmake
 
 //The directory containing a CMake configuration file for actionlib_msgs.
 actionlib_msgs_DIR:PATH=/opt/ros/noetic/share/actionlib_msgs/cmake
+
+//Value Computed by CMake
+base_hardware_interface_BINARY_DIR:STATIC=/home/utente/Robotics_ICE23_UNITN/catkin_ws/build/robot_urdf/base_hardware_interface
+
+//Value Computed by CMake
+base_hardware_interface_IS_TOP_LEVEL:STATIC=OFF
+
+//Value Computed by CMake
+base_hardware_interface_SOURCE_DIR:STATIC=/home/utente/Robotics_ICE23_UNITN/catkin_ws/src/robot_urdf/base_hardware_interface
+
+//Dependencies for the target
+base_robot_hw_LIB_DEPENDS:STATIC=general;/opt/ros/noetic/lib/libtransmission_interface_parser.so;general;/opt/ros/noetic/lib/libtransmission_interface_loader.so;general;/opt/ros/noetic/lib/libtransmission_interface_loader_plugins.so;general;/opt/ros/noetic/lib/libsrdfdom.so;general;/opt/ros/noetic/lib/liburdf.so;general;/usr/lib/x86_64-linux-gnu/liburdfdom_sensor.so;general;/usr/lib/x86_64-linux-gnu/liburdfdom_model_state.so;general;/usr/lib/x86_64-linux-gnu/liburdfdom_model.so;general;/usr/lib/x86_64-linux-gnu/liburdfdom_world.so;general;/usr/lib/x86_64-linux-gnu/libtinyxml.so;general;/opt/ros/noetic/lib/libclass_loader.so;general;/usr/lib/x86_64-linux-gnu/libPocoFoundation.so;general;/usr/lib/x86_64-linux-gnu/libdl.so;general;/opt/ros/noetic/lib/libroslib.so;general;/opt/ros/noetic/lib/librospack.so;general;/usr/lib/x86_64-linux-gnu/libpython3.8.so;general;/usr/lib/x86_64-linux-gnu/libboost_program_options.so.1.71.0;general;/usr/lib/x86_64-linux-gnu/libtinyxml2.so;general;/opt/ros/noetic/lib/librosconsole_bridge.so;general;/opt/ros/noetic/lib/libroscpp.so;general;/usr/lib/x86_64-linux-gnu/libpthread.so;general;/usr/lib/x86_64-linux-gnu/libboost_chrono.so.1.71.0;general;/usr/lib/x86_64-linux-gnu/libboost_filesystem.so.1.71.0;general;/opt/ros/noetic/lib/librosconsole.so;general;/opt/ros/noetic/lib/librosconsole_log4cxx.so;general;/opt/ros/noetic/lib/librosconsole_backend_interface.so;general;/usr/lib/x86_64-linux-gnu/liblog4cxx.so;general;/usr/lib/x86_64-linux-gnu/libboost_regex.so.1.71.0;general;/opt/ros/noetic/lib/libroscpp_serialization.so;general;/opt/ros/noetic/lib/libxmlrpcpp.so;general;/opt/ros/noetic/lib/librostime.so;general;/usr/lib/x86_64-linux-gnu/libboost_date_time.so.1.71.0;general;/opt/ros/noetic/lib/libcpp_common.so;general;/usr/lib/x86_64-linux-gnu/libboost_system.so.1.71.0;general;/usr/lib/x86_64-linux-gnu/libboost_thread.so.1.71.0;general;/usr/lib/x86_64-linux-gnu/libconsole_bridge.so.0.4;
 
 //The directory containing a CMake configuration file for boost_atomic.
 boost_atomic_DIR:PATH=/usr/lib/x86_64-linux-gnu/cmake/boost_atomic-1.71.0
@@ -818,8 +827,8 @@ class_loader_DIR:PATH=/opt/ros/noetic/share/class_loader/cmake
 //The directory containing a CMake configuration file for control_msgs.
 control_msgs_DIR:PATH=/opt/ros/noetic/share/control_msgs/cmake
 
-//The directory containing a CMake configuration file for control_toolbox.
-control_toolbox_DIR:PATH=/opt/ros/noetic/share/control_toolbox/cmake
+//The directory containing a CMake configuration file for controller_interface.
+controller_interface_DIR:PATH=/opt/ros/noetic/share/controller_interface/cmake
 
 //The directory containing a CMake configuration file for cpp_common.
 cpp_common_DIR:PATH=/opt/ros/noetic/share/cpp_common/cmake
@@ -827,32 +836,107 @@ cpp_common_DIR:PATH=/opt/ros/noetic/share/cpp_common/cmake
 //The directory containing a CMake configuration file for dynamic_reconfigure.
 dynamic_reconfigure_DIR:PATH=/opt/ros/noetic/share/dynamic_reconfigure/cmake
 
-//Value Computed by CMake
-environment_BINARY_DIR:STATIC=/home/utente/Robotics_ICE23_UNITN/catkin_ws/build/environment
+//The directory containing a CMake configuration file for eigen_conversions.
+eigen_conversions_DIR:PATH=/opt/ros/noetic/share/eigen_conversions/cmake
 
-//Value Computed by CMake
-environment_IS_TOP_LEVEL:STATIC=OFF
-
-//Value Computed by CMake
-environment_SOURCE_DIR:STATIC=/home/utente/Robotics_ICE23_UNITN/catkin_ws/src/environment
+//Dependencies for the target
+fake_object_recognizer_LIB_DEPENDS:STATIC=general;/opt/ros/noetic/lib/libgazebo_ros_api_plugin.so;general;/opt/ros/noetic/lib/libgazebo_ros_paths_plugin.so;general;/usr/lib/x86_64-linux-gnu/libtinyxml.so;general;/opt/ros/noetic/lib/libroslib.so;general;/opt/ros/noetic/lib/librospack.so;general;/usr/lib/x86_64-linux-gnu/libpython3.8.so;general;/usr/lib/x86_64-linux-gnu/libboost_program_options.so.1.71.0;general;/usr/lib/x86_64-linux-gnu/libtinyxml2.so;general;/opt/ros/noetic/lib/libtf.so;general;/opt/ros/noetic/lib/libtf2_ros.so;general;/opt/ros/noetic/lib/libactionlib.so;general;/opt/ros/noetic/lib/libmessage_filters.so;general;/opt/ros/noetic/lib/libtf2.so;general;/opt/ros/noetic/lib/libdynamic_reconfigure_config_init_mutex.so;general;/opt/ros/noetic/lib/libroscpp.so;general;/usr/lib/x86_64-linux-gnu/libpthread.so;general;/usr/lib/x86_64-linux-gnu/libboost_chrono.so.1.71.0;general;/usr/lib/x86_64-linux-gnu/libboost_filesystem.so.1.71.0;general;/opt/ros/noetic/lib/librosconsole.so;general;/opt/ros/noetic/lib/librosconsole_log4cxx.so;general;/opt/ros/noetic/lib/librosconsole_backend_interface.so;general;/usr/lib/x86_64-linux-gnu/liblog4cxx.so;general;/usr/lib/x86_64-linux-gnu/libboost_regex.so.1.71.0;general;/opt/ros/noetic/lib/libxmlrpcpp.so;general;/opt/ros/noetic/lib/libroscpp_serialization.so;general;/opt/ros/noetic/lib/librostime.so;general;/usr/lib/x86_64-linux-gnu/libboost_date_time.so.1.71.0;general;/opt/ros/noetic/lib/libcpp_common.so;general;/usr/lib/x86_64-linux-gnu/libboost_system.so.1.71.0;general;/usr/lib/x86_64-linux-gnu/libboost_thread.so.1.71.0;general;/usr/lib/x86_64-linux-gnu/libconsole_bridge.so.0.4;
 
 //The directory containing a CMake configuration file for gazebo.
 gazebo_DIR:PATH=/usr/lib/x86_64-linux-gnu/cmake/gazebo
 
 //Dependencies for the target
-gazebo_disable_link_plugin_LIB_DEPENDS:STATIC=general;/opt/ros/noetic/lib/libgazebo_ros_api_plugin.so;general;/opt/ros/noetic/lib/libgazebo_ros_paths_plugin.so;general;/opt/ros/noetic/lib/libroslib.so;general;/opt/ros/noetic/lib/librospack.so;general;/usr/lib/x86_64-linux-gnu/libpython3.8.so;general;/usr/lib/x86_64-linux-gnu/libboost_program_options.so.1.71.0;general;/usr/lib/x86_64-linux-gnu/libtinyxml2.so;general;/opt/ros/noetic/lib/libtf.so;general;/opt/ros/noetic/lib/libtf2_ros.so;general;/opt/ros/noetic/lib/libactionlib.so;general;/opt/ros/noetic/lib/libmessage_filters.so;general;/opt/ros/noetic/lib/libtf2.so;general;/opt/ros/noetic/lib/libcontrol_toolbox.so;general;/usr/lib/x86_64-linux-gnu/libtinyxml.so;general;/opt/ros/noetic/lib/libdynamic_reconfigure_config_init_mutex.so;general;/opt/ros/noetic/lib/librealtime_tools.so;general;/opt/ros/noetic/lib/libroscpp.so;general;/usr/lib/x86_64-linux-gnu/libpthread.so;general;/usr/lib/x86_64-linux-gnu/libboost_chrono.so.1.71.0;general;/usr/lib/x86_64-linux-gnu/libboost_filesystem.so.1.71.0;general;/opt/ros/noetic/lib/librosconsole.so;general;/opt/ros/noetic/lib/librosconsole_log4cxx.so;general;/opt/ros/noetic/lib/librosconsole_backend_interface.so;general;/usr/lib/x86_64-linux-gnu/liblog4cxx.so;general;/usr/lib/x86_64-linux-gnu/libboost_regex.so.1.71.0;general;/opt/ros/noetic/lib/libroscpp_serialization.so;general;/opt/ros/noetic/lib/libxmlrpcpp.so;general;/opt/ros/noetic/lib/librostime.so;general;/usr/lib/x86_64-linux-gnu/libboost_date_time.so.1.71.0;general;/opt/ros/noetic/lib/libcpp_common.so;general;/usr/lib/x86_64-linux-gnu/libboost_system.so.1.71.0;general;/usr/lib/x86_64-linux-gnu/libboost_thread.so.1.71.0;general;/usr/lib/x86_64-linux-gnu/libconsole_bridge.so.0.4;general;BulletSoftBody;general;BulletDynamics;general;BulletCollision;general;LinearMath;general;SimTKcommon;general;SimTKmath;general;SimTKsimbody;general;dart;general;/usr/lib/x86_64-linux-gnu/libgazebo.so;general;/usr/lib/x86_64-linux-gnu/libgazebo_client.so;general;/usr/lib/x86_64-linux-gnu/libgazebo_gui.so;general;/usr/lib/x86_64-linux-gnu/libgazebo_sensors.so;general;/usr/lib/x86_64-linux-gnu/libgazebo_rendering.so;general;/usr/lib/x86_64-linux-gnu/libgazebo_physics.so;general;/usr/lib/x86_64-linux-gnu/libgazebo_ode.so;general;/usr/lib/x86_64-linux-gnu/libgazebo_transport.so;general;/usr/lib/x86_64-linux-gnu/libgazebo_msgs.so;general;/usr/lib/x86_64-linux-gnu/libgazebo_util.so;general;/usr/lib/x86_64-linux-gnu/libgazebo_common.so;general;/usr/lib/x86_64-linux-gnu/libgazebo_gimpact.so;general;/usr/lib/x86_64-linux-gnu/libgazebo_opcode.so;general;/usr/lib/x86_64-linux-gnu/libgazebo_opende_ou.so;general;Boost::thread;general;Boost::system;general;Boost::filesystem;general;Boost::program_options;general;Boost::regex;general;Boost::iostreams;general;Boost::date_time;general;/usr/lib/x86_64-linux-gnu/libprotobuf.so;general;-lpthread;general;sdformat9::sdformat9;optimized;/usr/lib/x86_64-linux-gnu/libOgreMain.so;debug;/usr/lib/x86_64-linux-gnu/libOgreMain.so;general;Boost::thread;general;Boost::date_time;optimized;/usr/lib/x86_64-linux-gnu/libOgreTerrain.so;debug;/usr/lib/x86_64-linux-gnu/libOgreTerrain.so;optimized;/usr/lib/x86_64-linux-gnu/libOgrePaging.so;debug;/usr/lib/x86_64-linux-gnu/libOgrePaging.so;general;ignition-common3::ignition-common3-graphics;
+gazebo_grasp_fix_LIB_DEPENDS:STATIC=general;gazebo_grasp_msgs;general;gazebo_version_helpers;general;/opt/ros/noetic/lib/libgazebo_ros_api_plugin.so;general;/opt/ros/noetic/lib/libgazebo_ros_paths_plugin.so;general;/usr/lib/x86_64-linux-gnu/libtinyxml.so;general;/opt/ros/noetic/lib/libroslib.so;general;/opt/ros/noetic/lib/librospack.so;general;/usr/lib/x86_64-linux-gnu/libpython3.8.so;general;/usr/lib/x86_64-linux-gnu/libboost_program_options.so.1.71.0;general;/usr/lib/x86_64-linux-gnu/libtinyxml2.so;general;/opt/ros/noetic/lib/libtf.so;general;/opt/ros/noetic/lib/libtf2_ros.so;general;/opt/ros/noetic/lib/libactionlib.so;general;/opt/ros/noetic/lib/libmessage_filters.so;general;/opt/ros/noetic/lib/libtf2.so;general;/opt/ros/noetic/lib/libdynamic_reconfigure_config_init_mutex.so;general;/opt/ros/noetic/lib/libroscpp.so;general;/usr/lib/x86_64-linux-gnu/libpthread.so;general;/usr/lib/x86_64-linux-gnu/libboost_chrono.so.1.71.0;general;/usr/lib/x86_64-linux-gnu/libboost_filesystem.so.1.71.0;general;/opt/ros/noetic/lib/librosconsole.so;general;/opt/ros/noetic/lib/librosconsole_log4cxx.so;general;/opt/ros/noetic/lib/librosconsole_backend_interface.so;general;/usr/lib/x86_64-linux-gnu/liblog4cxx.so;general;/usr/lib/x86_64-linux-gnu/libboost_regex.so.1.71.0;general;/opt/ros/noetic/lib/libroscpp_serialization.so;general;/opt/ros/noetic/lib/libxmlrpcpp.so;general;/opt/ros/noetic/lib/librostime.so;general;/usr/lib/x86_64-linux-gnu/libboost_date_time.so.1.71.0;general;/opt/ros/noetic/lib/libcpp_common.so;general;/usr/lib/x86_64-linux-gnu/libboost_system.so.1.71.0;general;/usr/lib/x86_64-linux-gnu/libboost_thread.so.1.71.0;general;/usr/lib/x86_64-linux-gnu/libconsole_bridge.so.0.4;general;BulletSoftBody;general;BulletDynamics;general;BulletCollision;general;LinearMath;general;SimTKcommon;general;SimTKmath;general;SimTKsimbody;general;dart;general;dart;general;dart;general;dart;general;dart;general;dart;general;dart;general;dart;general;dart;general;dart;general;dart;general;dart;general;dart;general;dart;general;dart;general;dart;general;dart;general;dart;general;dart;general;dart;general;dart;general;dart;general;dart;general;dart;general;dart;general;dart;general;dart;general;dart;general;dart;general;dart;general;dart;general;dart;general;dart;general;dart;general;dart;general;dart;general;dart;general;dart;general;dart;general;dart;general;dart;general;dart;general;dart;general;dart;general;dart;general;dart;general;dart;general;dart;general;dart;general;dart;general;dart;general;dart;general;dart;general;dart;general;dart;general;dart;general;dart;general;dart;general;dart;general;dart;general;dart;general;dart;general;dart;general;dart;general;dart;general;dart;general;dart;general;dart;general;dart;general;dart;general;dart;general;dart;general;dart;general;dart;general;dart;general;dart;general;dart;general;dart;general;dart;general;dart;general;dart;general;dart;general;dart;general;dart;general;dart;general;dart;general;dart;general;dart;general;dart;general;dart;general;dart;general;dart;general;dart;general;dart;general;dart;general;dart;general;dart;general;dart;general;dart;general;dart;general;dart;general;dart;general;dart;general;dart;general;dart;general;dart;general;dart;general;dart;general;dart;general;dart;general;dart;general;/usr/lib/x86_64-linux-gnu/libgazebo.so;general;/usr/lib/x86_64-linux-gnu/libgazebo_client.so;general;/usr/lib/x86_64-linux-gnu/libgazebo_gui.so;general;/usr/lib/x86_64-linux-gnu/libgazebo_sensors.so;general;/usr/lib/x86_64-linux-gnu/libgazebo_rendering.so;general;/usr/lib/x86_64-linux-gnu/libgazebo_physics.so;general;/usr/lib/x86_64-linux-gnu/libgazebo_ode.so;general;/usr/lib/x86_64-linux-gnu/libgazebo_transport.so;general;/usr/lib/x86_64-linux-gnu/libgazebo_msgs.so;general;/usr/lib/x86_64-linux-gnu/libgazebo_util.so;general;/usr/lib/x86_64-linux-gnu/libgazebo_common.so;general;/usr/lib/x86_64-linux-gnu/libgazebo_gimpact.so;general;/usr/lib/x86_64-linux-gnu/libgazebo_opcode.so;general;/usr/lib/x86_64-linux-gnu/libgazebo_opende_ou.so;general;Boost::thread;general;Boost::system;general;Boost::filesystem;general;Boost::program_options;general;Boost::regex;general;Boost::iostreams;general;Boost::date_time;general;/usr/lib/x86_64-linux-gnu/libprotobuf.so;general;-lpthread;general;sdformat9::sdformat9;optimized;/usr/lib/x86_64-linux-gnu/libOgreMain.so;debug;/usr/lib/x86_64-linux-gnu/libOgreMain.so;general;Boost::thread;general;Boost::date_time;optimized;/usr/lib/x86_64-linux-gnu/libOgreTerrain.so;debug;/usr/lib/x86_64-linux-gnu/libOgreTerrain.so;optimized;/usr/lib/x86_64-linux-gnu/libOgrePaging.so;debug;/usr/lib/x86_64-linux-gnu/libOgrePaging.so;general;ignition-common3::ignition-common3-graphics;general;Boost::thread;general;Boost::date_time;
 
 //Dependencies for the target
-gazebo_mimic_joint_plugin_LIB_DEPENDS:STATIC=general;/opt/ros/noetic/lib/libgazebo_ros_api_plugin.so;general;/opt/ros/noetic/lib/libgazebo_ros_paths_plugin.so;general;/opt/ros/noetic/lib/libroslib.so;general;/opt/ros/noetic/lib/librospack.so;general;/usr/lib/x86_64-linux-gnu/libpython3.8.so;general;/usr/lib/x86_64-linux-gnu/libboost_program_options.so.1.71.0;general;/usr/lib/x86_64-linux-gnu/libtinyxml2.so;general;/opt/ros/noetic/lib/libtf.so;general;/opt/ros/noetic/lib/libtf2_ros.so;general;/opt/ros/noetic/lib/libactionlib.so;general;/opt/ros/noetic/lib/libmessage_filters.so;general;/opt/ros/noetic/lib/libtf2.so;general;/opt/ros/noetic/lib/libcontrol_toolbox.so;general;/usr/lib/x86_64-linux-gnu/libtinyxml.so;general;/opt/ros/noetic/lib/libdynamic_reconfigure_config_init_mutex.so;general;/opt/ros/noetic/lib/librealtime_tools.so;general;/opt/ros/noetic/lib/libroscpp.so;general;/usr/lib/x86_64-linux-gnu/libpthread.so;general;/usr/lib/x86_64-linux-gnu/libboost_chrono.so.1.71.0;general;/usr/lib/x86_64-linux-gnu/libboost_filesystem.so.1.71.0;general;/opt/ros/noetic/lib/librosconsole.so;general;/opt/ros/noetic/lib/librosconsole_log4cxx.so;general;/opt/ros/noetic/lib/librosconsole_backend_interface.so;general;/usr/lib/x86_64-linux-gnu/liblog4cxx.so;general;/usr/lib/x86_64-linux-gnu/libboost_regex.so.1.71.0;general;/opt/ros/noetic/lib/libroscpp_serialization.so;general;/opt/ros/noetic/lib/libxmlrpcpp.so;general;/opt/ros/noetic/lib/librostime.so;general;/usr/lib/x86_64-linux-gnu/libboost_date_time.so.1.71.0;general;/opt/ros/noetic/lib/libcpp_common.so;general;/usr/lib/x86_64-linux-gnu/libboost_system.so.1.71.0;general;/usr/lib/x86_64-linux-gnu/libboost_thread.so.1.71.0;general;/usr/lib/x86_64-linux-gnu/libconsole_bridge.so.0.4;general;BulletSoftBody;general;BulletDynamics;general;BulletCollision;general;LinearMath;general;SimTKcommon;general;SimTKmath;general;SimTKsimbody;general;dart;general;/usr/lib/x86_64-linux-gnu/libgazebo.so;general;/usr/lib/x86_64-linux-gnu/libgazebo_client.so;general;/usr/lib/x86_64-linux-gnu/libgazebo_gui.so;general;/usr/lib/x86_64-linux-gnu/libgazebo_sensors.so;general;/usr/lib/x86_64-linux-gnu/libgazebo_rendering.so;general;/usr/lib/x86_64-linux-gnu/libgazebo_physics.so;general;/usr/lib/x86_64-linux-gnu/libgazebo_ode.so;general;/usr/lib/x86_64-linux-gnu/libgazebo_transport.so;general;/usr/lib/x86_64-linux-gnu/libgazebo_msgs.so;general;/usr/lib/x86_64-linux-gnu/libgazebo_util.so;general;/usr/lib/x86_64-linux-gnu/libgazebo_common.so;general;/usr/lib/x86_64-linux-gnu/libgazebo_gimpact.so;general;/usr/lib/x86_64-linux-gnu/libgazebo_opcode.so;general;/usr/lib/x86_64-linux-gnu/libgazebo_opende_ou.so;general;Boost::thread;general;Boost::system;general;Boost::filesystem;general;Boost::program_options;general;Boost::regex;general;Boost::iostreams;general;Boost::date_time;general;/usr/lib/x86_64-linux-gnu/libprotobuf.so;general;-lpthread;general;sdformat9::sdformat9;optimized;/usr/lib/x86_64-linux-gnu/libOgreMain.so;debug;/usr/lib/x86_64-linux-gnu/libOgreMain.so;general;Boost::thread;general;Boost::date_time;optimized;/usr/lib/x86_64-linux-gnu/libOgreTerrain.so;debug;/usr/lib/x86_64-linux-gnu/libOgreTerrain.so;optimized;/usr/lib/x86_64-linux-gnu/libOgrePaging.so;debug;/usr/lib/x86_64-linux-gnu/libOgrePaging.so;general;ignition-common3::ignition-common3-graphics;
+gazebo_grasp_msgs_LIB_DEPENDS:STATIC=general;/usr/lib/x86_64-linux-gnu/libprotobuf.so;
+
+//Value Computed by CMake
+gazebo_grasp_plugin_BINARY_DIR:STATIC=/home/utente/Robotics_ICE23_UNITN/catkin_ws/build/robot_urdf/gripper_description/grasping_plugin/gazebo_grasp_plugin
+
+//The directory containing a CMake configuration file for gazebo_grasp_plugin.
+gazebo_grasp_plugin_DIR:PATH=/home/utente/Robotics_ICE23_UNITN/catkin_ws/devel/share/gazebo_grasp_plugin/cmake
+
+//Value Computed by CMake
+gazebo_grasp_plugin_IS_TOP_LEVEL:STATIC=OFF
+
+//Value Computed by CMake
+gazebo_grasp_plugin_SOURCE_DIR:STATIC=/home/utente/Robotics_ICE23_UNITN/catkin_ws/src/robot_urdf/gripper_description/grasping_plugin/gazebo_grasp_plugin
+
+//Value Computed by CMake
+gazebo_grasp_plugin_ros_BINARY_DIR:STATIC=/home/utente/Robotics_ICE23_UNITN/catkin_ws/build/robot_urdf/gripper_description/grasping_plugin/gazebo_grasp_plugin_ros
+
+//Value Computed by CMake
+gazebo_grasp_plugin_ros_IS_TOP_LEVEL:STATIC=OFF
+
+//Value Computed by CMake
+gazebo_grasp_plugin_ros_SOURCE_DIR:STATIC=/home/utente/Robotics_ICE23_UNITN/catkin_ws/src/robot_urdf/gripper_description/grasping_plugin/gazebo_grasp_plugin_ros
+
+//Dependencies for the target
+gazebo_map_publisher_LIB_DEPENDS:STATIC=general;BulletSoftBody;general;BulletDynamics;general;BulletCollision;general;LinearMath;general;SimTKcommon;general;SimTKmath;general;SimTKsimbody;general;dart;general;dart;general;dart;general;dart;general;dart;general;dart;general;dart;general;dart;general;dart;general;dart;general;dart;general;dart;general;dart;general;dart;general;dart;general;dart;general;dart;general;dart;general;dart;general;dart;general;dart;general;dart;general;dart;general;dart;general;dart;general;dart;general;dart;general;dart;general;dart;general;dart;general;dart;general;dart;general;dart;general;dart;general;dart;general;dart;general;dart;general;dart;general;dart;general;dart;general;dart;general;dart;general;dart;general;dart;general;dart;general;dart;general;dart;general;dart;general;dart;general;dart;general;dart;general;dart;general;dart;general;dart;general;dart;general;dart;general;dart;general;dart;general;dart;general;dart;general;dart;general;dart;general;dart;general;dart;general;dart;general;dart;general;dart;general;dart;general;dart;general;dart;general;dart;general;dart;general;dart;general;dart;general;dart;general;dart;general;dart;general;dart;general;dart;general;dart;general;dart;general;dart;general;dart;general;dart;general;dart;general;dart;general;dart;general;dart;general;dart;general;dart;general;dart;general;dart;general;dart;general;dart;general;dart;general;dart;general;dart;general;dart;general;dart;general;dart;general;dart;general;dart;general;dart;general;dart;general;dart;general;dart;general;dart;general;dart;general;dart;general;dart;general;dart;general;dart;general;dart;general;dart;general;/usr/lib/x86_64-linux-gnu/libgazebo.so;general;/usr/lib/x86_64-linux-gnu/libgazebo_client.so;general;/usr/lib/x86_64-linux-gnu/libgazebo_gui.so;general;/usr/lib/x86_64-linux-gnu/libgazebo_sensors.so;general;/usr/lib/x86_64-linux-gnu/libgazebo_rendering.so;general;/usr/lib/x86_64-linux-gnu/libgazebo_physics.so;general;/usr/lib/x86_64-linux-gnu/libgazebo_ode.so;general;/usr/lib/x86_64-linux-gnu/libgazebo_transport.so;general;/usr/lib/x86_64-linux-gnu/libgazebo_msgs.so;general;/usr/lib/x86_64-linux-gnu/libgazebo_util.so;general;/usr/lib/x86_64-linux-gnu/libgazebo_common.so;general;/usr/lib/x86_64-linux-gnu/libgazebo_gimpact.so;general;/usr/lib/x86_64-linux-gnu/libgazebo_opcode.so;general;/usr/lib/x86_64-linux-gnu/libgazebo_opende_ou.so;general;Boost::thread;general;Boost::system;general;Boost::filesystem;general;Boost::program_options;general;Boost::regex;general;Boost::iostreams;general;Boost::date_time;general;/usr/lib/x86_64-linux-gnu/libprotobuf.so;general;-lpthread;general;sdformat9::sdformat9;optimized;/usr/lib/x86_64-linux-gnu/libOgreMain.so;debug;/usr/lib/x86_64-linux-gnu/libOgreMain.so;general;Boost::thread;general;Boost::date_time;optimized;/usr/lib/x86_64-linux-gnu/libOgreTerrain.so;debug;/usr/lib/x86_64-linux-gnu/libOgreTerrain.so;optimized;/usr/lib/x86_64-linux-gnu/libOgrePaging.so;debug;/usr/lib/x86_64-linux-gnu/libOgrePaging.so;general;ignition-common3::ignition-common3-graphics;general;gazebo_world_plugin_loader;general;gazebo_version_helpers;general;/opt/ros/noetic/lib/libgazebo_ros_api_plugin.so;general;/opt/ros/noetic/lib/libgazebo_ros_paths_plugin.so;general;/usr/lib/x86_64-linux-gnu/libtinyxml.so;general;/opt/ros/noetic/lib/libroslib.so;general;/opt/ros/noetic/lib/librospack.so;general;/usr/lib/x86_64-linux-gnu/libpython3.8.so;general;/usr/lib/x86_64-linux-gnu/libboost_program_options.so.1.71.0;general;/usr/lib/x86_64-linux-gnu/libtinyxml2.so;general;/opt/ros/noetic/lib/libdynamic_reconfigure_config_init_mutex.so;general;object_msgs_tools;general;/opt/ros/noetic/lib/libtf.so;general;/opt/ros/noetic/lib/libtf2_ros.so;general;/opt/ros/noetic/lib/libactionlib.so;general;/opt/ros/noetic/lib/libmessage_filters.so;general;/opt/ros/noetic/lib/libroscpp.so;general;/usr/lib/x86_64-linux-gnu/libpthread.so;general;/usr/lib/x86_64-linux-gnu/libboost_chrono.so.1.71.0;general;/usr/lib/x86_64-linux-gnu/libboost_filesystem.so.1.71.0;general;/opt/ros/noetic/lib/libxmlrpcpp.so;general;/opt/ros/noetic/lib/libtf2.so;general;/opt/ros/noetic/lib/librosconsole.so;general;/opt/ros/noetic/lib/librosconsole_log4cxx.so;general;/opt/ros/noetic/lib/librosconsole_backend_interface.so;general;/usr/lib/x86_64-linux-gnu/liblog4cxx.so;general;/usr/lib/x86_64-linux-gnu/libboost_regex.so.1.71.0;general;/opt/ros/noetic/lib/libeigen_conversions.so;general;/usr/lib/liborocos-kdl.so;general;/opt/ros/noetic/lib/libroscpp_serialization.so;general;/opt/ros/noetic/lib/librostime.so;general;/usr/lib/x86_64-linux-gnu/libboost_date_time.so.1.71.0;general;/opt/ros/noetic/lib/libcpp_common.so;general;/usr/lib/x86_64-linux-gnu/libboost_system.so.1.71.0;general;/usr/lib/x86_64-linux-gnu/libboost_thread.so.1.71.0;general;/usr/lib/x86_64-linux-gnu/libconsole_bridge.so.0.4;
 
 //The directory containing a CMake configuration file for gazebo_msgs.
 gazebo_msgs_DIR:PATH=/opt/ros/noetic/share/gazebo_msgs/cmake
+
+//Dependencies for the target
+gazebo_object_info_LIB_DEPENDS:STATIC=general;BulletSoftBody;general;BulletDynamics;general;BulletCollision;general;LinearMath;general;SimTKcommon;general;SimTKmath;general;SimTKsimbody;general;dart;general;dart;general;dart;general;dart;general;dart;general;dart;general;dart;general;dart;general;dart;general;dart;general;dart;general;dart;general;dart;general;dart;general;dart;general;dart;general;dart;general;dart;general;dart;general;dart;general;dart;general;dart;general;dart;general;dart;general;dart;general;dart;general;dart;general;dart;general;dart;general;dart;general;dart;general;dart;general;dart;general;dart;general;dart;general;dart;general;dart;general;dart;general;dart;general;dart;general;dart;general;dart;general;dart;general;dart;general;dart;general;dart;general;dart;general;dart;general;dart;general;dart;general;dart;general;dart;general;dart;general;dart;general;dart;general;dart;general;dart;general;dart;general;dart;general;dart;general;dart;general;dart;general;dart;general;dart;general;dart;general;dart;general;dart;general;dart;general;dart;general;dart;general;dart;general;dart;general;dart;general;dart;general;dart;general;dart;general;dart;general;dart;general;dart;general;dart;general;dart;general;dart;general;dart;general;dart;general;dart;general;dart;general;dart;general;dart;general;dart;general;dart;general;dart;general;dart;general;dart;general;dart;general;dart;general;dart;general;dart;general;dart;general;dart;general;dart;general;dart;general;dart;general;dart;general;dart;general;dart;general;dart;general;dart;general;dart;general;dart;general;dart;general;dart;general;dart;general;dart;general;dart;general;/usr/lib/x86_64-linux-gnu/libgazebo.so;general;/usr/lib/x86_64-linux-gnu/libgazebo_client.so;general;/usr/lib/x86_64-linux-gnu/libgazebo_gui.so;general;/usr/lib/x86_64-linux-gnu/libgazebo_sensors.so;general;/usr/lib/x86_64-linux-gnu/libgazebo_rendering.so;general;/usr/lib/x86_64-linux-gnu/libgazebo_physics.so;general;/usr/lib/x86_64-linux-gnu/libgazebo_ode.so;general;/usr/lib/x86_64-linux-gnu/libgazebo_transport.so;general;/usr/lib/x86_64-linux-gnu/libgazebo_msgs.so;general;/usr/lib/x86_64-linux-gnu/libgazebo_util.so;general;/usr/lib/x86_64-linux-gnu/libgazebo_common.so;general;/usr/lib/x86_64-linux-gnu/libgazebo_gimpact.so;general;/usr/lib/x86_64-linux-gnu/libgazebo_opcode.so;general;/usr/lib/x86_64-linux-gnu/libgazebo_opende_ou.so;general;Boost::thread;general;Boost::system;general;Boost::filesystem;general;Boost::program_options;general;Boost::regex;general;Boost::iostreams;general;Boost::date_time;general;/usr/lib/x86_64-linux-gnu/libprotobuf.so;general;-lpthread;general;sdformat9::sdformat9;optimized;/usr/lib/x86_64-linux-gnu/libOgreMain.so;debug;/usr/lib/x86_64-linux-gnu/libOgreMain.so;general;Boost::thread;general;Boost::date_time;optimized;/usr/lib/x86_64-linux-gnu/libOgreTerrain.so;debug;/usr/lib/x86_64-linux-gnu/libOgreTerrain.so;optimized;/usr/lib/x86_64-linux-gnu/libOgrePaging.so;debug;/usr/lib/x86_64-linux-gnu/libOgrePaging.so;general;ignition-common3::ignition-common3-graphics;general;gazebo_world_plugin_loader;general;gazebo_version_helpers;general;/opt/ros/noetic/lib/libgazebo_ros_api_plugin.so;general;/opt/ros/noetic/lib/libgazebo_ros_paths_plugin.so;general;/usr/lib/x86_64-linux-gnu/libtinyxml.so;general;/opt/ros/noetic/lib/libroslib.so;general;/opt/ros/noetic/lib/librospack.so;general;/usr/lib/x86_64-linux-gnu/libpython3.8.so;general;/usr/lib/x86_64-linux-gnu/libboost_program_options.so.1.71.0;general;/usr/lib/x86_64-linux-gnu/libtinyxml2.so;general;/opt/ros/noetic/lib/libdynamic_reconfigure_config_init_mutex.so;general;object_msgs_tools;general;/opt/ros/noetic/lib/libtf.so;general;/opt/ros/noetic/lib/libtf2_ros.so;general;/opt/ros/noetic/lib/libactionlib.so;general;/opt/ros/noetic/lib/libmessage_filters.so;general;/opt/ros/noetic/lib/libroscpp.so;general;/usr/lib/x86_64-linux-gnu/libpthread.so;general;/usr/lib/x86_64-linux-gnu/libboost_chrono.so.1.71.0;general;/usr/lib/x86_64-linux-gnu/libboost_filesystem.so.1.71.0;general;/opt/ros/noetic/lib/libxmlrpcpp.so;general;/opt/ros/noetic/lib/libtf2.so;general;/opt/ros/noetic/lib/librosconsole.so;general;/opt/ros/noetic/lib/librosconsole_log4cxx.so;general;/opt/ros/noetic/lib/librosconsole_backend_interface.so;general;/usr/lib/x86_64-linux-gnu/liblog4cxx.so;general;/usr/lib/x86_64-linux-gnu/libboost_regex.so.1.71.0;general;/opt/ros/noetic/lib/libeigen_conversions.so;general;/usr/lib/liborocos-kdl.so;general;/opt/ros/noetic/lib/libroscpp_serialization.so;general;/opt/ros/noetic/lib/librostime.so;general;/usr/lib/x86_64-linux-gnu/libboost_date_time.so.1.71.0;general;/opt/ros/noetic/lib/libcpp_common.so;general;/usr/lib/x86_64-linux-gnu/libboost_system.so.1.71.0;general;/usr/lib/x86_64-linux-gnu/libboost_thread.so.1.71.0;general;/usr/lib/x86_64-linux-gnu/libconsole_bridge.so.0.4;
 
 //Path to a library.
 gazebo_proto_msgs_lib:FILEPATH=/usr/lib/x86_64-linux-gnu/libgazebo_msgs.so
 
 //The directory containing a CMake configuration file for gazebo_ros.
 gazebo_ros_DIR:PATH=/opt/ros/noetic/share/gazebo_ros/cmake
+
+//Value Computed by CMake
+gazebo_state_plugins_BINARY_DIR:STATIC=/home/utente/Robotics_ICE23_UNITN/catkin_ws/build/robot_urdf/gripper_description/grasping_plugin/gazebo_state_plugins
+
+//Value Computed by CMake
+gazebo_state_plugins_IS_TOP_LEVEL:STATIC=OFF
+
+//Value Computed by CMake
+gazebo_state_plugins_SOURCE_DIR:STATIC=/home/utente/Robotics_ICE23_UNITN/catkin_ws/src/robot_urdf/gripper_description/grasping_plugin/gazebo_state_plugins
+
+//Value Computed by CMake
+gazebo_test_tools_BINARY_DIR:STATIC=/home/utente/Robotics_ICE23_UNITN/catkin_ws/build/robot_urdf/gripper_description/grasping_plugin/gazebo_test_tools
+
+//Value Computed by CMake
+gazebo_test_tools_IS_TOP_LEVEL:STATIC=OFF
+
+//Dependencies for the target
+gazebo_test_tools_LIB_DEPENDS:STATIC=general;BulletSoftBody;general;BulletDynamics;general;BulletCollision;general;LinearMath;general;SimTKcommon;general;SimTKmath;general;SimTKsimbody;general;dart;general;dart;general;dart;general;dart;general;dart;general;dart;general;dart;general;dart;general;dart;general;dart;general;dart;general;dart;general;dart;general;dart;general;dart;general;dart;general;dart;general;dart;general;dart;general;dart;general;dart;general;dart;general;dart;general;dart;general;dart;general;dart;general;dart;general;dart;general;dart;general;dart;general;dart;general;dart;general;dart;general;dart;general;dart;general;dart;general;dart;general;dart;general;dart;general;dart;general;dart;general;dart;general;dart;general;dart;general;dart;general;dart;general;dart;general;dart;general;dart;general;dart;general;dart;general;dart;general;dart;general;dart;general;dart;general;dart;general;dart;general;dart;general;dart;general;dart;general;dart;general;dart;general;dart;general;dart;general;dart;general;dart;general;dart;general;dart;general;dart;general;dart;general;dart;general;dart;general;dart;general;dart;general;dart;general;dart;general;dart;general;dart;general;dart;general;dart;general;dart;general;dart;general;dart;general;dart;general;dart;general;dart;general;dart;general;dart;general;dart;general;dart;general;dart;general;dart;general;dart;general;dart;general;dart;general;dart;general;dart;general;dart;general;dart;general;dart;general;dart;general;dart;general;dart;general;dart;general;dart;general;dart;general;dart;general;dart;general;dart;general;/usr/lib/x86_64-linux-gnu/libgazebo.so;general;/usr/lib/x86_64-linux-gnu/libgazebo_client.so;general;/usr/lib/x86_64-linux-gnu/libgazebo_gui.so;general;/usr/lib/x86_64-linux-gnu/libgazebo_sensors.so;general;/usr/lib/x86_64-linux-gnu/libgazebo_rendering.so;general;/usr/lib/x86_64-linux-gnu/libgazebo_physics.so;general;/usr/lib/x86_64-linux-gnu/libgazebo_ode.so;general;/usr/lib/x86_64-linux-gnu/libgazebo_transport.so;general;/usr/lib/x86_64-linux-gnu/libgazebo_msgs.so;general;/usr/lib/x86_64-linux-gnu/libgazebo_util.so;general;/usr/lib/x86_64-linux-gnu/libgazebo_common.so;general;/usr/lib/x86_64-linux-gnu/libgazebo_gimpact.so;general;/usr/lib/x86_64-linux-gnu/libgazebo_opcode.so;general;/usr/lib/x86_64-linux-gnu/libgazebo_opende_ou.so;general;Boost::thread;general;Boost::system;general;Boost::filesystem;general;Boost::program_options;general;Boost::regex;general;Boost::iostreams;general;Boost::date_time;general;/usr/lib/x86_64-linux-gnu/libprotobuf.so;general;-lpthread;general;sdformat9::sdformat9;optimized;/usr/lib/x86_64-linux-gnu/libOgreMain.so;debug;/usr/lib/x86_64-linux-gnu/libOgreMain.so;general;Boost::thread;general;Boost::date_time;optimized;/usr/lib/x86_64-linux-gnu/libOgreTerrain.so;debug;/usr/lib/x86_64-linux-gnu/libOgreTerrain.so;optimized;/usr/lib/x86_64-linux-gnu/libOgrePaging.so;debug;/usr/lib/x86_64-linux-gnu/libOgrePaging.so;general;ignition-common3::ignition-common3-graphics;general;/opt/ros/noetic/lib/libgazebo_ros_api_plugin.so;general;/opt/ros/noetic/lib/libgazebo_ros_paths_plugin.so;general;/usr/lib/x86_64-linux-gnu/libtinyxml.so;general;/opt/ros/noetic/lib/libroslib.so;general;/opt/ros/noetic/lib/librospack.so;general;/usr/lib/x86_64-linux-gnu/libpython3.8.so;general;/usr/lib/x86_64-linux-gnu/libboost_program_options.so.1.71.0;general;/usr/lib/x86_64-linux-gnu/libtinyxml2.so;general;/opt/ros/noetic/lib/libtf.so;general;/opt/ros/noetic/lib/libtf2_ros.so;general;/opt/ros/noetic/lib/libactionlib.so;general;/opt/ros/noetic/lib/libmessage_filters.so;general;/opt/ros/noetic/lib/libtf2.so;general;/opt/ros/noetic/lib/libdynamic_reconfigure_config_init_mutex.so;general;/opt/ros/noetic/lib/libroscpp.so;general;/usr/lib/x86_64-linux-gnu/libpthread.so;general;/usr/lib/x86_64-linux-gnu/libboost_chrono.so.1.71.0;general;/usr/lib/x86_64-linux-gnu/libboost_filesystem.so.1.71.0;general;/opt/ros/noetic/lib/librosconsole.so;general;/opt/ros/noetic/lib/librosconsole_log4cxx.so;general;/opt/ros/noetic/lib/librosconsole_backend_interface.so;general;/usr/lib/x86_64-linux-gnu/liblog4cxx.so;general;/usr/lib/x86_64-linux-gnu/libboost_regex.so.1.71.0;general;/opt/ros/noetic/lib/libxmlrpcpp.so;general;/opt/ros/noetic/lib/libroscpp_serialization.so;general;/opt/ros/noetic/lib/librostime.so;general;/usr/lib/x86_64-linux-gnu/libboost_date_time.so.1.71.0;general;/opt/ros/noetic/lib/libcpp_common.so;general;/usr/lib/x86_64-linux-gnu/libboost_system.so.1.71.0;general;/usr/lib/x86_64-linux-gnu/libboost_thread.so.1.71.0;general;/usr/lib/x86_64-linux-gnu/libconsole_bridge.so.0.4;
+
+//Value Computed by CMake
+gazebo_test_tools_SOURCE_DIR:STATIC=/home/utente/Robotics_ICE23_UNITN/catkin_ws/src/robot_urdf/gripper_description/grasping_plugin/gazebo_test_tools
+
+//Value Computed by CMake
+gazebo_version_helpers_BINARY_DIR:STATIC=/home/utente/Robotics_ICE23_UNITN/catkin_ws/build/robot_urdf/gripper_description/grasping_plugin/gazebo_version_helpers
+
+//The directory containing a CMake configuration file for gazebo_version_helpers.
+gazebo_version_helpers_DIR:PATH=/home/utente/Robotics_ICE23_UNITN/catkin_ws/devel/share/gazebo_version_helpers/cmake
+
+//Value Computed by CMake
+gazebo_version_helpers_IS_TOP_LEVEL:STATIC=OFF
+
+//Dependencies for the target
+gazebo_version_helpers_LIB_DEPENDS:STATIC=general;/opt/ros/noetic/lib/libgazebo_ros_api_plugin.so;general;/opt/ros/noetic/lib/libgazebo_ros_paths_plugin.so;general;/usr/lib/x86_64-linux-gnu/libtinyxml.so;general;/opt/ros/noetic/lib/libroslib.so;general;/opt/ros/noetic/lib/librospack.so;general;/usr/lib/x86_64-linux-gnu/libpython3.8.so;general;/usr/lib/x86_64-linux-gnu/libboost_program_options.so.1.71.0;general;/usr/lib/x86_64-linux-gnu/libtinyxml2.so;general;/opt/ros/noetic/lib/libtf.so;general;/opt/ros/noetic/lib/libtf2_ros.so;general;/opt/ros/noetic/lib/libactionlib.so;general;/opt/ros/noetic/lib/libmessage_filters.so;general;/opt/ros/noetic/lib/libtf2.so;general;/opt/ros/noetic/lib/libdynamic_reconfigure_config_init_mutex.so;general;/opt/ros/noetic/lib/libroscpp.so;general;/usr/lib/x86_64-linux-gnu/libpthread.so;general;/usr/lib/x86_64-linux-gnu/libboost_chrono.so.1.71.0;general;/usr/lib/x86_64-linux-gnu/libboost_filesystem.so.1.71.0;general;/opt/ros/noetic/lib/librosconsole.so;general;/opt/ros/noetic/lib/librosconsole_log4cxx.so;general;/opt/ros/noetic/lib/librosconsole_backend_interface.so;general;/usr/lib/x86_64-linux-gnu/liblog4cxx.so;general;/usr/lib/x86_64-linux-gnu/libboost_regex.so.1.71.0;general;/opt/ros/noetic/lib/libroscpp_serialization.so;general;/opt/ros/noetic/lib/libxmlrpcpp.so;general;/opt/ros/noetic/lib/librostime.so;general;/usr/lib/x86_64-linux-gnu/libboost_date_time.so.1.71.0;general;/opt/ros/noetic/lib/libcpp_common.so;general;/usr/lib/x86_64-linux-gnu/libboost_system.so.1.71.0;general;/usr/lib/x86_64-linux-gnu/libboost_thread.so.1.71.0;general;/usr/lib/x86_64-linux-gnu/libconsole_bridge.so.0.4;general;BulletSoftBody;general;BulletDynamics;general;BulletCollision;general;LinearMath;general;SimTKcommon;general;SimTKmath;general;SimTKsimbody;general;dart;general;dart;general;dart;general;dart;general;dart;general;dart;general;dart;general;dart;general;dart;general;dart;general;dart;general;dart;general;dart;general;dart;general;dart;general;dart;general;dart;general;dart;general;dart;general;dart;general;dart;general;dart;general;dart;general;dart;general;dart;general;dart;general;dart;general;dart;general;dart;general;dart;general;dart;general;dart;general;dart;general;dart;general;dart;general;dart;general;dart;general;dart;general;dart;general;dart;general;dart;general;dart;general;dart;general;dart;general;dart;general;dart;general;dart;general;dart;general;dart;general;dart;general;dart;general;dart;general;dart;general;dart;general;dart;general;dart;general;dart;general;dart;general;dart;general;dart;general;dart;general;dart;general;dart;general;dart;general;dart;general;dart;general;dart;general;dart;general;dart;general;dart;general;dart;general;dart;general;dart;general;dart;general;dart;general;dart;general;dart;general;dart;general;dart;general;dart;general;dart;general;dart;general;dart;general;dart;general;dart;general;dart;general;dart;general;dart;general;dart;general;dart;general;dart;general;dart;general;dart;general;dart;general;dart;general;dart;general;dart;general;dart;general;dart;general;dart;general;dart;general;dart;general;dart;general;dart;general;dart;general;dart;general;dart;general;dart;general;dart;general;dart;general;/usr/lib/x86_64-linux-gnu/libgazebo.so;general;/usr/lib/x86_64-linux-gnu/libgazebo_client.so;general;/usr/lib/x86_64-linux-gnu/libgazebo_gui.so;general;/usr/lib/x86_64-linux-gnu/libgazebo_sensors.so;general;/usr/lib/x86_64-linux-gnu/libgazebo_rendering.so;general;/usr/lib/x86_64-linux-gnu/libgazebo_physics.so;general;/usr/lib/x86_64-linux-gnu/libgazebo_ode.so;general;/usr/lib/x86_64-linux-gnu/libgazebo_transport.so;general;/usr/lib/x86_64-linux-gnu/libgazebo_msgs.so;general;/usr/lib/x86_64-linux-gnu/libgazebo_util.so;general;/usr/lib/x86_64-linux-gnu/libgazebo_common.so;general;/usr/lib/x86_64-linux-gnu/libgazebo_gimpact.so;general;/usr/lib/x86_64-linux-gnu/libgazebo_opcode.so;general;/usr/lib/x86_64-linux-gnu/libgazebo_opende_ou.so;general;Boost::thread;general;Boost::system;general;Boost::filesystem;general;Boost::program_options;general;Boost::regex;general;Boost::iostreams;general;Boost::date_time;general;/usr/lib/x86_64-linux-gnu/libprotobuf.so;general;-lpthread;general;sdformat9::sdformat9;optimized;/usr/lib/x86_64-linux-gnu/libOgreMain.so;debug;/usr/lib/x86_64-linux-gnu/libOgreMain.so;general;Boost::thread;general;Boost::date_time;optimized;/usr/lib/x86_64-linux-gnu/libOgreTerrain.so;debug;/usr/lib/x86_64-linux-gnu/libOgreTerrain.so;optimized;/usr/lib/x86_64-linux-gnu/libOgrePaging.so;debug;/usr/lib/x86_64-linux-gnu/libOgrePaging.so;general;ignition-common3::ignition-common3-graphics;
+
+//Value Computed by CMake
+gazebo_version_helpers_SOURCE_DIR:STATIC=/home/utente/Robotics_ICE23_UNITN/catkin_ws/src/robot_urdf/gripper_description/grasping_plugin/gazebo_version_helpers
+
+//Value Computed by CMake
+gazebo_world_plugin_loader_BINARY_DIR:STATIC=/home/utente/Robotics_ICE23_UNITN/catkin_ws/build/robot_urdf/gripper_description/grasping_plugin/gazebo_world_plugin_loader
+
+//The directory containing a CMake configuration file for gazebo_world_plugin_loader.
+gazebo_world_plugin_loader_DIR:PATH=/home/utente/Robotics_ICE23_UNITN/catkin_ws/devel/share/gazebo_world_plugin_loader/cmake
+
+//Value Computed by CMake
+gazebo_world_plugin_loader_IS_TOP_LEVEL:STATIC=OFF
+
+//Dependencies for the target
+gazebo_world_plugin_loader_LIB_DEPENDS:STATIC=general;BulletSoftBody;general;BulletDynamics;general;BulletCollision;general;LinearMath;general;SimTKcommon;general;SimTKmath;general;SimTKsimbody;general;dart;general;dart;general;dart;general;dart;general;dart;general;dart;general;dart;general;dart;general;dart;general;dart;general;dart;general;dart;general;dart;general;dart;general;dart;general;dart;general;dart;general;dart;general;dart;general;dart;general;dart;general;dart;general;dart;general;dart;general;dart;general;dart;general;dart;general;dart;general;dart;general;dart;general;dart;general;dart;general;dart;general;dart;general;dart;general;dart;general;dart;general;dart;general;dart;general;dart;general;dart;general;dart;general;dart;general;dart;general;dart;general;dart;general;dart;general;dart;general;dart;general;dart;general;dart;general;dart;general;dart;general;dart;general;dart;general;dart;general;dart;general;dart;general;dart;general;dart;general;dart;general;dart;general;dart;general;dart;general;dart;general;dart;general;dart;general;dart;general;dart;general;dart;general;dart;general;dart;general;dart;general;dart;general;dart;general;dart;general;dart;general;dart;general;dart;general;dart;general;dart;general;dart;general;dart;general;dart;general;dart;general;dart;general;dart;general;dart;general;dart;general;dart;general;dart;general;dart;general;dart;general;dart;general;dart;general;dart;general;dart;general;dart;general;dart;general;dart;general;dart;general;dart;general;dart;general;dart;general;dart;general;dart;general;dart;general;dart;general;dart;general;dart;general;dart;general;dart;general;dart;general;/usr/lib/x86_64-linux-gnu/libgazebo.so;general;/usr/lib/x86_64-linux-gnu/libgazebo_client.so;general;/usr/lib/x86_64-linux-gnu/libgazebo_gui.so;general;/usr/lib/x86_64-linux-gnu/libgazebo_sensors.so;general;/usr/lib/x86_64-linux-gnu/libgazebo_rendering.so;general;/usr/lib/x86_64-linux-gnu/libgazebo_physics.so;general;/usr/lib/x86_64-linux-gnu/libgazebo_ode.so;general;/usr/lib/x86_64-linux-gnu/libgazebo_transport.so;general;/usr/lib/x86_64-linux-gnu/libgazebo_msgs.so;general;/usr/lib/x86_64-linux-gnu/libgazebo_util.so;general;/usr/lib/x86_64-linux-gnu/libgazebo_common.so;general;/usr/lib/x86_64-linux-gnu/libgazebo_gimpact.so;general;/usr/lib/x86_64-linux-gnu/libgazebo_opcode.so;general;/usr/lib/x86_64-linux-gnu/libgazebo_opende_ou.so;general;Boost::thread;general;Boost::system;general;Boost::filesystem;general;Boost::program_options;general;Boost::regex;general;Boost::iostreams;general;Boost::date_time;general;/usr/lib/x86_64-linux-gnu/libprotobuf.so;general;-lpthread;general;sdformat9::sdformat9;optimized;/usr/lib/x86_64-linux-gnu/libOgreMain.so;debug;/usr/lib/x86_64-linux-gnu/libOgreMain.so;general;Boost::thread;general;Boost::date_time;optimized;/usr/lib/x86_64-linux-gnu/libOgreTerrain.so;debug;/usr/lib/x86_64-linux-gnu/libOgreTerrain.so;optimized;/usr/lib/x86_64-linux-gnu/libOgrePaging.so;debug;/usr/lib/x86_64-linux-gnu/libOgrePaging.so;general;ignition-common3::ignition-common3-graphics;general;/opt/ros/noetic/lib/libgazebo_ros_api_plugin.so;general;/opt/ros/noetic/lib/libgazebo_ros_paths_plugin.so;general;/usr/lib/x86_64-linux-gnu/libtinyxml.so;general;/opt/ros/noetic/lib/libroslib.so;general;/opt/ros/noetic/lib/librospack.so;general;/usr/lib/x86_64-linux-gnu/libpython3.8.so;general;/usr/lib/x86_64-linux-gnu/libboost_program_options.so.1.71.0;general;/usr/lib/x86_64-linux-gnu/libtinyxml2.so;general;/opt/ros/noetic/lib/libtf.so;general;/opt/ros/noetic/lib/libtf2_ros.so;general;/opt/ros/noetic/lib/libactionlib.so;general;/opt/ros/noetic/lib/libmessage_filters.so;general;/opt/ros/noetic/lib/libroscpp.so;general;/usr/lib/x86_64-linux-gnu/libpthread.so;general;/usr/lib/x86_64-linux-gnu/libboost_chrono.so.1.71.0;general;/usr/lib/x86_64-linux-gnu/libboost_filesystem.so.1.71.0;general;/opt/ros/noetic/lib/libxmlrpcpp.so;general;/opt/ros/noetic/lib/libtf2.so;general;/opt/ros/noetic/lib/librosconsole.so;general;/opt/ros/noetic/lib/librosconsole_log4cxx.so;general;/opt/ros/noetic/lib/librosconsole_backend_interface.so;general;/usr/lib/x86_64-linux-gnu/liblog4cxx.so;general;/usr/lib/x86_64-linux-gnu/libboost_regex.so.1.71.0;general;/opt/ros/noetic/lib/libdynamic_reconfigure_config_init_mutex.so;general;/opt/ros/noetic/lib/libroscpp_serialization.so;general;/opt/ros/noetic/lib/librostime.so;general;/usr/lib/x86_64-linux-gnu/libboost_date_time.so.1.71.0;general;/opt/ros/noetic/lib/libcpp_common.so;general;/usr/lib/x86_64-linux-gnu/libboost_system.so.1.71.0;general;/usr/lib/x86_64-linux-gnu/libboost_thread.so.1.71.0;general;/usr/lib/x86_64-linux-gnu/libconsole_bridge.so.0.4;
+
+//Value Computed by CMake
+gazebo_world_plugin_loader_SOURCE_DIR:STATIC=/home/utente/Robotics_ICE23_UNITN/catkin_ws/src/robot_urdf/gripper_description/grasping_plugin/gazebo_world_plugin_loader
 
 //The directory containing a CMake configuration file for gencpp.
 gencpp_DIR:PATH=/opt/ros/noetic/share/gencpp/cmake
@@ -903,6 +987,15 @@ googletest-distribution_IS_TOP_LEVEL:STATIC=OFF
 googletest-distribution_SOURCE_DIR:STATIC=/usr/src/googletest
 
 //Value Computed by CMake
+gripper_description_BINARY_DIR:STATIC=/home/utente/Robotics_ICE23_UNITN/catkin_ws/build/robot_urdf/gripper_description/gripper_description
+
+//Value Computed by CMake
+gripper_description_IS_TOP_LEVEL:STATIC=OFF
+
+//Value Computed by CMake
+gripper_description_SOURCE_DIR:STATIC=/home/utente/Robotics_ICE23_UNITN/catkin_ws/src/robot_urdf/gripper_description/gripper_description
+
+//Value Computed by CMake
 gtest_BINARY_DIR:STATIC=/home/utente/Robotics_ICE23_UNITN/catkin_ws/build/gtest/googletest
 
 //Value Computed by CMake
@@ -930,6 +1023,9 @@ gtest_hide_internal_symbols:BOOL=OFF
 //Dependencies for the target
 gtest_main_LIB_DEPENDS:STATIC=general;gtest;
 
+//The directory containing a CMake configuration file for hardware_interface.
+hardware_interface_DIR:PATH=/opt/ros/noetic/share/hardware_interface/cmake
+
 //The directory containing a CMake configuration file for ignition-cmake2.
 ignition-cmake2_DIR:PATH=/usr/share/cmake/ignition-cmake2
 
@@ -951,26 +1047,17 @@ ignition-msgs5_DIR:PATH=/usr/lib/x86_64-linux-gnu/cmake/ignition-msgs5
 //The directory containing a CMake configuration file for ignition-transport8.
 ignition-transport8_DIR:PATH=/usr/lib/x86_64-linux-gnu/cmake/ignition-transport8
 
-//Dependencies for the target
-joint_state_listener_LIB_DEPENDS:STATIC=general;robot_state_publisher_solver;general;orocos-kdl;
-
 //The directory containing a CMake configuration file for jsoncpp.
 jsoncpp_DIR:PATH=/usr/lib/x86_64-linux-gnu/cmake/jsoncpp
 
-//The directory containing a CMake configuration file for kdl_conversions.
-kdl_conversions_DIR:PATH=/opt/ros/noetic/share/kdl_conversions/cmake
-
-//The directory containing a CMake configuration file for kdl_parser.
-kdl_parser_DIR:PATH=/opt/ros/noetic/share/kdl_parser/cmake
+//Value Computed by CMake
+lab_palopoli_BINARY_DIR:STATIC=/home/utente/Robotics_ICE23_UNITN/catkin_ws/build/control/cpp
 
 //Value Computed by CMake
-levelManager_BINARY_DIR:STATIC=/home/utente/Robotics_ICE23_UNITN/catkin_ws/build/levelManager
+lab_palopoli_IS_TOP_LEVEL:STATIC=OFF
 
 //Value Computed by CMake
-levelManager_IS_TOP_LEVEL:STATIC=OFF
-
-//Value Computed by CMake
-levelManager_SOURCE_DIR:STATIC=/home/utente/Robotics_ICE23_UNITN/catkin_ws/src/levelManager
+lab_palopoli_SOURCE_DIR:STATIC=/home/utente/Robotics_ICE23_UNITN/catkin_ws/src/control/cpp
 
 //Path to a library.
 lib:FILEPATH=/opt/ros/noetic/lib/libxmlrpcpp.so
@@ -985,13 +1072,55 @@ message_generation_DIR:PATH=/opt/ros/noetic/share/message_generation/cmake
 message_runtime_DIR:PATH=/opt/ros/noetic/share/message_runtime/cmake
 
 //Value Computed by CMake
-moviment_BINARY_DIR:STATIC=/home/utente/Robotics_ICE23_UNITN/catkin_ws/build/moviment
+motion_BINARY_DIR:STATIC=/home/utente/Robotics_ICE23_UNITN/catkin_ws/build/motion
 
 //Value Computed by CMake
-moviment_IS_TOP_LEVEL:STATIC=OFF
+motion_IS_TOP_LEVEL:STATIC=OFF
 
 //Value Computed by CMake
-moviment_SOURCE_DIR:STATIC=/home/utente/Robotics_ICE23_UNITN/catkin_ws/src/moviment
+motion_SOURCE_DIR:STATIC=/home/utente/Robotics_ICE23_UNITN/catkin_ws/src/motion
+
+//Value Computed by CMake
+myrobot_description_BINARY_DIR:STATIC=/home/utente/Robotics_ICE23_UNITN/catkin_ws/build/robot_urdf/myrobot_description
+
+//Value Computed by CMake
+myrobot_description_IS_TOP_LEVEL:STATIC=OFF
+
+//Value Computed by CMake
+myrobot_description_SOURCE_DIR:STATIC=/home/utente/Robotics_ICE23_UNITN/catkin_ws/src/robot_urdf/myrobot_description
+
+//The directory containing a CMake configuration file for nav_msgs.
+nav_msgs_DIR:PATH=/opt/ros/noetic/share/nav_msgs/cmake
+
+//Value Computed by CMake
+object_msgs_BINARY_DIR:STATIC=/home/utente/Robotics_ICE23_UNITN/catkin_ws/build/robot_urdf/gripper_description/grasping_plugin/general-message-pkgs /object_msgs
+
+//The directory containing a CMake configuration file for object_msgs.
+object_msgs_DIR:PATH=/home/utente/Robotics_ICE23_UNITN/catkin_ws/devel/share/object_msgs/cmake
+
+//Value Computed by CMake
+object_msgs_IS_TOP_LEVEL:STATIC=OFF
+
+//Value Computed by CMake
+object_msgs_SOURCE_DIR:STATIC=/home/utente/Robotics_ICE23_UNITN/catkin_ws/src/robot_urdf/gripper_description/grasping_plugin/general-message-pkgs /object_msgs
+
+//Value Computed by CMake
+object_msgs_tools_BINARY_DIR:STATIC=/home/utente/Robotics_ICE23_UNITN/catkin_ws/build/robot_urdf/gripper_description/grasping_plugin/general-message-pkgs /object_msgs_tools
+
+//The directory containing a CMake configuration file for object_msgs_tools.
+object_msgs_tools_DIR:PATH=/home/utente/Robotics_ICE23_UNITN/catkin_ws/devel/share/object_msgs_tools/cmake
+
+//Value Computed by CMake
+object_msgs_tools_IS_TOP_LEVEL:STATIC=OFF
+
+//Dependencies for the target
+object_msgs_tools_LIB_DEPENDS:STATIC=general;/opt/ros/noetic/lib/libeigen_conversions.so;general;/usr/lib/liborocos-kdl.so;general;/opt/ros/noetic/lib/libtf.so;general;/opt/ros/noetic/lib/libtf2_ros.so;general;/opt/ros/noetic/lib/libactionlib.so;general;/opt/ros/noetic/lib/libmessage_filters.so;general;/opt/ros/noetic/lib/libroscpp.so;general;/usr/lib/x86_64-linux-gnu/libpthread.so;general;/usr/lib/x86_64-linux-gnu/libboost_chrono.so.1.71.0;general;/usr/lib/x86_64-linux-gnu/libboost_filesystem.so.1.71.0;general;/opt/ros/noetic/lib/libxmlrpcpp.so;general;/opt/ros/noetic/lib/libtf2.so;general;/opt/ros/noetic/lib/libroscpp_serialization.so;general;/opt/ros/noetic/lib/librosconsole.so;general;/opt/ros/noetic/lib/librosconsole_log4cxx.so;general;/opt/ros/noetic/lib/librosconsole_backend_interface.so;general;/usr/lib/x86_64-linux-gnu/liblog4cxx.so;general;/usr/lib/x86_64-linux-gnu/libboost_regex.so.1.71.0;general;/opt/ros/noetic/lib/librostime.so;general;/usr/lib/x86_64-linux-gnu/libboost_date_time.so.1.71.0;general;/opt/ros/noetic/lib/libcpp_common.so;general;/usr/lib/x86_64-linux-gnu/libboost_system.so.1.71.0;general;/usr/lib/x86_64-linux-gnu/libboost_thread.so.1.71.0;general;/usr/lib/x86_64-linux-gnu/libconsole_bridge.so.0.4;
+
+//Value Computed by CMake
+object_msgs_tools_SOURCE_DIR:STATIC=/home/utente/Robotics_ICE23_UNITN/catkin_ws/src/robot_urdf/gripper_description/grasping_plugin/general-message-pkgs /object_msgs_tools
+
+//The directory containing a CMake configuration file for object_recognition_msgs.
+object_recognition_msgs_DIR:PATH=/opt/ros/noetic/share/object_recognition_msgs/cmake
 
 //The directory containing a CMake configuration file for octomap.
 octomap_DIR:PATH=/opt/ros/noetic/share/octomap
@@ -999,8 +1128,14 @@ octomap_DIR:PATH=/opt/ros/noetic/share/octomap
 //Path to a library.
 onelib:FILEPATH=/usr/lib/x86_64-linux-gnu/libgazebo_opende_ou.so
 
-//The directory containing a CMake configuration file for orocos_kdl.
-orocos_kdl_DIR:PATH=/usr/share/orocos_kdl/cmake
+//Value Computed by CMake
+path_navigation_msgs_BINARY_DIR:STATIC=/home/utente/Robotics_ICE23_UNITN/catkin_ws/build/robot_urdf/gripper_description/grasping_plugin/general-message-pkgs /path_navigation_msgs
+
+//Value Computed by CMake
+path_navigation_msgs_IS_TOP_LEVEL:STATIC=OFF
+
+//Value Computed by CMake
+path_navigation_msgs_SOURCE_DIR:STATIC=/home/utente/Robotics_ICE23_UNITN/catkin_ws/src/robot_urdf/gripper_description/grasping_plugin/general-message-pkgs /path_navigation_msgs
 
 //Path to a library.
 pkgcfg_lib_BULLET_BulletCollision:FILEPATH=/usr/lib/x86_64-linux-gnu/libBulletCollision.so
@@ -1072,52 +1207,16 @@ pluginlib_DIR:PATH=/opt/ros/noetic/share/pluginlib/cmake
 realtime_tools_DIR:PATH=/opt/ros/noetic/share/realtime_tools/cmake
 
 //Value Computed by CMake
-robot_BINARY_DIR:STATIC=/home/utente/Robotics_ICE23_UNITN/catkin_ws/build/robot
+ros_impedance_controller_BINARY_DIR:STATIC=/home/utente/Robotics_ICE23_UNITN/catkin_ws/build/environment
 
 //Value Computed by CMake
-robot_IS_TOP_LEVEL:STATIC=OFF
-
-//Value Computed by CMake
-robot_SOURCE_DIR:STATIC=/home/utente/Robotics_ICE23_UNITN/catkin_ws/src/robot
-
-//Value Computed by CMake
-robot_state_publisher_BINARY_DIR:STATIC=/home/utente/Robotics_ICE23_UNITN/catkin_ws/build/robot/robot_state_publisher
-
-//Value Computed by CMake
-robot_state_publisher_IS_TOP_LEVEL:STATIC=OFF
-
-//Value Computed by CMake
-robot_state_publisher_SOURCE_DIR:STATIC=/home/utente/Robotics_ICE23_UNITN/catkin_ws/src/robot/robot_state_publisher
+ros_impedance_controller_IS_TOP_LEVEL:STATIC=OFF
 
 //Dependencies for the target
-robot_state_publisher_solver_LIB_DEPENDS:STATIC=general;/opt/ros/noetic/lib/libkdl_parser.so;general;/opt/ros/noetic/lib/liburdf.so;general;/usr/lib/x86_64-linux-gnu/liburdfdom_sensor.so;general;/usr/lib/x86_64-linux-gnu/liburdfdom_model_state.so;general;/usr/lib/x86_64-linux-gnu/liburdfdom_model.so;general;/usr/lib/x86_64-linux-gnu/liburdfdom_world.so;general;/usr/lib/x86_64-linux-gnu/libtinyxml.so;general;/opt/ros/noetic/lib/libclass_loader.so;general;/usr/lib/x86_64-linux-gnu/libPocoFoundation.so;general;/usr/lib/x86_64-linux-gnu/libdl.so;general;/opt/ros/noetic/lib/libroslib.so;general;/opt/ros/noetic/lib/librospack.so;general;/usr/lib/x86_64-linux-gnu/libpython3.8.so;general;/usr/lib/x86_64-linux-gnu/libboost_program_options.so.1.71.0;general;/usr/lib/x86_64-linux-gnu/libtinyxml2.so;general;/opt/ros/noetic/lib/librosconsole_bridge.so;general;/opt/ros/noetic/lib/libtf2_ros.so;general;/opt/ros/noetic/lib/libactionlib.so;general;/opt/ros/noetic/lib/libmessage_filters.so;general;/opt/ros/noetic/lib/libroscpp.so;general;/usr/lib/x86_64-linux-gnu/libpthread.so;general;/usr/lib/x86_64-linux-gnu/libboost_chrono.so.1.71.0;general;/usr/lib/x86_64-linux-gnu/libboost_filesystem.so.1.71.0;general;/opt/ros/noetic/lib/librosconsole.so;general;/opt/ros/noetic/lib/librosconsole_log4cxx.so;general;/opt/ros/noetic/lib/librosconsole_backend_interface.so;general;/usr/lib/x86_64-linux-gnu/liblog4cxx.so;general;/usr/lib/x86_64-linux-gnu/libboost_regex.so.1.71.0;general;/opt/ros/noetic/lib/libxmlrpcpp.so;general;/opt/ros/noetic/lib/libtf2.so;general;/opt/ros/noetic/lib/libroscpp_serialization.so;general;/opt/ros/noetic/lib/librostime.so;general;/usr/lib/x86_64-linux-gnu/libboost_date_time.so.1.71.0;general;/opt/ros/noetic/lib/libcpp_common.so;general;/usr/lib/x86_64-linux-gnu/libboost_system.so.1.71.0;general;/usr/lib/x86_64-linux-gnu/libboost_thread.so.1.71.0;general;/usr/lib/x86_64-linux-gnu/libconsole_bridge.so.0.4;general;/usr/lib/liborocos-kdl.so;general;orocos-kdl;
+ros_impedance_controller_LIB_DEPENDS:STATIC=general;/opt/ros/noetic/lib/libtf.so;general;/opt/ros/noetic/lib/libtf2_ros.so;general;/opt/ros/noetic/lib/libactionlib.so;general;/opt/ros/noetic/lib/libmessage_filters.so;general;/opt/ros/noetic/lib/libtf2.so;general;/opt/ros/noetic/lib/librealtime_tools.so;general;/opt/ros/noetic/lib/libroscpp.so;general;/usr/lib/x86_64-linux-gnu/libpthread.so;general;/usr/lib/x86_64-linux-gnu/libboost_chrono.so.1.71.0;general;/usr/lib/x86_64-linux-gnu/libboost_filesystem.so.1.71.0;general;/opt/ros/noetic/lib/librosconsole.so;general;/opt/ros/noetic/lib/librosconsole_log4cxx.so;general;/opt/ros/noetic/lib/librosconsole_backend_interface.so;general;/usr/lib/x86_64-linux-gnu/liblog4cxx.so;general;/usr/lib/x86_64-linux-gnu/libboost_regex.so.1.71.0;general;/opt/ros/noetic/lib/libxmlrpcpp.so;general;/opt/ros/noetic/lib/libroscpp_serialization.so;general;/opt/ros/noetic/lib/librostime.so;general;/usr/lib/x86_64-linux-gnu/libboost_date_time.so.1.71.0;general;/opt/ros/noetic/lib/libcpp_common.so;general;/usr/lib/x86_64-linux-gnu/libboost_system.so.1.71.0;general;/usr/lib/x86_64-linux-gnu/libboost_thread.so.1.71.0;general;/usr/lib/x86_64-linux-gnu/libconsole_bridge.so.0.4;
 
 //Value Computed by CMake
-robotiq_description_BINARY_DIR:STATIC=/home/utente/Robotics_ICE23_UNITN/catkin_ws/build/robot/robotiq/robotiq_description
-
-//Value Computed by CMake
-robotiq_description_IS_TOP_LEVEL:STATIC=OFF
-
-//Value Computed by CMake
-robotiq_description_SOURCE_DIR:STATIC=/home/utente/Robotics_ICE23_UNITN/catkin_ws/src/robot/robotiq/robotiq_description
-
-//Value Computed by CMake
-robotiq_gazebo_BINARY_DIR:STATIC=/home/utente/Robotics_ICE23_UNITN/catkin_ws/build/robot/robotiq/robotiq_gazebo
-
-//Value Computed by CMake
-robotiq_gazebo_IS_TOP_LEVEL:STATIC=OFF
-
-//Value Computed by CMake
-robotiq_gazebo_SOURCE_DIR:STATIC=/home/utente/Robotics_ICE23_UNITN/catkin_ws/src/robot/robotiq/robotiq_gazebo
-
-//Value Computed by CMake
-robotname_description_BINARY_DIR:STATIC=/home/utente/Robotics_ICE23_UNITN/catkin_ws/build/robot/robotname_description
-
-//Value Computed by CMake
-robotname_description_IS_TOP_LEVEL:STATIC=OFF
-
-//Value Computed by CMake
-robotname_description_SOURCE_DIR:STATIC=/home/utente/Robotics_ICE23_UNITN/catkin_ws/src/robot/robotname_description
+ros_impedance_controller_SOURCE_DIR:STATIC=/home/utente/Robotics_ICE23_UNITN/catkin_ws/src/environment
 
 //The directory containing a CMake configuration file for rosconsole.
 rosconsole_DIR:PATH=/opt/ros/noetic/share/rosconsole/cmake
@@ -1140,9 +1239,6 @@ rosgraph_DIR:PATH=/opt/ros/noetic/share/rosgraph/cmake
 //The directory containing a CMake configuration file for rosgraph_msgs.
 rosgraph_msgs_DIR:PATH=/opt/ros/noetic/share/rosgraph_msgs/cmake
 
-//The directory containing a CMake configuration file for roslaunch.
-roslaunch_DIR:PATH=/opt/ros/noetic/share/roslaunch/cmake
-
 //The directory containing a CMake configuration file for roslib.
 roslib_DIR:PATH=/opt/ros/noetic/share/roslib/cmake
 
@@ -1151,9 +1247,6 @@ rospack_DIR:PATH=/opt/ros/noetic/share/rospack/cmake
 
 //The directory containing a CMake configuration file for rospy.
 rospy_DIR:PATH=/opt/ros/noetic/share/rospy/cmake
-
-//The directory containing a CMake configuration file for rostest.
-rostest_DIR:PATH=/opt/ros/noetic/share/rostest/cmake
 
 //The directory containing a CMake configuration file for rostime.
 rostime_DIR:PATH=/opt/ros/noetic/share/rostime/cmake
@@ -1164,6 +1257,12 @@ sdformat9_DIR:PATH=/usr/lib/x86_64-linux-gnu/cmake/sdformat9
 //The directory containing a CMake configuration file for sensor_msgs.
 sensor_msgs_DIR:PATH=/opt/ros/noetic/share/sensor_msgs/cmake
 
+//The directory containing a CMake configuration file for shape_msgs.
+shape_msgs_DIR:PATH=/opt/ros/noetic/share/shape_msgs/cmake
+
+//The directory containing a CMake configuration file for srdfdom.
+srdfdom_DIR:PATH=/opt/ros/noetic/share/srdfdom/cmake
+
 //The directory containing a CMake configuration file for std_msgs.
 std_msgs_DIR:PATH=/opt/ros/noetic/share/std_msgs/cmake
 
@@ -1172,9 +1271,6 @@ std_srvs_DIR:PATH=/opt/ros/noetic/share/std_srvs/cmake
 
 //The directory containing a CMake configuration file for tf2.
 tf2_DIR:PATH=/opt/ros/noetic/share/tf2/cmake
-
-//The directory containing a CMake configuration file for tf2_kdl.
-tf2_kdl_DIR:PATH=/opt/ros/noetic/share/tf2_kdl/cmake
 
 //The directory containing a CMake configuration file for tf2_msgs.
 tf2_msgs_DIR:PATH=/opt/ros/noetic/share/tf2_msgs/cmake
@@ -1188,125 +1284,23 @@ tf2_ros_DIR:PATH=/opt/ros/noetic/share/tf2_ros/cmake
 //The directory containing a CMake configuration file for tf.
 tf_DIR:PATH=/opt/ros/noetic/share/tf/cmake
 
-//The directory containing a CMake configuration file for tf_conversions.
-tf_conversions_DIR:PATH=/opt/ros/noetic/share/tf_conversions/cmake
-
 //The directory containing a CMake configuration file for trajectory_msgs.
 trajectory_msgs_DIR:PATH=/opt/ros/noetic/share/trajectory_msgs/cmake
 
-//Value Computed by CMake
-universal_robot_BINARY_DIR:STATIC=/home/utente/Robotics_ICE23_UNITN/catkin_ws/build/robot/universal_robot/universal_robot
+//The directory containing a CMake configuration file for transmission_interface.
+transmission_interface_DIR:PATH=/opt/ros/noetic/share/transmission_interface/cmake
 
 //Value Computed by CMake
-universal_robot_IS_TOP_LEVEL:STATIC=OFF
-
-//Value Computed by CMake
-universal_robot_SOURCE_DIR:STATIC=/home/utente/Robotics_ICE23_UNITN/catkin_ws/src/robot/universal_robot/universal_robot
-
-//Value Computed by CMake
-universal_robots_BINARY_DIR:STATIC=/home/utente/Robotics_ICE23_UNITN/catkin_ws/build/robot/universal_robot/universal_robots
-
-//Value Computed by CMake
-universal_robots_IS_TOP_LEVEL:STATIC=OFF
-
-//Value Computed by CMake
-universal_robots_SOURCE_DIR:STATIC=/home/utente/Robotics_ICE23_UNITN/catkin_ws/src/robot/universal_robot/universal_robots
-
-//Value Computed by CMake
-ur5_description_BINARY_DIR:STATIC=/home/utente/Robotics_ICE23_UNITN/catkin_ws/build/robot/ur5/ur5_description
-
-//Value Computed by CMake
-ur5_description_IS_TOP_LEVEL:STATIC=OFF
-
-//Value Computed by CMake
-ur5_description_SOURCE_DIR:STATIC=/home/utente/Robotics_ICE23_UNITN/catkin_ws/src/robot/ur5/ur5_description
-
-//Value Computed by CMake
-ur5_gazebo_BINARY_DIR:STATIC=/home/utente/Robotics_ICE23_UNITN/catkin_ws/build/robot/ur5/ur5_gazebo
-
-//Value Computed by CMake
-ur5_gazebo_IS_TOP_LEVEL:STATIC=OFF
-
-//Value Computed by CMake
-ur5_gazebo_SOURCE_DIR:STATIC=/home/utente/Robotics_ICE23_UNITN/catkin_ws/src/robot/ur5/ur5_gazebo
-
-//Value Computed by CMake
-ur_bringup_BINARY_DIR:STATIC=/home/utente/Robotics_ICE23_UNITN/catkin_ws/build/robot/universal_robot/ur_bringup
-
-//Value Computed by CMake
-ur_bringup_IS_TOP_LEVEL:STATIC=OFF
-
-//Value Computed by CMake
-ur_bringup_SOURCE_DIR:STATIC=/home/utente/Robotics_ICE23_UNITN/catkin_ws/src/robot/universal_robot/ur_bringup
-
-//Value Computed by CMake
-ur_description_BINARY_DIR:STATIC=/home/utente/Robotics_ICE23_UNITN/catkin_ws/build/robot/universal_robot/ur_description
+ur_description_BINARY_DIR:STATIC=/home/utente/Robotics_ICE23_UNITN/catkin_ws/build/robot_urdf/ur_description
 
 //Value Computed by CMake
 ur_description_IS_TOP_LEVEL:STATIC=OFF
 
 //Value Computed by CMake
-ur_description_SOURCE_DIR:STATIC=/home/utente/Robotics_ICE23_UNITN/catkin_ws/src/robot/universal_robot/ur_description
-
-//Value Computed by CMake
-ur_driver_BINARY_DIR:STATIC=/home/utente/Robotics_ICE23_UNITN/catkin_ws/build/robot/universal_robot/ur_driver
-
-//Value Computed by CMake
-ur_driver_IS_TOP_LEVEL:STATIC=OFF
-
-//Value Computed by CMake
-ur_driver_SOURCE_DIR:STATIC=/home/utente/Robotics_ICE23_UNITN/catkin_ws/src/robot/universal_robot/ur_driver
-
-//Value Computed by CMake
-ur_e_description_BINARY_DIR:STATIC=/home/utente/Robotics_ICE23_UNITN/catkin_ws/build/robot/universal_robot/ur_e_description
-
-//Value Computed by CMake
-ur_e_description_IS_TOP_LEVEL:STATIC=OFF
-
-//Value Computed by CMake
-ur_e_description_SOURCE_DIR:STATIC=/home/utente/Robotics_ICE23_UNITN/catkin_ws/src/robot/universal_robot/ur_e_description
-
-//Value Computed by CMake
-ur_e_gazebo_BINARY_DIR:STATIC=/home/utente/Robotics_ICE23_UNITN/catkin_ws/build/robot/universal_robot/ur_e_gazebo
-
-//Value Computed by CMake
-ur_e_gazebo_IS_TOP_LEVEL:STATIC=OFF
-
-//Value Computed by CMake
-ur_e_gazebo_SOURCE_DIR:STATIC=/home/utente/Robotics_ICE23_UNITN/catkin_ws/src/robot/universal_robot/ur_e_gazebo
-
-//Value Computed by CMake
-ur_gazebo_BINARY_DIR:STATIC=/home/utente/Robotics_ICE23_UNITN/catkin_ws/build/robot/universal_robot/ur_gazebo
-
-//Value Computed by CMake
-ur_gazebo_IS_TOP_LEVEL:STATIC=OFF
-
-//Value Computed by CMake
-ur_gazebo_SOURCE_DIR:STATIC=/home/utente/Robotics_ICE23_UNITN/catkin_ws/src/robot/universal_robot/ur_gazebo
-
-//Value Computed by CMake
-ur_kinematics_BINARY_DIR:STATIC=/home/utente/Robotics_ICE23_UNITN/catkin_ws/build/robot/universal_robot/ur_kinematics
-
-//Value Computed by CMake
-ur_kinematics_IS_TOP_LEVEL:STATIC=OFF
-
-//Value Computed by CMake
-ur_kinematics_SOURCE_DIR:STATIC=/home/utente/Robotics_ICE23_UNITN/catkin_ws/src/robot/universal_robot/ur_kinematics
-
-//Value Computed by CMake
-ur_msgs_BINARY_DIR:STATIC=/home/utente/Robotics_ICE23_UNITN/catkin_ws/build/robot/universal_robot/ur_msgs
-
-//Value Computed by CMake
-ur_msgs_IS_TOP_LEVEL:STATIC=OFF
-
-//Value Computed by CMake
-ur_msgs_SOURCE_DIR:STATIC=/home/utente/Robotics_ICE23_UNITN/catkin_ws/src/robot/universal_robot/ur_msgs
+ur_description_SOURCE_DIR:STATIC=/home/utente/Robotics_ICE23_UNITN/catkin_ws/src/robot_urdf/ur_description
 
 //The directory containing a CMake configuration file for urdf.
 urdf_DIR:PATH=/opt/ros/noetic/share/urdf/cmake
-
-//The directory containing a CMake configuration file for urdfdom_headers.
-urdfdom_headers_DIR:PATH=/usr/lib/x86_64-linux-gnu/urdfdom_headers/cmake
 
 //Value Computed by CMake
 vision_BINARY_DIR:STATIC=/home/utente/Robotics_ICE23_UNITN/catkin_ws/build/vision
@@ -1506,7 +1500,7 @@ CMAKE_MODULE_LINKER_FLAGS_RELWITHDEBINFO-ADVANCED:INTERNAL=1
 //ADVANCED property for variable: CMAKE_NM
 CMAKE_NM-ADVANCED:INTERNAL=1
 //number of local generators
-CMAKE_NUMBER_OF_MAKEFILES:INTERNAL=8
+CMAKE_NUMBER_OF_MAKEFILES:INTERNAL=22
 //ADVANCED property for variable: CMAKE_OBJCOPY
 CMAKE_OBJCOPY-ADVANCED:INTERNAL=1
 //ADVANCED property for variable: CMAKE_OBJDUMP
@@ -1549,8 +1543,14 @@ CMAKE_STRIP-ADVANCED:INTERNAL=1
 CMAKE_UNAME:INTERNAL=/usr/bin/uname
 //ADVANCED property for variable: CMAKE_VERBOSE_MAKEFILE
 CMAKE_VERBOSE_MAKEFILE-ADVANCED:INTERNAL=1
+//Test COMPILER_SUPPORTS_CXX0X
+COMPILER_SUPPORTS_CXX0X:INTERNAL=1
 //Test COMPILER_SUPPORTS_CXX11
 COMPILER_SUPPORTS_CXX11:INTERNAL=1
+//Test COMPILER_SUPPORTS_CXX14
+COMPILER_SUPPORTS_CXX14:INTERNAL=1
+//Test COMPILER_SUPPORTS_CXX17
+COMPILER_SUPPORTS_CXX17:INTERNAL=1
 //ADVANCED property for variable: CPPZMQ_INCLUDE_DIRS
 CPPZMQ_INCLUDE_DIRS-ADVANCED:INTERNAL=1
 //ADVANCED property for variable: CURL_DIR
@@ -1563,7 +1563,7 @@ CURL_LIBRARY_DEBUG-ADVANCED:INTERNAL=1
 CURL_LIBRARY_RELEASE-ADVANCED:INTERNAL=1
 DART_DEFINITIONS:INTERNAL=
 DART_INCLUDE_DIRS:INTERNAL=/usr/include
-DART_LIBRARIES:INTERNAL=dart
+DART_LIBRARIES:INTERNAL=dart;dart;dart;dart;dart;dart;dart;dart;dart;dart;dart;dart;dart;dart;dart;dart;dart;dart;dart;dart;dart;dart;dart;dart;dart;dart;dart;dart;dart;dart;dart;dart;dart;dart;dart;dart;dart;dart;dart;dart;dart;dart;dart;dart;dart;dart;dart;dart;dart;dart;dart;dart;dart;dart;dart;dart;dart;dart;dart;dart;dart;dart;dart;dart;dart;dart;dart;dart;dart;dart;dart;dart;dart;dart;dart;dart;dart;dart;dart;dart;dart;dart;dart;dart;dart;dart;dart;dart;dart;dart;dart;dart;dart;dart;dart;dart;dart;dart;dart;dart;dart;dart;dart;dart;dart;dart;dart;dart;dart;dart;dart;dart;dart;dart
 //Boost min version requirement
 DART_MIN_BOOST_VERSION:INTERNAL=1.58.0
 DART_dart_DEFINITIONS:INTERNAL=
@@ -1575,12 +1575,47 @@ DART_dart_LIBRARIES:INTERNAL=dart
 DL_INCLUDE_DIRS-ADVANCED:INTERNAL=1
 //ADVANCED property for variable: DL_LIBRARIES
 DL_LIBRARIES-ADVANCED:INTERNAL=1
+EIGEN3_CFLAGS:INTERNAL=-I/usr/include/eigen3
+EIGEN3_CFLAGS_I:INTERNAL=
+EIGEN3_CFLAGS_OTHER:INTERNAL=
+EIGEN3_FOUND:INTERNAL=1
+EIGEN3_INCLUDEDIR:INTERNAL=
+EIGEN3_INCLUDE_DIRS:INTERNAL=/usr/include/eigen3
+EIGEN3_LDFLAGS:INTERNAL=
+EIGEN3_LDFLAGS_OTHER:INTERNAL=
+EIGEN3_LIBDIR:INTERNAL=
+EIGEN3_LIBRARIES:INTERNAL=
+EIGEN3_LIBRARY_DIRS:INTERNAL=
+EIGEN3_LIBS:INTERNAL=
+EIGEN3_LIBS_L:INTERNAL=
+EIGEN3_LIBS_OTHER:INTERNAL=
+EIGEN3_LIBS_PATHS:INTERNAL=
+EIGEN3_MODULE_NAME:INTERNAL=eigen3
+EIGEN3_PREFIX:INTERNAL=/usr
+EIGEN3_STATIC_CFLAGS:INTERNAL=-I/usr/include/eigen3
+EIGEN3_STATIC_CFLAGS_I:INTERNAL=
+EIGEN3_STATIC_CFLAGS_OTHER:INTERNAL=
+EIGEN3_STATIC_INCLUDE_DIRS:INTERNAL=/usr/include/eigen3
+EIGEN3_STATIC_LDFLAGS:INTERNAL=
+EIGEN3_STATIC_LDFLAGS_OTHER:INTERNAL=
+EIGEN3_STATIC_LIBDIR:INTERNAL=
+EIGEN3_STATIC_LIBRARIES:INTERNAL=
+EIGEN3_STATIC_LIBRARY_DIRS:INTERNAL=
+EIGEN3_STATIC_LIBS:INTERNAL=
+EIGEN3_STATIC_LIBS_L:INTERNAL=
+EIGEN3_STATIC_LIBS_OTHER:INTERNAL=
+EIGEN3_STATIC_LIBS_PATHS:INTERNAL=
+EIGEN3_VERSION:INTERNAL=3.3.7
+EIGEN3_eigen3_INCLUDEDIR:INTERNAL=
+EIGEN3_eigen3_LIBDIR:INTERNAL=
+EIGEN3_eigen3_PREFIX:INTERNAL=
+EIGEN3_eigen3_VERSION:INTERNAL=
 //Details about finding Boost
-FIND_PACKAGE_MESSAGE_DETAILS_Boost:INTERNAL=[/usr/lib/x86_64-linux-gnu/cmake/Boost-1.71.0/BoostConfig.cmake][cfound components: system ][v1.71.0()]
+FIND_PACKAGE_MESSAGE_DETAILS_Boost:INTERNAL=[/usr/lib/x86_64-linux-gnu/cmake/Boost-1.71.0/BoostConfig.cmake][cfound components: thread system filesystem program_options regex iostreams date_time ][v1.71.0(1.40.0)]
 //Details about finding CURL
 FIND_PACKAGE_MESSAGE_DETAILS_CURL:INTERNAL=[/usr/lib/x86_64-linux-gnu/libcurl.so][/usr/include/x86_64-linux-gnu][c ][v7.68.0()]
 //Details about finding DART
-FIND_PACKAGE_MESSAGE_DETAILS_DART:INTERNAL=[/usr/include][dart][cfound components: dart ][v(6.6)]
+FIND_PACKAGE_MESSAGE_DETAILS_DART:INTERNAL=[/usr/include][dart;dart;dart;dart;dart;dart;dart;dart;dart;dart;dart;dart;dart;dart;dart;dart;dart;dart;dart;dart;dart;dart;dart;dart;dart;dart;dart;dart;dart;dart;dart;dart;dart;dart;dart;dart;dart;dart;dart;dart;dart;dart;dart;dart;dart;dart;dart;dart;dart;dart;dart;dart;dart;dart;dart;dart;dart;dart;dart;dart;dart;dart;dart;dart;dart;dart;dart;dart;dart;dart;dart;dart;dart;dart;dart;dart;dart;dart;dart;dart;dart;dart;dart;dart;dart;dart;dart;dart;dart;dart;dart;dart;dart;dart;dart;dart;dart;dart;dart;dart;dart;dart;dart;dart;dart;dart;dart;dart;dart;dart;dart;dart;dart;dart][cfound components: dart ][v(6.6)]
 //Details about finding DL
 FIND_PACKAGE_MESSAGE_DETAILS_DL:INTERNAL=[true][v()]
 //Details about finding JSONCPP
@@ -2218,6 +2253,7 @@ _CMAKE_LINKER_PUSHPOP_STATE_SUPPORTED:INTERNAL=TRUE
 //CMAKE_INSTALL_PREFIX during last run
 _GNUInstallDirs_LAST_CMAKE_INSTALL_PREFIX:INTERNAL=/home/utente/Robotics_ICE23_UNITN/catkin_ws/install
 __pkg_config_arguments_BULLET:INTERNAL=bullet>=2.82
+__pkg_config_arguments_EIGEN3:INTERNAL=eigen3;REQUIRED
 __pkg_config_arguments_JSONCPP:INTERNAL=jsoncpp
 __pkg_config_arguments_OGRE_PKGC:INTERNAL=OGRE
 __pkg_config_arguments_PC_ASSIMP:INTERNAL=assimp;QUIET
@@ -2230,6 +2266,7 @@ __pkg_config_arguments_YAML:INTERNAL=yaml-0.1
 __pkg_config_arguments_ZIP:INTERNAL=libzip
 __pkg_config_arguments_ZeroMQ:INTERNAL=libzmq >= 4
 __pkg_config_checked_BULLET:INTERNAL=1
+__pkg_config_checked_EIGEN3:INTERNAL=1
 __pkg_config_checked_JSONCPP:INTERNAL=1
 __pkg_config_checked_OGRE_PKGC:INTERNAL=1
 __pkg_config_checked_PC_ASSIMP:INTERNAL=1

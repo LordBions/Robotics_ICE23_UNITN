@@ -1,8 +1,0 @@
-prefix=/home/utente/Robotics_ICE23_UNITN/catkin_ws/devel
-
-Name: robotname_description
-Description: Description of robotname_description
-Version: 1.0.0
-Cflags: 
-Libs: -L${prefix}/lib 
-Requires: 
