@@ -29,7 +29,7 @@ ROOT = Path(os.path.relpath(ROOT, Path.cwd()))  # relative
 
 VISION_PATH = os.path.abspath(os.path.join(ROOT, ".."))
 
-IMG_ROI = os.path.abspath(os.path.join(ROOT, "../DCIM/img_Area.png"))
+IMG_ROI = os.path.abspath(os.path.join(ROOT, "../images/img_Area.png"))
 
 WEIGHTS_PATH = os.path.join(VISION_PATH, "include/weights.pt")
 
