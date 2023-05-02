@@ -1,44 +1,38 @@
-"""!
+#!/usr/bin/python3
 
-Authors: Filippo Conti, Mattia Meneghin e Nicola Gianuzzi
+# Authors: Filippo Conti, Mattia Meneghin e Nicola Gianuzzi
 
-"""
-
-# ---------------------- IMPORT ----------------------
 import cv2
 import numpy as np
 from pathlib import Path
 import sys
 import os
 
-# ---------------------- GLOBAL CONSTANTS ----------------------
 FILE = Path(__file__).resolve()
+
 ROOT = FILE.parents[0]
+
 if str(ROOT) not in sys.path:
     sys.path.append(str(ROOT))  # add ROOT to PATH
+
 ROOT = Path(os.path.relpath(ROOT, Path.cwd()))  # relative
+
 USING_REAL_CAM = False
 
-# ---------------------- CLASS ----------------------
-
 class RecogniseArea:
-    """
-    @brief This class defines custom Region Of Interest
-    """
+    # @brief This class defines custom Region Of Interest
 
     def __init__(self, image_path, output_path):
-        """ @brief Class constructor
-            @param img_path (String): path of input image
-            @param output_path (String): path of out image
-        """
-
+        # @brief Class constructor
+        # @param img_path (String): path of input image
+        # @param output_path (String): path of out image
+        
         self.img_path = image_path
         self.output_path = output_path
         self.img = cv2.imread(self.img_path)
 
     def run_auto(self):
-        """ @brief automatically crop the region of interest depending on real camera or simulation camera
-        """
+        # @brief automatically crop the region of interest depending on real camera or simulation camera
 
         #create a mask of the same size of the image
         mask = np.zeros(self.img.shape[0:2], dtype=np.uint8)

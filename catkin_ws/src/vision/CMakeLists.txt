@@ -11,6 +11,9 @@ catkin_package()
 
 include_directories(include ${catkin_INCLUDE_DIRS})
 
+install(DIRECTORY include
+        DESTINATION ${CATKIN_PACKAGE_INCLUDE_DESTINATION})
+
 catkin_install_python(PROGRAMS
   scripts/vision.py
   scripts/recogniseLego.py

@@ -13,19 +13,13 @@
 #include "motion/pos.h"
 #include <std_msgs/Int32.h>
 
-// ------------------- DEFINES ------------------- //
-
 /// @brief Loop rate of the node
 #define LOOP_RATE 1000
 /// @brief Flag to indicate if the robot is real or simulated
 #define REAL_ROBOT 0
 
-// ------------------- NAMESPACES ------------------- //
-
 using namespace std;
 using namespace Eigen;
-
-// ------------------- GLOBAL VARIABLES ------------------- //
 
 /// @brief Publisher for the position of the block
 ros::Publisher pub_pos;
