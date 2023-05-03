@@ -113,15 +113,15 @@ class Vision:
 
             # Create msg for pos_pub
             pos_msg = pos()
-            pos_msg.class_id = lego.class_id
-            pos_msg.x = lego.point_world[0, 0]
-            pos_msg.y = lego.point_world[0, 1]
-            pos_msg.z = lego.point_world[0, 2]
-            pos_msg.pitch = 0
-            pos_msg.roll = 0
-            pos_msg.yaw = 0
+            pos_msg.lego_class = lego.class_id
+            pos_msg.coord_x = lego.point_world[0, 0]
+            pos_msg.coord_y = lego.point_world[0, 1]
+            pos_msg.coord_z = lego.point_world[0, 2]
+            pos_msg.rot_pitch = 0
+            pos_msg.rot_roll = 0
+            pos_msg.rot_yaw = 0
 
-            if pos_msg.z < OFF_SET:
+            if pos_msg.coord_z < OFF_SET:
                 self.pos_msg_list.append(pos_msg)
             
         print('\nVISION DONE DETECTING LEGO!\nREADY FOR MOTION!')

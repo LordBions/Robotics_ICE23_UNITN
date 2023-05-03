@@ -4,122 +4,136 @@
 *
 */
 
+#include <iostream>
+#include <cmath>
+#include <complex>
+#include <Eigen/Dense>
 #include "ros/ros.h"
 #include "kinetics.h"
-#include <cmath>
-#include <Eigen/Dense>
-#include <iostream>
-#include <complex>
 #include "motion/pos.h"
 #include <std_msgs/Int32.h>
 
-/// @brief Loop rate of the node
-#define LOOP_RATE 1000
-/// @brief Flag to indicate if the robot is real or simulated
-#define REAL_ROBOT 0
-
 using namespace std;
-using namespace Eigen;
 
-/// @brief Publisher for the position of the block
-ros::Publisher pub_pos;
-/// @brief Publisher for the ack
-ros::Publisher pub_ack;
-/// @brief Subscriber for the vision topic
-ros::Subscriber sub_vision;
-/// @brief Subscriber for the ack topic
-ros::Subscriber sub_ack;
-/// @brief Subscriber for the stop topic
-ros::Subscriber sub_stop;
-/// @brief Flag to indicate that the vision msg is received
-int vision_received = 0;
-/// @brief Flag to indicate that the vision is on
-int vision_on = 1;
-/// @brief Position of the block
-Vector3f block_pos;
-/// @brief Rotation of the block
-Vector3f block_rot;
-/// @brief Class of the block
-int block_class;
-/// @brief Flag to indicate that the motion is finished
-int ready = 1;
-/// @brief Flag to indicate that the task manager has to stop
-int stop = 0;
+#define node_name "motion_planner"
+#define pub_position_address "/motion/pos"
+#define pub_position_ack_address "/vision/ack"
+#define sub_vision_address "/vision/pos"          
+#define sub_position_ack_address "/motion/ack"           
+#define sub_stop_address "/planner/stop"
 
-// ------------------- FUNCTIONS PROTOTIPES ------------------- //
+#define queque_size 10
+#define loop_wait_rate 1000 
 
-Vector3f worldToBase(Vector3f xw);
-Vector3f cameraToWorld(Vector3f xw);
+ros::Publisher pub_position_handle, pub_position_ack_handle; 
+ros::Subscriber sub_vision_handle, sub_position_ack_handle, sub_stop_handle;      
+
+bool is_real_robot = false;
+bool is_vision_on = true;   
+bool is_vision_msg_received = false;                
+bool ready_flag = true;                         
+bool stop_planner = false;                        
+
+int block_class;                        // Class of the block
+Eigen::Vector3f block_pos;              // Position of the block
+Eigen::Vector3f block_rot;              // Rotation of the block
+
+Eigen::Vector3f worldToBase(Eigen::Vector3f xw);
+Eigen::Vector3f cameraToWorld(Eigen::Vector3f xw);
 void visionCallback(const motion::pos::ConstPtr &msg);
 void ackCallback(const std_msgs::Int32::ConstPtr &msg);
 void stopCallback(const std_msgs::Int32::ConstPtr &msg);
 void ack();
 
-// ------------------- MAIN ------------------- //
+int main(int argc, char **argv) {
 
-int main(int argc, char **argv)
-{
-    cout << "Running the planner module!" << endl << endl;
+    cout << "Starting the planner module!" << endl;
+    cout << "----------------------------" << endl << endl;
     
-    ros::init(argc, argv, "motion_planner");
-    ros::NodeHandle n;
+    ros::init(argc, argv, node_name);
+    ros::NodeHandle node_handle;
+    cout << "Node: " << node_name << " initialized!" << endl;
 
-    pub_pos = n.advertise<motion::pos>("/motion/pos", 1);
-    pub_ack = n.advertise<std_msgs::Int32>("/vision/ack", 1);
+    pub_position_handle = node_handle.advertise<motion::pos>(pub_position_address, queque_size);
+    cout << "Publisher: " << pub_position_address << " enabled with queque: " << queque_size << endl;
 
-    sub_vision = n.subscribe("/vision/pos", 1, visionCallback);
-    sub_ack = n.subscribe("/motion/ack", 1, ackCallback);
-    sub_stop = n.subscribe("/planner/stop", 1, stopCallback);
+    pub_position_ack_handle = node_handle.advertise<std_msgs::Int32>(pub_position_ack_address, queque_size);
+    cout << "Publisher: " << pub_position_ack_address << " enabled with queque: " << queque_size << endl;
 
-    ros::Rate loop_rate(LOOP_RATE);
+    sub_vision_handle = node_handle.subscribe(sub_vision_address, queque_size, visionCallback);
+    cout << "Subscriber: " << sub_vision_address << " enabled with queque: " << queque_size << endl;
+
+    sub_position_ack_handle = node_handle.subscribe(sub_position_ack_address, queque_size, ackCallback);
+    cout << "Subscriber: " << sub_position_ack_address << " enabled with queque: " << queque_size << endl;
+    
+    sub_stop_handle = node_handle.subscribe(sub_stop_address, queque_size, stopCallback);
+    cout << "Subscriber: " << sub_stop_address << " enabled with queque: " << queque_size << endl;
+    cout << "----------------------------" << endl << endl;
+
+    ros::Rate loop_rate(loop_wait_rate);
 
     motion::pos msg;
 
-    while (ros::ok())
-    {
-        while (pub_pos.getNumSubscribers() < 1)
-            loop_rate.sleep();
-        if (!vision_on)             // If the vision is not on, the user has to insert the position of the block        
-        {
-            if (ready)              // If the motion is finished, the user can insert the position of the block
-            {
-                ready = 0;
-                cout << "Insert the position (x y z roll pitch yaw): ";
-                cin >> msg.x >> msg.y >> msg.z >> msg.roll >> msg.pitch >> msg.yaw;
-                cout << "Insert the class id: ";
-                cin >> msg.class_id;
-                pub_pos.publish(msg);
-            }
-        }
-        else                                      // Vision is on
-        {
-            if (vision_received && ready && !stop)         // If vision msg is received and the motion is finished, send the position to the motion
-            {
-                ready = 0;
-                cout << "Blocks coordinates received from vision" << endl;
-                cout << "Block position: " << block_pos.transpose() << endl;
-                cout << "Block rotation: " << block_rot.transpose() << endl;
-                cout << "Block class: " << block_class << endl << endl;
-                if (REAL_ROBOT)
-                    block_pos = cameraToWorld(block_pos);
-                else
-                block_pos = worldToBase(block_pos);
-                msg.x = block_pos(0);
-                msg.y = block_pos(1);
-                msg.z = 0.82;
-                msg.roll = block_rot(0);
-                msg.pitch = block_rot(1);
-                msg.yaw = block_rot(2);
-                msg.class_id = block_class;
-                vision_received = 0;
-                pub_pos.publish(msg);
-            }
-        }
-        ros::spinOnce();
-    }
-}
+    while (ros::ok()) {
 
-// ------------------- FUNCTIONS DEFINITIONS ------------------- //
+        while (pub_position_handle.getNumSubscribers() < 1) {
+
+            loop_rate.sleep();
+        }
+                        
+        if (!is_vision_on) {            // If the vision is not on, the user has to insert the position of the block        
+        
+            if (ready_flag) {             // If the motion is finished, the user can insert the position of the block
+            
+                ready_flag = false;
+
+                cout << "Insert the position (x y z roll pitch yaw): ";
+                cin >> msg.coord_x >> msg.coord_y >> msg.coord_z >> msg.rot_roll >> msg.rot_pitch >> msg.rot_yaw;
+                
+                cout << "Insert the lego class: ";
+                cin >> msg.lego_class;
+
+                pub_position_handle.publish(msg);
+            }
+        }
+        else {                                    // Vision is on
+        
+            if (is_vision_msg_received && ready_flag && !stop_planner) {        // If vision msg is received and the motion is finished, send the position to the motion
+                
+                ready_flag = false;
+
+                cout << "Blocks coordinates received from vision" << endl;
+                cout << "Block class: " << block_class << endl;
+                cout << "Block position: " << block_pos.transpose() << endl;
+                cout << "Block rotation: " << block_rot.transpose() << endl << endl;
+
+                if (is_real_robot) {                    
+                    block_pos = cameraToWorld(block_pos);
+                }                    
+                else {
+                    block_pos = worldToBase(block_pos);
+                }
+
+                msg.lego_class = block_class;
+
+                msg.coord_x = block_pos(0);
+                msg.coord_y = block_pos(1);
+                msg.coord_z = 0.82;
+
+                msg.rot_roll = block_rot(0);
+                msg.rot_pitch = block_rot(1);
+                msg.rot_yaw = block_rot(2);
+
+                is_vision_msg_received = false;
+                pub_position_handle.publish(msg);
+            }
+        }
+
+        ros::spinOnce();
+
+    }
+
+}
 
 /**
  * @brief Convert the position of the block from the world frame to the base frame
@@ -127,17 +141,16 @@ int main(int argc, char **argv)
  * @param xw 3D vector representing the position of the block in the world frame
  * @return Vector3f 
  */
-Vector3f worldToBase(Vector3f xw)
-{
-    Matrix4f T;
-    Vector3f xb;
-    Vector4f xt;
-    T << 1, 0, 0, 0.5,
-        0, -1, 0, 0.35,
-        0, 0, -1, 1.75,
-        0, 0, 0, 1;
-    xt = T.inverse() * Vector4f(xw(0), xw(1), xw(2), 1);
+Eigen::Vector3f worldToBase(Eigen::Vector3f xw) {
+
+    Eigen::Matrix4f T;
+    Eigen::Vector3f xb;
+    Eigen::Vector4f xt;
+    
+    T << 1, 0, 0, 0.5, 0, -1, 0, 0.35, 0, 0, -1, 1.75, 0, 0, 0, 1;
+    xt = T.inverse() * Eigen::Vector4f(xw(0), xw(1), xw(2), 1);
     xb << xt(0), xt(1), xt(2);
+
     return xb;
 }
 
@@ -147,17 +160,17 @@ Vector3f worldToBase(Vector3f xw)
  * @param xw 3D vector representing the position of the block in the camera frame
  * @return Vector3f 
  */
-Vector3f cameraToWorld(Vector3f xw)
-{
-    Matrix4f T;
-    Vector3f xb;
-    Vector4f xt;
-    T << 0.866, 0, 0.5, -0.4,
-              0, 1, 0, 0.53,
-              -0.5, 0, 0.866, 1.4,
-              0, 0, 0, 1;
-    xt = T * Vector4f(xw(0), xw(1), xw(2), 1);
+
+Eigen::Vector3f cameraToWorld(Eigen::Vector3f xw) {
+
+    Eigen::Matrix4f T;
+    Eigen::Vector3f xb;
+    Eigen::Vector4f xt;
+    
+    T << 0.866, 0, 0.5, -0.4, 0, 1, 0, 0.53, -0.5, 0, 0.866, 1.4, 0, 0, 0, 1;
+    xt = T * Eigen::Vector4f(xw(0), xw(1), xw(2), 1);
     xb << xt(0), xt(1), xt(2);
+
     return xb;
 }
 
@@ -166,12 +179,13 @@ Vector3f cameraToWorld(Vector3f xw)
  * 
  * @param msg message received
  */
-void visionCallback(const motion::pos::ConstPtr &msg)
-{
-    vision_received = 1;                            // flag to indicate that the vision msg is received
-    block_pos << msg->x, msg->y, msg->z;
-    block_rot << msg->roll, msg->pitch, msg->yaw;
-    block_class = msg->class_id;
+void visionCallback(const motion::pos::ConstPtr &msg) {
+
+    is_vision_msg_received = true;                      
+    
+    block_pos << msg->coord_x, msg->coord_y, msg->coord_z;
+    block_rot << msg->rot_roll, msg->rot_pitch, msg->rot_yaw;
+    block_class = msg->lego_class;
 }
 
 /**
@@ -179,9 +193,9 @@ void visionCallback(const motion::pos::ConstPtr &msg)
  * 
  * @param msg message received
  */
-void ackCallback(const std_msgs::Int32::ConstPtr &msg)
-{
-    ready = msg->data;
+void ackCallback(const std_msgs::Int32::ConstPtr &msg) {
+
+    ready_flag = msg->data;
     ack();
 }
 
@@ -190,12 +204,12 @@ void ackCallback(const std_msgs::Int32::ConstPtr &msg)
  *              - send it when the robot has finished the motion task
  * 
  */
-void ack()
-{
-    ros::Rate loop_rate(LOOP_RATE);
+void ack() {
+
+    ros::Rate loop_rate(loop_wait_rate);
     std_msgs::Int32 ack;
     ack.data = 1;
-    pub_ack.publish(ack);
+    pub_position_ack_handle.publish(ack);
 }
 
 /**
@@ -203,7 +217,7 @@ void ack()
  * 
  * @param msg 
  */
-void stopCallback(const std_msgs::Int32::ConstPtr &msg)
-{
-    stop = msg->data;
+void stopCallback(const std_msgs::Int32::ConstPtr &msg) {
+
+    stop_planner = msg->data;
 }

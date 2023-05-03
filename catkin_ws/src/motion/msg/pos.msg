@@ -1,7 +1,7 @@
-int32 class_id
-float64 x
-float64 y
-float64 z
-float64 roll
-float64 pitch
-float64 yaw
+int32 lego_class
+float64 coord_x
+float64 coord_y
+float64 coord_z
+float64 rot_roll
+float64 rot_pitch
+float64 rot_yaw
