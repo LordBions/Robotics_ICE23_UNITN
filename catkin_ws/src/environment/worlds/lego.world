@@ -61,8 +61,8 @@
         <uri>model://person_standing</uri>
          <pose>-1 1 0 0 0 -3.1415926535</pose>
       </include>
-    </model>      
-    
+    </model>   
+        
     <!-- zed camera -->
      <gui>
     <camera name="gzclient_camera">

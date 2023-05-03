@@ -13,7 +13,7 @@ from sensor_msgs.msg import Image
 import sensor_msgs.point_cloud2 as point_cloud2
 from sensor_msgs.msg import PointCloud2
 from std_msgs.msg import Int32
-from motion.msg import pos
+from motion.msg import position
 from recogniseLego import RecogniseLego
 
 FILE = Path(__file__).resolve()
@@ -59,9 +59,9 @@ class Vision:
         # Subscribe and publish to ros nodes
         self.image_sub = ros.Subscriber("/ur5/zed_node/left_raw/image_raw_color", Image, self.receive_image)
         self.pointcloud_sub = ros.Subscriber("/ur5/zed_node/point_cloud/cloud_registered", PointCloud2, self.receive_pointcloud, queue_size=1)
-        self.pos_pub = ros.Publisher("/vision/pos", pos, queue_size=1)
+        self.pos_pub = ros.Publisher("/vision/pos", position, queue_size=10)
         self.ack_sub = ros.Subscriber('/vision/ack', Int32, self.ackCallbak)
-        self.ack_pub = ros.Publisher('/planner/stop', Int32, queue_size=1)
+        self.ack_pub = ros.Publisher('/planner/stop', Int32, queue_size=10)
         
     def receive_image(self, data):
         # @brief Callback function whenever take msg from ZED camera
@@ -112,7 +112,7 @@ class Vision:
             lego.show()
 
             # Create msg for pos_pub
-            pos_msg = pos()
+            pos_msg = position()
             pos_msg.lego_class = lego.class_id
             pos_msg.coord_x = lego.point_world[0, 0]
             pos_msg.coord_y = lego.point_world[0, 1]

@@ -10,7 +10,7 @@
 #include <Eigen/Dense>
 #include "ros/ros.h"
 #include "kinetics.h"
-#include "motion/pos.h"
+#include "motion/position.h"
 #include <std_msgs/Int32.h>
 #include <std_msgs/Float64MultiArray.h>
 #include <ros_impedance_controller/generic_float.h>
@@ -26,6 +26,8 @@ using namespace std;
 #define queque_size 10
 #define loop_wait_rate 1000 
 #define joint_number 9
+#define default_target_position -0.4, -0.4, 0.4
+#define default_joint_state_vector -0.32, -0.78, -2.56, -1.63, -1.57, 3.49
 #define default_dt 0.001
 
 ros::Publisher pub_joint_handle, pub_position_ack_handle;
@@ -54,13 +56,13 @@ Eigen::VectorXf inverseSpeedKinematic(Eigen::VectorXf q, Eigen::Vector3f xe, Eig
 Eigen::Vector3f correctOrientation(Matrix3f w_R_e, Matrix3f w_R_d);
 void updateJointStates(Eigen::VectorXf q);
 float gripper2joints(float diameter);
-void subscriberCallback(const motion::pos::ConstPtr &msg);
+void subscriberCallback(const motion::position::ConstPtr &mex);
 void moveProcedure();
 void graspObject();
-void sendReadyACK();
+void pubReadyACK();
 
-int main(int argc, char **argv)
-{
+int main(int argc, char **argv) {
+
     cout << "Starting the moviment module!" << endl;
     cout << "----------------------------" << endl << endl;
 
@@ -95,10 +97,14 @@ int main(int argc, char **argv)
 
 void defaultUR5Position() {
 
-    Vector3f target;
-    target << -0.4, -0.4, 0.6;
+    cout << "Moving UR5 to default position..." << endl;
 
-    inverseDifferentialKinematic(target, obj_pos_or.orientation, default_dt);
+    Vector3f default_pos_vector;
+    default_pos_vector << default_target_position;
+
+    inverseDifferentialKinematic(default_pos_vector, obj_pos_or.orientation, default_dt);
+
+    cout << "UR5 reached the default position!" << endl;
 }
 
 void inverseDifferentialKinematic(Eigen::Vector3f xef, Eigen::Vector3f phief, float dt) {
@@ -106,7 +112,7 @@ void inverseDifferentialKinematic(Eigen::Vector3f xef, Eigen::Vector3f phief, fl
     frame start_frame, current_frame;
 
     if  (initial_state) {
-         joint_state_vector << -0.32, -0.78, -2.56, -1.63, -1.57, 3.49; // initial joint configuration
+         joint_state_vector << default_joint_state_vector; // initial joint configuration
     }
 
     initial_state = false;
@@ -249,27 +255,40 @@ float gripper2joints(float diameter) {
     return alpha;
 }
 
-void subscriberCallback(const motion::pos::ConstPtr &msg) {
+void subscriberCallback(const motion::position::ConstPtr &mex) {
 
-    lego_class = msg->lego_class;
+    cout << endl;
+    cout << "Subscriber: " << sub_position_address << " receved some data:" << endl;
 
-    obj_pos_or.position(0) = msg->coord_x;
-    obj_pos_or.position(1) = msg->coord_y;
-    obj_pos_or.position(2) = msg->coord_z;
+    lego_class = mex->lego_class;
+    cout << "Lego class: " << lego_class << endl;
 
-    obj_pos_or.orientation(0) = msg->rot_roll;
-    obj_pos_or.orientation(1) = msg->rot_pitch;
-    obj_pos_or.orientation(2) = msg->rot_yaw;
+    obj_pos_or.position(0) = mex->coord_x;
+    cout << "X coordinate: " << obj_pos_or.position(0) << endl;
+    obj_pos_or.position(1) = mex->coord_y;
+    cout << "Y coordinate: " << obj_pos_or.position(1) << endl;
+    obj_pos_or.position(2) = mex->coord_z;
+    cout << "Z coordinate: " << obj_pos_or.position(2) << endl;
 
+    obj_pos_or.orientation(0) = mex->rot_roll;
+    cout << "Roll orientation: " << obj_pos_or.orientation(0) << endl;
+    obj_pos_or.orientation(1) = mex->rot_pitch;
+    cout << "Pitch orientation: " << obj_pos_or.orientation(1) << endl;
+    obj_pos_or.orientation(2) = mex->rot_yaw;
+    cout << "Yaw orientation: " << obj_pos_or.orientation(2) << endl; 
+    
     moveProcedure();
+
+    cout << endl;
 }
 
 void moveProcedure() {
 
+    cout << "Starting the moving procedure..." << endl << endl;
+
     ros::Rate loop_rate(loop_wait_rate);
 
-    float dt; // time step
-    dt = 0.001;
+    float dt = default_dt;
     Vector3f target;
     target << obj_pos_or.position(0), obj_pos_or.position(1), 0.6;
 
@@ -368,7 +387,9 @@ void moveProcedure() {
     inverseDifferentialKinematic(target, obj_pos_or.orientation, dt);
     
     defaultUR5Position();		
-    sendReadyACK();
+    pubReadyACK();
+
+    cout << "Moving procedure terminated" << endl << endl;
 }
 
 void graspObject() {
@@ -384,15 +405,22 @@ void graspObject() {
     }
 }
 
-void sendReadyACK() {
+void pubReadyACK() {
+
+    cout << endl;
 
     ros::Rate loop_rate(loop_wait_rate);
     std_msgs::Int32 ack_msg;
-    ack_msg.data = 1;
+    ack_msg.data = true;
     
-    for (int i = 0; i < 40; i++) { // wait a little bit before sending the ack to the taskManager (not stress too much the robot)
+    for (int i = 0; i < 40; i++) { // wait a little bit before sending the ack 
         loop_rate.sleep();
     }
     
     pub_joint_handle.publish(ack_msg);
+
+    cout << "Publisher: " << pub_joint_address << " sends some data:" << endl;
+    cout << "Acknowledgment: " << ack_msg << endl;
+
+    cout << endl;
 }

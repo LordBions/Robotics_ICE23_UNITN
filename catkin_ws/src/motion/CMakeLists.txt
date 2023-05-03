@@ -11,7 +11,7 @@ find_package(Eigen3 3.3 REQUIRED)
 
 add_message_files(
   FILES
-  pos.msg
+  position.msg
 )
 
 generate_messages(

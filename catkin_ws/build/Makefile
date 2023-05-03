@@ -1303,17 +1303,17 @@ motion_generate_messages/fast:
 .PHONY : motion_generate_messages/fast
 
 #=============================================================================
-# Target rules for targets named _motion_generate_messages_check_deps_pos
+# Target rules for targets named _motion_generate_messages_check_deps_position
 
 # Build rule for target.
-_motion_generate_messages_check_deps_pos: cmake_check_build_system
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 _motion_generate_messages_check_deps_pos
-.PHONY : _motion_generate_messages_check_deps_pos
+_motion_generate_messages_check_deps_position: cmake_check_build_system
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 _motion_generate_messages_check_deps_position
+.PHONY : _motion_generate_messages_check_deps_position
 
 # fast build rule for target.
-_motion_generate_messages_check_deps_pos/fast:
-	$(MAKE) $(MAKESILENT) -f motion/CMakeFiles/_motion_generate_messages_check_deps_pos.dir/build.make motion/CMakeFiles/_motion_generate_messages_check_deps_pos.dir/build
-.PHONY : _motion_generate_messages_check_deps_pos/fast
+_motion_generate_messages_check_deps_position/fast:
+	$(MAKE) $(MAKESILENT) -f motion/CMakeFiles/_motion_generate_messages_check_deps_position.dir/build.make motion/CMakeFiles/_motion_generate_messages_check_deps_position.dir/build
+.PHONY : _motion_generate_messages_check_deps_position/fast
 
 #=============================================================================
 # Target rules for targets named motion_generate_messages_cpp
@@ -2982,7 +2982,7 @@ help:
 	@echo "... _catkin_empty_exported_target"
 	@echo "... _gazebo_grasp_plugin_ros_generate_messages_check_deps_GazeboGraspEvent"
 	@echo "... _gazebo_test_tools_generate_messages_check_deps_RecognizeGazeboObject"
-	@echo "... _motion_generate_messages_check_deps_pos"
+	@echo "... _motion_generate_messages_check_deps_position"
 	@echo "... _object_msgs_generate_messages_check_deps_Object"
 	@echo "... _object_msgs_generate_messages_check_deps_ObjectInfo"
 	@echo "... _object_msgs_generate_messages_check_deps_ObjectPose"
