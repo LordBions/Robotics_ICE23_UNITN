@@ -15,17 +15,17 @@ read -p " Please insert the assignment to execute: " assignment
 rosrun ros_impedance_controller spawnLego.py -a $assignment
 
 echo " "
-echo "Starting the Planner..."
+echo "Starting the Planner module..."
 gnome-terminal -- rosrun motion planner
 sleep 3
 
 echo " "
-echo "Starting the moviment..."
+echo "Starting the Moviment module..."
 gnome-terminal -- rosrun motion moviment
 sleep 3
 
 echo " "
-echo "Starting the vision..."
+echo "Starting the Vision module..."
 gnome-terminal -- rosrun vision vision.py
 sleep 3
 
