@@ -134,7 +134,8 @@
 /home/utente/Robotics_ICE23_UNITN/catkin_ws/build/control/cpp/CMakeFiles/install/local.dir
 /home/utente/Robotics_ICE23_UNITN/catkin_ws/build/control/cpp/CMakeFiles/install/strip.dir
 /home/utente/Robotics_ICE23_UNITN/catkin_ws/build/motion/CMakeFiles/motion_generate_messages.dir
-/home/utente/Robotics_ICE23_UNITN/catkin_ws/build/motion/CMakeFiles/_motion_generate_messages_check_deps_position.dir
+/home/utente/Robotics_ICE23_UNITN/catkin_ws/build/motion/CMakeFiles/_motion_generate_messages_check_deps_legoTask.dir
+/home/utente/Robotics_ICE23_UNITN/catkin_ws/build/motion/CMakeFiles/_motion_generate_messages_check_deps_legoFound.dir
 /home/utente/Robotics_ICE23_UNITN/catkin_ws/build/motion/CMakeFiles/motion_generate_messages_cpp.dir
 /home/utente/Robotics_ICE23_UNITN/catkin_ws/build/motion/CMakeFiles/motion_gencpp.dir
 /home/utente/Robotics_ICE23_UNITN/catkin_ws/build/motion/CMakeFiles/motion_generate_messages_eus.dir

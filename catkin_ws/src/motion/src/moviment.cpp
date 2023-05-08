@@ -8,7 +8,7 @@
 #include <Eigen/Dense>
 #include "ros/ros.h"
 #include "kinetics.h"
-#include "motion/position.h"
+#include "motion/legoTask.h"
 #include <std_msgs/Int32.h>
 #include <std_msgs/Float64MultiArray.h>
 #include <ros_impedance_controller/generic_float.h>
@@ -17,70 +17,71 @@ using namespace std;
 
 #define node_name "ur5_arm_publisher"
 #define pub_joint_address "/ur5/joint_group_pos_controller/command"
-#define pub_position_ack_address "/motion/position_ack"
-#define sub_position_address "/motion/pos"
+#define pub_motion_ack_address "/motion/readyACK"
+#define sub_position_address "/motion/taskCommander"
 #define client_gripper_address "/move_gripper"
 
 #define queque_size 10
-#define loop_wait_rate 1000 
+#define loop_wait_rate 1000 // 1 Hz
 #define joint_number 9
-#define default_target_position -0.4, -0.4, 0.4 // x, y z
-#define default_joint_state_vector -0.32, -0.78, -2.56, -1.63, -1.57, 3.49
-#define default_dt 0.001
-#define default_max_traj_time 6
-#define sleep_time 50
 #define position_gain 5
 #define orientation_gain 30
-#define half_point 0, -0.4, 0.6
-#define grasp_value 45
-#define no_grasp_value 100
+
+#define command_catch 1
+#define command_move 2
+#define command_grasp 3
+#define command_ungrasp 4
+
+#define default_joint_state_vector -0.32, -0.78, -2.56, -1.63, -1.57, 3.49
+#define default_target_position -0.3, -0.6, 0.4 // x, y, z
+#define half_point 0.0, -0.4, 0.6 // x, y, z
+#define z_above_object 0.7 // z
 #define null_vector 0, 0, 0
-#define z_above_object 0.6
 
-#define class_00_relocation 0.4, -0.00, 0.82
-#define class_01_relocation 0.4, -0.05, 0.82
-#define class_02_relocation 0.4, -0.10, 0.82
-#define class_03_relocation 0.4, -0.15, 0.82
-#define class_04_relocation 0.4, -0.20, 0.82
-#define class_05_relocation 0.4, -0.25, 0.82
-#define class_06_relocation 0.4, -0.30, 0.82
-#define class_07_relocation 0.4, -0.35, 0.82
-#define class_08_relocation 0.4, -0.40, 0.82
-#define class_09_relocation 0.4, -0.45, 0.82
-#define class_10_relocation 0.4, -0.50, 0.82
+#define default_dt 0.001
+#define default_max_traj_time 7
+#define sleep_time 50
+#define damping_exponent -5
 
-ros::Publisher pub_joint_handle, pub_position_ack_handle;
+#define joint_n6_still_value 3.49
+#define virtual_graspOff_diameter 100
+#define real_robot_graspOff_diameter 100
+#define max_joint_speed 1.5
+#define min_joint_speed -1.5
+#define max_diameter_ext 130
+#define min_diameter_ext 22
+
+ros::Publisher pub_joint_handle, pub_motionReady_handle;
 ros::Subscriber sub_position_handle;
 ros::ServiceClient client_gripper_handle;
 				    
 bool is_real_robot = false;	
-bool grasp_flag = false;
-bool initial_state = true;			        
-int lego_class;		
+int command_id;		
+float lego_grasp_diameter;
 
 struct objectPositionOrientation {
     Eigen::Vector3f position;
     Eigen::Vector3f orientation;
 };
 
-objectPositionOrientation obj_pos_or; 	
+objectPositionOrientation obj_po_begin; 	
+objectPositionOrientation obj_po_dest; 
 					                      
-Eigen::VectorXf joint_state_vector(6);				        				                
+Eigen::VectorXf joint_state_vector(6);	
+Eigen::VectorXf gripper_state_vector(3);			        				                
 double max_trajectory_time = default_max_traj_time;		     
 
 void moveDefaultPosition();
 void moveProcedure(Eigen::Vector3f v_position, Vector3f v_orientation, float dt);
-Eigen::Vector3f getTrajectory(double time, Eigen::Vector3f final_position, Eigen::Vector3f begin_position);
-Eigen::VectorXf inverseSpeedKinematic(Eigen::VectorXf joint_st, Eigen::Vector3f curr_position, Eigen::Vector3f destin_position, Eigen::Vector3f velocity, Eigen::Matrix3f curr_orientation, Eigen::Vector3f final_orientation);
-Eigen::Vector3f correctOrientation(Matrix3f final_orientation, Matrix3f curr_orientation);
-void updateJointStates(Eigen::VectorXf q);
+Eigen::Vector3f getTrajectory(double time, Eigen::Vector3f begin_position, Eigen::Vector3f final_position);
+Eigen::VectorXf getJointSpeeds(Eigen::VectorXf joint_st, Eigen::Vector3f curr_position, Eigen::Vector3f destin_position, Eigen::Vector3f velocity, Eigen::Matrix3f curr_orientation, Eigen::Vector3f final_orientation);
+Eigen::Vector3f correctOrientation(Eigen::Matrix3f curr_orientation, Eigen::Matrix3f final_orientation );
+void updateJointStates(Eigen::VectorXf joint_st);
 float gripper2joints(float diameter);
-void subscriberCallback(const motion::position::ConstPtr &mex);
+void subscriberCallback(const motion::legoTask::ConstPtr &mex);
 void catchProcedure();
-void graspObject();
-Eigen::Vector3f selectClassDesitnation(int lego_cl);
+void graspObject(bool catchIt);
 void pubReadyACK();
-void waitForAWhile();
 
 int main(int argc, char **argv) {
 
@@ -94,8 +95,8 @@ int main(int argc, char **argv) {
     pub_joint_handle = node_handle.advertise<std_msgs::Float64MultiArray>(pub_joint_address, queque_size);
     cout << "Publisher: " << pub_joint_address << " enabled with queque: " << queque_size << endl;
     
-    pub_position_ack_handle = node_handle.advertise<std_msgs::Int32>(pub_position_ack_address, queque_size);
-    cout << "Publisher: " << pub_position_ack_address << " enabled with queque: " << queque_size << endl;
+    pub_motionReady_handle = node_handle.advertise<std_msgs::Int32>(pub_motion_ack_address, queque_size);
+    cout << "Publisher: " << pub_motion_ack_address << " enabled with queque: " << queque_size << endl;
 
     sub_position_handle = node_handle.subscribe(sub_position_address, queque_size, subscriberCallback);
     cout << "Subscriber: " << sub_position_address << " enabled with queque: " << queque_size << endl;
@@ -106,6 +107,7 @@ int main(int argc, char **argv) {
 
     joint_state_vector << default_joint_state_vector;
 
+    graspObject(false);
     moveDefaultPosition();
 
     cout << "Moviment module ready!" << endl;
@@ -122,123 +124,91 @@ void moveDefaultPosition() {
     Vector3f default_pos_vector;
     default_pos_vector << default_target_position;
 
-    moveProcedure(default_pos_vector, obj_pos_or.orientation, default_dt);
+    moveProcedure(default_pos_vector, obj_po_begin.orientation, default_dt);
 
     cout << "UR5 reached the default position!" << endl;
 }
 
 void moveProcedure(Eigen::Vector3f v_position, Eigen::Vector3f v_orientation, float dt) {
 
-    frame start_frame, current_frame;
+    end_effector start_ef, current_ef;
+    start_ef = directKinematic(joint_state_vector);
 
-    if  (initial_state) {
-        joint_state_vector << default_joint_state_vector; 
-        initial_state = false;
-    }
+    Eigen::Vector3f velocity;
+    Eigen::VectorXf joint_speed_k(6);
 
-    start_frame = directKin(joint_state_vector);
-
-    Eigen::VectorXf qk = joint_state_vector;           // set the initial joint config
-    Eigen::VectorXf qk1(6);             // joint config
-
-    Eigen::Matrix3f kp; // position gain
-    kp = Eigen::Matrix3f::Identity() * position_gain;
-
-    Eigen::Matrix3f kphi; // orientation gain
-    kphi = Eigen::Matrix3f::Identity() * orientation_gain;
-
-    Eigen::VectorXf dotqk(6); // joint velocities coefficients
-
-    Eigen::Vector3f velocity; // desired linear velocity     // get the inverse kinematics matrix
+    Eigen::VectorXf joint_st = joint_state_vector;                   
 
     for (double i = dt; i <= max_trajectory_time; i += dt) {
 
-        current_frame = directKin(qk); // get the current frame
+        current_ef = directKinematic(joint_st);
 
-        velocity = (getTrajectory(i, v_position, start_frame.xyz) - getTrajectory(i - dt, v_position, start_frame.xyz)) / dt; // desired linear velocity
+        velocity = (getTrajectory(i, start_ef.posit, v_position) - getTrajectory(i - dt, start_ef.posit, v_position)) / dt;
 
-        // coefficient
-        dotqk = inverseSpeedKinematic(qk, current_frame.xyz, getTrajectory(i, v_position, start_frame.xyz), velocity, current_frame.rot, v_orientation);
+        joint_speed_k = getJointSpeeds(joint_st, current_ef.posit, getTrajectory(i, start_ef.posit, v_position), velocity, current_ef.orient, v_orientation);
 
-        // euler integration
-        qk1 = qk + dotqk * dt;
-        qk = qk1;
-        updateJointStates(qk);
+        joint_st = joint_st + joint_speed_k * dt;
+
+        updateJointStates(joint_st);
     }
 
-    joint_state_vector = qk;
+    joint_state_vector = joint_st;
 }
 
-Eigen::Vector3f getTrajectory(double time, Eigen::Vector3f final_position, Eigen::Vector3f begin_position) { // invertire parametri
+Eigen::Vector3f getTrajectory(double time, Eigen::Vector3f begin_position, Eigen::Vector3f final_position) {
 
-    double t_norm = time / max_trajectory_time;
+    double time_ratio = time / max_trajectory_time;
 
-    if (t_norm > 1) {
-        return final_position;
-    } else {
-        return t_norm * final_position + (1 - t_norm) * begin_position;
-    }
+    if (time_ratio > 1) { return final_position; }
+    else { return final_position * time_ratio + begin_position * (1 - time_ratio); }
 }
 
-Eigen::VectorXf inverseSpeedKinematic(Eigen::VectorXf joint_st, Eigen::Vector3f curr_position, Eigen::Vector3f destin_position, Eigen::Vector3f velocity, Eigen::Matrix3f curr_orientation, Eigen::Vector3f final_orientation) {
+Eigen::VectorXf getJointSpeeds(Eigen::VectorXf joint_st, Eigen::Vector3f curr_position, Eigen::Vector3f destin_position, Eigen::Vector3f velocity, Eigen::Matrix3f curr_orientation, Eigen::Vector3f final_orientation) {
 
-    float k = pow(10, -5); // damping coefficient
-    Eigen::Matrix3f w_R_d = eul2rotm(final_orientation);
-    Eigen::Vector3f error_o = correctOrientation(curr_orientation, w_R_d);
-    
-    Eigen::MatrixXf J;      // jacobian matrix
-    J = jacobian(joint_st); // get the jacobian matrix
-    Eigen::VectorXf qdot;
-    Eigen::VectorXf ve(6);
+    Eigen::VectorXf joint_speeds_mtx;
+    Eigen::VectorXf velocity_gain_mtx(6);
+    float damping_coeff = pow(10, damping_exponent);
 
-    Eigen::Matrix3f kp; // position gain
-    kp = Eigen::Matrix3f::Identity() * position_gain;
+    Eigen::MatrixXf jacob_m = jacobMatrix(joint_st); 
+    Eigen::Matrix3f final_or_rotor = orient2matrix(final_orientation);
+    Eigen::Matrix3f pos_gain_mtx = position_gain * Eigen::Matrix3f::Identity();
+    Eigen::Matrix3f or_gain_mtx = orientation_gain * Eigen::Matrix3f::Identity();
 
-    Eigen::Matrix3f kphi; // orientation gain
-    kphi = Eigen::Matrix3f::Identity() * orientation_gain;
+    Eigen::Vector3f delta_or = correctOrientation(final_or_rotor, curr_orientation);
+    if (delta_or.norm() > 1) { delta_or = 0.1 * delta_or.normalized(); }
 
-    if (error_o.norm() > 1) {
-        error_o = 0.1 * error_o.normalized();
-    }
-
-    ve << (velocity + kp * (destin_position - curr_position)), (kphi * error_o);
-    qdot = (J + Eigen::MatrixXf::Identity(6, 6) * k).inverse() * ve;
+    velocity_gain_mtx << (velocity + pos_gain_mtx * (destin_position - curr_position)), (or_gain_mtx * delta_or);
+    joint_speeds_mtx = (jacob_m + damping_coeff * Eigen::MatrixXf::Identity(6, 6)).inverse() * velocity_gain_mtx;
 
     for (int i = 0; i < 6; i++) {
 
-        if (qdot(i) > M_PI) {
-            qdot(i) = 1.5;
-        } else if (qdot(i) < -M_PI) {
-            qdot(i) = -1.5;
-        }
+        if (joint_speeds_mtx(i) > M_PI) { joint_speeds_mtx(i) = max_joint_speed; }
+        else if (joint_speeds_mtx(i) < -M_PI) { joint_speeds_mtx(i) = min_joint_speed; }
     }
 
-    return qdot;
+    return joint_speeds_mtx;
 }
 
-Eigen::Vector3f correctOrientation(Eigen::Matrix3f final_orientation, Eigen::Matrix3f curr_orientation) {
+Eigen::Vector3f correctOrientation(Eigen::Matrix3f curr_orientation, Eigen::Matrix3f final_orientation) {
     
-    Eigen::Matrix3f e_R_d = final_orientation.transpose() * curr_orientation; // compute relative orientation
-
-    Eigen::Vector3f errorW;
+    Eigen::Vector3f or_error;
+    Eigen::Vector3f axis_v;
+    Eigen::MatrixXf aux_mtx(3, 2);
     
-    float cos_dtheta = (e_R_d(0, 0) + e_R_d(1, 1) + e_R_d(2, 2) - 1) / 2; // compute the delta angle
-    Eigen::Vector3f axis;
-    Eigen::MatrixXf aux(3, 2);
-    aux << e_R_d(2, 1), -e_R_d(1, 2), e_R_d(0, 2), -e_R_d(2, 0), e_R_d(1, 0), -e_R_d(0, 1);
+    Eigen::Matrix3f relative_or_mtx = final_orientation.transpose() * curr_orientation;
+    aux_mtx << relative_or_mtx(2, 1), -relative_or_mtx(1, 2), relative_or_mtx(0, 2), -relative_or_mtx(2, 0), relative_or_mtx(1, 0), -relative_or_mtx(0, 1);
     
-    float sin_dtheta = (pow(aux(0, 0), 2) + pow(aux(0, 1), 2) + pow(aux(1, 0), 2) + pow(aux(1, 1), 2) + pow(aux(2, 0), 2) + pow(aux(2, 1), 2)) * 0.5;
-
-    float dtheta = atan2(sin_dtheta, cos_dtheta);
+    float delta_angle_sin = (pow(aux_mtx(0, 0), 2) + pow(aux_mtx(0, 1), 2) + pow(aux_mtx(1, 0), 2) + pow(aux_mtx(1, 1), 2) + pow(aux_mtx(2, 0), 2) + pow(aux_mtx(2, 1), 2)) * 0.5;
+    float delta_angle_cos = (relative_or_mtx(0, 0) + relative_or_mtx(1, 1) + relative_or_mtx(2, 2) - 1) / 2;
+    float tan_angle = atan2(delta_angle_sin, delta_angle_cos);
     
-    if (dtheta == 0) {
-        errorW << null_vector;
-    } else {
-        axis = 1 / (2 * sin_dtheta) * Vector3f(e_R_d(2, 1) - e_R_d(1, 2), e_R_d(0, 2) - e_R_d(2, 0), e_R_d(1, 0) - e_R_d(0, 1));
-        errorW = final_orientation * dtheta * axis;
+    if (tan_angle == 0) { or_error << null_vector; }
+     else {
+        axis_v = 1 / (2 * delta_angle_sin) * Vector3f(relative_or_mtx(2, 1) - relative_or_mtx(1, 2), relative_or_mtx(0, 2) - relative_or_mtx(2, 0), relative_or_mtx(1, 0) - relative_or_mtx(0, 1));
+        or_error = final_orientation * tan_angle * axis_v;
     }
 
-    return errorW;
+    return or_error;
 }
 
 void updateJointStates(Eigen::VectorXf joint_st) {
@@ -251,23 +221,11 @@ void updateJointStates(Eigen::VectorXf joint_st) {
         jointState_msg_robot.data[i] = joint_st(i);
     }
     
-    jointState_msg_robot.data[5] = 3.49;
-    
-    if (!is_real_robot) {
+    jointState_msg_robot.data[5] = joint_n6_still_value;
 
-        if (grasp_flag) {            
-            jointState_msg_robot.data[6] = gripper2joints(grasp_value);
-            jointState_msg_robot.data[7] = gripper2joints(grasp_value);
-            jointState_msg_robot.data[8] = gripper2joints(grasp_value);
-        }
-
-        else {
-        
-            jointState_msg_robot.data[6] = gripper2joints(no_grasp_value);
-            jointState_msg_robot.data[7] = gripper2joints(no_grasp_value);
-            jointState_msg_robot.data[8] = gripper2joints(no_grasp_value);
-        }
-    }
+    jointState_msg_robot.data[6] = gripper_state_vector[0];
+    jointState_msg_robot.data[7] = gripper_state_vector[1];
+    jointState_msg_robot.data[8] = gripper_state_vector[2];
 
     pub_joint_handle.publish(jointState_msg_robot);
     wait_loop.sleep();
@@ -275,81 +233,119 @@ void updateJointStates(Eigen::VectorXf joint_st) {
 
 float gripper2joints(float diameter) {
 
-    return (float) (diameter - 22) / (130 - 22) * (-M_PI) + M_PI;
+    return (float) (diameter - min_diameter_ext) / (max_diameter_ext - min_diameter_ext) * (-M_PI) + M_PI;
 }
 
-void subscriberCallback(const motion::position::ConstPtr &mex) {
+void subscriberCallback(const motion::legoTask::ConstPtr &mex) {
+
+    Eigen::Vector3f position2move;
 
     cout << endl;
     cout << "Subscriber: " << sub_position_address << " receved some data:" << endl;
 
-    lego_class = mex->lego_class;
-    cout << "Lego class: " << lego_class << endl;
+    command_id = mex->command_id;
+    cout << "Command id: " << command_id << endl;
 
-    obj_pos_or.position(0) = mex->coord_x;
-    cout << "X coordinate: " << obj_pos_or.position(0) << endl;
-    obj_pos_or.position(1) = mex->coord_y;
-    cout << "Y coordinate: " << obj_pos_or.position(1) << endl;
-    obj_pos_or.position(2) = mex->coord_z;
-    cout << "Z coordinate: " << obj_pos_or.position(2) << endl;
+    obj_po_begin.position(0) = mex->coord_x;
+    cout << "X coordinate: " << obj_po_begin.position(0) << endl;
+    obj_po_begin.position(1) = mex->coord_y;
+    cout << "Y coordinate: " << obj_po_begin.position(1) << endl;
+    obj_po_begin.position(2) = mex->coord_z;
+    cout << "Z coordinate: " << obj_po_begin.position(2) << endl;
 
-    obj_pos_or.orientation(0) = mex->rot_roll;
-    cout << "Roll orientation: " << obj_pos_or.orientation(0) << endl;
-    obj_pos_or.orientation(1) = mex->rot_pitch;
-    cout << "Pitch orientation: " << obj_pos_or.orientation(1) << endl;
-    obj_pos_or.orientation(2) = mex->rot_yaw;
-    cout << "Yaw orientation: " << obj_pos_or.orientation(2) << endl << endl; 
+    obj_po_begin.orientation(0) = mex->rot_roll;
+    cout << "Roll orientation: " << obj_po_begin.orientation(0) << endl;
+    obj_po_begin.orientation(1) = mex->rot_pitch;
+    cout << "Pitch orientation: " << obj_po_begin.orientation(1) << endl;
+    obj_po_begin.orientation(2) = mex->rot_yaw;
+    cout << "Yaw orientation: " << obj_po_begin.orientation(2) << endl; 
+
+    lego_grasp_diameter = mex->gasp_diam;
+    cout << "Lego diameter: " << lego_grasp_diameter << endl;
+
+    obj_po_dest.position(0) = mex->dest_x;
+    cout << "X destination coord: " << obj_po_dest.position(0) << endl;
+    obj_po_dest.position(1) = mex->dest_y;
+    cout << "Y destination coord: " << obj_po_dest.position(1) << endl;
+    obj_po_dest.position(2) = mex->dest_z;
+    cout << "Z destination coord: " << obj_po_dest.position(2) << endl;
+
+    obj_po_dest.orientation(0) = mex->dest_roll;
+    cout << "Roll destination orientation: " << obj_po_dest.orientation(0) << endl;
+    obj_po_dest.orientation(1) = mex->dest_pitch;
+    cout << "Pitch destination orientation: " << obj_po_dest.orientation(1) << endl;
+    obj_po_dest.orientation(2) = mex->dest_yaw;
+    cout << "Yaw destination orientation: " << obj_po_dest.orientation(2) << endl << endl; 
     
-    catchProcedure();    
+    switch (command_id) {
+
+        case(command_catch): catchProcedure();  
+                             break;
+
+        case(command_move): position2move << obj_po_begin.position(0), obj_po_begin.position(1), obj_po_begin.position(2);
+                            moveProcedure(position2move, obj_po_begin.orientation, default_dt);
+                            break;
+
+        case(command_grasp): graspObject(true);
+                             break;
+
+        case(command_ungrasp): graspObject(false);
+                               break;                     
+
+        default: break;
+
+    }
+      
 }
 
 void catchProcedure() {
     
-    Eigen::Vector3f destination;
-    cout << "Starting the catch procedure..." << endl;
+    Eigen::Vector3f position2move;
+    cout << "Starting the catch procedure... going to the object" << endl;
 
-    destination << obj_pos_or.position(0), obj_pos_or.position(1), z_above_object;
-    moveProcedure(destination, obj_pos_or.orientation, default_dt);
-    cout << "UR5 arm is above the object!" << endl;
+    position2move << obj_po_begin.position(0), obj_po_begin.position(1), z_above_object;
+    moveProcedure(position2move, obj_po_begin.orientation, default_dt);
+    cout << "UR5 arm is above the object ready to approach" << endl;
 
-    destination << obj_pos_or.position(0), obj_pos_or.position(1), obj_pos_or.position(2);		
-    moveProcedure(destination, obj_pos_or.orientation, default_dt);
+    position2move << obj_po_begin.position(0), obj_po_begin.position(1), obj_po_begin.position(2);		
+    moveProcedure(position2move, obj_po_begin.orientation, default_dt);
     cout << "UR5 arm is on the object" << endl;
 
-    grasp_flag = true;	
-    graspObject();
+    graspObject(true);
     cout << "Keeping fingers closed..." << endl;
-    
-    destination << half_point;			    
-    moveProcedure(destination, obj_pos_or.orientation, default_dt);           
-    cout << "UR5 arm reached the half point" << endl;
-    
-    destination = selectClassDesitnation(lego_class);        
-    moveProcedure(destination, obj_pos_or.orientation, default_dt);
-    cout << "UR5 arm reached the class relocation position" << endl;
 
-    grasp_flag = false;			     
-    graspObject();
+    position2move << obj_po_begin.position(0), obj_po_begin.position(1), z_above_object;
+    moveProcedure(position2move, obj_po_begin.orientation, default_dt);
+    cout << "UR5 arm is above the object ready to depart" << endl;
+    
+    position2move << half_point;			    
+    moveProcedure(position2move, obj_po_begin.orientation, default_dt);           
+    cout << "UR5 arm reached the half point" << endl;
+
+    position2move << obj_po_dest.position(0), obj_po_dest.position(1), z_above_object;		
+    moveProcedure(position2move, obj_po_dest.orientation, default_dt);
+    cout << "UR5 arm is above the class relocation, ready to pose!" << endl;
+    
+    position2move << obj_po_dest.position(0), obj_po_dest.position(1), obj_po_dest.position(2);	       
+    moveProcedure(position2move, obj_po_dest.orientation, default_dt);
+    cout << "UR5 arm reached the class relocation position" << endl;
+		     
+    graspObject(false);
     cout << "Keeping fingers open..." << endl;
     
-    destination(2) = z_above_object;		
-    moveProcedure(destination, obj_pos_or.orientation, default_dt);
-    cout << "UR5 arm is above the class relocation position!" << endl;
-
-    updateJointStates(joint_state_vector);
+    position2move << obj_po_dest.position(0), obj_po_dest.position(1), z_above_object;		
+    moveProcedure(position2move, obj_po_dest.orientation, default_dt);
+    cout << "UR5 arm is above the class relocation, ready to depart!" << endl;
     
-    destination << half_point;	  
-    moveProcedure(destination, obj_pos_or.orientation, default_dt);
+    position2move << half_point;	  
+    moveProcedure(position2move, obj_po_dest.orientation, default_dt);
     cout << "UR5 arm reached the half point" << endl;
     
-    moveDefaultPosition();
-
     pubReadyACK();
-
     cout << "Catch procedure terminated" << endl << endl;
 }
 
-void graspObject() {
+void graspObject(bool catchIt) {
 
     ros_impedance_controller::generic_float gripper_diameter;
     ros::Rate wait_loop(loop_wait_rate);	
@@ -358,17 +354,17 @@ void graspObject() {
 
         cout << "Real robot grasp:" << endl;
         
-        if (grasp_flag) {
+        if (catchIt) {
 
             cout << "closing UR5 fingers..." << endl;
-            gripper_diameter.request.data = 60;
+            gripper_diameter.request.data = lego_grasp_diameter;
             client_gripper_handle.call(gripper_diameter);
             cout << "UR5 fingers closed, possibly arround the object!" << endl;
 
         } else {
 
             cout << "Opening UR5 fingers..." << endl;
-            gripper_diameter.request.data = 100;
+            gripper_diameter.request.data = real_robot_graspOff_diameter;
             client_gripper_handle.call(gripper_diameter);
             cout << "UR5 fingers opened, possibly relased object!" << endl;
         }
@@ -376,69 +372,46 @@ void graspObject() {
     } else {
 
         cout << "Virtual robot grasp!" << endl;
-        updateJointStates(joint_state_vector);
+        
+        if (catchIt) {   
+
+            cout << "closing UR5 fingers..." << endl;
+            gripper_state_vector[0] = gripper2joints(lego_grasp_diameter);
+            gripper_state_vector[1] = gripper2joints(lego_grasp_diameter);
+            gripper_state_vector[2] = gripper2joints(lego_grasp_diameter);
+
+            updateJointStates(joint_state_vector);
+            cout << "UR5 fingers closed, possibly arround the object!" << endl;
+        }
+
+        else {
+
+            cout << "Opening UR5 fingers..." << endl;
+            gripper_state_vector[0] = gripper2joints(virtual_graspOff_diameter);
+            gripper_state_vector[1] = gripper2joints(virtual_graspOff_diameter);
+            gripper_state_vector[2] = gripper2joints(virtual_graspOff_diameter);
+
+            updateJointStates(joint_state_vector);
+            cout << "UR5 fingers opened, possibly relased object!" << endl;
+        }
     }
 
     for (int i = 0; i < sleep_time; i++) { 
         wait_loop.sleep();
     }
-}
-
-Eigen::Vector3f selectClassDesitnation(int lego_cl) {
-
-    Eigen::Vector3f destin;
-
-    switch (lego_cl) {
-
-        case 0: destin << class_00_relocation;
-                break;
-
-        case 1: destin << class_01_relocation;
-                break;
-
-        case 2: destin << class_02_relocation;
-                break;
-
-        case 3: destin << class_03_relocation;
-                break;
-
-        case 4: destin << class_04_relocation;
-                break;
-
-        case 5: destin << class_05_relocation;
-                break;
-
-        case 6: destin << class_06_relocation;
-                break;
-
-        case 7: destin << class_07_relocation;
-                break;
-
-        case 8: destin << class_08_relocation;
-                break;
-
-        case 9: destin << class_09_relocation;
-                break;
-
-        case 10: destin << class_10_relocation;
-
-        default: break;
-    }
-
-    return destin;
 }
 
 void pubReadyACK() {
 
     std_msgs::Int32 ack_msg;
     ros::Rate wait_loop(loop_wait_rate);    
-    ack_msg.data = true;
+    ack_msg.data = 1;
     
     for (int i = 0; i < sleep_time; i++) { 
         wait_loop.sleep();
     }
     
-    pub_joint_handle.publish(ack_msg);
+    pub_motionReady_handle.publish(ack_msg);
 
     cout << endl;
     cout << "Publisher: " << pub_joint_address << " sent some data:" << endl;

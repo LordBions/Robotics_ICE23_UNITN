@@ -11,7 +11,8 @@ find_package(Eigen3 3.3 REQUIRED)
 
 add_message_files(
   FILES
-  position.msg
+  legoTask.msg
+  legoFound.msg
 )
 
 generate_messages(

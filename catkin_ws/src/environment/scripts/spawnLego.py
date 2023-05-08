@@ -267,7 +267,6 @@ def setUpArea(livello=None, selectBrick=None):
 		if(livello == 1):
 			#spawn random brick
 			spawnaLego(selectBrick)
-			#spawnaLego('X2-Y2-Z2',rotated=True)
 		elif(livello == 2):
 			#spawn all bricks
 			for brickType in brickList:

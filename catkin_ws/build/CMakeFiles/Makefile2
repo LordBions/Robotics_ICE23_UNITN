@@ -249,7 +249,8 @@ motion/preinstall:
 
 # Recursive "clean" directory target.
 motion/clean: motion/CMakeFiles/motion_generate_messages.dir/clean
-motion/clean: motion/CMakeFiles/_motion_generate_messages_check_deps_position.dir/clean
+motion/clean: motion/CMakeFiles/_motion_generate_messages_check_deps_legoTask.dir/clean
+motion/clean: motion/CMakeFiles/_motion_generate_messages_check_deps_legoFound.dir/clean
 motion/clean: motion/CMakeFiles/motion_generate_messages_cpp.dir/clean
 motion/clean: motion/CMakeFiles/motion_gencpp.dir/clean
 motion/clean: motion/CMakeFiles/motion_generate_messages_eus.dir/clean
@@ -792,12 +793,12 @@ CMakeFiles/doxygen.dir/clean:
 gtest/googlemock/CMakeFiles/gmock.dir/all: gtest/googletest/CMakeFiles/gtest.dir/all
 	$(MAKE) $(MAKESILENT) -f gtest/googlemock/CMakeFiles/gmock.dir/build.make gtest/googlemock/CMakeFiles/gmock.dir/depend
 	$(MAKE) $(MAKESILENT) -f gtest/googlemock/CMakeFiles/gmock.dir/build.make gtest/googlemock/CMakeFiles/gmock.dir/build
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/utente/Robotics_ICE23_UNITN/catkin_ws/build/CMakeFiles --progress-num= "Built target gmock"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/utente/Robotics_ICE23_UNITN/catkin_ws/build/CMakeFiles --progress-num=21 "Built target gmock"
 .PHONY : gtest/googlemock/CMakeFiles/gmock.dir/all
 
 # Build rule for subdir invocation for target.
 gtest/googlemock/CMakeFiles/gmock.dir/rule: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/utente/Robotics_ICE23_UNITN/catkin_ws/build/CMakeFiles 1
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/utente/Robotics_ICE23_UNITN/catkin_ws/build/CMakeFiles 2
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 gtest/googlemock/CMakeFiles/gmock.dir/all
 	$(CMAKE_COMMAND) -E cmake_progress_start /home/utente/Robotics_ICE23_UNITN/catkin_ws/build/CMakeFiles 0
 .PHONY : gtest/googlemock/CMakeFiles/gmock.dir/rule
@@ -824,7 +825,7 @@ gtest/googlemock/CMakeFiles/gmock_main.dir/all: gtest/googletest/CMakeFiles/gtes
 
 # Build rule for subdir invocation for target.
 gtest/googlemock/CMakeFiles/gmock_main.dir/rule: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/utente/Robotics_ICE23_UNITN/catkin_ws/build/CMakeFiles 2
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/utente/Robotics_ICE23_UNITN/catkin_ws/build/CMakeFiles 3
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 gtest/googlemock/CMakeFiles/gmock_main.dir/all
 	$(CMAKE_COMMAND) -E cmake_progress_start /home/utente/Robotics_ICE23_UNITN/catkin_ws/build/CMakeFiles 0
 .PHONY : gtest/googlemock/CMakeFiles/gmock_main.dir/rule
@@ -2504,12 +2505,12 @@ robot_urdf/gripper_description/grasping_plugin/general-message-pkgs\ /path_navig
 robot_urdf/gripper_description/grasping_plugin/general-message-pkgs\ /path_navigation_msgs/CMakeFiles/path_navigation_msgs_generate_messages_cpp.dir/all: robot_urdf/gripper_description/grasping_plugin/general-message-pkgs\ /path_navigation_msgs/CMakeFiles/_path_navigation_msgs_generate_messages_check_deps_TransformPathExecutionFeedback.dir/all
 	$(MAKE) $(MAKESILENT) -f "robot_urdf/gripper_description/grasping_plugin/general-message-pkgs /path_navigation_msgs/CMakeFiles/path_navigation_msgs_generate_messages_cpp.dir/build.make" "robot_urdf/gripper_description/grasping_plugin/general-message-pkgs /path_navigation_msgs/CMakeFiles/path_navigation_msgs_generate_messages_cpp.dir/depend"
 	$(MAKE) $(MAKESILENT) -f "robot_urdf/gripper_description/grasping_plugin/general-message-pkgs /path_navigation_msgs/CMakeFiles/path_navigation_msgs_generate_messages_cpp.dir/build.make" "robot_urdf/gripper_description/grasping_plugin/general-message-pkgs /path_navigation_msgs/CMakeFiles/path_navigation_msgs_generate_messages_cpp.dir/build"
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/utente/Robotics_ICE23_UNITN/catkin_ws/build/CMakeFiles --progress-num=42,43,44,45,46,47 "Built target path_navigation_msgs_generate_messages_cpp"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/utente/Robotics_ICE23_UNITN/catkin_ws/build/CMakeFiles --progress-num=43,44,45,46,47,48,49 "Built target path_navigation_msgs_generate_messages_cpp"
 .PHONY : robot_urdf/gripper_description/grasping_plugin/general-message-pkgs\ /path_navigation_msgs/CMakeFiles/path_navigation_msgs_generate_messages_cpp.dir/all
 
 # Build rule for subdir invocation for target.
 robot_urdf/gripper_description/grasping_plugin/general-message-pkgs\ /path_navigation_msgs/CMakeFiles/path_navigation_msgs_generate_messages_cpp.dir/rule: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/utente/Robotics_ICE23_UNITN/catkin_ws/build/CMakeFiles 6
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/utente/Robotics_ICE23_UNITN/catkin_ws/build/CMakeFiles 7
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 "robot_urdf/gripper_description/grasping_plugin/general-message-pkgs /path_navigation_msgs/CMakeFiles/path_navigation_msgs_generate_messages_cpp.dir/all"
 	$(CMAKE_COMMAND) -E cmake_progress_start /home/utente/Robotics_ICE23_UNITN/catkin_ws/build/CMakeFiles 0
 .PHONY : robot_urdf/gripper_description/grasping_plugin/general-message-pkgs\ /path_navigation_msgs/CMakeFiles/path_navigation_msgs_generate_messages_cpp.dir/rule
@@ -2535,7 +2536,7 @@ robot_urdf/gripper_description/grasping_plugin/general-message-pkgs\ /path_navig
 
 # Build rule for subdir invocation for target.
 robot_urdf/gripper_description/grasping_plugin/general-message-pkgs\ /path_navigation_msgs/CMakeFiles/path_navigation_msgs_gencpp.dir/rule: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/utente/Robotics_ICE23_UNITN/catkin_ws/build/CMakeFiles 6
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/utente/Robotics_ICE23_UNITN/catkin_ws/build/CMakeFiles 7
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 "robot_urdf/gripper_description/grasping_plugin/general-message-pkgs /path_navigation_msgs/CMakeFiles/path_navigation_msgs_gencpp.dir/all"
 	$(CMAKE_COMMAND) -E cmake_progress_start /home/utente/Robotics_ICE23_UNITN/catkin_ws/build/CMakeFiles 0
 .PHONY : robot_urdf/gripper_description/grasping_plugin/general-message-pkgs\ /path_navigation_msgs/CMakeFiles/path_navigation_msgs_gencpp.dir/rule
@@ -2573,12 +2574,12 @@ robot_urdf/gripper_description/grasping_plugin/general-message-pkgs\ /path_navig
 robot_urdf/gripper_description/grasping_plugin/general-message-pkgs\ /path_navigation_msgs/CMakeFiles/path_navigation_msgs_generate_messages_eus.dir/all: robot_urdf/gripper_description/grasping_plugin/general-message-pkgs\ /path_navigation_msgs/CMakeFiles/_path_navigation_msgs_generate_messages_check_deps_TransformPathExecutionFeedback.dir/all
 	$(MAKE) $(MAKESILENT) -f "robot_urdf/gripper_description/grasping_plugin/general-message-pkgs /path_navigation_msgs/CMakeFiles/path_navigation_msgs_generate_messages_eus.dir/build.make" "robot_urdf/gripper_description/grasping_plugin/general-message-pkgs /path_navigation_msgs/CMakeFiles/path_navigation_msgs_generate_messages_eus.dir/depend"
 	$(MAKE) $(MAKESILENT) -f "robot_urdf/gripper_description/grasping_plugin/general-message-pkgs /path_navigation_msgs/CMakeFiles/path_navigation_msgs_generate_messages_eus.dir/build.make" "robot_urdf/gripper_description/grasping_plugin/general-message-pkgs /path_navigation_msgs/CMakeFiles/path_navigation_msgs_generate_messages_eus.dir/build"
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/utente/Robotics_ICE23_UNITN/catkin_ws/build/CMakeFiles --progress-num=48,49,50,51,52,53,54 "Built target path_navigation_msgs_generate_messages_eus"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/utente/Robotics_ICE23_UNITN/catkin_ws/build/CMakeFiles --progress-num=50,51,52,53,54,55 "Built target path_navigation_msgs_generate_messages_eus"
 .PHONY : robot_urdf/gripper_description/grasping_plugin/general-message-pkgs\ /path_navigation_msgs/CMakeFiles/path_navigation_msgs_generate_messages_eus.dir/all
 
 # Build rule for subdir invocation for target.
 robot_urdf/gripper_description/grasping_plugin/general-message-pkgs\ /path_navigation_msgs/CMakeFiles/path_navigation_msgs_generate_messages_eus.dir/rule: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/utente/Robotics_ICE23_UNITN/catkin_ws/build/CMakeFiles 7
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/utente/Robotics_ICE23_UNITN/catkin_ws/build/CMakeFiles 6
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 "robot_urdf/gripper_description/grasping_plugin/general-message-pkgs /path_navigation_msgs/CMakeFiles/path_navigation_msgs_generate_messages_eus.dir/all"
 	$(CMAKE_COMMAND) -E cmake_progress_start /home/utente/Robotics_ICE23_UNITN/catkin_ws/build/CMakeFiles 0
 .PHONY : robot_urdf/gripper_description/grasping_plugin/general-message-pkgs\ /path_navigation_msgs/CMakeFiles/path_navigation_msgs_generate_messages_eus.dir/rule
@@ -2604,7 +2605,7 @@ robot_urdf/gripper_description/grasping_plugin/general-message-pkgs\ /path_navig
 
 # Build rule for subdir invocation for target.
 robot_urdf/gripper_description/grasping_plugin/general-message-pkgs\ /path_navigation_msgs/CMakeFiles/path_navigation_msgs_geneus.dir/rule: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/utente/Robotics_ICE23_UNITN/catkin_ws/build/CMakeFiles 7
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/utente/Robotics_ICE23_UNITN/catkin_ws/build/CMakeFiles 6
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 "robot_urdf/gripper_description/grasping_plugin/general-message-pkgs /path_navigation_msgs/CMakeFiles/path_navigation_msgs_geneus.dir/all"
 	$(CMAKE_COMMAND) -E cmake_progress_start /home/utente/Robotics_ICE23_UNITN/catkin_ws/build/CMakeFiles 0
 .PHONY : robot_urdf/gripper_description/grasping_plugin/general-message-pkgs\ /path_navigation_msgs/CMakeFiles/path_navigation_msgs_geneus.dir/rule
@@ -2642,7 +2643,7 @@ robot_urdf/gripper_description/grasping_plugin/general-message-pkgs\ /path_navig
 robot_urdf/gripper_description/grasping_plugin/general-message-pkgs\ /path_navigation_msgs/CMakeFiles/path_navigation_msgs_generate_messages_lisp.dir/all: robot_urdf/gripper_description/grasping_plugin/general-message-pkgs\ /path_navigation_msgs/CMakeFiles/_path_navigation_msgs_generate_messages_check_deps_TransformPathExecutionFeedback.dir/all
 	$(MAKE) $(MAKESILENT) -f "robot_urdf/gripper_description/grasping_plugin/general-message-pkgs /path_navigation_msgs/CMakeFiles/path_navigation_msgs_generate_messages_lisp.dir/build.make" "robot_urdf/gripper_description/grasping_plugin/general-message-pkgs /path_navigation_msgs/CMakeFiles/path_navigation_msgs_generate_messages_lisp.dir/depend"
 	$(MAKE) $(MAKESILENT) -f "robot_urdf/gripper_description/grasping_plugin/general-message-pkgs /path_navigation_msgs/CMakeFiles/path_navigation_msgs_generate_messages_lisp.dir/build.make" "robot_urdf/gripper_description/grasping_plugin/general-message-pkgs /path_navigation_msgs/CMakeFiles/path_navigation_msgs_generate_messages_lisp.dir/build"
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/utente/Robotics_ICE23_UNITN/catkin_ws/build/CMakeFiles --progress-num=55,56,57,58,59,60,61 "Built target path_navigation_msgs_generate_messages_lisp"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/utente/Robotics_ICE23_UNITN/catkin_ws/build/CMakeFiles --progress-num=56,57,58,59,60,61,62 "Built target path_navigation_msgs_generate_messages_lisp"
 .PHONY : robot_urdf/gripper_description/grasping_plugin/general-message-pkgs\ /path_navigation_msgs/CMakeFiles/path_navigation_msgs_generate_messages_lisp.dir/all
 
 # Build rule for subdir invocation for target.
@@ -2711,7 +2712,7 @@ robot_urdf/gripper_description/grasping_plugin/general-message-pkgs\ /path_navig
 robot_urdf/gripper_description/grasping_plugin/general-message-pkgs\ /path_navigation_msgs/CMakeFiles/path_navigation_msgs_generate_messages_nodejs.dir/all: robot_urdf/gripper_description/grasping_plugin/general-message-pkgs\ /path_navigation_msgs/CMakeFiles/_path_navigation_msgs_generate_messages_check_deps_TransformPathExecutionFeedback.dir/all
 	$(MAKE) $(MAKESILENT) -f "robot_urdf/gripper_description/grasping_plugin/general-message-pkgs /path_navigation_msgs/CMakeFiles/path_navigation_msgs_generate_messages_nodejs.dir/build.make" "robot_urdf/gripper_description/grasping_plugin/general-message-pkgs /path_navigation_msgs/CMakeFiles/path_navigation_msgs_generate_messages_nodejs.dir/depend"
 	$(MAKE) $(MAKESILENT) -f "robot_urdf/gripper_description/grasping_plugin/general-message-pkgs /path_navigation_msgs/CMakeFiles/path_navigation_msgs_generate_messages_nodejs.dir/build.make" "robot_urdf/gripper_description/grasping_plugin/general-message-pkgs /path_navigation_msgs/CMakeFiles/path_navigation_msgs_generate_messages_nodejs.dir/build"
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/utente/Robotics_ICE23_UNITN/catkin_ws/build/CMakeFiles --progress-num=62,63,64,65,66,67 "Built target path_navigation_msgs_generate_messages_nodejs"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/utente/Robotics_ICE23_UNITN/catkin_ws/build/CMakeFiles --progress-num=63,64,65,66,67,68 "Built target path_navigation_msgs_generate_messages_nodejs"
 .PHONY : robot_urdf/gripper_description/grasping_plugin/general-message-pkgs\ /path_navigation_msgs/CMakeFiles/path_navigation_msgs_generate_messages_nodejs.dir/all
 
 # Build rule for subdir invocation for target.
@@ -2780,7 +2781,7 @@ robot_urdf/gripper_description/grasping_plugin/general-message-pkgs\ /path_navig
 robot_urdf/gripper_description/grasping_plugin/general-message-pkgs\ /path_navigation_msgs/CMakeFiles/path_navigation_msgs_generate_messages_py.dir/all: robot_urdf/gripper_description/grasping_plugin/general-message-pkgs\ /path_navigation_msgs/CMakeFiles/_path_navigation_msgs_generate_messages_check_deps_TransformPathExecutionFeedback.dir/all
 	$(MAKE) $(MAKESILENT) -f "robot_urdf/gripper_description/grasping_plugin/general-message-pkgs /path_navigation_msgs/CMakeFiles/path_navigation_msgs_generate_messages_py.dir/build.make" "robot_urdf/gripper_description/grasping_plugin/general-message-pkgs /path_navigation_msgs/CMakeFiles/path_navigation_msgs_generate_messages_py.dir/depend"
 	$(MAKE) $(MAKESILENT) -f "robot_urdf/gripper_description/grasping_plugin/general-message-pkgs /path_navigation_msgs/CMakeFiles/path_navigation_msgs_generate_messages_py.dir/build.make" "robot_urdf/gripper_description/grasping_plugin/general-message-pkgs /path_navigation_msgs/CMakeFiles/path_navigation_msgs_generate_messages_py.dir/build"
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/utente/Robotics_ICE23_UNITN/catkin_ws/build/CMakeFiles --progress-num=68,69,70,71,72,73,74 "Built target path_navigation_msgs_generate_messages_py"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/utente/Robotics_ICE23_UNITN/catkin_ws/build/CMakeFiles --progress-num=69,70,71,72,73,74,75 "Built target path_navigation_msgs_generate_messages_py"
 .PHONY : robot_urdf/gripper_description/grasping_plugin/general-message-pkgs\ /path_navigation_msgs/CMakeFiles/path_navigation_msgs_generate_messages_py.dir/all
 
 # Build rule for subdir invocation for target.
@@ -2997,7 +2998,7 @@ motion/CMakeFiles/motion_generate_messages.dir/all: motion/CMakeFiles/motion_gen
 
 # Build rule for subdir invocation for target.
 motion/CMakeFiles/motion_generate_messages.dir/rule: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/utente/Robotics_ICE23_UNITN/catkin_ws/build/CMakeFiles 3
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/utente/Robotics_ICE23_UNITN/catkin_ws/build/CMakeFiles 5
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 motion/CMakeFiles/motion_generate_messages.dir/all
 	$(CMAKE_COMMAND) -E cmake_progress_start /home/utente/Robotics_ICE23_UNITN/catkin_ws/build/CMakeFiles 0
 .PHONY : motion/CMakeFiles/motion_generate_messages.dir/rule
@@ -3012,37 +3013,64 @@ motion/CMakeFiles/motion_generate_messages.dir/clean:
 .PHONY : motion/CMakeFiles/motion_generate_messages.dir/clean
 
 #=============================================================================
-# Target rules for target motion/CMakeFiles/_motion_generate_messages_check_deps_position.dir
+# Target rules for target motion/CMakeFiles/_motion_generate_messages_check_deps_legoTask.dir
 
 # All Build rule for target.
-motion/CMakeFiles/_motion_generate_messages_check_deps_position.dir/all:
-	$(MAKE) $(MAKESILENT) -f motion/CMakeFiles/_motion_generate_messages_check_deps_position.dir/build.make motion/CMakeFiles/_motion_generate_messages_check_deps_position.dir/depend
-	$(MAKE) $(MAKESILENT) -f motion/CMakeFiles/_motion_generate_messages_check_deps_position.dir/build.make motion/CMakeFiles/_motion_generate_messages_check_deps_position.dir/build
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/utente/Robotics_ICE23_UNITN/catkin_ws/build/CMakeFiles --progress-num= "Built target _motion_generate_messages_check_deps_position"
-.PHONY : motion/CMakeFiles/_motion_generate_messages_check_deps_position.dir/all
+motion/CMakeFiles/_motion_generate_messages_check_deps_legoTask.dir/all:
+	$(MAKE) $(MAKESILENT) -f motion/CMakeFiles/_motion_generate_messages_check_deps_legoTask.dir/build.make motion/CMakeFiles/_motion_generate_messages_check_deps_legoTask.dir/depend
+	$(MAKE) $(MAKESILENT) -f motion/CMakeFiles/_motion_generate_messages_check_deps_legoTask.dir/build.make motion/CMakeFiles/_motion_generate_messages_check_deps_legoTask.dir/build
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/utente/Robotics_ICE23_UNITN/catkin_ws/build/CMakeFiles --progress-num= "Built target _motion_generate_messages_check_deps_legoTask"
+.PHONY : motion/CMakeFiles/_motion_generate_messages_check_deps_legoTask.dir/all
 
 # Build rule for subdir invocation for target.
-motion/CMakeFiles/_motion_generate_messages_check_deps_position.dir/rule: cmake_check_build_system
+motion/CMakeFiles/_motion_generate_messages_check_deps_legoTask.dir/rule: cmake_check_build_system
 	$(CMAKE_COMMAND) -E cmake_progress_start /home/utente/Robotics_ICE23_UNITN/catkin_ws/build/CMakeFiles 0
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 motion/CMakeFiles/_motion_generate_messages_check_deps_position.dir/all
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 motion/CMakeFiles/_motion_generate_messages_check_deps_legoTask.dir/all
 	$(CMAKE_COMMAND) -E cmake_progress_start /home/utente/Robotics_ICE23_UNITN/catkin_ws/build/CMakeFiles 0
-.PHONY : motion/CMakeFiles/_motion_generate_messages_check_deps_position.dir/rule
+.PHONY : motion/CMakeFiles/_motion_generate_messages_check_deps_legoTask.dir/rule
 
 # Convenience name for target.
-_motion_generate_messages_check_deps_position: motion/CMakeFiles/_motion_generate_messages_check_deps_position.dir/rule
-.PHONY : _motion_generate_messages_check_deps_position
+_motion_generate_messages_check_deps_legoTask: motion/CMakeFiles/_motion_generate_messages_check_deps_legoTask.dir/rule
+.PHONY : _motion_generate_messages_check_deps_legoTask
 
 # clean rule for target.
-motion/CMakeFiles/_motion_generate_messages_check_deps_position.dir/clean:
-	$(MAKE) $(MAKESILENT) -f motion/CMakeFiles/_motion_generate_messages_check_deps_position.dir/build.make motion/CMakeFiles/_motion_generate_messages_check_deps_position.dir/clean
-.PHONY : motion/CMakeFiles/_motion_generate_messages_check_deps_position.dir/clean
+motion/CMakeFiles/_motion_generate_messages_check_deps_legoTask.dir/clean:
+	$(MAKE) $(MAKESILENT) -f motion/CMakeFiles/_motion_generate_messages_check_deps_legoTask.dir/build.make motion/CMakeFiles/_motion_generate_messages_check_deps_legoTask.dir/clean
+.PHONY : motion/CMakeFiles/_motion_generate_messages_check_deps_legoTask.dir/clean
+
+#=============================================================================
+# Target rules for target motion/CMakeFiles/_motion_generate_messages_check_deps_legoFound.dir
+
+# All Build rule for target.
+motion/CMakeFiles/_motion_generate_messages_check_deps_legoFound.dir/all:
+	$(MAKE) $(MAKESILENT) -f motion/CMakeFiles/_motion_generate_messages_check_deps_legoFound.dir/build.make motion/CMakeFiles/_motion_generate_messages_check_deps_legoFound.dir/depend
+	$(MAKE) $(MAKESILENT) -f motion/CMakeFiles/_motion_generate_messages_check_deps_legoFound.dir/build.make motion/CMakeFiles/_motion_generate_messages_check_deps_legoFound.dir/build
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/utente/Robotics_ICE23_UNITN/catkin_ws/build/CMakeFiles --progress-num= "Built target _motion_generate_messages_check_deps_legoFound"
+.PHONY : motion/CMakeFiles/_motion_generate_messages_check_deps_legoFound.dir/all
+
+# Build rule for subdir invocation for target.
+motion/CMakeFiles/_motion_generate_messages_check_deps_legoFound.dir/rule: cmake_check_build_system
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/utente/Robotics_ICE23_UNITN/catkin_ws/build/CMakeFiles 0
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 motion/CMakeFiles/_motion_generate_messages_check_deps_legoFound.dir/all
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/utente/Robotics_ICE23_UNITN/catkin_ws/build/CMakeFiles 0
+.PHONY : motion/CMakeFiles/_motion_generate_messages_check_deps_legoFound.dir/rule
+
+# Convenience name for target.
+_motion_generate_messages_check_deps_legoFound: motion/CMakeFiles/_motion_generate_messages_check_deps_legoFound.dir/rule
+.PHONY : _motion_generate_messages_check_deps_legoFound
+
+# clean rule for target.
+motion/CMakeFiles/_motion_generate_messages_check_deps_legoFound.dir/clean:
+	$(MAKE) $(MAKESILENT) -f motion/CMakeFiles/_motion_generate_messages_check_deps_legoFound.dir/build.make motion/CMakeFiles/_motion_generate_messages_check_deps_legoFound.dir/clean
+.PHONY : motion/CMakeFiles/_motion_generate_messages_check_deps_legoFound.dir/clean
 
 #=============================================================================
 # Target rules for target motion/CMakeFiles/motion_generate_messages_cpp.dir
 
 # All Build rule for target.
 motion/CMakeFiles/motion_generate_messages_cpp.dir/all: robot_urdf/gripper_description/grasping_plugin/general-message-pkgs\ /path_navigation_msgs/CMakeFiles/std_msgs_generate_messages_cpp.dir/all
-motion/CMakeFiles/motion_generate_messages_cpp.dir/all: motion/CMakeFiles/_motion_generate_messages_check_deps_position.dir/all
+motion/CMakeFiles/motion_generate_messages_cpp.dir/all: motion/CMakeFiles/_motion_generate_messages_check_deps_legoTask.dir/all
+motion/CMakeFiles/motion_generate_messages_cpp.dir/all: motion/CMakeFiles/_motion_generate_messages_check_deps_legoFound.dir/all
 	$(MAKE) $(MAKESILENT) -f motion/CMakeFiles/motion_generate_messages_cpp.dir/build.make motion/CMakeFiles/motion_generate_messages_cpp.dir/depend
 	$(MAKE) $(MAKESILENT) -f motion/CMakeFiles/motion_generate_messages_cpp.dir/build.make motion/CMakeFiles/motion_generate_messages_cpp.dir/build
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/utente/Robotics_ICE23_UNITN/catkin_ws/build/CMakeFiles --progress-num=25 "Built target motion_generate_messages_cpp"
@@ -3095,7 +3123,8 @@ motion/CMakeFiles/motion_gencpp.dir/clean:
 
 # All Build rule for target.
 motion/CMakeFiles/motion_generate_messages_eus.dir/all: robot_urdf/gripper_description/grasping_plugin/general-message-pkgs\ /path_navigation_msgs/CMakeFiles/std_msgs_generate_messages_eus.dir/all
-motion/CMakeFiles/motion_generate_messages_eus.dir/all: motion/CMakeFiles/_motion_generate_messages_check_deps_position.dir/all
+motion/CMakeFiles/motion_generate_messages_eus.dir/all: motion/CMakeFiles/_motion_generate_messages_check_deps_legoTask.dir/all
+motion/CMakeFiles/motion_generate_messages_eus.dir/all: motion/CMakeFiles/_motion_generate_messages_check_deps_legoFound.dir/all
 	$(MAKE) $(MAKESILENT) -f motion/CMakeFiles/motion_generate_messages_eus.dir/build.make motion/CMakeFiles/motion_generate_messages_eus.dir/depend
 	$(MAKE) $(MAKESILENT) -f motion/CMakeFiles/motion_generate_messages_eus.dir/build.make motion/CMakeFiles/motion_generate_messages_eus.dir/build
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/utente/Robotics_ICE23_UNITN/catkin_ws/build/CMakeFiles --progress-num=26 "Built target motion_generate_messages_eus"
@@ -3148,15 +3177,16 @@ motion/CMakeFiles/motion_geneus.dir/clean:
 
 # All Build rule for target.
 motion/CMakeFiles/motion_generate_messages_lisp.dir/all: robot_urdf/gripper_description/grasping_plugin/general-message-pkgs\ /path_navigation_msgs/CMakeFiles/std_msgs_generate_messages_lisp.dir/all
-motion/CMakeFiles/motion_generate_messages_lisp.dir/all: motion/CMakeFiles/_motion_generate_messages_check_deps_position.dir/all
+motion/CMakeFiles/motion_generate_messages_lisp.dir/all: motion/CMakeFiles/_motion_generate_messages_check_deps_legoTask.dir/all
+motion/CMakeFiles/motion_generate_messages_lisp.dir/all: motion/CMakeFiles/_motion_generate_messages_check_deps_legoFound.dir/all
 	$(MAKE) $(MAKESILENT) -f motion/CMakeFiles/motion_generate_messages_lisp.dir/build.make motion/CMakeFiles/motion_generate_messages_lisp.dir/depend
 	$(MAKE) $(MAKESILENT) -f motion/CMakeFiles/motion_generate_messages_lisp.dir/build.make motion/CMakeFiles/motion_generate_messages_lisp.dir/build
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/utente/Robotics_ICE23_UNITN/catkin_ws/build/CMakeFiles --progress-num= "Built target motion_generate_messages_lisp"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/utente/Robotics_ICE23_UNITN/catkin_ws/build/CMakeFiles --progress-num=27 "Built target motion_generate_messages_lisp"
 .PHONY : motion/CMakeFiles/motion_generate_messages_lisp.dir/all
 
 # Build rule for subdir invocation for target.
 motion/CMakeFiles/motion_generate_messages_lisp.dir/rule: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/utente/Robotics_ICE23_UNITN/catkin_ws/build/CMakeFiles 0
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/utente/Robotics_ICE23_UNITN/catkin_ws/build/CMakeFiles 1
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 motion/CMakeFiles/motion_generate_messages_lisp.dir/all
 	$(CMAKE_COMMAND) -E cmake_progress_start /home/utente/Robotics_ICE23_UNITN/catkin_ws/build/CMakeFiles 0
 .PHONY : motion/CMakeFiles/motion_generate_messages_lisp.dir/rule
@@ -3182,7 +3212,7 @@ motion/CMakeFiles/motion_genlisp.dir/all: motion/CMakeFiles/motion_generate_mess
 
 # Build rule for subdir invocation for target.
 motion/CMakeFiles/motion_genlisp.dir/rule: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/utente/Robotics_ICE23_UNITN/catkin_ws/build/CMakeFiles 0
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/utente/Robotics_ICE23_UNITN/catkin_ws/build/CMakeFiles 1
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 motion/CMakeFiles/motion_genlisp.dir/all
 	$(CMAKE_COMMAND) -E cmake_progress_start /home/utente/Robotics_ICE23_UNITN/catkin_ws/build/CMakeFiles 0
 .PHONY : motion/CMakeFiles/motion_genlisp.dir/rule
@@ -3201,15 +3231,16 @@ motion/CMakeFiles/motion_genlisp.dir/clean:
 
 # All Build rule for target.
 motion/CMakeFiles/motion_generate_messages_nodejs.dir/all: robot_urdf/gripper_description/grasping_plugin/general-message-pkgs\ /path_navigation_msgs/CMakeFiles/std_msgs_generate_messages_nodejs.dir/all
-motion/CMakeFiles/motion_generate_messages_nodejs.dir/all: motion/CMakeFiles/_motion_generate_messages_check_deps_position.dir/all
+motion/CMakeFiles/motion_generate_messages_nodejs.dir/all: motion/CMakeFiles/_motion_generate_messages_check_deps_legoTask.dir/all
+motion/CMakeFiles/motion_generate_messages_nodejs.dir/all: motion/CMakeFiles/_motion_generate_messages_check_deps_legoFound.dir/all
 	$(MAKE) $(MAKESILENT) -f motion/CMakeFiles/motion_generate_messages_nodejs.dir/build.make motion/CMakeFiles/motion_generate_messages_nodejs.dir/depend
 	$(MAKE) $(MAKESILENT) -f motion/CMakeFiles/motion_generate_messages_nodejs.dir/build.make motion/CMakeFiles/motion_generate_messages_nodejs.dir/build
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/utente/Robotics_ICE23_UNITN/catkin_ws/build/CMakeFiles --progress-num= "Built target motion_generate_messages_nodejs"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/utente/Robotics_ICE23_UNITN/catkin_ws/build/CMakeFiles --progress-num=28 "Built target motion_generate_messages_nodejs"
 .PHONY : motion/CMakeFiles/motion_generate_messages_nodejs.dir/all
 
 # Build rule for subdir invocation for target.
 motion/CMakeFiles/motion_generate_messages_nodejs.dir/rule: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/utente/Robotics_ICE23_UNITN/catkin_ws/build/CMakeFiles 0
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/utente/Robotics_ICE23_UNITN/catkin_ws/build/CMakeFiles 1
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 motion/CMakeFiles/motion_generate_messages_nodejs.dir/all
 	$(CMAKE_COMMAND) -E cmake_progress_start /home/utente/Robotics_ICE23_UNITN/catkin_ws/build/CMakeFiles 0
 .PHONY : motion/CMakeFiles/motion_generate_messages_nodejs.dir/rule
@@ -3235,7 +3266,7 @@ motion/CMakeFiles/motion_gennodejs.dir/all: motion/CMakeFiles/motion_generate_me
 
 # Build rule for subdir invocation for target.
 motion/CMakeFiles/motion_gennodejs.dir/rule: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/utente/Robotics_ICE23_UNITN/catkin_ws/build/CMakeFiles 0
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/utente/Robotics_ICE23_UNITN/catkin_ws/build/CMakeFiles 1
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 motion/CMakeFiles/motion_gennodejs.dir/all
 	$(CMAKE_COMMAND) -E cmake_progress_start /home/utente/Robotics_ICE23_UNITN/catkin_ws/build/CMakeFiles 0
 .PHONY : motion/CMakeFiles/motion_gennodejs.dir/rule
@@ -3254,10 +3285,11 @@ motion/CMakeFiles/motion_gennodejs.dir/clean:
 
 # All Build rule for target.
 motion/CMakeFiles/motion_generate_messages_py.dir/all: robot_urdf/gripper_description/grasping_plugin/general-message-pkgs\ /path_navigation_msgs/CMakeFiles/std_msgs_generate_messages_py.dir/all
-motion/CMakeFiles/motion_generate_messages_py.dir/all: motion/CMakeFiles/_motion_generate_messages_check_deps_position.dir/all
+motion/CMakeFiles/motion_generate_messages_py.dir/all: motion/CMakeFiles/_motion_generate_messages_check_deps_legoTask.dir/all
+motion/CMakeFiles/motion_generate_messages_py.dir/all: motion/CMakeFiles/_motion_generate_messages_check_deps_legoFound.dir/all
 	$(MAKE) $(MAKESILENT) -f motion/CMakeFiles/motion_generate_messages_py.dir/build.make motion/CMakeFiles/motion_generate_messages_py.dir/depend
 	$(MAKE) $(MAKESILENT) -f motion/CMakeFiles/motion_generate_messages_py.dir/build.make motion/CMakeFiles/motion_generate_messages_py.dir/build
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/utente/Robotics_ICE23_UNITN/catkin_ws/build/CMakeFiles --progress-num=27 "Built target motion_generate_messages_py"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/utente/Robotics_ICE23_UNITN/catkin_ws/build/CMakeFiles --progress-num=29 "Built target motion_generate_messages_py"
 .PHONY : motion/CMakeFiles/motion_generate_messages_py.dir/all
 
 # Build rule for subdir invocation for target.
@@ -3309,12 +3341,12 @@ motion/CMakeFiles/motion_genpy.dir/clean:
 motion/CMakeFiles/planner.dir/all:
 	$(MAKE) $(MAKESILENT) -f motion/CMakeFiles/planner.dir/build.make motion/CMakeFiles/planner.dir/depend
 	$(MAKE) $(MAKESILENT) -f motion/CMakeFiles/planner.dir/build.make motion/CMakeFiles/planner.dir/build
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/utente/Robotics_ICE23_UNITN/catkin_ws/build/CMakeFiles --progress-num=75 "Built target planner"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/utente/Robotics_ICE23_UNITN/catkin_ws/build/CMakeFiles --progress-num= "Built target planner"
 .PHONY : motion/CMakeFiles/planner.dir/all
 
 # Build rule for subdir invocation for target.
 motion/CMakeFiles/planner.dir/rule: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/utente/Robotics_ICE23_UNITN/catkin_ws/build/CMakeFiles 1
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/utente/Robotics_ICE23_UNITN/catkin_ws/build/CMakeFiles 0
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 motion/CMakeFiles/planner.dir/all
 	$(CMAKE_COMMAND) -E cmake_progress_start /home/utente/Robotics_ICE23_UNITN/catkin_ws/build/CMakeFiles 0
 .PHONY : motion/CMakeFiles/planner.dir/rule
@@ -3335,7 +3367,7 @@ motion/CMakeFiles/planner.dir/clean:
 motion/CMakeFiles/moviment.dir/all:
 	$(MAKE) $(MAKESILENT) -f motion/CMakeFiles/moviment.dir/build.make motion/CMakeFiles/moviment.dir/depend
 	$(MAKE) $(MAKESILENT) -f motion/CMakeFiles/moviment.dir/build.make motion/CMakeFiles/moviment.dir/build
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/utente/Robotics_ICE23_UNITN/catkin_ws/build/CMakeFiles --progress-num=28 "Built target moviment"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/utente/Robotics_ICE23_UNITN/catkin_ws/build/CMakeFiles --progress-num=30 "Built target moviment"
 .PHONY : motion/CMakeFiles/moviment.dir/all
 
 # Build rule for subdir invocation for target.
@@ -3630,7 +3662,7 @@ robot_urdf/gripper_description/grasping_plugin/general-message-pkgs\ /object_msg
 
 # Build rule for subdir invocation for target.
 robot_urdf/gripper_description/grasping_plugin/general-message-pkgs\ /object_msgs/CMakeFiles/object_msgs_generate_messages.dir/rule: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/utente/Robotics_ICE23_UNITN/catkin_ws/build/CMakeFiles 11
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/utente/Robotics_ICE23_UNITN/catkin_ws/build/CMakeFiles 10
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 "robot_urdf/gripper_description/grasping_plugin/general-message-pkgs /object_msgs/CMakeFiles/object_msgs_generate_messages.dir/all"
 	$(CMAKE_COMMAND) -E cmake_progress_start /home/utente/Robotics_ICE23_UNITN/catkin_ws/build/CMakeFiles 0
 .PHONY : robot_urdf/gripper_description/grasping_plugin/general-message-pkgs\ /object_msgs/CMakeFiles/object_msgs_generate_messages.dir/rule
@@ -3762,7 +3794,7 @@ robot_urdf/gripper_description/grasping_plugin/general-message-pkgs\ /object_msg
 robot_urdf/gripper_description/grasping_plugin/general-message-pkgs\ /object_msgs/CMakeFiles/object_msgs_generate_messages_cpp.dir/all: robot_urdf/gripper_description/grasping_plugin/general-message-pkgs\ /object_msgs/CMakeFiles/_object_msgs_generate_messages_check_deps_RegisterObject.dir/all
 	$(MAKE) $(MAKESILENT) -f "robot_urdf/gripper_description/grasping_plugin/general-message-pkgs /object_msgs/CMakeFiles/object_msgs_generate_messages_cpp.dir/build.make" "robot_urdf/gripper_description/grasping_plugin/general-message-pkgs /object_msgs/CMakeFiles/object_msgs_generate_messages_cpp.dir/depend"
 	$(MAKE) $(MAKESILENT) -f "robot_urdf/gripper_description/grasping_plugin/general-message-pkgs /object_msgs/CMakeFiles/object_msgs_generate_messages_cpp.dir/build.make" "robot_urdf/gripper_description/grasping_plugin/general-message-pkgs /object_msgs/CMakeFiles/object_msgs_generate_messages_cpp.dir/build"
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/utente/Robotics_ICE23_UNITN/catkin_ws/build/CMakeFiles --progress-num=29,30 "Built target object_msgs_generate_messages_cpp"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/utente/Robotics_ICE23_UNITN/catkin_ws/build/CMakeFiles --progress-num=31,32 "Built target object_msgs_generate_messages_cpp"
 .PHONY : robot_urdf/gripper_description/grasping_plugin/general-message-pkgs\ /object_msgs/CMakeFiles/object_msgs_generate_messages_cpp.dir/all
 
 # Build rule for subdir invocation for target.
@@ -3821,7 +3853,7 @@ robot_urdf/gripper_description/grasping_plugin/general-message-pkgs\ /object_msg
 robot_urdf/gripper_description/grasping_plugin/general-message-pkgs\ /object_msgs/CMakeFiles/object_msgs_generate_messages_eus.dir/all: robot_urdf/gripper_description/grasping_plugin/general-message-pkgs\ /object_msgs/CMakeFiles/_object_msgs_generate_messages_check_deps_RegisterObject.dir/all
 	$(MAKE) $(MAKESILENT) -f "robot_urdf/gripper_description/grasping_plugin/general-message-pkgs /object_msgs/CMakeFiles/object_msgs_generate_messages_eus.dir/build.make" "robot_urdf/gripper_description/grasping_plugin/general-message-pkgs /object_msgs/CMakeFiles/object_msgs_generate_messages_eus.dir/depend"
 	$(MAKE) $(MAKESILENT) -f "robot_urdf/gripper_description/grasping_plugin/general-message-pkgs /object_msgs/CMakeFiles/object_msgs_generate_messages_eus.dir/build.make" "robot_urdf/gripper_description/grasping_plugin/general-message-pkgs /object_msgs/CMakeFiles/object_msgs_generate_messages_eus.dir/build"
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/utente/Robotics_ICE23_UNITN/catkin_ws/build/CMakeFiles --progress-num=31,32 "Built target object_msgs_generate_messages_eus"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/utente/Robotics_ICE23_UNITN/catkin_ws/build/CMakeFiles --progress-num=33,34 "Built target object_msgs_generate_messages_eus"
 .PHONY : robot_urdf/gripper_description/grasping_plugin/general-message-pkgs\ /object_msgs/CMakeFiles/object_msgs_generate_messages_eus.dir/all
 
 # Build rule for subdir invocation for target.
@@ -3880,7 +3912,7 @@ robot_urdf/gripper_description/grasping_plugin/general-message-pkgs\ /object_msg
 robot_urdf/gripper_description/grasping_plugin/general-message-pkgs\ /object_msgs/CMakeFiles/object_msgs_generate_messages_lisp.dir/all: robot_urdf/gripper_description/grasping_plugin/general-message-pkgs\ /object_msgs/CMakeFiles/_object_msgs_generate_messages_check_deps_RegisterObject.dir/all
 	$(MAKE) $(MAKESILENT) -f "robot_urdf/gripper_description/grasping_plugin/general-message-pkgs /object_msgs/CMakeFiles/object_msgs_generate_messages_lisp.dir/build.make" "robot_urdf/gripper_description/grasping_plugin/general-message-pkgs /object_msgs/CMakeFiles/object_msgs_generate_messages_lisp.dir/depend"
 	$(MAKE) $(MAKESILENT) -f "robot_urdf/gripper_description/grasping_plugin/general-message-pkgs /object_msgs/CMakeFiles/object_msgs_generate_messages_lisp.dir/build.make" "robot_urdf/gripper_description/grasping_plugin/general-message-pkgs /object_msgs/CMakeFiles/object_msgs_generate_messages_lisp.dir/build"
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/utente/Robotics_ICE23_UNITN/catkin_ws/build/CMakeFiles --progress-num=33,34 "Built target object_msgs_generate_messages_lisp"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/utente/Robotics_ICE23_UNITN/catkin_ws/build/CMakeFiles --progress-num=35,36 "Built target object_msgs_generate_messages_lisp"
 .PHONY : robot_urdf/gripper_description/grasping_plugin/general-message-pkgs\ /object_msgs/CMakeFiles/object_msgs_generate_messages_lisp.dir/all
 
 # Build rule for subdir invocation for target.
@@ -3939,12 +3971,12 @@ robot_urdf/gripper_description/grasping_plugin/general-message-pkgs\ /object_msg
 robot_urdf/gripper_description/grasping_plugin/general-message-pkgs\ /object_msgs/CMakeFiles/object_msgs_generate_messages_nodejs.dir/all: robot_urdf/gripper_description/grasping_plugin/general-message-pkgs\ /object_msgs/CMakeFiles/_object_msgs_generate_messages_check_deps_RegisterObject.dir/all
 	$(MAKE) $(MAKESILENT) -f "robot_urdf/gripper_description/grasping_plugin/general-message-pkgs /object_msgs/CMakeFiles/object_msgs_generate_messages_nodejs.dir/build.make" "robot_urdf/gripper_description/grasping_plugin/general-message-pkgs /object_msgs/CMakeFiles/object_msgs_generate_messages_nodejs.dir/depend"
 	$(MAKE) $(MAKESILENT) -f "robot_urdf/gripper_description/grasping_plugin/general-message-pkgs /object_msgs/CMakeFiles/object_msgs_generate_messages_nodejs.dir/build.make" "robot_urdf/gripper_description/grasping_plugin/general-message-pkgs /object_msgs/CMakeFiles/object_msgs_generate_messages_nodejs.dir/build"
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/utente/Robotics_ICE23_UNITN/catkin_ws/build/CMakeFiles --progress-num=35,36 "Built target object_msgs_generate_messages_nodejs"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/utente/Robotics_ICE23_UNITN/catkin_ws/build/CMakeFiles --progress-num=37 "Built target object_msgs_generate_messages_nodejs"
 .PHONY : robot_urdf/gripper_description/grasping_plugin/general-message-pkgs\ /object_msgs/CMakeFiles/object_msgs_generate_messages_nodejs.dir/all
 
 # Build rule for subdir invocation for target.
 robot_urdf/gripper_description/grasping_plugin/general-message-pkgs\ /object_msgs/CMakeFiles/object_msgs_generate_messages_nodejs.dir/rule: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/utente/Robotics_ICE23_UNITN/catkin_ws/build/CMakeFiles 2
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/utente/Robotics_ICE23_UNITN/catkin_ws/build/CMakeFiles 1
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 "robot_urdf/gripper_description/grasping_plugin/general-message-pkgs /object_msgs/CMakeFiles/object_msgs_generate_messages_nodejs.dir/all"
 	$(CMAKE_COMMAND) -E cmake_progress_start /home/utente/Robotics_ICE23_UNITN/catkin_ws/build/CMakeFiles 0
 .PHONY : robot_urdf/gripper_description/grasping_plugin/general-message-pkgs\ /object_msgs/CMakeFiles/object_msgs_generate_messages_nodejs.dir/rule
@@ -3970,7 +4002,7 @@ robot_urdf/gripper_description/grasping_plugin/general-message-pkgs\ /object_msg
 
 # Build rule for subdir invocation for target.
 robot_urdf/gripper_description/grasping_plugin/general-message-pkgs\ /object_msgs/CMakeFiles/object_msgs_gennodejs.dir/rule: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/utente/Robotics_ICE23_UNITN/catkin_ws/build/CMakeFiles 2
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/utente/Robotics_ICE23_UNITN/catkin_ws/build/CMakeFiles 1
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 "robot_urdf/gripper_description/grasping_plugin/general-message-pkgs /object_msgs/CMakeFiles/object_msgs_gennodejs.dir/all"
 	$(CMAKE_COMMAND) -E cmake_progress_start /home/utente/Robotics_ICE23_UNITN/catkin_ws/build/CMakeFiles 0
 .PHONY : robot_urdf/gripper_description/grasping_plugin/general-message-pkgs\ /object_msgs/CMakeFiles/object_msgs_gennodejs.dir/rule
@@ -3998,7 +4030,7 @@ robot_urdf/gripper_description/grasping_plugin/general-message-pkgs\ /object_msg
 robot_urdf/gripper_description/grasping_plugin/general-message-pkgs\ /object_msgs/CMakeFiles/object_msgs_generate_messages_py.dir/all: robot_urdf/gripper_description/grasping_plugin/general-message-pkgs\ /object_msgs/CMakeFiles/_object_msgs_generate_messages_check_deps_RegisterObject.dir/all
 	$(MAKE) $(MAKESILENT) -f "robot_urdf/gripper_description/grasping_plugin/general-message-pkgs /object_msgs/CMakeFiles/object_msgs_generate_messages_py.dir/build.make" "robot_urdf/gripper_description/grasping_plugin/general-message-pkgs /object_msgs/CMakeFiles/object_msgs_generate_messages_py.dir/depend"
 	$(MAKE) $(MAKESILENT) -f "robot_urdf/gripper_description/grasping_plugin/general-message-pkgs /object_msgs/CMakeFiles/object_msgs_generate_messages_py.dir/build.make" "robot_urdf/gripper_description/grasping_plugin/general-message-pkgs /object_msgs/CMakeFiles/object_msgs_generate_messages_py.dir/build"
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/utente/Robotics_ICE23_UNITN/catkin_ws/build/CMakeFiles --progress-num=37,38,39 "Built target object_msgs_generate_messages_py"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/utente/Robotics_ICE23_UNITN/catkin_ws/build/CMakeFiles --progress-num=38,39,40 "Built target object_msgs_generate_messages_py"
 .PHONY : robot_urdf/gripper_description/grasping_plugin/general-message-pkgs\ /object_msgs/CMakeFiles/object_msgs_generate_messages_py.dir/all
 
 # Build rule for subdir invocation for target.
@@ -4761,7 +4793,7 @@ robot_urdf/gripper_description/grasping_plugin/gazebo_test_tools/CMakeFiles/gaze
 
 # Build rule for subdir invocation for target.
 robot_urdf/gripper_description/grasping_plugin/gazebo_test_tools/CMakeFiles/gazebo_test_tools_generate_messages.dir/rule: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/utente/Robotics_ICE23_UNITN/catkin_ws/build/CMakeFiles 15
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/utente/Robotics_ICE23_UNITN/catkin_ws/build/CMakeFiles 13
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 robot_urdf/gripper_description/grasping_plugin/gazebo_test_tools/CMakeFiles/gazebo_test_tools_generate_messages.dir/all
 	$(CMAKE_COMMAND) -E cmake_progress_start /home/utente/Robotics_ICE23_UNITN/catkin_ws/build/CMakeFiles 0
 .PHONY : robot_urdf/gripper_description/grasping_plugin/gazebo_test_tools/CMakeFiles/gazebo_test_tools_generate_messages.dir/rule
@@ -4862,12 +4894,12 @@ robot_urdf/gripper_description/grasping_plugin/gazebo_test_tools/CMakeFiles/gaze
 robot_urdf/gripper_description/grasping_plugin/gazebo_test_tools/CMakeFiles/gazebo_test_tools_generate_messages_eus.dir/all: robot_urdf/gripper_description/grasping_plugin/gazebo_test_tools/CMakeFiles/_gazebo_test_tools_generate_messages_check_deps_RecognizeGazeboObject.dir/all
 	$(MAKE) $(MAKESILENT) -f robot_urdf/gripper_description/grasping_plugin/gazebo_test_tools/CMakeFiles/gazebo_test_tools_generate_messages_eus.dir/build.make robot_urdf/gripper_description/grasping_plugin/gazebo_test_tools/CMakeFiles/gazebo_test_tools_generate_messages_eus.dir/depend
 	$(MAKE) $(MAKESILENT) -f robot_urdf/gripper_description/grasping_plugin/gazebo_test_tools/CMakeFiles/gazebo_test_tools_generate_messages_eus.dir/build.make robot_urdf/gripper_description/grasping_plugin/gazebo_test_tools/CMakeFiles/gazebo_test_tools_generate_messages_eus.dir/build
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/utente/Robotics_ICE23_UNITN/catkin_ws/build/CMakeFiles --progress-num=17 "Built target gazebo_test_tools_generate_messages_eus"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/utente/Robotics_ICE23_UNITN/catkin_ws/build/CMakeFiles --progress-num= "Built target gazebo_test_tools_generate_messages_eus"
 .PHONY : robot_urdf/gripper_description/grasping_plugin/gazebo_test_tools/CMakeFiles/gazebo_test_tools_generate_messages_eus.dir/all
 
 # Build rule for subdir invocation for target.
 robot_urdf/gripper_description/grasping_plugin/gazebo_test_tools/CMakeFiles/gazebo_test_tools_generate_messages_eus.dir/rule: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/utente/Robotics_ICE23_UNITN/catkin_ws/build/CMakeFiles 3
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/utente/Robotics_ICE23_UNITN/catkin_ws/build/CMakeFiles 2
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 robot_urdf/gripper_description/grasping_plugin/gazebo_test_tools/CMakeFiles/gazebo_test_tools_generate_messages_eus.dir/all
 	$(CMAKE_COMMAND) -E cmake_progress_start /home/utente/Robotics_ICE23_UNITN/catkin_ws/build/CMakeFiles 0
 .PHONY : robot_urdf/gripper_description/grasping_plugin/gazebo_test_tools/CMakeFiles/gazebo_test_tools_generate_messages_eus.dir/rule
@@ -4893,7 +4925,7 @@ robot_urdf/gripper_description/grasping_plugin/gazebo_test_tools/CMakeFiles/gaze
 
 # Build rule for subdir invocation for target.
 robot_urdf/gripper_description/grasping_plugin/gazebo_test_tools/CMakeFiles/gazebo_test_tools_geneus.dir/rule: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/utente/Robotics_ICE23_UNITN/catkin_ws/build/CMakeFiles 3
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/utente/Robotics_ICE23_UNITN/catkin_ws/build/CMakeFiles 2
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 robot_urdf/gripper_description/grasping_plugin/gazebo_test_tools/CMakeFiles/gazebo_test_tools_geneus.dir/all
 	$(CMAKE_COMMAND) -E cmake_progress_start /home/utente/Robotics_ICE23_UNITN/catkin_ws/build/CMakeFiles 0
 .PHONY : robot_urdf/gripper_description/grasping_plugin/gazebo_test_tools/CMakeFiles/gazebo_test_tools_geneus.dir/rule
@@ -4915,12 +4947,12 @@ robot_urdf/gripper_description/grasping_plugin/gazebo_test_tools/CMakeFiles/gaze
 robot_urdf/gripper_description/grasping_plugin/gazebo_test_tools/CMakeFiles/gazebo_test_tools_generate_messages_lisp.dir/all: robot_urdf/gripper_description/grasping_plugin/gazebo_test_tools/CMakeFiles/_gazebo_test_tools_generate_messages_check_deps_RecognizeGazeboObject.dir/all
 	$(MAKE) $(MAKESILENT) -f robot_urdf/gripper_description/grasping_plugin/gazebo_test_tools/CMakeFiles/gazebo_test_tools_generate_messages_lisp.dir/build.make robot_urdf/gripper_description/grasping_plugin/gazebo_test_tools/CMakeFiles/gazebo_test_tools_generate_messages_lisp.dir/depend
 	$(MAKE) $(MAKESILENT) -f robot_urdf/gripper_description/grasping_plugin/gazebo_test_tools/CMakeFiles/gazebo_test_tools_generate_messages_lisp.dir/build.make robot_urdf/gripper_description/grasping_plugin/gazebo_test_tools/CMakeFiles/gazebo_test_tools_generate_messages_lisp.dir/build
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/utente/Robotics_ICE23_UNITN/catkin_ws/build/CMakeFiles --progress-num= "Built target gazebo_test_tools_generate_messages_lisp"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/utente/Robotics_ICE23_UNITN/catkin_ws/build/CMakeFiles --progress-num=17 "Built target gazebo_test_tools_generate_messages_lisp"
 .PHONY : robot_urdf/gripper_description/grasping_plugin/gazebo_test_tools/CMakeFiles/gazebo_test_tools_generate_messages_lisp.dir/all
 
 # Build rule for subdir invocation for target.
 robot_urdf/gripper_description/grasping_plugin/gazebo_test_tools/CMakeFiles/gazebo_test_tools_generate_messages_lisp.dir/rule: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/utente/Robotics_ICE23_UNITN/catkin_ws/build/CMakeFiles 2
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/utente/Robotics_ICE23_UNITN/catkin_ws/build/CMakeFiles 3
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 robot_urdf/gripper_description/grasping_plugin/gazebo_test_tools/CMakeFiles/gazebo_test_tools_generate_messages_lisp.dir/all
 	$(CMAKE_COMMAND) -E cmake_progress_start /home/utente/Robotics_ICE23_UNITN/catkin_ws/build/CMakeFiles 0
 .PHONY : robot_urdf/gripper_description/grasping_plugin/gazebo_test_tools/CMakeFiles/gazebo_test_tools_generate_messages_lisp.dir/rule
@@ -4946,7 +4978,7 @@ robot_urdf/gripper_description/grasping_plugin/gazebo_test_tools/CMakeFiles/gaze
 
 # Build rule for subdir invocation for target.
 robot_urdf/gripper_description/grasping_plugin/gazebo_test_tools/CMakeFiles/gazebo_test_tools_genlisp.dir/rule: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/utente/Robotics_ICE23_UNITN/catkin_ws/build/CMakeFiles 2
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/utente/Robotics_ICE23_UNITN/catkin_ws/build/CMakeFiles 3
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 robot_urdf/gripper_description/grasping_plugin/gazebo_test_tools/CMakeFiles/gazebo_test_tools_genlisp.dir/all
 	$(CMAKE_COMMAND) -E cmake_progress_start /home/utente/Robotics_ICE23_UNITN/catkin_ws/build/CMakeFiles 0
 .PHONY : robot_urdf/gripper_description/grasping_plugin/gazebo_test_tools/CMakeFiles/gazebo_test_tools_genlisp.dir/rule
@@ -4968,12 +5000,12 @@ robot_urdf/gripper_description/grasping_plugin/gazebo_test_tools/CMakeFiles/gaze
 robot_urdf/gripper_description/grasping_plugin/gazebo_test_tools/CMakeFiles/gazebo_test_tools_generate_messages_nodejs.dir/all: robot_urdf/gripper_description/grasping_plugin/gazebo_test_tools/CMakeFiles/_gazebo_test_tools_generate_messages_check_deps_RecognizeGazeboObject.dir/all
 	$(MAKE) $(MAKESILENT) -f robot_urdf/gripper_description/grasping_plugin/gazebo_test_tools/CMakeFiles/gazebo_test_tools_generate_messages_nodejs.dir/build.make robot_urdf/gripper_description/grasping_plugin/gazebo_test_tools/CMakeFiles/gazebo_test_tools_generate_messages_nodejs.dir/depend
 	$(MAKE) $(MAKESILENT) -f robot_urdf/gripper_description/grasping_plugin/gazebo_test_tools/CMakeFiles/gazebo_test_tools_generate_messages_nodejs.dir/build.make robot_urdf/gripper_description/grasping_plugin/gazebo_test_tools/CMakeFiles/gazebo_test_tools_generate_messages_nodejs.dir/build
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/utente/Robotics_ICE23_UNITN/catkin_ws/build/CMakeFiles --progress-num=18 "Built target gazebo_test_tools_generate_messages_nodejs"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/utente/Robotics_ICE23_UNITN/catkin_ws/build/CMakeFiles --progress-num= "Built target gazebo_test_tools_generate_messages_nodejs"
 .PHONY : robot_urdf/gripper_description/grasping_plugin/gazebo_test_tools/CMakeFiles/gazebo_test_tools_generate_messages_nodejs.dir/all
 
 # Build rule for subdir invocation for target.
 robot_urdf/gripper_description/grasping_plugin/gazebo_test_tools/CMakeFiles/gazebo_test_tools_generate_messages_nodejs.dir/rule: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/utente/Robotics_ICE23_UNITN/catkin_ws/build/CMakeFiles 3
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/utente/Robotics_ICE23_UNITN/catkin_ws/build/CMakeFiles 1
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 robot_urdf/gripper_description/grasping_plugin/gazebo_test_tools/CMakeFiles/gazebo_test_tools_generate_messages_nodejs.dir/all
 	$(CMAKE_COMMAND) -E cmake_progress_start /home/utente/Robotics_ICE23_UNITN/catkin_ws/build/CMakeFiles 0
 .PHONY : robot_urdf/gripper_description/grasping_plugin/gazebo_test_tools/CMakeFiles/gazebo_test_tools_generate_messages_nodejs.dir/rule
@@ -4999,7 +5031,7 @@ robot_urdf/gripper_description/grasping_plugin/gazebo_test_tools/CMakeFiles/gaze
 
 # Build rule for subdir invocation for target.
 robot_urdf/gripper_description/grasping_plugin/gazebo_test_tools/CMakeFiles/gazebo_test_tools_gennodejs.dir/rule: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/utente/Robotics_ICE23_UNITN/catkin_ws/build/CMakeFiles 3
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/utente/Robotics_ICE23_UNITN/catkin_ws/build/CMakeFiles 1
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 robot_urdf/gripper_description/grasping_plugin/gazebo_test_tools/CMakeFiles/gazebo_test_tools_gennodejs.dir/all
 	$(CMAKE_COMMAND) -E cmake_progress_start /home/utente/Robotics_ICE23_UNITN/catkin_ws/build/CMakeFiles 0
 .PHONY : robot_urdf/gripper_description/grasping_plugin/gazebo_test_tools/CMakeFiles/gazebo_test_tools_gennodejs.dir/rule
@@ -5021,7 +5053,7 @@ robot_urdf/gripper_description/grasping_plugin/gazebo_test_tools/CMakeFiles/gaze
 robot_urdf/gripper_description/grasping_plugin/gazebo_test_tools/CMakeFiles/gazebo_test_tools_generate_messages_py.dir/all: robot_urdf/gripper_description/grasping_plugin/gazebo_test_tools/CMakeFiles/_gazebo_test_tools_generate_messages_check_deps_RecognizeGazeboObject.dir/all
 	$(MAKE) $(MAKESILENT) -f robot_urdf/gripper_description/grasping_plugin/gazebo_test_tools/CMakeFiles/gazebo_test_tools_generate_messages_py.dir/build.make robot_urdf/gripper_description/grasping_plugin/gazebo_test_tools/CMakeFiles/gazebo_test_tools_generate_messages_py.dir/depend
 	$(MAKE) $(MAKESILENT) -f robot_urdf/gripper_description/grasping_plugin/gazebo_test_tools/CMakeFiles/gazebo_test_tools_generate_messages_py.dir/build.make robot_urdf/gripper_description/grasping_plugin/gazebo_test_tools/CMakeFiles/gazebo_test_tools_generate_messages_py.dir/build
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/utente/Robotics_ICE23_UNITN/catkin_ws/build/CMakeFiles --progress-num=19 "Built target gazebo_test_tools_generate_messages_py"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/utente/Robotics_ICE23_UNITN/catkin_ws/build/CMakeFiles --progress-num=18 "Built target gazebo_test_tools_generate_messages_py"
 .PHONY : robot_urdf/gripper_description/grasping_plugin/gazebo_test_tools/CMakeFiles/gazebo_test_tools_generate_messages_py.dir/all
 
 # Build rule for subdir invocation for target.
@@ -5155,7 +5187,7 @@ robot_urdf/gripper_description/grasping_plugin/gazebo_test_tools/CMakeFiles/gaze
 robot_urdf/gripper_description/grasping_plugin/gazebo_test_tools/CMakeFiles/gazebo_test_tools.dir/all: robot_urdf/gripper_description/grasping_plugin/gazebo_test_tools/CMakeFiles/gazebo_msgs_generate_messages_py.dir/all
 	$(MAKE) $(MAKESILENT) -f robot_urdf/gripper_description/grasping_plugin/gazebo_test_tools/CMakeFiles/gazebo_test_tools.dir/build.make robot_urdf/gripper_description/grasping_plugin/gazebo_test_tools/CMakeFiles/gazebo_test_tools.dir/depend
 	$(MAKE) $(MAKESILENT) -f robot_urdf/gripper_description/grasping_plugin/gazebo_test_tools/CMakeFiles/gazebo_test_tools.dir/build.make robot_urdf/gripper_description/grasping_plugin/gazebo_test_tools/CMakeFiles/gazebo_test_tools.dir/build
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/utente/Robotics_ICE23_UNITN/catkin_ws/build/CMakeFiles --progress-num= "Built target gazebo_test_tools"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/utente/Robotics_ICE23_UNITN/catkin_ws/build/CMakeFiles --progress-num=15 "Built target gazebo_test_tools"
 .PHONY : robot_urdf/gripper_description/grasping_plugin/gazebo_test_tools/CMakeFiles/gazebo_test_tools.dir/all
 
 # Build rule for subdir invocation for target.
@@ -5269,7 +5301,7 @@ robot_urdf/gripper_description/grasping_plugin/gazebo_test_tools/CMakeFiles/fake
 
 # Build rule for subdir invocation for target.
 robot_urdf/gripper_description/grasping_plugin/gazebo_test_tools/CMakeFiles/fake_object_recognizer.dir/rule: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/utente/Robotics_ICE23_UNITN/catkin_ws/build/CMakeFiles 13
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/utente/Robotics_ICE23_UNITN/catkin_ws/build/CMakeFiles 12
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 robot_urdf/gripper_description/grasping_plugin/gazebo_test_tools/CMakeFiles/fake_object_recognizer.dir/all
 	$(CMAKE_COMMAND) -E cmake_progress_start /home/utente/Robotics_ICE23_UNITN/catkin_ws/build/CMakeFiles 0
 .PHONY : robot_urdf/gripper_description/grasping_plugin/gazebo_test_tools/CMakeFiles/fake_object_recognizer.dir/rule
@@ -5488,7 +5520,7 @@ robot_urdf/gripper_description/grasping_plugin/gazebo_test_tools/CMakeFiles/fake
 
 # Build rule for subdir invocation for target.
 robot_urdf/gripper_description/grasping_plugin/gazebo_test_tools/CMakeFiles/fake_object_recognizer_node.dir/rule: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/utente/Robotics_ICE23_UNITN/catkin_ws/build/CMakeFiles 14
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/utente/Robotics_ICE23_UNITN/catkin_ws/build/CMakeFiles 13
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 robot_urdf/gripper_description/grasping_plugin/gazebo_test_tools/CMakeFiles/fake_object_recognizer_node.dir/all
 	$(CMAKE_COMMAND) -E cmake_progress_start /home/utente/Robotics_ICE23_UNITN/catkin_ws/build/CMakeFiles 0
 .PHONY : robot_urdf/gripper_description/grasping_plugin/gazebo_test_tools/CMakeFiles/fake_object_recognizer_node.dir/rule
@@ -5597,7 +5629,7 @@ robot_urdf/gripper_description/grasping_plugin/gazebo_test_tools/CMakeFiles/fake
 
 # Build rule for subdir invocation for target.
 robot_urdf/gripper_description/grasping_plugin/gazebo_test_tools/CMakeFiles/fake_object_recognizer_cmd.dir/rule: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/utente/Robotics_ICE23_UNITN/catkin_ws/build/CMakeFiles 13
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/utente/Robotics_ICE23_UNITN/catkin_ws/build/CMakeFiles 12
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 robot_urdf/gripper_description/grasping_plugin/gazebo_test_tools/CMakeFiles/fake_object_recognizer_cmd.dir/all
 	$(CMAKE_COMMAND) -E cmake_progress_start /home/utente/Robotics_ICE23_UNITN/catkin_ws/build/CMakeFiles 0
 .PHONY : robot_urdf/gripper_description/grasping_plugin/gazebo_test_tools/CMakeFiles/fake_object_recognizer_cmd.dir/rule
@@ -5705,7 +5737,7 @@ robot_urdf/gripper_description/grasping_plugin/gazebo_test_tools/CMakeFiles/set_
 
 # Build rule for subdir invocation for target.
 robot_urdf/gripper_description/grasping_plugin/gazebo_test_tools/CMakeFiles/set_gazebo_physics_client.dir/rule: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/utente/Robotics_ICE23_UNITN/catkin_ws/build/CMakeFiles 12
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/utente/Robotics_ICE23_UNITN/catkin_ws/build/CMakeFiles 11
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 robot_urdf/gripper_description/grasping_plugin/gazebo_test_tools/CMakeFiles/set_gazebo_physics_client.dir/all
 	$(CMAKE_COMMAND) -E cmake_progress_start /home/utente/Robotics_ICE23_UNITN/catkin_ws/build/CMakeFiles 0
 .PHONY : robot_urdf/gripper_description/grasping_plugin/gazebo_test_tools/CMakeFiles/set_gazebo_physics_client.dir/rule
@@ -5793,7 +5825,7 @@ robot_urdf/gripper_description/grasping_plugin/gazebo_version_helpers/CMakeFiles
 robot_urdf/gripper_description/grasping_plugin/gazebo_version_helpers/CMakeFiles/gazebo_version_helpers.dir/all: robot_urdf/gripper_description/grasping_plugin/gazebo_test_tools/CMakeFiles/gazebo_msgs_generate_messages_py.dir/all
 	$(MAKE) $(MAKESILENT) -f robot_urdf/gripper_description/grasping_plugin/gazebo_version_helpers/CMakeFiles/gazebo_version_helpers.dir/build.make robot_urdf/gripper_description/grasping_plugin/gazebo_version_helpers/CMakeFiles/gazebo_version_helpers.dir/depend
 	$(MAKE) $(MAKESILENT) -f robot_urdf/gripper_description/grasping_plugin/gazebo_version_helpers/CMakeFiles/gazebo_version_helpers.dir/build.make robot_urdf/gripper_description/grasping_plugin/gazebo_version_helpers/CMakeFiles/gazebo_version_helpers.dir/build
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/utente/Robotics_ICE23_UNITN/catkin_ws/build/CMakeFiles --progress-num=20 "Built target gazebo_version_helpers"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/utente/Robotics_ICE23_UNITN/catkin_ws/build/CMakeFiles --progress-num=19 "Built target gazebo_version_helpers"
 .PHONY : robot_urdf/gripper_description/grasping_plugin/gazebo_version_helpers/CMakeFiles/gazebo_version_helpers.dir/all
 
 # Build rule for subdir invocation for target.
@@ -6103,12 +6135,12 @@ robot_urdf/gripper_description/grasping_plugin/gazebo_grasp_plugin_ros/CMakeFile
 robot_urdf/gripper_description/grasping_plugin/gazebo_grasp_plugin_ros/CMakeFiles/gazebo_grasp_plugin_ros_generate_messages_lisp.dir/all: robot_urdf/gripper_description/grasping_plugin/gazebo_grasp_plugin_ros/CMakeFiles/_gazebo_grasp_plugin_ros_generate_messages_check_deps_GazeboGraspEvent.dir/all
 	$(MAKE) $(MAKESILENT) -f robot_urdf/gripper_description/grasping_plugin/gazebo_grasp_plugin_ros/CMakeFiles/gazebo_grasp_plugin_ros_generate_messages_lisp.dir/build.make robot_urdf/gripper_description/grasping_plugin/gazebo_grasp_plugin_ros/CMakeFiles/gazebo_grasp_plugin_ros_generate_messages_lisp.dir/depend
 	$(MAKE) $(MAKESILENT) -f robot_urdf/gripper_description/grasping_plugin/gazebo_grasp_plugin_ros/CMakeFiles/gazebo_grasp_plugin_ros_generate_messages_lisp.dir/build.make robot_urdf/gripper_description/grasping_plugin/gazebo_grasp_plugin_ros/CMakeFiles/gazebo_grasp_plugin_ros_generate_messages_lisp.dir/build
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/utente/Robotics_ICE23_UNITN/catkin_ws/build/CMakeFiles --progress-num=10 "Built target gazebo_grasp_plugin_ros_generate_messages_lisp"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/utente/Robotics_ICE23_UNITN/catkin_ws/build/CMakeFiles --progress-num= "Built target gazebo_grasp_plugin_ros_generate_messages_lisp"
 .PHONY : robot_urdf/gripper_description/grasping_plugin/gazebo_grasp_plugin_ros/CMakeFiles/gazebo_grasp_plugin_ros_generate_messages_lisp.dir/all
 
 # Build rule for subdir invocation for target.
 robot_urdf/gripper_description/grasping_plugin/gazebo_grasp_plugin_ros/CMakeFiles/gazebo_grasp_plugin_ros_generate_messages_lisp.dir/rule: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/utente/Robotics_ICE23_UNITN/catkin_ws/build/CMakeFiles 1
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/utente/Robotics_ICE23_UNITN/catkin_ws/build/CMakeFiles 0
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 robot_urdf/gripper_description/grasping_plugin/gazebo_grasp_plugin_ros/CMakeFiles/gazebo_grasp_plugin_ros_generate_messages_lisp.dir/all
 	$(CMAKE_COMMAND) -E cmake_progress_start /home/utente/Robotics_ICE23_UNITN/catkin_ws/build/CMakeFiles 0
 .PHONY : robot_urdf/gripper_description/grasping_plugin/gazebo_grasp_plugin_ros/CMakeFiles/gazebo_grasp_plugin_ros_generate_messages_lisp.dir/rule
@@ -6134,7 +6166,7 @@ robot_urdf/gripper_description/grasping_plugin/gazebo_grasp_plugin_ros/CMakeFile
 
 # Build rule for subdir invocation for target.
 robot_urdf/gripper_description/grasping_plugin/gazebo_grasp_plugin_ros/CMakeFiles/gazebo_grasp_plugin_ros_genlisp.dir/rule: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/utente/Robotics_ICE23_UNITN/catkin_ws/build/CMakeFiles 1
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/utente/Robotics_ICE23_UNITN/catkin_ws/build/CMakeFiles 0
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 robot_urdf/gripper_description/grasping_plugin/gazebo_grasp_plugin_ros/CMakeFiles/gazebo_grasp_plugin_ros_genlisp.dir/all
 	$(CMAKE_COMMAND) -E cmake_progress_start /home/utente/Robotics_ICE23_UNITN/catkin_ws/build/CMakeFiles 0
 .PHONY : robot_urdf/gripper_description/grasping_plugin/gazebo_grasp_plugin_ros/CMakeFiles/gazebo_grasp_plugin_ros_genlisp.dir/rule
@@ -6156,12 +6188,12 @@ robot_urdf/gripper_description/grasping_plugin/gazebo_grasp_plugin_ros/CMakeFile
 robot_urdf/gripper_description/grasping_plugin/gazebo_grasp_plugin_ros/CMakeFiles/gazebo_grasp_plugin_ros_generate_messages_nodejs.dir/all: robot_urdf/gripper_description/grasping_plugin/gazebo_grasp_plugin_ros/CMakeFiles/_gazebo_grasp_plugin_ros_generate_messages_check_deps_GazeboGraspEvent.dir/all
 	$(MAKE) $(MAKESILENT) -f robot_urdf/gripper_description/grasping_plugin/gazebo_grasp_plugin_ros/CMakeFiles/gazebo_grasp_plugin_ros_generate_messages_nodejs.dir/build.make robot_urdf/gripper_description/grasping_plugin/gazebo_grasp_plugin_ros/CMakeFiles/gazebo_grasp_plugin_ros_generate_messages_nodejs.dir/depend
 	$(MAKE) $(MAKESILENT) -f robot_urdf/gripper_description/grasping_plugin/gazebo_grasp_plugin_ros/CMakeFiles/gazebo_grasp_plugin_ros_generate_messages_nodejs.dir/build.make robot_urdf/gripper_description/grasping_plugin/gazebo_grasp_plugin_ros/CMakeFiles/gazebo_grasp_plugin_ros_generate_messages_nodejs.dir/build
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/utente/Robotics_ICE23_UNITN/catkin_ws/build/CMakeFiles --progress-num= "Built target gazebo_grasp_plugin_ros_generate_messages_nodejs"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/utente/Robotics_ICE23_UNITN/catkin_ws/build/CMakeFiles --progress-num=10 "Built target gazebo_grasp_plugin_ros_generate_messages_nodejs"
 .PHONY : robot_urdf/gripper_description/grasping_plugin/gazebo_grasp_plugin_ros/CMakeFiles/gazebo_grasp_plugin_ros_generate_messages_nodejs.dir/all
 
 # Build rule for subdir invocation for target.
 robot_urdf/gripper_description/grasping_plugin/gazebo_grasp_plugin_ros/CMakeFiles/gazebo_grasp_plugin_ros_generate_messages_nodejs.dir/rule: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/utente/Robotics_ICE23_UNITN/catkin_ws/build/CMakeFiles 0
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/utente/Robotics_ICE23_UNITN/catkin_ws/build/CMakeFiles 1
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 robot_urdf/gripper_description/grasping_plugin/gazebo_grasp_plugin_ros/CMakeFiles/gazebo_grasp_plugin_ros_generate_messages_nodejs.dir/all
 	$(CMAKE_COMMAND) -E cmake_progress_start /home/utente/Robotics_ICE23_UNITN/catkin_ws/build/CMakeFiles 0
 .PHONY : robot_urdf/gripper_description/grasping_plugin/gazebo_grasp_plugin_ros/CMakeFiles/gazebo_grasp_plugin_ros_generate_messages_nodejs.dir/rule
@@ -6187,7 +6219,7 @@ robot_urdf/gripper_description/grasping_plugin/gazebo_grasp_plugin_ros/CMakeFile
 
 # Build rule for subdir invocation for target.
 robot_urdf/gripper_description/grasping_plugin/gazebo_grasp_plugin_ros/CMakeFiles/gazebo_grasp_plugin_ros_gennodejs.dir/rule: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/utente/Robotics_ICE23_UNITN/catkin_ws/build/CMakeFiles 0
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/utente/Robotics_ICE23_UNITN/catkin_ws/build/CMakeFiles 1
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 robot_urdf/gripper_description/grasping_plugin/gazebo_grasp_plugin_ros/CMakeFiles/gazebo_grasp_plugin_ros_gennodejs.dir/all
 	$(CMAKE_COMMAND) -E cmake_progress_start /home/utente/Robotics_ICE23_UNITN/catkin_ws/build/CMakeFiles 0
 .PHONY : robot_urdf/gripper_description/grasping_plugin/gazebo_grasp_plugin_ros/CMakeFiles/gazebo_grasp_plugin_ros_gennodejs.dir/rule
@@ -6428,7 +6460,7 @@ robot_urdf/gripper_description/grasping_plugin/gazebo_world_plugin_loader/CMakeF
 robot_urdf/gripper_description/grasping_plugin/gazebo_world_plugin_loader/CMakeFiles/gazebo_world_plugin_loader.dir/all: robot_urdf/gripper_description/grasping_plugin/gazebo_test_tools/CMakeFiles/gazebo_msgs_generate_messages_py.dir/all
 	$(MAKE) $(MAKESILENT) -f robot_urdf/gripper_description/grasping_plugin/gazebo_world_plugin_loader/CMakeFiles/gazebo_world_plugin_loader.dir/build.make robot_urdf/gripper_description/grasping_plugin/gazebo_world_plugin_loader/CMakeFiles/gazebo_world_plugin_loader.dir/depend
 	$(MAKE) $(MAKESILENT) -f robot_urdf/gripper_description/grasping_plugin/gazebo_world_plugin_loader/CMakeFiles/gazebo_world_plugin_loader.dir/build.make robot_urdf/gripper_description/grasping_plugin/gazebo_world_plugin_loader/CMakeFiles/gazebo_world_plugin_loader.dir/build
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/utente/Robotics_ICE23_UNITN/catkin_ws/build/CMakeFiles --progress-num=21 "Built target gazebo_world_plugin_loader"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/utente/Robotics_ICE23_UNITN/catkin_ws/build/CMakeFiles --progress-num=20 "Built target gazebo_world_plugin_loader"
 .PHONY : robot_urdf/gripper_description/grasping_plugin/gazebo_world_plugin_loader/CMakeFiles/gazebo_world_plugin_loader.dir/all
 
 # Build rule for subdir invocation for target.
@@ -6514,12 +6546,12 @@ robot_urdf/gripper_description/grasping_plugin/general-message-pkgs\ /object_msg
 robot_urdf/gripper_description/grasping_plugin/general-message-pkgs\ /object_msgs_tools/CMakeFiles/object_msgs_tools.dir/all: robot_urdf/gripper_description/grasping_plugin/gazebo_test_tools/CMakeFiles/tf2_msgs_generate_messages_py.dir/all
 	$(MAKE) $(MAKESILENT) -f "robot_urdf/gripper_description/grasping_plugin/general-message-pkgs /object_msgs_tools/CMakeFiles/object_msgs_tools.dir/build.make" "robot_urdf/gripper_description/grasping_plugin/general-message-pkgs /object_msgs_tools/CMakeFiles/object_msgs_tools.dir/depend"
 	$(MAKE) $(MAKESILENT) -f "robot_urdf/gripper_description/grasping_plugin/general-message-pkgs /object_msgs_tools/CMakeFiles/object_msgs_tools.dir/build.make" "robot_urdf/gripper_description/grasping_plugin/general-message-pkgs /object_msgs_tools/CMakeFiles/object_msgs_tools.dir/build"
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/utente/Robotics_ICE23_UNITN/catkin_ws/build/CMakeFiles --progress-num=40 "Built target object_msgs_tools"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/utente/Robotics_ICE23_UNITN/catkin_ws/build/CMakeFiles --progress-num=41 "Built target object_msgs_tools"
 .PHONY : robot_urdf/gripper_description/grasping_plugin/general-message-pkgs\ /object_msgs_tools/CMakeFiles/object_msgs_tools.dir/all
 
 # Build rule for subdir invocation for target.
 robot_urdf/gripper_description/grasping_plugin/general-message-pkgs\ /object_msgs_tools/CMakeFiles/object_msgs_tools.dir/rule: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/utente/Robotics_ICE23_UNITN/catkin_ws/build/CMakeFiles 12
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/utente/Robotics_ICE23_UNITN/catkin_ws/build/CMakeFiles 11
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 "robot_urdf/gripper_description/grasping_plugin/general-message-pkgs /object_msgs_tools/CMakeFiles/object_msgs_tools.dir/all"
 	$(CMAKE_COMMAND) -E cmake_progress_start /home/utente/Robotics_ICE23_UNITN/catkin_ws/build/CMakeFiles 0
 .PHONY : robot_urdf/gripper_description/grasping_plugin/general-message-pkgs\ /object_msgs_tools/CMakeFiles/object_msgs_tools.dir/rule
@@ -6601,12 +6633,12 @@ robot_urdf/gripper_description/grasping_plugin/general-message-pkgs\ /object_msg
 robot_urdf/gripper_description/grasping_plugin/general-message-pkgs\ /object_msgs_tools/CMakeFiles/object_tf_broadcaster_node.dir/all: robot_urdf/gripper_description/grasping_plugin/general-message-pkgs\ /object_msgs_tools/CMakeFiles/object_msgs_tools.dir/all
 	$(MAKE) $(MAKESILENT) -f "robot_urdf/gripper_description/grasping_plugin/general-message-pkgs /object_msgs_tools/CMakeFiles/object_tf_broadcaster_node.dir/build.make" "robot_urdf/gripper_description/grasping_plugin/general-message-pkgs /object_msgs_tools/CMakeFiles/object_tf_broadcaster_node.dir/depend"
 	$(MAKE) $(MAKESILENT) -f "robot_urdf/gripper_description/grasping_plugin/general-message-pkgs /object_msgs_tools/CMakeFiles/object_tf_broadcaster_node.dir/build.make" "robot_urdf/gripper_description/grasping_plugin/general-message-pkgs /object_msgs_tools/CMakeFiles/object_tf_broadcaster_node.dir/build"
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/utente/Robotics_ICE23_UNITN/catkin_ws/build/CMakeFiles --progress-num=41 "Built target object_tf_broadcaster_node"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/utente/Robotics_ICE23_UNITN/catkin_ws/build/CMakeFiles --progress-num=42 "Built target object_tf_broadcaster_node"
 .PHONY : robot_urdf/gripper_description/grasping_plugin/general-message-pkgs\ /object_msgs_tools/CMakeFiles/object_tf_broadcaster_node.dir/all
 
 # Build rule for subdir invocation for target.
 robot_urdf/gripper_description/grasping_plugin/general-message-pkgs\ /object_msgs_tools/CMakeFiles/object_tf_broadcaster_node.dir/rule: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/utente/Robotics_ICE23_UNITN/catkin_ws/build/CMakeFiles 13
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/utente/Robotics_ICE23_UNITN/catkin_ws/build/CMakeFiles 12
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 "robot_urdf/gripper_description/grasping_plugin/general-message-pkgs /object_msgs_tools/CMakeFiles/object_tf_broadcaster_node.dir/all"
 	$(CMAKE_COMMAND) -E cmake_progress_start /home/utente/Robotics_ICE23_UNITN/catkin_ws/build/CMakeFiles 0
 .PHONY : robot_urdf/gripper_description/grasping_plugin/general-message-pkgs\ /object_msgs_tools/CMakeFiles/object_tf_broadcaster_node.dir/rule
@@ -6692,7 +6724,7 @@ robot_urdf/gripper_description/grasping_plugin/general-message-pkgs\ /object_msg
 
 # Build rule for subdir invocation for target.
 robot_urdf/gripper_description/grasping_plugin/general-message-pkgs\ /object_msgs_tools/CMakeFiles/register_object_client.dir/rule: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/utente/Robotics_ICE23_UNITN/catkin_ws/build/CMakeFiles 12
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/utente/Robotics_ICE23_UNITN/catkin_ws/build/CMakeFiles 11
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 "robot_urdf/gripper_description/grasping_plugin/general-message-pkgs /object_msgs_tools/CMakeFiles/register_object_client.dir/all"
 	$(CMAKE_COMMAND) -E cmake_progress_start /home/utente/Robotics_ICE23_UNITN/catkin_ws/build/CMakeFiles 0
 .PHONY : robot_urdf/gripper_description/grasping_plugin/general-message-pkgs\ /object_msgs_tools/CMakeFiles/register_object_client.dir/rule
@@ -6803,12 +6835,12 @@ robot_urdf/gripper_description/grasping_plugin/gazebo_state_plugins/CMakeFiles/g
 robot_urdf/gripper_description/grasping_plugin/gazebo_state_plugins/CMakeFiles/gazebo_object_info.dir/all: robot_urdf/gripper_description/grasping_plugin/general-message-pkgs\ /object_msgs_tools/CMakeFiles/object_msgs_tools.dir/all
 	$(MAKE) $(MAKESILENT) -f robot_urdf/gripper_description/grasping_plugin/gazebo_state_plugins/CMakeFiles/gazebo_object_info.dir/build.make robot_urdf/gripper_description/grasping_plugin/gazebo_state_plugins/CMakeFiles/gazebo_object_info.dir/depend
 	$(MAKE) $(MAKESILENT) -f robot_urdf/gripper_description/grasping_plugin/gazebo_state_plugins/CMakeFiles/gazebo_object_info.dir/build.make robot_urdf/gripper_description/grasping_plugin/gazebo_state_plugins/CMakeFiles/gazebo_object_info.dir/build
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/utente/Robotics_ICE23_UNITN/catkin_ws/build/CMakeFiles --progress-num=14 "Built target gazebo_object_info"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/utente/Robotics_ICE23_UNITN/catkin_ws/build/CMakeFiles --progress-num=13 "Built target gazebo_object_info"
 .PHONY : robot_urdf/gripper_description/grasping_plugin/gazebo_state_plugins/CMakeFiles/gazebo_object_info.dir/all
 
 # Build rule for subdir invocation for target.
 robot_urdf/gripper_description/grasping_plugin/gazebo_state_plugins/CMakeFiles/gazebo_object_info.dir/rule: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/utente/Robotics_ICE23_UNITN/catkin_ws/build/CMakeFiles 15
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/utente/Robotics_ICE23_UNITN/catkin_ws/build/CMakeFiles 14
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 robot_urdf/gripper_description/grasping_plugin/gazebo_state_plugins/CMakeFiles/gazebo_object_info.dir/all
 	$(CMAKE_COMMAND) -E cmake_progress_start /home/utente/Robotics_ICE23_UNITN/catkin_ws/build/CMakeFiles 0
 .PHONY : robot_urdf/gripper_description/grasping_plugin/gazebo_state_plugins/CMakeFiles/gazebo_object_info.dir/rule
@@ -6919,12 +6951,12 @@ robot_urdf/gripper_description/grasping_plugin/gazebo_state_plugins/CMakeFiles/g
 robot_urdf/gripper_description/grasping_plugin/gazebo_state_plugins/CMakeFiles/gazebo_map_publisher.dir/all: robot_urdf/gripper_description/grasping_plugin/general-message-pkgs\ /object_msgs_tools/CMakeFiles/object_msgs_tools.dir/all
 	$(MAKE) $(MAKESILENT) -f robot_urdf/gripper_description/grasping_plugin/gazebo_state_plugins/CMakeFiles/gazebo_map_publisher.dir/build.make robot_urdf/gripper_description/grasping_plugin/gazebo_state_plugins/CMakeFiles/gazebo_map_publisher.dir/depend
 	$(MAKE) $(MAKESILENT) -f robot_urdf/gripper_description/grasping_plugin/gazebo_state_plugins/CMakeFiles/gazebo_map_publisher.dir/build.make robot_urdf/gripper_description/grasping_plugin/gazebo_state_plugins/CMakeFiles/gazebo_map_publisher.dir/build
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/utente/Robotics_ICE23_UNITN/catkin_ws/build/CMakeFiles --progress-num=13 "Built target gazebo_map_publisher"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/utente/Robotics_ICE23_UNITN/catkin_ws/build/CMakeFiles --progress-num= "Built target gazebo_map_publisher"
 .PHONY : robot_urdf/gripper_description/grasping_plugin/gazebo_state_plugins/CMakeFiles/gazebo_map_publisher.dir/all
 
 # Build rule for subdir invocation for target.
 robot_urdf/gripper_description/grasping_plugin/gazebo_state_plugins/CMakeFiles/gazebo_map_publisher.dir/rule: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/utente/Robotics_ICE23_UNITN/catkin_ws/build/CMakeFiles 15
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/utente/Robotics_ICE23_UNITN/catkin_ws/build/CMakeFiles 13
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 robot_urdf/gripper_description/grasping_plugin/gazebo_state_plugins/CMakeFiles/gazebo_map_publisher.dir/all
 	$(CMAKE_COMMAND) -E cmake_progress_start /home/utente/Robotics_ICE23_UNITN/catkin_ws/build/CMakeFiles 0
 .PHONY : robot_urdf/gripper_description/grasping_plugin/gazebo_state_plugins/CMakeFiles/gazebo_map_publisher.dir/rule
@@ -7035,12 +7067,12 @@ robot_urdf/gripper_description/grasping_plugin/gazebo_state_plugins/CMakeFiles/g
 robot_urdf/gripper_description/grasping_plugin/gazebo_state_plugins/CMakeFiles/gazebo_request_object_info.dir/all: robot_urdf/gripper_description/grasping_plugin/general-message-pkgs\ /object_msgs_tools/CMakeFiles/object_msgs_tools.dir/all
 	$(MAKE) $(MAKESILENT) -f robot_urdf/gripper_description/grasping_plugin/gazebo_state_plugins/CMakeFiles/gazebo_request_object_info.dir/build.make robot_urdf/gripper_description/grasping_plugin/gazebo_state_plugins/CMakeFiles/gazebo_request_object_info.dir/depend
 	$(MAKE) $(MAKESILENT) -f robot_urdf/gripper_description/grasping_plugin/gazebo_state_plugins/CMakeFiles/gazebo_request_object_info.dir/build.make robot_urdf/gripper_description/grasping_plugin/gazebo_state_plugins/CMakeFiles/gazebo_request_object_info.dir/build
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/utente/Robotics_ICE23_UNITN/catkin_ws/build/CMakeFiles --progress-num=15 "Built target gazebo_request_object_info"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/utente/Robotics_ICE23_UNITN/catkin_ws/build/CMakeFiles --progress-num=14 "Built target gazebo_request_object_info"
 .PHONY : robot_urdf/gripper_description/grasping_plugin/gazebo_state_plugins/CMakeFiles/gazebo_request_object_info.dir/all
 
 # Build rule for subdir invocation for target.
 robot_urdf/gripper_description/grasping_plugin/gazebo_state_plugins/CMakeFiles/gazebo_request_object_info.dir/rule: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/utente/Robotics_ICE23_UNITN/catkin_ws/build/CMakeFiles 15
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/utente/Robotics_ICE23_UNITN/catkin_ws/build/CMakeFiles 14
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 robot_urdf/gripper_description/grasping_plugin/gazebo_state_plugins/CMakeFiles/gazebo_request_object_info.dir/all
 	$(CMAKE_COMMAND) -E cmake_progress_start /home/utente/Robotics_ICE23_UNITN/catkin_ws/build/CMakeFiles 0
 .PHONY : robot_urdf/gripper_description/grasping_plugin/gazebo_state_plugins/CMakeFiles/gazebo_request_object_info.dir/rule
@@ -7395,12 +7427,12 @@ environment/CMakeFiles/ros_impedance_controller_generate_messages_eus.dir/all: e
 environment/CMakeFiles/ros_impedance_controller_generate_messages_eus.dir/all: environment/CMakeFiles/_ros_impedance_controller_generate_messages_check_deps_generic_float.dir/all
 	$(MAKE) $(MAKESILENT) -f environment/CMakeFiles/ros_impedance_controller_generate_messages_eus.dir/build.make environment/CMakeFiles/ros_impedance_controller_generate_messages_eus.dir/depend
 	$(MAKE) $(MAKESILENT) -f environment/CMakeFiles/ros_impedance_controller_generate_messages_eus.dir/build.make environment/CMakeFiles/ros_impedance_controller_generate_messages_eus.dir/build
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/utente/Robotics_ICE23_UNITN/catkin_ws/build/CMakeFiles --progress-num=82,83,84,85 "Built target ros_impedance_controller_generate_messages_eus"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/utente/Robotics_ICE23_UNITN/catkin_ws/build/CMakeFiles --progress-num=82,83,84,85,86 "Built target ros_impedance_controller_generate_messages_eus"
 .PHONY : environment/CMakeFiles/ros_impedance_controller_generate_messages_eus.dir/all
 
 # Build rule for subdir invocation for target.
 environment/CMakeFiles/ros_impedance_controller_generate_messages_eus.dir/rule: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/utente/Robotics_ICE23_UNITN/catkin_ws/build/CMakeFiles 4
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/utente/Robotics_ICE23_UNITN/catkin_ws/build/CMakeFiles 5
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 environment/CMakeFiles/ros_impedance_controller_generate_messages_eus.dir/all
 	$(CMAKE_COMMAND) -E cmake_progress_start /home/utente/Robotics_ICE23_UNITN/catkin_ws/build/CMakeFiles 0
 .PHONY : environment/CMakeFiles/ros_impedance_controller_generate_messages_eus.dir/rule
@@ -7426,7 +7458,7 @@ environment/CMakeFiles/ros_impedance_controller_geneus.dir/all: environment/CMak
 
 # Build rule for subdir invocation for target.
 environment/CMakeFiles/ros_impedance_controller_geneus.dir/rule: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/utente/Robotics_ICE23_UNITN/catkin_ws/build/CMakeFiles 4
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/utente/Robotics_ICE23_UNITN/catkin_ws/build/CMakeFiles 5
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 environment/CMakeFiles/ros_impedance_controller_geneus.dir/all
 	$(CMAKE_COMMAND) -E cmake_progress_start /home/utente/Robotics_ICE23_UNITN/catkin_ws/build/CMakeFiles 0
 .PHONY : environment/CMakeFiles/ros_impedance_controller_geneus.dir/rule
@@ -7456,7 +7488,7 @@ environment/CMakeFiles/ros_impedance_controller_generate_messages_lisp.dir/all: 
 environment/CMakeFiles/ros_impedance_controller_generate_messages_lisp.dir/all: environment/CMakeFiles/_ros_impedance_controller_generate_messages_check_deps_generic_float.dir/all
 	$(MAKE) $(MAKESILENT) -f environment/CMakeFiles/ros_impedance_controller_generate_messages_lisp.dir/build.make environment/CMakeFiles/ros_impedance_controller_generate_messages_lisp.dir/depend
 	$(MAKE) $(MAKESILENT) -f environment/CMakeFiles/ros_impedance_controller_generate_messages_lisp.dir/build.make environment/CMakeFiles/ros_impedance_controller_generate_messages_lisp.dir/build
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/utente/Robotics_ICE23_UNITN/catkin_ws/build/CMakeFiles --progress-num=86,87,88,89 "Built target ros_impedance_controller_generate_messages_lisp"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/utente/Robotics_ICE23_UNITN/catkin_ws/build/CMakeFiles --progress-num=87,88,89,90 "Built target ros_impedance_controller_generate_messages_lisp"
 .PHONY : environment/CMakeFiles/ros_impedance_controller_generate_messages_lisp.dir/all
 
 # Build rule for subdir invocation for target.
@@ -7517,12 +7549,12 @@ environment/CMakeFiles/ros_impedance_controller_generate_messages_nodejs.dir/all
 environment/CMakeFiles/ros_impedance_controller_generate_messages_nodejs.dir/all: environment/CMakeFiles/_ros_impedance_controller_generate_messages_check_deps_generic_float.dir/all
 	$(MAKE) $(MAKESILENT) -f environment/CMakeFiles/ros_impedance_controller_generate_messages_nodejs.dir/build.make environment/CMakeFiles/ros_impedance_controller_generate_messages_nodejs.dir/depend
 	$(MAKE) $(MAKESILENT) -f environment/CMakeFiles/ros_impedance_controller_generate_messages_nodejs.dir/build.make environment/CMakeFiles/ros_impedance_controller_generate_messages_nodejs.dir/build
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/utente/Robotics_ICE23_UNITN/catkin_ws/build/CMakeFiles --progress-num=90,91,92,93,94 "Built target ros_impedance_controller_generate_messages_nodejs"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/utente/Robotics_ICE23_UNITN/catkin_ws/build/CMakeFiles --progress-num=91,92,93,94 "Built target ros_impedance_controller_generate_messages_nodejs"
 .PHONY : environment/CMakeFiles/ros_impedance_controller_generate_messages_nodejs.dir/all
 
 # Build rule for subdir invocation for target.
 environment/CMakeFiles/ros_impedance_controller_generate_messages_nodejs.dir/rule: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/utente/Robotics_ICE23_UNITN/catkin_ws/build/CMakeFiles 5
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/utente/Robotics_ICE23_UNITN/catkin_ws/build/CMakeFiles 4
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 environment/CMakeFiles/ros_impedance_controller_generate_messages_nodejs.dir/all
 	$(CMAKE_COMMAND) -E cmake_progress_start /home/utente/Robotics_ICE23_UNITN/catkin_ws/build/CMakeFiles 0
 .PHONY : environment/CMakeFiles/ros_impedance_controller_generate_messages_nodejs.dir/rule
@@ -7548,7 +7580,7 @@ environment/CMakeFiles/ros_impedance_controller_gennodejs.dir/all: environment/C
 
 # Build rule for subdir invocation for target.
 environment/CMakeFiles/ros_impedance_controller_gennodejs.dir/rule: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/utente/Robotics_ICE23_UNITN/catkin_ws/build/CMakeFiles 5
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/utente/Robotics_ICE23_UNITN/catkin_ws/build/CMakeFiles 4
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 environment/CMakeFiles/ros_impedance_controller_gennodejs.dir/all
 	$(CMAKE_COMMAND) -E cmake_progress_start /home/utente/Robotics_ICE23_UNITN/catkin_ws/build/CMakeFiles 0
 .PHONY : environment/CMakeFiles/ros_impedance_controller_gennodejs.dir/rule

@@ -1303,17 +1303,30 @@ motion_generate_messages/fast:
 .PHONY : motion_generate_messages/fast
 
 #=============================================================================
-# Target rules for targets named _motion_generate_messages_check_deps_position
+# Target rules for targets named _motion_generate_messages_check_deps_legoTask
 
 # Build rule for target.
-_motion_generate_messages_check_deps_position: cmake_check_build_system
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 _motion_generate_messages_check_deps_position
-.PHONY : _motion_generate_messages_check_deps_position
+_motion_generate_messages_check_deps_legoTask: cmake_check_build_system
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 _motion_generate_messages_check_deps_legoTask
+.PHONY : _motion_generate_messages_check_deps_legoTask
 
 # fast build rule for target.
-_motion_generate_messages_check_deps_position/fast:
-	$(MAKE) $(MAKESILENT) -f motion/CMakeFiles/_motion_generate_messages_check_deps_position.dir/build.make motion/CMakeFiles/_motion_generate_messages_check_deps_position.dir/build
-.PHONY : _motion_generate_messages_check_deps_position/fast
+_motion_generate_messages_check_deps_legoTask/fast:
+	$(MAKE) $(MAKESILENT) -f motion/CMakeFiles/_motion_generate_messages_check_deps_legoTask.dir/build.make motion/CMakeFiles/_motion_generate_messages_check_deps_legoTask.dir/build
+.PHONY : _motion_generate_messages_check_deps_legoTask/fast
+
+#=============================================================================
+# Target rules for targets named _motion_generate_messages_check_deps_legoFound
+
+# Build rule for target.
+_motion_generate_messages_check_deps_legoFound: cmake_check_build_system
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 _motion_generate_messages_check_deps_legoFound
+.PHONY : _motion_generate_messages_check_deps_legoFound
+
+# fast build rule for target.
+_motion_generate_messages_check_deps_legoFound/fast:
+	$(MAKE) $(MAKESILENT) -f motion/CMakeFiles/_motion_generate_messages_check_deps_legoFound.dir/build.make motion/CMakeFiles/_motion_generate_messages_check_deps_legoFound.dir/build
+.PHONY : _motion_generate_messages_check_deps_legoFound/fast
 
 #=============================================================================
 # Target rules for targets named motion_generate_messages_cpp
@@ -2982,7 +2995,8 @@ help:
 	@echo "... _catkin_empty_exported_target"
 	@echo "... _gazebo_grasp_plugin_ros_generate_messages_check_deps_GazeboGraspEvent"
 	@echo "... _gazebo_test_tools_generate_messages_check_deps_RecognizeGazeboObject"
-	@echo "... _motion_generate_messages_check_deps_position"
+	@echo "... _motion_generate_messages_check_deps_legoFound"
+	@echo "... _motion_generate_messages_check_deps_legoTask"
 	@echo "... _object_msgs_generate_messages_check_deps_Object"
 	@echo "... _object_msgs_generate_messages_check_deps_ObjectInfo"
 	@echo "... _object_msgs_generate_messages_check_deps_ObjectPose"
