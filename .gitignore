@@ -5,4 +5,5 @@ catkin_ws/.catkin_tools
 .vscode
 .git
 .gitconfig
+.gitignore
 **/__pycache__/

@@ -11,29 +11,28 @@
 #include <Eigen/Dense>
 
 using namespace std;
-using namespace Eigen;
 
 struct end_effector {
-    Vector3f posit;
-    Matrix3f orient;
+    Eigen::Vector3f posit;
+    Eigen::Matrix3f orient;
 };
 
-Matrix3f orient2matrix(Vector3f eu_angles) {
+Eigen::Matrix3f orient2matrix(Eigen::Vector3f eu_angles) {
 
-    Matrix3f resMatrix;
-    resMatrix = AngleAxisf(eu_angles(0), Vector3f::UnitZ()) * AngleAxisf(eu_angles(1), Vector3f::UnitY()) * AngleAxisf(eu_angles(2), Vector3f::UnitX());
+    Eigen::Matrix3f resMatrix;
+    resMatrix = Eigen::AngleAxisf(eu_angles(0), Eigen::Vector3f::UnitZ()) * Eigen::AngleAxisf(eu_angles(1), Eigen::Vector3f::UnitY()) * Eigen::AngleAxisf(eu_angles(2), Eigen::Vector3f::UnitX());
     return resMatrix;
 }
 
-MatrixXf jacobMatrix(VectorXf jo_ang) {
+Eigen::MatrixXf jacobMatrix(Eigen::VectorXf jo_ang) {
 
-    VectorXf v_1(6);
+    Eigen::VectorXf v_1(6);
     v_1 << 0, -0.425, -0.3922, 0, 0, 0;
 
-    VectorXf v_2(6);
+    Eigen::VectorXf v_2(6);
     v_2 << 0.1625, 0, 0, 0.1333, 0.0997, 0.0996 + 0.14;
 
-    MatrixXf jac_mtx_1(6, 1);
+    Eigen::MatrixXf jac_mtx_1(6, 1);
     jac_mtx_1 <<    v_2(4) * (cos(jo_ang(0)) * cos(jo_ang(4)) + cos(jo_ang(1) + jo_ang(2) + jo_ang(3)) * sin(jo_ang(0)) * sin(jo_ang(4))) + v_2(2) * cos(jo_ang(0)) + v_2(3) * cos(jo_ang(0)) - v_1(2) * cos(jo_ang(1) + jo_ang(2)) * sin(jo_ang(0)) - v_1(1) * cos(jo_ang(1)) * sin(jo_ang(0)) - v_2(4) * sin(jo_ang(1) + jo_ang(2) + jo_ang(3)) * sin(jo_ang(0)),
                     v_2(4) * (cos(jo_ang(4)) * sin(jo_ang(0)) - cos(jo_ang(1) + jo_ang(2) + jo_ang(3)) * cos(jo_ang(0)) * sin(jo_ang(4))) + v_2(2) * sin(jo_ang(0)) + v_2(3) * sin(jo_ang(0)) + v_1(2) * cos(jo_ang(1) + jo_ang(2)) * cos(jo_ang(0)) + v_1(1) * cos(jo_ang(0)) * cos(jo_ang(1)) + v_2(4) * sin(jo_ang(1) + jo_ang(2) + jo_ang(3)) * cos(jo_ang(0)),
                     0,
@@ -41,7 +40,7 @@ MatrixXf jacobMatrix(VectorXf jo_ang) {
                     0,
                     1;
     
-    MatrixXf jac_mtx_2(6, 1);
+    Eigen::MatrixXf jac_mtx_2(6, 1);
     jac_mtx_2 <<    -cos(jo_ang(0)) * (v_1(2) * sin(jo_ang(1) + jo_ang(2)) + v_1(1) * sin(jo_ang(1)) + v_2(4) * (sin(jo_ang(1) + jo_ang(2)) * sin(jo_ang(3)) - cos(jo_ang(1) + jo_ang(2)) * cos(jo_ang(3))) - v_2(4) * sin(jo_ang(4)) * (cos(jo_ang(1) + jo_ang(2)) * sin(jo_ang(3)) + sin(jo_ang(1) + jo_ang(2)) * cos(jo_ang(3)))),
                     -sin(jo_ang(0)) * (v_1(2) * sin(jo_ang(1) + jo_ang(2)) + v_1(1) * sin(jo_ang(1)) + v_2(4) * (sin(jo_ang(1) + jo_ang(2)) * sin(jo_ang(3)) - cos(jo_ang(1) + jo_ang(2)) * cos(jo_ang(3))) - v_2(4) * sin(jo_ang(4)) * (cos(jo_ang(1) + jo_ang(2)) * sin(jo_ang(3)) + sin(jo_ang(1) + jo_ang(2)) * cos(jo_ang(3)))),
                     v_1(2) * cos(jo_ang(1) + jo_ang(2)) - (v_2(4) * sin(jo_ang(1) + jo_ang(2) + jo_ang(3) + jo_ang(4))) / 2 + v_1(1) * cos(jo_ang(1)) + (v_2(4) * sin(jo_ang(1) + jo_ang(2) + jo_ang(3) - jo_ang(4))) / 2 + v_2(4) * sin(jo_ang(1) + jo_ang(2) + jo_ang(3)),
@@ -49,7 +48,7 @@ MatrixXf jacobMatrix(VectorXf jo_ang) {
                     -cos(jo_ang(0)),
                     0;
     
-    MatrixXf jac_mtx_3(6, 1);
+    Eigen::MatrixXf jac_mtx_3(6, 1);
     jac_mtx_3 <<    cos(jo_ang(0)) * (v_2(4) * cos(jo_ang(1) + jo_ang(2) + jo_ang(3)) - v_1(2) * sin(jo_ang(1) + jo_ang(2)) + v_2(4) * sin(jo_ang(1) + jo_ang(2) + jo_ang(3)) * sin(jo_ang(4))),
                     sin(jo_ang(0)) * (v_2(4) * cos(jo_ang(1) + jo_ang(2) + jo_ang(3)) - v_1(2) * sin(jo_ang(1) + jo_ang(2)) + v_2(4) * sin(jo_ang(1) + jo_ang(2) + jo_ang(3)) * sin(jo_ang(4))),
                     v_1(2) * cos(jo_ang(1) + jo_ang(2)) - (v_2(4) * sin(jo_ang(1) + jo_ang(2) + jo_ang(3) + jo_ang(4))) / 2 + (v_2(4) * sin(jo_ang(1) + jo_ang(2) + jo_ang(3) - jo_ang(4))) / 2 + v_2(4) * sin(jo_ang(1) + jo_ang(2) + jo_ang(3)),
@@ -57,7 +56,7 @@ MatrixXf jacobMatrix(VectorXf jo_ang) {
                     -cos(jo_ang(0)),
                     0;
     
-    MatrixXf jac_mtx_4(6, 1);
+    Eigen::MatrixXf jac_mtx_4(6, 1);
     jac_mtx_4 <<    v_2(4) * cos(jo_ang(0)) * (cos(jo_ang(1) + jo_ang(2) + jo_ang(3)) + sin(jo_ang(1) + jo_ang(2) + jo_ang(3)) * sin(jo_ang(4))),
                     v_2(4) * sin(jo_ang(0)) * (cos(jo_ang(1) + jo_ang(2) + jo_ang(3)) + sin(jo_ang(1) + jo_ang(2) + jo_ang(3)) * sin(jo_ang(4))),
                     v_2(4) * (sin(jo_ang(1) + jo_ang(2) + jo_ang(3) - jo_ang(4)) / 2 + sin(jo_ang(1) + jo_ang(2) + jo_ang(3)) - sin(jo_ang(1) + jo_ang(2) + jo_ang(3) + jo_ang(4)) / 2),
@@ -65,7 +64,7 @@ MatrixXf jacobMatrix(VectorXf jo_ang) {
                     -cos(jo_ang(0)),
                     0;
     
-    MatrixXf jac_mtx_5(6, 1);
+    Eigen::MatrixXf jac_mtx_5(6, 1);
     jac_mtx_5 <<    -v_2(4) * sin(jo_ang(0)) * sin(jo_ang(4)) - v_2(4) * cos(jo_ang(1) + jo_ang(2) + jo_ang(3)) * cos(jo_ang(0)) * cos(jo_ang(4)),
                     v_2(4) * cos(jo_ang(0)) * sin(jo_ang(4)) - v_2(4) * cos(jo_ang(1) + jo_ang(2) + jo_ang(3)) * cos(jo_ang(4)) * sin(jo_ang(0)),
                     -v_2(4) * (sin(jo_ang(1) + jo_ang(2) + jo_ang(3) - jo_ang(4)) / 2 + sin(jo_ang(1) + jo_ang(2) + jo_ang(3) + jo_ang(4)) / 2),
@@ -73,7 +72,7 @@ MatrixXf jacobMatrix(VectorXf jo_ang) {
                     sin(jo_ang(1) + jo_ang(2) + jo_ang(3)) * sin(jo_ang(0)),
                     -cos(jo_ang(1) + jo_ang(2) + jo_ang(3));
     
-    MatrixXf jac_mtx_6(6, 1);
+    Eigen::MatrixXf jac_mtx_6(6, 1);
     jac_mtx_6 <<    0,
                     0,
                     0,
@@ -81,93 +80,93 @@ MatrixXf jacobMatrix(VectorXf jo_ang) {
                     -cos(jo_ang(0)) * cos(jo_ang(4)) - cos(jo_ang(1) + jo_ang(2) + jo_ang(3)) * sin(jo_ang(0)) * sin(jo_ang(4)),
                     -sin(jo_ang(1) + jo_ang(2) + jo_ang(3)) * sin(jo_ang(4));
     
-    MatrixXf jacob_mtx(6, 6);
+    Eigen::MatrixXf jacob_mtx(6, 6);
     jacob_mtx.setZero();
     jacob_mtx << jac_mtx_1, jac_mtx_2, jac_mtx_3, jac_mtx_4, jac_mtx_5, jac_mtx_6;
     return jacob_mtx;
 }
 
-Matrix4f joint1Transf(float j1_angle) {
+Eigen::Matrix4f joint1Transf(float j1_angle) {
 
-    VectorXf j1_1(6);
+    Eigen::VectorXf j1_1(6);
     j1_1 << 0, -0.425, -0.3922, 0, 0, 0;
 
-    VectorXf j1_2(6);
+    Eigen::VectorXf j1_2(6);
     j1_2 << 0.1625, 0, 0, 0.1333, 0.0997, 0.0996 + 0.14;
     
-    Matrix4f j1_matrix;
+    Eigen::Matrix4f j1_matrix;
     j1_matrix << cos(j1_angle), -sin(j1_angle), 0, 0, sin(j1_angle), cos(j1_angle), 0, 0, 0, 0, 1, j1_2(0), 0, 0, 0, 1;
     return j1_matrix;
 }
 
-Matrix4f joint2Transf(float j2_angle) {
+Eigen::Matrix4f joint2Transf(float j2_angle) {
 
-    VectorXf j2_1(6);
+    Eigen::VectorXf j2_1(6);
     j2_1 << 0, -0.425, -0.3922, 0, 0, 0;
 
-    VectorXf j2_2(6);
+    Eigen::VectorXf j2_2(6);
     j2_2 << 0.1625, 0, 0, 0.1333, 0.0997, 0.0996 + 0.14;
 
-    Matrix4f j2_matrix;
+    Eigen::Matrix4f j2_matrix;
     j2_matrix << cos(j2_angle), -sin(j2_angle), 0, 0, 0, 0, -1, 0, sin(j2_angle), cos(j2_angle), 0, 0, 0, 0, 0, 1;
     return j2_matrix;
 }
 
-Matrix4f joint3Transf(float j3_angle) {
+Eigen::Matrix4f joint3Transf(float j3_angle) {
 
-    VectorXf j3_1(6);
+    Eigen::VectorXf j3_1(6);
     j3_1 << 0, -0.425, -0.3922, 0, 0, 0;
 
-    VectorXf j3_2(6);
+    Eigen::VectorXf j3_2(6);
     j3_2 << 0.1625, 0, 0, 0.1333, 0.0997, 0.0996 + 0.14;
 
-    Matrix4f j3_matrix;
+    Eigen::Matrix4f j3_matrix;
     j3_matrix << cos(j3_angle), -sin(j3_angle), 0, j3_1(1), sin(j3_angle), cos(j3_angle), 0, 0, 0, 0, 1, j3_2(2), 0, 0, 0, 1;
     return j3_matrix;
 }
 
-Matrix4f joint4Transf(float j4_angle) {
+Eigen::Matrix4f joint4Transf(float j4_angle) {
 
-    VectorXf j4_1(6);
+    Eigen::VectorXf j4_1(6);
     j4_1 << 0, -0.425, -0.3922, 0, 0, 0;
 
-    VectorXf j4_2(6);
+    Eigen::VectorXf j4_2(6);
     j4_2 << 0.1625, 0, 0, 0.1333, 0.0997, 0.0996 + 0.14;
 
-    Matrix4f j4_matrix;
+    Eigen::Matrix4f j4_matrix;
     j4_matrix << cos(j4_angle), -sin(j4_angle), 0, j4_1(2), sin(j4_angle), cos(j4_angle), 0, 0, 0, 0, 1, j4_2(3), 0, 0, 0, 1;
     return j4_matrix;
 }
 
-Matrix4f joint5Transf(float j5_angle) {
+Eigen::Matrix4f joint5Transf(float j5_angle) {
 
-    VectorXf j5_1(6);
+    Eigen::VectorXf j5_1(6);
     j5_1 << 0, -0.425, -0.3922, 0, 0, 0;
 
-    VectorXf j5_2(6);
+    Eigen::VectorXf j5_2(6);
     j5_2 << 0.1625, 0, 0, 0.1333, 0.0997, 0.0996 + 0.14;
 
-    Matrix4f j5_matrix;
+    Eigen::Matrix4f j5_matrix;
     j5_matrix << cos(j5_angle), -sin(j5_angle), 0, 0, 0, 0, -1, -j5_2(4), sin(j5_angle), cos(j5_angle), 0, 0, 0, 0, 0, 1;
     return j5_matrix;
 }
 
-Matrix4f joint6Transf(float j6_angle) {
+Eigen::Matrix4f joint6Transf(float j6_angle) {
 
-    VectorXf j6_1(6);
+    Eigen::VectorXf j6_1(6);
     j6_1 << 0, -0.425, -0.3922, 0, 0, 0;
 
-    VectorXf j6_2(6);
+    Eigen::VectorXf j6_2(6);
     j6_2 << 0.1625, 0, 0, 0.1333, 0.0997, 0.0996 + 0.14;
 
-    Matrix4f j6_matrix;
+    Eigen::Matrix4f j6_matrix;
     j6_matrix << cos(j6_angle), -sin(j6_angle), 0, 0, 0, 0, 1, j6_2(5), -sin(j6_angle), -cos(j6_angle), 0, 0, 0, 0, 0, 1;
     return j6_matrix;
 }
 
-end_effector directKinematic(VectorXf j_angles) {
+end_effector directKinematic(Eigen::VectorXf j_angles) {
 
-    Matrix4f temp_mtx;
+    Eigen::Matrix4f temp_mtx;
     temp_mtx = joint1Transf(j_angles(0)) * joint2Transf(j_angles(1)) * joint3Transf(j_angles(2)) * joint4Transf(j_angles(3)) * joint5Transf(j_angles(4)) * joint6Transf(j_angles(5));
 
     end_effector retMatrix;
@@ -176,15 +175,15 @@ end_effector directKinematic(VectorXf j_angles) {
     return retMatrix;
 }
 
-MatrixXf inverseKinematic(end_effector &arm) {
+Eigen::MatrixXf inverseKinematic(end_effector &arm) {
 
-    VectorXf v_1d(6);
+    Eigen::VectorXf v_1d(6);
     v_1d << 0, -0.425, -0.3922, 0, 0, 0;
 
-    VectorXf v_2d(6);
+    Eigen::VectorXf v_2d(6);
     v_2d << 0.1625, 0, 0, 0.1333, 0.0997, 0.0996 + 0.14;
 
-    Matrix4f temp_mtx;
+    Eigen::Matrix4f temp_mtx;
     temp_mtx.setZero();
     temp_mtx.block(0, 3, 3, 1) = arm.posit;
     temp_mtx.block(0, 0, 3, 3) = arm.orient;
@@ -192,8 +191,8 @@ MatrixXf inverseKinematic(end_effector &arm) {
 
     // finding th1
 
-    Vector4f j1_v;
-    j1_v = temp_mtx * Vector4f(0, 0, -v_2d(5), 1);
+    Eigen::Vector4f j1_v;
+    j1_v = temp_mtx * Eigen::Vector4f(0, 0, -v_2d(5), 1);
     float jo1_1 = real(atan2(j1_v(1), j1_v(0)) + acos(v_2d(3) / hypot(j1_v(1), j1_v(0)))) + M_PI / 2;
     float jo1_2 = real(atan2(j1_v(1), j1_v(0)) - acos(v_2d(3) / hypot(j1_v(1), j1_v(0)))) + M_PI / 2;
 
@@ -206,12 +205,13 @@ MatrixXf inverseKinematic(end_effector &arm) {
 
     // finding th6
 
-    Matrix4f inv_mtx;
+    Eigen::Matrix4f inv_mtx;
     inv_mtx = temp_mtx.inverse();
 
-    Vector3f x_vect;
+    Eigen::Vector3f x_vect;
     x_vect = inv_mtx.block(0, 0, 3, 1);
-    Vector3f y_vect;
+
+    Eigen::Vector3f y_vect;
     y_vect = inv_mtx.block(0, 1, 3, 1);
 
     float jo6_1 = real(atan2(((-x_vect(1) * sin(jo1_1) + y_vect(1) * cos(jo1_1))) / sin(jo5_1), ((x_vect(0) * sin(jo1_1) - y_vect(0) * cos(jo1_1))) / sin(jo5_1)));
@@ -219,10 +219,10 @@ MatrixXf inverseKinematic(end_effector &arm) {
     float jo6_3 = real(atan2(((-x_vect(1) * sin(jo1_2) + y_vect(1) * cos(jo1_2))) / sin(jo5_3), ((x_vect(0) * sin(jo1_2) - y_vect(0) * cos(jo1_2))) / sin(jo5_3)));
     float jo6_4 = real(atan2(((-x_vect(1) * sin(jo1_2) + y_vect(1) * cos(jo1_2))) / sin(jo5_4), ((x_vect(0) * sin(jo1_2) - y_vect(0) * cos(jo1_2))) / sin(jo5_4)));
 
-    Matrix4f transf_mtx;
+    Eigen::Matrix4f transf_mtx;
     transf_mtx = joint1Transf(jo1_1).inverse() * temp_mtx * joint6Transf(jo6_1).inverse() * joint5Transf(jo5_1).inverse();
 
-    Vector3f v4_1;
+    Eigen::Vector3f v4_1;
     v4_1 = transf_mtx.block(0, 3, 3, 1);
 
     float f4_1;
@@ -230,7 +230,7 @@ MatrixXf inverseKinematic(end_effector &arm) {
 
     transf_mtx = joint1Transf(jo1_1).inverse() * temp_mtx * joint6Transf(jo6_2).inverse() * joint5Transf(jo5_2).inverse();
 
-    Vector3f v4_2;    
+    Eigen::Vector3f v4_2;    
     v4_2 = transf_mtx.block(0, 3, 3, 1);
 
     float f4_2;
@@ -238,7 +238,7 @@ MatrixXf inverseKinematic(end_effector &arm) {
 
     transf_mtx = joint1Transf(jo1_2).inverse() * temp_mtx * joint6Transf(jo6_3).inverse() * joint5Transf(jo5_3).inverse();
 
-    Vector3f v4_3;
+    Eigen::Vector3f v4_3;
     v4_3 = transf_mtx.block(0, 3, 3, 1);
 
     float f4_3;
@@ -246,7 +246,7 @@ MatrixXf inverseKinematic(end_effector &arm) {
 
     transf_mtx = joint1Transf(jo1_2).inverse() * temp_mtx * joint6Transf(jo6_4).inverse() * joint5Transf(jo5_4).inverse();
 
-    Vector3f v4_4;
+    Eigen::Vector3f v4_4;
     v4_4 = transf_mtx.block(0, 3, 3, 1);
 
     float f4_4;
@@ -291,10 +291,10 @@ MatrixXf inverseKinematic(end_effector &arm) {
 
     // find th4
 
-    Matrix4f j4_mtx;    
+    Eigen::Matrix4f j4_mtx;    
     j4_mtx = joint3Transf(jo3_1).inverse() * joint2Transf(jo2_1).inverse() * joint1Transf(jo1_1).inverse() * temp_mtx * joint6Transf(jo6_1).inverse() * joint5Transf(jo5_1).inverse();
     
-    Vector3f x_4v;
+    Eigen::Vector3f x_4v;
     x_4v = j4_mtx.block(0, 0, 3, 1);
     float jo4_1 = atan2(x_4v(1), x_4v(0));
 
@@ -326,7 +326,7 @@ MatrixXf inverseKinematic(end_effector &arm) {
     x_4v = j4_mtx.block(0, 0, 3, 1);
     float jo4_8 = atan2(x_4v(1), x_4v(0));
 
-    MatrixXf result_mtx(8, 6);
+    Eigen::MatrixXf result_mtx(8, 6);
     result_mtx <<   jo1_1, jo2_1, jo3_1, jo4_1, jo5_1, jo6_1, jo1_1, jo2_2, jo3_2, jo4_2, jo5_2, jo6_2, jo1_2, jo2_3, jo3_3, jo4_3, jo5_3, jo6_3, jo1_2, jo2_4, jo3_4, jo4_4, jo5_4, jo6_4,
                     jo1_1, jo2_5, jo3_5, jo4_5, jo5_1, jo6_1, jo1_1, jo2_6, jo3_6, jo4_6, jo5_2, jo6_2, jo1_2, jo2_7, jo3_7, jo4_7, jo5_3, jo6_3, jo1_2, jo2_8, jo3_8, jo4_8, jo5_4, jo6_4;
     return result_mtx;

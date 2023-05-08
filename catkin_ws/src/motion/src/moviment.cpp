@@ -43,7 +43,6 @@ using namespace std;
 #define sleep_time 50
 #define damping_exponent -5
 
-#define joint_n6_still_value 3.49
 #define virtual_graspOff_diameter 100
 #define real_robot_graspOff_diameter 100
 #define max_joint_speed 1.5
@@ -72,7 +71,7 @@ Eigen::VectorXf gripper_state_vector(3);
 double max_trajectory_time = default_max_traj_time;		     
 
 void moveDefaultPosition();
-void moveProcedure(Eigen::Vector3f v_position, Vector3f v_orientation, float dt);
+void moveProcedure(Eigen::Vector3f v_position, Eigen::Vector3f v_orientation, float dt);
 Eigen::Vector3f getTrajectory(double time, Eigen::Vector3f begin_position, Eigen::Vector3f final_position);
 Eigen::VectorXf getJointSpeeds(Eigen::VectorXf joint_st, Eigen::Vector3f curr_position, Eigen::Vector3f destin_position, Eigen::Vector3f velocity, Eigen::Matrix3f curr_orientation, Eigen::Vector3f final_orientation);
 Eigen::Vector3f correctOrientation(Eigen::Matrix3f curr_orientation, Eigen::Matrix3f final_orientation );
@@ -121,7 +120,7 @@ void moveDefaultPosition() {
 
     cout << "Moving the UR5 arm to default position..." << endl;
 
-    Vector3f default_pos_vector;
+    Eigen::Vector3f default_pos_vector;
     default_pos_vector << default_target_position;
 
     moveProcedure(default_pos_vector, obj_po_begin.orientation, default_dt);
@@ -204,7 +203,7 @@ Eigen::Vector3f correctOrientation(Eigen::Matrix3f curr_orientation, Eigen::Matr
     
     if (tan_angle == 0) { or_error << null_vector; }
      else {
-        axis_v = 1 / (2 * delta_angle_sin) * Vector3f(relative_or_mtx(2, 1) - relative_or_mtx(1, 2), relative_or_mtx(0, 2) - relative_or_mtx(2, 0), relative_or_mtx(1, 0) - relative_or_mtx(0, 1));
+        axis_v = 1 / (2 * delta_angle_sin) * Eigen::Vector3f(relative_or_mtx(2, 1) - relative_or_mtx(1, 2), relative_or_mtx(0, 2) - relative_or_mtx(2, 0), relative_or_mtx(1, 0) - relative_or_mtx(0, 1));
         or_error = final_orientation * tan_angle * axis_v;
     }
 
@@ -220,8 +219,6 @@ void updateJointStates(Eigen::VectorXf joint_st) {
     for (int i = 0; i < 6; i++) {
         jointState_msg_robot.data[i] = joint_st(i);
     }
-    
-    jointState_msg_robot.data[5] = joint_n6_still_value;
 
     jointState_msg_robot.data[6] = gripper_state_vector[0];
     jointState_msg_robot.data[7] = gripper_state_vector[1];
