@@ -12,6 +12,8 @@
 
 using namespace std;
 
+#define null_vector 0, 0, 0
+
 struct objectPositionOrientation {
         Eigen::Vector3f position;
         Eigen::Vector3f orientation;

@@ -12,3 +12,4 @@ float64 dest_z
 float64 dest_roll
 float64 dest_pitch
 float64 dest_yaw
+int32 w_time

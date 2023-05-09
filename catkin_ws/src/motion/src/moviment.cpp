@@ -27,16 +27,19 @@ using namespace std;
 #define position_gain 5
 #define orientation_gain 30
 
-#define command_catch 1
+#define invalid_command -1
+#define null_command 0
+#define command_wait 1
 #define command_move 2
 #define command_grasp 3
 #define command_ungrasp 4
+#define command_def_pos 5
+#define command_catch 6
 
+#define z_above_object 0.7 // z
 #define default_joint_state_vector -0.32, -0.78, -2.56, -1.63, -1.57, 3.49
 #define default_target_position -0.3, -0.6, 0.4 // x, y, z
 #define half_point 0.0, -0.4, 0.6 // x, y, z
-#define z_above_object 0.7 // z
-#define null_vector 0, 0, 0
 
 #define default_dt 0.001
 #define default_max_traj_time 7
@@ -57,6 +60,7 @@ ros::ServiceClient client_gripper_handle;
 bool is_real_robot = false;	
 int command_id;		
 float lego_grasp_diameter;
+int time2wait;
 
 objectPositionOrientation obj_po_begin; 	
 objectPositionOrientation obj_po_dest; 
@@ -73,6 +77,8 @@ Eigen::Vector3f correctOrientation(Eigen::Matrix3f curr_orientation, Eigen::Matr
 void updateJointStates(Eigen::VectorXf joint_st);
 float gripper2joints(float diameter);
 void subscriberCallback(const motion::legoTask::ConstPtr &mex);
+void nullCommandExecute();
+void waitCommandExecute(int wait_time);
 void catchProcedure();
 void graspObject(bool catchIt);
 void pubReadyACK();
@@ -255,6 +261,7 @@ void subscriberCallback(const motion::legoTask::ConstPtr &mex) {
         obj_po_dest.orientation(0) = mex->dest_roll;
         obj_po_dest.orientation(1) = mex->dest_pitch;
         obj_po_dest.orientation(2) = mex->dest_yaw;
+        time2wait = mex->w_time;
 
         cout << endl;
         cout << "Subscriber: " << sub_position_address << " receved some data:" << endl;
@@ -271,13 +278,18 @@ void subscriberCallback(const motion::legoTask::ConstPtr &mex) {
         cout << "Z destination coord: " << obj_po_dest.position(2) << endl;
         cout << "Roll destination orientation: " << obj_po_dest.orientation(0) << endl;
         cout << "Pitch destination orientation: " << obj_po_dest.orientation(1) << endl;
-        cout << "Yaw destination orientation: " << obj_po_dest.orientation(2) << endl << endl; 
+        cout << "Yaw destination orientation: " << obj_po_dest.orientation(2) << endl << endl;
 
         Eigen::Vector3f position2move;
         
         switch (command_id) {
 
-                case(command_catch):    catchProcedure();  
+                case(invalid_command):
+
+                case(null_command):     nullCommandExecute();
+                                        break;
+
+                case(command_wait):     waitCommandExecute(time2wait);
                                         break;
 
                 case(command_move):     position2move << obj_po_begin.position(0), obj_po_begin.position(1), obj_po_begin.position(2);
@@ -287,11 +299,38 @@ void subscriberCallback(const motion::legoTask::ConstPtr &mex) {
                 case(command_grasp):    graspObject(true);
                                         break;
 
-                case(command_ungrasp):  graspObject(false);                   
+                case(command_ungrasp):  graspObject(false);
+                                        break;             
+
+                case(command_def_pos):  moveDefaultPosition();
+                                        break;                                                          
+
+                case(command_catch):    catchProcedure();  
+                                        break;                                        
 
                 default:                break;
         }
         
+}
+
+void nullCommandExecute() {
+
+        ros::Rate wait_loop(loop_wait_rate);
+        wait_loop.sleep();
+
+        cout << "Null command executed" << endl;
+}
+
+void waitCommandExecute(int wait_time) {
+
+        cout << "Waiting for " << wait_time << " ..." << endl;
+
+        ros::Rate wait_loop(loop_wait_rate);
+        for (int i = 0; i < wait_time; i++) { 
+                wait_loop.sleep();
+        }
+
+        cout << "Wait expired!" << endl;
 }
 
 void catchProcedure() {

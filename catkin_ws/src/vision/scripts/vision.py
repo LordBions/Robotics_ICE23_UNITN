@@ -55,25 +55,23 @@ class Vision:
         self.ack_pub = ros.Publisher('/planner/stop', Int32, queue_size=10)
         
     def receive_image(self, data):
-        # @brief Callback function whenever take msg from ZED camera
-        #  @param data (msg): msg taken from ZED node
-        
-        # Flag
+
         if not self.allow_receive_image:
             return
+
         self.allow_receive_image = False
 
-        # Convert ROS image to OpenCV image
         try:
             cv_image = self.bridge.imgmsg_to_cv2(data, "bgr8")
+
         except CvBridgeError as e:
             print(e)
 
-        # Save image and detect lego
         cv.imwrite(IMG_ZED, cv_image)
-        foundLego = RecogniseLego(IMG_ZED)
-        self.lego_list = foundLego.lego_list
 
+        foundLego = RecogniseLego(IMG_ZED)
+
+        self.lego_list = foundLego.lego_list
         self.allow_receive_pointcloud = True
 
     def receive_pointcloud(self, msg):
@@ -141,16 +139,14 @@ class Vision:
             exit()
             pass
             
-# ---------------------- MAIN ----------------------
-# To use in command:
-# python3 vision.py
- 
 if __name__ == '__main__':
 
     vision = Vision()
 
     try:
         ros.spin()
+
     except KeyboardInterrupt:
+        
         print("Shutting down")
     

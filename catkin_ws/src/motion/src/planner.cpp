@@ -21,10 +21,14 @@ using namespace std;
 #define sub_motionAck_address "/motion/readyACK"           
 #define sub_plannerStop_address "/planner/stop"
 
-#define command_catch 1
+#define invalid_command -1
+#define null_command 0
+#define command_wait 1
 #define command_move 2
 #define command_grasp 3
 #define command_ungrasp 4
+#define command_def_pos 5
+#define command_catch 6
 
 #define queque_size 10
 #define loop_wait_rate 1000 
@@ -92,12 +96,10 @@ bool stop_planner = false;
 bool keep_orientation = false;                       
 
 int lego_class;                        
-Eigen::Vector3f lego_pos;             
-Eigen::Vector3f lego_or;   
 motion::legoTask msg_moviment;
 
-Eigen::Vector3f dest_position;
-Eigen::Vector3f dest_orientation;
+objectPositionOrientation lego_start;
+objectPositionOrientation lego_dest;
 
 void pubTaskCommander();
 void catchCommand();
@@ -169,8 +171,8 @@ int main(int argc, char **argv) {
         
                                 ready_flag = false;
 
-                                if (is_real_robot) { lego_pos = camera2simulation(lego_pos); }
-                                else { lego_pos = simulation2base(lego_pos); }
+                                if (is_real_robot) { lego_start.position = camera2simulation(lego_start.position); }
+                                else { lego_start.position = simulation2base(lego_start.position); }
 
                                 catchCommand();
                         }
@@ -188,12 +190,12 @@ int main(int argc, char **argv) {
 void catchCommand() {
 
         msg_moviment.command_id = command_catch; // catch procedure
-        msg_moviment.coord_x = lego_pos(0);
-        msg_moviment.coord_y = lego_pos(1);
+        msg_moviment.coord_x = lego_start.position(0);
+        msg_moviment.coord_y = lego_start.position(1);
         msg_moviment.coord_z = lego_coord_z;
-        msg_moviment.rot_roll = lego_or(0);
-        msg_moviment.rot_pitch = lego_or(1);
-        msg_moviment.rot_yaw = lego_or(2);
+        msg_moviment.rot_roll = lego_start.orientation(0);
+        msg_moviment.rot_pitch = lego_start.orientation(1);
+        msg_moviment.rot_yaw = lego_start.orientation(2);
 
         selectClass(lego_class);
         pubTaskCommander();
@@ -227,44 +229,44 @@ void selectClass(int lego_cl) {
 
         switch (lego_cl) {
 
-                case 0: dest_position << class_00_relocation;
+                case 0: lego_dest.position << class_00_relocation;
                         break;
 
-                case 1: dest_position << class_01_relocation;
+                case 1: lego_dest.position << class_01_relocation;
                         break;
 
-                case 2: dest_position << class_02_relocation;
+                case 2: lego_dest.position << class_02_relocation;
                         break;
 
-                case 3: dest_position << class_03_relocation;
+                case 3: lego_dest.position << class_03_relocation;
                         break;
 
-                case 4: dest_position << class_04_relocation;
+                case 4: lego_dest.position << class_04_relocation;
                         break;
 
-                case 5: dest_position << class_05_relocation;
+                case 5: lego_dest.position << class_05_relocation;
                         break;
 
-                case 6: dest_position << class_06_relocation;
+                case 6: lego_dest.position << class_06_relocation;
                         break;
 
-                case 7: dest_position << class_07_relocation;
+                case 7: lego_dest.position << class_07_relocation;
                         break;
 
-                case 8: dest_position << class_08_relocation;
+                case 8: lego_dest.position << class_08_relocation;
                         break;
 
-                case 9: dest_position << class_09_relocation;
+                case 9: lego_dest.position << class_09_relocation;
                         break;
 
-                case 10: dest_position << class_10_relocation;
+                case 10: lego_dest.position << class_10_relocation;
 
                 default: break;
         }
 
-        msg_moviment.dest_x = dest_position(0);
-        msg_moviment.dest_y = dest_position(1);
-        msg_moviment.dest_z = dest_position(2);
+        msg_moviment.dest_x = lego_dest.position(0);
+        msg_moviment.dest_y = lego_dest.position(1);
+        msg_moviment.dest_z = lego_dest.position(2);
 
         if (keep_orientation) {
 
@@ -276,44 +278,44 @@ void selectClass(int lego_cl) {
 
                 switch (lego_cl) {
 
-                        case 0: dest_orientation << class_00_orient;
+                        case 0: lego_dest.orientation << class_00_orient;
                                 break;
 
-                        case 1: dest_orientation << class_01_orient;
+                        case 1: lego_dest.orientation << class_01_orient;
                                 break;
 
-                        case 2: dest_orientation << class_02_orient;
+                        case 2: lego_dest.orientation << class_02_orient;
                                 break;
 
-                        case 3: dest_orientation << class_03_orient;
+                        case 3: lego_dest.orientation << class_03_orient;
                                 break;
 
-                        case 4: dest_orientation << class_04_orient;
+                        case 4: lego_dest.orientation << class_04_orient;
                                 break;
 
-                        case 5: dest_orientation << class_05_orient;
+                        case 5: lego_dest.orientation << class_05_orient;
                                 break;
 
-                        case 6: dest_orientation << class_06_orient;
+                        case 6: lego_dest.orientation << class_06_orient;
                                 break;
 
-                        case 7: dest_orientation << class_07_orient;
+                        case 7: lego_dest.orientation << class_07_orient;
                                 break;
 
-                        case 8: dest_orientation << class_08_orient;
+                        case 8: lego_dest.orientation << class_08_orient;
                                 break;
 
-                        case 9: dest_orientation << class_09_orient;
+                        case 9: lego_dest.orientation << class_09_orient;
                                 break;
 
-                        case 10: dest_orientation << class_10_orient;
+                        case 10: lego_dest.orientation << class_10_orient;
 
                         default: break;
                 }
 
-                msg_moviment.dest_roll = dest_orientation(0);
-                msg_moviment.dest_pitch = dest_orientation(1);
-                msg_moviment.dest_yaw = dest_orientation(2);
+                msg_moviment.dest_roll = lego_dest.orientation(0);
+                msg_moviment.dest_pitch = lego_dest.orientation(1);
+                msg_moviment.dest_yaw = lego_dest.orientation(2);
 
         }
 
@@ -403,8 +405,8 @@ void subVisionCallback(const motion::legoFound::ConstPtr &mex) {
 
         is_vision_msg_received = true; 
         lego_class = mex->lego_class;
-        lego_pos << mex->coord_x, mex->coord_y, mex->coord_z;
-        lego_or << mex->rot_roll, mex->rot_pitch, mex->rot_yaw;
+        lego_start.position << mex->coord_x, mex->coord_y, mex->coord_z;
+        lego_start.orientation << mex->rot_roll, mex->rot_pitch, mex->rot_yaw;
 
         cout << endl;
         cout << "Subscriber: " << sub_vision_address << " receved some data:" << endl;                     
