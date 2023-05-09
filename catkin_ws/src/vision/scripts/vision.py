@@ -1,60 +1,51 @@
 #!/usr/bin/python3
-
 # Authors: Filippo Conti, Mattia Meneghin e Nicola Gianuzzi
 
-from pathlib import Path
-import sys
 import os
+import sys
 import rospy as ros
 import numpy as np
 import cv2 as cv
+import sensor_msgs.point_cloud2 as point_cloud2
+
+from std_msgs.msg import Int32
+from pathlib import Path
 from cv_bridge import CvBridge
 from sensor_msgs.msg import Image
-import sensor_msgs.point_cloud2 as point_cloud2
 from sensor_msgs.msg import PointCloud2
-from std_msgs.msg import Int32
 from motion.msg import legoFound
 from recogniseLego import RecogniseLego
 
 FILE = Path(__file__).resolve()
-
 ROOT = FILE.parents[0]
 
 if str(ROOT) not in sys.path:
-    sys.path.append(str(ROOT))  # add ROOT to PATH
+    sys.path.append(str(ROOT))
 
-ROOT = Path(os.path.relpath(ROOT, Path.cwd()))  # relative
-
+ROOT = Path(os.path.relpath(ROOT, Path.cwd())) 
 VISION_PATH = os.path.abspath(os.path.join(ROOT, ".."))
-
 IMG_ZED = os.path.join(VISION_PATH, "../../src/vision/images/img_lego.png")
 
 w_R_c = np.matrix([[0, -0.499, 0.866], [-1, 0, 0], [0, -0.866, -0.499]])
-
 x_c = np.array([-0.9, 0.24, -0.35])
 
 base_offset = np.array([0.5, 0.35, 1.75])
-
 OFF_SET = 0.86 + 0.1
 
-REAL_ROBOT = 0
+REAL_ROBOT = False
 
 class Vision:
-    
-    # @brief This class recognizes lego blocks from ZED camera and communicates with different ROS node
-    
+      
     def __init__(self):
-    # @brief Class constructor
    
         ros.init_node('vision', anonymous=True)
 
         self.lego_list = []
         self.bridge = CvBridge()
 
-        # Flags
         self.allow_receive_image = True
         self.allow_receive_pointcloud = False
-        self.vision_ready = 0
+        self.vision_ready = False
 
         # Subscribe and publish to ros nodes
         self.image_sub = ros.Subscriber("/ur5/zed_node/left_raw/image_raw_color", Image, self.receive_image)

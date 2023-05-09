@@ -12,6 +12,11 @@
 
 using namespace std;
 
+struct objectPositionOrientation {
+        Eigen::Vector3f position;
+        Eigen::Vector3f orientation;
+};
+
 struct end_effector {
     Eigen::Vector3f posit;
     Eigen::Matrix3f orient;

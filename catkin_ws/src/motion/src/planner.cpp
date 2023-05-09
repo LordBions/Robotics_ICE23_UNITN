@@ -111,390 +111,369 @@ Eigen::Vector3f camera2simulation(Eigen::Vector3f camera_lego_pos);
 
 int main(int argc, char **argv) {
 
-    cout << "Starting the planner module!" << endl;
-    cout << "----------------------------" << endl << endl;
+        cout << "Starting the planner module!" << endl;
+        cout << "----------------------------" << endl << endl;
     
-    ros::init(argc, argv, node_name);
-    ros::NodeHandle node_handle;
-    cout << "Node: " << node_name << " initialized!" << endl;
+        ros::init(argc, argv, node_name);
+        ros::NodeHandle node_handle;
+        cout << "Node: " << node_name << " initialized!" << endl;
 
-    pub_taskCommander_handle = node_handle.advertise<motion::legoTask>(pub_taskCommander_address, queque_size); 
-    cout << "Publisher: " << pub_taskCommander_address << " enabled with queque: " << queque_size << endl;
+        pub_taskCommander_handle = node_handle.advertise<motion::legoTask>(pub_taskCommander_address, queque_size); 
+        cout << "Publisher: " << pub_taskCommander_address << " enabled with queque: " << queque_size << endl;
 
-    pub_plannerAck_handle = node_handle.advertise<std_msgs::Int32>(pub_plannerAck_address, queque_size);
-    cout << "Publisher: " << pub_plannerAck_address << " enabled with queque: " << queque_size << endl;
+        pub_plannerAck_handle = node_handle.advertise<std_msgs::Int32>(pub_plannerAck_address, queque_size);
+        cout << "Publisher: " << pub_plannerAck_address << " enabled with queque: " << queque_size << endl;
 
-    sub_vision_handle = node_handle.subscribe(sub_vision_address, queque_size, subVisionCallback);
-    cout << "Subscriber: " << sub_vision_address << " enabled with queque: " << queque_size << endl;
+        sub_vision_handle = node_handle.subscribe(sub_vision_address, queque_size, subVisionCallback);
+        cout << "Subscriber: " << sub_vision_address << " enabled with queque: " << queque_size << endl;
 
-    sub_motionAck_handle = node_handle.subscribe(sub_motionAck_address, queque_size, subMotionAckCallback);
-    cout << "Subscriber: " << sub_motionAck_address << " enabled with queque: " << queque_size << endl;
+        sub_motionAck_handle = node_handle.subscribe(sub_motionAck_address, queque_size, subMotionAckCallback);
+        cout << "Subscriber: " << sub_motionAck_address << " enabled with queque: " << queque_size << endl;
     
-    sub_plannerStop_handle = node_handle.subscribe(sub_plannerStop_address, queque_size, subStopPlannerCallback);
-    cout << "Subscriber: " << sub_plannerStop_address << " enabled with queque: " << queque_size << endl;
+        sub_plannerStop_handle = node_handle.subscribe(sub_plannerStop_address, queque_size, subStopPlannerCallback);
+        cout << "Subscriber: " << sub_plannerStop_address << " enabled with queque: " << queque_size << endl;
 
-    cout << "----------------------------" << endl << endl;
-    ros::Rate loop_rate(loop_wait_rate);
+        cout << "----------------------------" << endl << endl;
+        cout << "Motion planner ready!" << endl;
 
-    cout << "Motion planner ready!" << endl;
+        ros::Rate loop_rate(loop_wait_rate);
 
-    while (ros::ok()) {
+        while (ros::ok()) {
 
-        while (pub_taskCommander_handle.getNumSubscribers() < 1) { loop_rate.sleep(); }
+                while (pub_taskCommander_handle.getNumSubscribers() < 1) { loop_rate.sleep(); }
                         
-        if (manual_mode) {                 
+                if (manual_mode) {                 
+
+                        if (ready_flag) {             
         
-            if (ready_flag) {             
-            
-                ready_flag = false;
+                                ready_flag = false;
 
-                cout << "Insert the command class: ";
-                cin >> msg_moviment.command_id;
+                                cout << "Insert the command class: ";
+                                cin >> msg_moviment.command_id;
 
-                cout << "Insert the begin position and orientation (x y z roll pitch yaw): ";
-                cin >> msg_moviment.coord_x >> msg_moviment.coord_y >> msg_moviment.coord_z >> msg_moviment.rot_roll >> msg_moviment.rot_pitch >> msg_moviment.rot_yaw;
+                                cout << "Insert the begin position and orientation (x y z roll pitch yaw): ";
+                                cin >> msg_moviment.coord_x >> msg_moviment.coord_y >> msg_moviment.coord_z >> msg_moviment.rot_roll >> msg_moviment.rot_pitch >> msg_moviment.rot_yaw;
 
-                cout << "Insert the grasp diameter: ";
-                cin >> msg_moviment.gasp_diam;
+                                cout << "Insert the grasp diameter: ";
+                                cin >> msg_moviment.gasp_diam;
 
-                cout << "Insert the final position and orientation(x y z roll pitch yaw): ";
-                cin >> msg_moviment.dest_x >> msg_moviment.dest_y >> msg_moviment.dest_z >> msg_moviment.dest_roll >> msg_moviment.dest_pitch >> msg_moviment.dest_yaw;
+                                cout << "Insert the final position and orientation(x y z roll pitch yaw): ";
+                                cin >> msg_moviment.dest_x >> msg_moviment.dest_y >> msg_moviment.dest_z >> msg_moviment.dest_roll >> msg_moviment.dest_pitch >> msg_moviment.dest_yaw;
 
-                pubTaskCommander();
+                                pubTaskCommander();
+                        }
 
-            }
+                } else {                                    
 
-        } else {                                    
+                        if (is_vision_msg_received && ready_flag && !stop_planner) {     
         
-            if (is_vision_msg_received && ready_flag && !stop_planner) {     
-                
-                ready_flag = false;
+                                ready_flag = false;
 
-                if (is_real_robot) { lego_pos = camera2simulation(lego_pos); }
-                else { lego_pos = simulation2base(lego_pos); }
+                                if (is_real_robot) { lego_pos = camera2simulation(lego_pos); }
+                                else { lego_pos = simulation2base(lego_pos); }
 
-                catchCommand();
-            }
+                                catchCommand();
+                        }
+                }
+
+                ros::spinOnce();
         }
 
-        ros::spinOnce();
-    }
-
-    cout << endl;
-    cout << "Exit process invoked, closing planner module!" << endl;
-    return 0;
+        cout << endl;
+        cout << "Exit process invoked, closing planner module!" << endl;
+        return 0;
     
 }
 
 void catchCommand() {
 
         msg_moviment.command_id = command_catch; // catch procedure
-
         msg_moviment.coord_x = lego_pos(0);
         msg_moviment.coord_y = lego_pos(1);
         msg_moviment.coord_z = lego_coord_z;
-
         msg_moviment.rot_roll = lego_or(0);
         msg_moviment.rot_pitch = lego_or(1);
         msg_moviment.rot_yaw = lego_or(2);
 
         selectClass(lego_class);
-
         pubTaskCommander();
 }
 
 void pubTaskCommander() {
 
-    cout << endl;
+        pub_taskCommander_handle.publish(msg_moviment);
+        is_vision_msg_received = false;
 
-    pub_taskCommander_handle.publish(msg_moviment);
-    is_vision_msg_received = false;
-
-    cout << "Publisher: " << pub_taskCommander_address << " sent some data:" << endl;
-    cout << "Command ID: " << msg_moviment.command_id << endl;
-
-    cout << "X coordinate: " << msg_moviment.coord_x << endl;
-    cout << "Y coordinate: " << msg_moviment.coord_y << endl;
-    cout << "Z coordinate: " << msg_moviment.coord_z << endl;
-
-    cout << "Roll orientation: " << msg_moviment.rot_roll << endl;
-    cout << "Pitch orientation: " << msg_moviment.rot_pitch << endl;
-    cout << "Yaw orientation: " << msg_moviment.rot_yaw << endl;
-
-    cout << "Lego grasp diameter: " << msg_moviment.gasp_diam << endl;
-
-    cout << "X destination coordinate: " << msg_moviment.dest_x << endl;
-    cout << "Y destination coordinate: " << msg_moviment.dest_y << endl;
-    cout << "Z destination coordinate: " << msg_moviment.dest_z << endl;
-
-    cout << "Roll destination orientation: " << msg_moviment.dest_roll << endl;
-    cout << "Pitch destination orientation: " << msg_moviment.dest_pitch << endl;
-    cout << "Yaw destination orientation: " << msg_moviment.dest_yaw << endl;
-
-    cout << endl;
+        cout << endl;
+        cout << "Publisher: " << pub_taskCommander_address << " sent some data:" << endl;
+        cout << "Command ID: " << msg_moviment.command_id << endl;
+        cout << "X coordinate: " << msg_moviment.coord_x << endl;
+        cout << "Y coordinate: " << msg_moviment.coord_y << endl;
+        cout << "Z coordinate: " << msg_moviment.coord_z << endl;
+        cout << "Roll orientation: " << msg_moviment.rot_roll << endl;
+        cout << "Pitch orientation: " << msg_moviment.rot_pitch << endl;
+        cout << "Yaw orientation: " << msg_moviment.rot_yaw << endl;
+        cout << "Lego grasp diameter: " << msg_moviment.gasp_diam << endl;
+        cout << "X destination coordinate: " << msg_moviment.dest_x << endl;
+        cout << "Y destination coordinate: " << msg_moviment.dest_y << endl;
+        cout << "Z destination coordinate: " << msg_moviment.dest_z << endl;
+        cout << "Roll destination orientation: " << msg_moviment.dest_roll << endl;
+        cout << "Pitch destination orientation: " << msg_moviment.dest_pitch << endl;
+        cout << "Yaw destination orientation: " << msg_moviment.dest_yaw << endl;
+        cout << endl;
 }
 
 void selectClass(int lego_cl) {
 
-    switch (lego_cl) {
-
-        case 0: dest_position << class_00_relocation;
-                break;
-
-        case 1: dest_position << class_01_relocation;
-                break;
-
-        case 2: dest_position << class_02_relocation;
-                break;
-
-        case 3: dest_position << class_03_relocation;
-                break;
-
-        case 4: dest_position << class_04_relocation;
-                break;
-
-        case 5: dest_position << class_05_relocation;
-                break;
-
-        case 6: dest_position << class_06_relocation;
-                break;
-
-        case 7: dest_position << class_07_relocation;
-                break;
-
-        case 8: dest_position << class_08_relocation;
-                break;
-
-        case 9: dest_position << class_09_relocation;
-                break;
-
-        case 10: dest_position << class_10_relocation;
-
-        default: break;
-    }
-
-    msg_moviment.dest_x = dest_position(0);
-    msg_moviment.dest_y = dest_position(1);
-    msg_moviment.dest_z = dest_position(2);
-
-    if (keep_orientation) {
-
-        msg_moviment.dest_roll = msg_moviment.rot_roll;
-        msg_moviment.dest_pitch = msg_moviment.rot_pitch;
-        msg_moviment.dest_yaw = msg_moviment.rot_yaw;
-
-    } else {
-
         switch (lego_cl) {
 
-            case 0: dest_orientation << class_00_orient;
-                    break;
+                case 0: dest_position << class_00_relocation;
+                        break;
 
-            case 1: dest_orientation << class_01_orient;
-                    break;
+                case 1: dest_position << class_01_relocation;
+                        break;
 
-            case 2: dest_orientation << class_02_orient;
-                    break;
+                case 2: dest_position << class_02_relocation;
+                        break;
 
-            case 3: dest_orientation << class_03_orient;
-                    break;
+                case 3: dest_position << class_03_relocation;
+                        break;
 
-            case 4: dest_orientation << class_04_orient;
-                    break;
+                case 4: dest_position << class_04_relocation;
+                        break;
 
-            case 5: dest_orientation << class_05_orient;
-                    break;
+                case 5: dest_position << class_05_relocation;
+                        break;
 
-            case 6: dest_orientation << class_06_orient;
-                    break;
+                case 6: dest_position << class_06_relocation;
+                        break;
 
-            case 7: dest_orientation << class_07_orient;
-                    break;
+                case 7: dest_position << class_07_relocation;
+                        break;
 
-            case 8: dest_orientation << class_08_orient;
-                    break;
+                case 8: dest_position << class_08_relocation;
+                        break;
 
-            case 9: dest_orientation << class_09_orient;
-                    break;
+                case 9: dest_position << class_09_relocation;
+                        break;
 
-            case 10: dest_orientation << class_10_orient;
+                case 10: dest_position << class_10_relocation;
 
-            default: break;
+                default: break;
         }
 
-        msg_moviment.dest_roll = dest_orientation(0);
-        msg_moviment.dest_pitch = dest_orientation(1);
-        msg_moviment.dest_yaw = dest_orientation(2);
+        msg_moviment.dest_x = dest_position(0);
+        msg_moviment.dest_y = dest_position(1);
+        msg_moviment.dest_z = dest_position(2);
 
-    }
+        if (keep_orientation) {
 
-    if (is_real_robot) {
+                msg_moviment.dest_roll = msg_moviment.rot_roll;
+                msg_moviment.dest_pitch = msg_moviment.rot_pitch;
+                msg_moviment.dest_yaw = msg_moviment.rot_yaw;
 
-        switch (lego_cl) {
+        } else {
 
-            case 0: msg_moviment.gasp_diam = class_00_real_grasp;
-                    break;
+                switch (lego_cl) {
 
-            case 1: msg_moviment.gasp_diam = class_01_real_grasp;
-                    break;
+                        case 0: dest_orientation << class_00_orient;
+                                break;
 
-            case 2: msg_moviment.gasp_diam = class_02_real_grasp;
-                    break;
+                        case 1: dest_orientation << class_01_orient;
+                                break;
 
-            case 3: msg_moviment.gasp_diam = class_03_real_grasp;
-                    break;
+                        case 2: dest_orientation << class_02_orient;
+                                break;
 
-            case 4: msg_moviment.gasp_diam = class_04_real_grasp;
-                    break;
+                        case 3: dest_orientation << class_03_orient;
+                                break;
 
-            case 5: msg_moviment.gasp_diam = class_05_real_grasp;
-                    break;
+                        case 4: dest_orientation << class_04_orient;
+                                break;
 
-            case 6: msg_moviment.gasp_diam = class_06_real_grasp;
-                    break;
+                        case 5: dest_orientation << class_05_orient;
+                                break;
 
-            case 7: msg_moviment.gasp_diam = class_07_real_grasp;
-                    break;
+                        case 6: dest_orientation << class_06_orient;
+                                break;
 
-            case 8: msg_moviment.gasp_diam = class_08_real_grasp;
-                    break;
+                        case 7: dest_orientation << class_07_orient;
+                                break;
 
-            case 9: msg_moviment.gasp_diam = class_09_real_grasp;
-                    break;
+                        case 8: dest_orientation << class_08_orient;
+                                break;
 
-            case 10: msg_moviment.gasp_diam = class_10_real_grasp;
+                        case 9: dest_orientation << class_09_orient;
+                                break;
 
-            default: break;
+                        case 10: dest_orientation << class_10_orient;
+
+                        default: break;
+                }
+
+                msg_moviment.dest_roll = dest_orientation(0);
+                msg_moviment.dest_pitch = dest_orientation(1);
+                msg_moviment.dest_yaw = dest_orientation(2);
+
         }
 
-    } else {
+        if (is_real_robot) {
 
-        switch (lego_cl) {
+                switch (lego_cl) {
 
-            case 0: msg_moviment.gasp_diam = class_00_virt_grasp;
-                    break;
+                        case 0: msg_moviment.gasp_diam = class_00_real_grasp;
+                                break;
 
-            case 1: msg_moviment.gasp_diam = class_01_virt_grasp;
-                    break;
+                        case 1: msg_moviment.gasp_diam = class_01_real_grasp;
+                                break;
 
-            case 2: msg_moviment.gasp_diam = class_02_virt_grasp;
-                    break;
+                        case 2: msg_moviment.gasp_diam = class_02_real_grasp;
+                                break;
 
-            case 3: msg_moviment.gasp_diam = class_03_virt_grasp;
-                    break;
+                        case 3: msg_moviment.gasp_diam = class_03_real_grasp;
+                                break;
 
-            case 4: msg_moviment.gasp_diam = class_04_virt_grasp;
-                    break;
+                        case 4: msg_moviment.gasp_diam = class_04_real_grasp;
+                                break;
 
-            case 5: msg_moviment.gasp_diam = class_05_virt_grasp;
-                    break;
+                        case 5: msg_moviment.gasp_diam = class_05_real_grasp;
+                                break;
 
-            case 6: msg_moviment.gasp_diam = class_06_virt_grasp;
-                    break;
+                        case 6: msg_moviment.gasp_diam = class_06_real_grasp;
+                                break;
 
-            case 7: msg_moviment.gasp_diam = class_07_virt_grasp;
-                    break;
+                        case 7: msg_moviment.gasp_diam = class_07_real_grasp;
+                                break;
 
-            case 8: msg_moviment.gasp_diam = class_08_virt_grasp;
-                    break;
+                        case 8: msg_moviment.gasp_diam = class_08_real_grasp;
+                                break;
 
-            case 9: msg_moviment.gasp_diam = class_09_virt_grasp;
-                    break;
+                        case 9: msg_moviment.gasp_diam = class_09_real_grasp;
+                                break;
 
-            case 10: msg_moviment.gasp_diam = class_10_virt_grasp;
+                        case 10: msg_moviment.gasp_diam = class_10_real_grasp;
 
-            default: break;
+                        default: break;
+                }
+
+        } else {
+
+                switch (lego_cl) {
+
+                        case 0: msg_moviment.gasp_diam = class_00_virt_grasp;
+                                break;
+
+                        case 1: msg_moviment.gasp_diam = class_01_virt_grasp;
+                                break;
+
+                        case 2: msg_moviment.gasp_diam = class_02_virt_grasp;
+                                break;
+
+                        case 3: msg_moviment.gasp_diam = class_03_virt_grasp;
+                                break;
+
+                        case 4: msg_moviment.gasp_diam = class_04_virt_grasp;
+                                break;
+
+                        case 5: msg_moviment.gasp_diam = class_05_virt_grasp;
+                                break;
+
+                        case 6: msg_moviment.gasp_diam = class_06_virt_grasp;
+                                break;
+
+                        case 7: msg_moviment.gasp_diam = class_07_virt_grasp;
+                                break;
+
+                        case 8: msg_moviment.gasp_diam = class_08_virt_grasp;
+                                break;
+
+                        case 9: msg_moviment.gasp_diam = class_09_virt_grasp;
+                                break;
+
+                        case 10: msg_moviment.gasp_diam = class_10_virt_grasp;
+
+                        default: break;
+                }
+
         }
-
-    }
 
 }
 
 void subVisionCallback(const motion::legoFound::ConstPtr &mex) {
 
-    is_vision_msg_received = true; 
+        is_vision_msg_received = true; 
+        lego_class = mex->lego_class;
+        lego_pos << mex->coord_x, mex->coord_y, mex->coord_z;
+        lego_or << mex->rot_roll, mex->rot_pitch, mex->rot_yaw;
 
-    cout << endl;
-    cout << "Subscriber: " << sub_vision_address << " receved some data:" << endl;                     
-    
-    lego_class = mex->lego_class;
-    cout << "Lego class: " << lego_class << endl;
-
-    lego_pos << mex->coord_x, mex->coord_y, mex->coord_z;
-    cout << "X coordinate: " << mex->coord_x << endl;
-    cout << "Y coordinate: " << mex->coord_y << endl;
-    cout << "Z coordinate: " << mex->coord_z << endl;
-
-    lego_or << mex->rot_roll, mex->rot_pitch, mex->rot_yaw;
-    cout << "Roll orientation: " << mex->rot_roll << endl;
-    cout << "Pitch orientation: " << mex->rot_pitch << endl;
-    cout << "Yaw orientation: " << mex->rot_yaw << endl;
-
-    cout << endl;
+        cout << endl;
+        cout << "Subscriber: " << sub_vision_address << " receved some data:" << endl;                     
+        cout << "Lego class: " << lego_class << endl;
+        cout << "X coordinate: " << mex->coord_x << endl;
+        cout << "Y coordinate: " << mex->coord_y << endl;
+        cout << "Z coordinate: " << mex->coord_z << endl;
+        cout << "Roll orientation: " << mex->rot_roll << endl;
+        cout << "Pitch orientation: " << mex->rot_pitch << endl;
+        cout << "Yaw orientation: " << mex->rot_yaw << endl;
+        cout << endl;
 }
 
 void subMotionAckCallback(const std_msgs::Int32::ConstPtr &mex) {
 
-    cout << endl;
-    cout << "Subscriber: " << sub_motionAck_address << " receved some data:" << endl;
+        ready_flag = mex->data;
 
-    ready_flag = mex->data;
-    cout << "Ready flag: " << ready_flag << endl;
-    
-    pubAckPlanner();
+        cout << endl;
+        cout << "Subscriber: " << sub_motionAck_address << " receved some data:" << endl;
+        cout << "Ready flag: " << ready_flag << endl;
+        cout << endl;
 
-    cout << endl;
+        pubAckPlanner();
 }
 
 void subStopPlannerCallback(const std_msgs::Int32::ConstPtr &mex) {
 
-    cout << endl;
-    cout << "Subscriber: " << sub_plannerStop_address << " receved some data:" << endl;
+        stop_planner = mex->data;
 
-    stop_planner = mex->data;
-    cout << "Stop command: " << stop_planner << endl;
-
-    cout << endl;
+        cout << endl;
+        cout << "Subscriber: " << sub_plannerStop_address << " receved some data:" << endl;
+        cout << "Stop command: " << stop_planner << endl;
+        cout << endl;
 }
 
 void pubAckPlanner() {
 
-    cout << endl;
+        std_msgs::Int32 ackP_msg;
+        ackP_msg.data = 1;
+        pub_plannerAck_handle.publish(ackP_msg);
 
-    ros::Rate loop_rate(loop_wait_rate);
-
-    std_msgs::Int32 ackP_msg;
-    ackP_msg.data = 1;
-    pub_plannerAck_handle.publish(ackP_msg);
-
-    cout << "Publisher: " << pub_plannerAck_address << " sent some data:" << endl;
-    cout << "Acknowledgment: " << ackP_msg << endl;
-
-    cout << endl;
+        cout << endl;
+        cout << "Publisher: " << pub_plannerAck_address << " sent some data:" << endl;
+        cout << "Acknowledgment: " << ackP_msg << endl;
+        cout << endl;
 }
 
 Eigen::Vector3f simulation2base(Eigen::Vector3f simul_lego_pos) {
 
-    Eigen::Matrix4f sim2bas_matrix;
-    Eigen::Vector4f prod_vect;
-    Eigen::Vector3f result_vect;
-    
-    sim2bas_matrix << default_sim2bas_matrix;
-    prod_vect = sim2bas_matrix.inverse() * Eigen::Vector4f(simul_lego_pos(0), simul_lego_pos(1), simul_lego_pos(2), 1);
-    result_vect << prod_vect(0), prod_vect(1), prod_vect(2);
+        Eigen::Matrix4f sim2bas_matrix;
+        sim2bas_matrix << default_sim2bas_matrix;
 
-    return result_vect;
+        Eigen::Vector4f prod_vect;
+        prod_vect = sim2bas_matrix.inverse() * Eigen::Vector4f(simul_lego_pos(0), simul_lego_pos(1), simul_lego_pos(2), 1);
+
+        Eigen::Vector3f result_vect;
+        result_vect << prod_vect(0), prod_vect(1), prod_vect(2);
+        return result_vect;
 }
 
 Eigen::Vector3f camera2simulation(Eigen::Vector3f camera_lego_pos) {
 
-    Eigen::Matrix4f cam2sim_matrix;
-    Eigen::Vector4f prod_vect;
-    Eigen::Vector3f result_vect;
-    
-    cam2sim_matrix << default_cam2sim_matrix;
-    prod_vect = cam2sim_matrix * Eigen::Vector4f(camera_lego_pos(0), camera_lego_pos(1), camera_lego_pos(2), 1);
-    result_vect << prod_vect(0), prod_vect(1), prod_vect(2);
+        Eigen::Matrix4f cam2sim_matrix;
+        cam2sim_matrix << default_cam2sim_matrix;
 
-    return result_vect;
+        Eigen::Vector4f prod_vect;
+        prod_vect = cam2sim_matrix * Eigen::Vector4f(camera_lego_pos(0), camera_lego_pos(1), camera_lego_pos(2), 1);
+
+        Eigen::Vector3f result_vect;
+        result_vect << prod_vect(0), prod_vect(1), prod_vect(2);
+        return result_vect;
 }
