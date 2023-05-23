@@ -1,215 +1,724 @@
 /*
-*
 * Authors: Filippo Conti, Mattia Meneghin e Nicola Gianuzzi
-*
 */
 
+// Used libraries. Described in kinetics.h and movement.cpp files
+#include <iostream>
+#include <cmath>
+#include <complex>
+#include <Eigen/Dense>
 #include "ros/ros.h"
 #include "kinetics.h"
-#include <cmath>
-#include <Eigen/Dense>
-#include <iostream>
-#include <complex>
-#include "motion/pos.h"
-#include <std_msgs/Int32.h>
-
-// ------------------- DEFINES ------------------- //
-
-/// @brief Loop rate of the node
-#define LOOP_RATE 1000
-/// @brief Flag to indicate if the robot is real or simulated
-#define REAL_ROBOT 0
-
-// ------------------- NAMESPACES ------------------- //
+#include "motion/legoFound.h"
+#include "motion/legoTask.h"
+#include "motion/eventResult.h"
 
 using namespace std;
-using namespace Eigen;
 
-// ------------------- GLOBAL VARIABLES ------------------- //
+// Node name
+#define node_name "planner_module" 
 
-/// @brief Publisher for the position of the block
-ros::Publisher pub_pos;
-/// @brief Publisher for the ack
-ros::Publisher pub_ack;
-/// @brief Subscriber for the vision topic
-ros::Subscriber sub_vision;
-/// @brief Subscriber for the ack topic
-ros::Subscriber sub_ack;
-/// @brief Subscriber for the stop topic
-ros::Subscriber sub_stop;
-/// @brief Flag to indicate that the vision msg is received
-int vision_received = 0;
-/// @brief Flag to indicate that the vision is on
-int vision_on = 1;
-/// @brief Position of the block
-Vector3f block_pos;
-/// @brief Rotation of the block
-Vector3f block_rot;
-/// @brief Class of the block
-int block_class;
-/// @brief Flag to indicate that the motion is finished
-int ready = 1;
-/// @brief Flag to indicate that the task manager has to stop
-int stop = 0;
+// topic where 'planner_module' is subscribed
+#define sub_detect_commander "/vision/detectCommander" 
 
-// ------------------- FUNCTIONS PROTOTIPES ------------------- //
+// topic that 'planner_module' publishes envetResult messages
+#define pub_detect_resulter "/planner/detectResulter"  
 
-Vector3f worldToBase(Vector3f xw);
-Vector3f cameraToWorld(Vector3f xw);
-void visionCallback(const motion::pos::ConstPtr &msg);
-void ackCallback(const std_msgs::Int32::ConstPtr &msg);
-void stopCallback(const std_msgs::Int32::ConstPtr &msg);
-void ack();
+// topic that 'planner_module' publishes commands
+#define pub_task_commander "/planner/taskCommander"
 
-// ------------------- MAIN ------------------- //
+// topic that 'planner_module' subscribes to take task from motion
+#define sub_task_resulter "/motion/taskResulter"                
 
-int main(int argc, char **argv)
-{
-    cout << "Running the planner module!" << endl << endl;
+// constants used to manage commands received
+#define no_command 0
+#define command_detect 1
+#define command_quit 2
+
+// Constants used to identify commands type
+#define command_test 1
+#define command_wait 2
+#define command_move 3
+#define command_grasp 4
+#define command_ungrasp 5
+#define command_def_pos 6
+#define command_fast_catch 7
+#define command_catch 8
+
+// Constants to identify the results type
+#define result_error -1         // constant used to identify an execution error    
+#define result_unknown 0        // constant used to identify an unknown result
+#define result_completed 1      // constant used to identify an execution success
+
+#define queque_size 10          // buffer size
+#define loop_wait_rate 100     // 10 msec of waiting
+
+#define lego_coord_z 0.835      // z lego coordinate as the table height
+
+// base matrix for functions
+#define default_sim2bas_matrix 1, 0, 0, 0.5, 0, -1, 0, 0.35, 0, 0, -1, 1.75, 0, 0, 0, 1
+#define default_cam2sim_matrix 0.866, 0, 0.5, -0.4, 0, 1, 0, 0.53, -0.5, 0, 0.866, 1.4, 0, 0, 0, 1
+
+// all classes relocation
+#define class_00_relocation 0.4, -0.000, 0.82
+#define class_01_relocation 0.4, -0.046, 0.82
+#define class_02_relocation 0.4, -0.092, 0.82
+#define class_03_relocation 0.4, -0.138, 0.82
+#define class_04_relocation 0.4, -0.022, 0.82
+#define class_05_relocation 0.4, -0.230, 0.82
+#define class_06_relocation 0.4, -0.276, 0.82
+#define class_07_relocation 0.4, -0.322, 0.82
+#define class_08_relocation 0.4, -0.368, 0.82
+#define class_09_relocation 0.4, -0.414, 0.82
+#define class_10_relocation 0.4, -0.460, 0.82
+
+// custom orientation
+#define class_00_orient 0.0, 0.0, 0.0
+#define class_01_orient 0.0, 0.0, 0.0
+#define class_02_orient 0.0, 0.0, 0.0
+#define class_03_orient 0.0, 0.0, 0.0
+#define class_04_orient 0.0, 0.0, 0.0
+#define class_05_orient 0.0, 0.0, 0.0
+#define class_06_orient 0.0, 0.0, 0.0
+#define class_07_orient 0.0, 0.0, 0.0
+#define class_08_orient 0.0, 0.0, 0.0
+#define class_09_orient 0.0, 0.0, 0.0
+#define class_10_orient 0.0, 0.0, 0.0
+
+//class real grasp diameters
+#define class_00_real_grasp 60
+#define class_01_real_grasp 60
+#define class_02_real_grasp 60
+#define class_03_real_grasp 60
+#define class_04_real_grasp 60
+#define class_05_real_grasp 60
+#define class_06_real_grasp 60
+#define class_07_real_grasp 60
+#define class_08_real_grasp 60
+#define class_09_real_grasp 60
+#define class_10_real_grasp 60
+
+// class real ungrasp diameters
+#define class_00_real_ungrasp 100
+#define class_01_real_ungrasp 100
+#define class_02_real_ungrasp 100
+#define class_03_real_ungrasp 100
+#define class_04_real_ungrasp 100
+#define class_05_real_ungrasp 100
+#define class_06_real_ungrasp 100
+#define class_07_real_ungrasp 100
+#define class_08_real_ungrasp 100
+#define class_09_real_ungrasp 100
+#define class_10_real_ungrasp 100
+
+// class virtual grasp diameter
+#define class_00_virt_grasp 45
+#define class_01_virt_grasp 45
+#define class_02_virt_grasp 45
+#define class_03_virt_grasp 45
+#define class_04_virt_grasp 45
+#define class_05_virt_grasp 45
+#define class_06_virt_grasp 45
+#define class_07_virt_grasp 45
+#define class_08_virt_grasp 45
+#define class_09_virt_grasp 45
+#define class_10_virt_grasp 45
+
+// class virtual ungrasp diameter
+#define class_00_virt_ungrasp 100
+#define class_01_virt_ungrasp 100
+#define class_02_virt_ungrasp 100
+#define class_03_virt_ungrasp 100
+#define class_04_virt_ungrasp 100
+#define class_05_virt_ungrasp 100
+#define class_06_virt_ungrasp 100
+#define class_07_virt_ungrasp 100
+#define class_08_virt_ungrasp 100
+#define class_09_virt_ungrasp 100
+#define class_10_virt_ungrasp 100
+
+// default value for ungrasp diameter
+#define default_ungrasp_diam 100
+
+// Publishers
+ros::Publisher pub_task_commander_handle, pub_detect_resulter_handle; 
+
+// Subscribers
+ros::Subscriber sub_detect_commander_handle, sub_task_resulter_handle;      
+
+// Some control parameters
+bool is_real_robot = false;             // false --> simulation; true --> real robot
+bool keep_orientation = false;          // false --> load classes orientation from lego classes; true --> keep vision orientation
+               
+bool quit_planner = false;              // false --> planner active      
+bool request_motion_ack = true;         // request an ack from movement
+bool is_vision_msg_received = false;    // if planner receives a command from vision, this var becomes true
+
+double un_momento;                      // time
+
+// struct used to coordinate messages between vision and planner
+struct ExecutingTask {
+        int command_id;
+        double request_time;
+        bool busy;        
+};
+
+ExecutingTask vision_eseguendo;
+
+// struct used to coordinate messages between planner and movement
+struct WaitingTask {
+        int command_id;
+        double request_time;
+        bool attesa;
+};
+
+WaitingTask movement_attesa;
+
+// message used by vision to talk to planner
+motion::legoFound msg_lego_detect;
+motion::legoTask msg_taskCommand;                        
+motion::eventResult msg_evento_task, msg_evento_detect;
+
+objectPositionOrientation lego_dest;
+
+/*---------------------------------------------function headers---------------------------------------------*/
+
+void subDetectCommanderCallback(const motion::legoFound::ConstPtr &msg_detect); // reception and analysis of a received request.
+void pubDetectResulter(int risultato); // publish the result
+void pubTaskCommander(bool s_ack); // publish the task 
+void subTaskResulterCallback(const motion::eventResult::ConstPtr &msg_event); // read ack sent by movement
+
+Eigen::Vector3f camera2SimulationR(Eigen::Vector3f simul_lego_pos); // adapt camera point values in virtual world for robot
+Eigen::Vector3f camera2RealR(Eigen::Vector3f camera_lego_pos); // adapt camera point values in real world for robot
+void ungraspCommand(); // Enlarge robot fingers
+void homingCommand(); // move the arm to default to avoid camera interferences
+
+void catchCommand(Eigen::Vector3f position); // send the complete catch command to the moviment module
+
+void selectClass(int lego_cl);  // In relation to lego received from vision, load right lego parameters
+double getTimeNow(); // Returns the current time
+double getInterval(double start_t); // Returns the difference between the currentTime and the start time
+
+/*---------------------------------------------Main zone---------------------------------------------*/
+
+int main(int argc, char **argv) {
+
+        cout << "----------------------------" << endl;
+        cout << "Starting the planner module!" << endl;
+        cout << "----------------------------" << endl;
     
-    ros::init(argc, argv, "motion_planner");
-    ros::NodeHandle n;
+        ros::init(argc, argv, node_name);
+        ros::NodeHandle node_handle;
+        cout << "Node: " << node_name << " initialized!" << endl;
 
-    pub_pos = n.advertise<motion::pos>("/motion/pos", 1);
-    pub_ack = n.advertise<std_msgs::Int32>("/vision/ack", 1);
+        sub_detect_commander_handle = node_handle.subscribe(sub_detect_commander, queque_size, subDetectCommanderCallback);
+        cout << "Subscriber: " << sub_detect_commander << " enabled with queque: " << queque_size << endl;
 
-    sub_vision = n.subscribe("/vision/pos", 1, visionCallback);
-    sub_ack = n.subscribe("/motion/ack", 1, ackCallback);
-    sub_stop = n.subscribe("/planner/stop", 1, stopCallback);
+        pub_detect_resulter_handle = node_handle.advertise<motion::eventResult>(pub_detect_resulter, queque_size);
+        cout << "Publisher: " << pub_detect_resulter << " enabled with queque: " << queque_size << endl;
 
-    ros::Rate loop_rate(LOOP_RATE);
+        pub_task_commander_handle = node_handle.advertise<motion::legoTask>(pub_task_commander, queque_size); 
+        cout << "Publisher: " << pub_task_commander << " enabled with queque: " << queque_size << endl;
 
-    motion::pos msg;
+        sub_task_resulter_handle = node_handle.subscribe(sub_task_resulter, queque_size, subTaskResulterCallback);
+        cout << "Subscriber: " << sub_task_resulter << " enabled with queque: " << queque_size << endl;
 
-    while (ros::ok())
-    {
-        while (pub_pos.getNumSubscribers() < 1)
-            loop_rate.sleep();
-        if (!vision_on)             // If the vision is not on, the user has to insert the position of the block        
-        {
-            if (ready)              // If the motion is finished, the user can insert the position of the block
-            {
-                ready = 0;
-                cout << "Insert the position (x y z roll pitch yaw): ";
-                cin >> msg.x >> msg.y >> msg.z >> msg.roll >> msg.pitch >> msg.yaw;
-                cout << "Insert the class id: ";
-                cin >> msg.class_id;
-                pub_pos.publish(msg);
-            }
+        ros::Rate loop_rate(loop_wait_rate);
+
+        movement_attesa.attesa = false;
+        vision_eseguendo.busy = false;
+
+        cout << "----------------------------" << endl;
+        cout << "Planner module ready!" << endl;
+        cout << "----------------------------" << endl << endl;
+
+        cout << "Waiting for the moviment module..." << endl;
+        while (pub_task_commander_handle.getNumSubscribers() < 1) { loop_rate.sleep(); }
+        cout << "Moviment module connected!" << endl;
+
+        ungraspCommand(); 
+        while (ros::ok() && movement_attesa.attesa) {
+
+                if (quit_planner) { break; }
+
+                ros::spinOnce();
+        } 
+
+        homingCommand();
+        while (ros::ok() && movement_attesa.attesa) {
+
+                if (quit_planner) { break; }
+
+                ros::spinOnce();
+        }       
+
+        while (ros::ok()) {
+
+                if (quit_planner) { break; }
+                                              
+                if (is_vision_msg_received && !vision_eseguendo.busy) {    
+
+                        is_vision_msg_received = false;
+
+                        if (msg_lego_detect.send_ack) {
+
+                                vision_eseguendo.command_id = msg_lego_detect.command_id;
+                                vision_eseguendo.request_time = msg_lego_detect.date_time;
+                                vision_eseguendo.busy = true;
+                        }
+
+                        Eigen::Vector3f position2move;
+                        position2move << msg_lego_detect.coord_x, msg_lego_detect.coord_y, msg_lego_detect.coord_z; 
+
+                        if (is_real_robot) { position2move = camera2SimulationR(position2move); }
+                        else { position2move = camera2SimulationR(position2move); }
+
+                        position2move(2) = lego_coord_z;
+                        catchCommand(position2move);
+                }
+
+                ros::spinOnce();
         }
-        else                                      // Vision is on
-        {
-            if (vision_received && ready && !stop)         // If vision msg is received and the motion is finished, send the position to the motion
-            {
-                ready = 0;
-                cout << "Blocks coordinates received from vision" << endl;
-                cout << "Block position: " << block_pos.transpose() << endl;
-                cout << "Block rotation: " << block_rot.transpose() << endl;
-                cout << "Block class: " << block_class << endl << endl;
-                if (REAL_ROBOT)
-                    block_pos = cameraToWorld(block_pos);
-                else
-                block_pos = worldToBase(block_pos);
-                msg.x = block_pos(0);
-                msg.y = block_pos(1);
-                msg.z = 0.82;
-                msg.roll = block_rot(0);
-                msg.pitch = block_rot(1);
-                msg.yaw = block_rot(2);
-                msg.class_id = block_class;
-                vision_received = 0;
-                pub_pos.publish(msg);
-            }
+
+        cout << endl;
+        cout << "Exit process invoked, closing planner module!" << endl;
+        return 0;
+    
+}
+
+/*---------------------------------------------Implemented functions---------------------------------------------*/
+
+void subDetectCommanderCallback(const motion::legoFound::ConstPtr &msg_detect) {
+
+        if (msg_detect->command_id == no_command) {
+
+                is_vision_msg_received = false; 
+                cout << "No command!" << endl;
+        
+        } else if (msg_detect->command_id == command_detect) {
+
+                quit_planner = false;
+
+                msg_lego_detect.command_id = msg_detect->command_id;
+                msg_lego_detect.lego_class = msg_detect->lego_class;
+                msg_lego_detect.coord_x = msg_detect->coord_x;
+                msg_lego_detect.coord_y = msg_detect->coord_y;
+                msg_lego_detect.coord_z = msg_detect->coord_z;
+                msg_lego_detect.rot_roll = msg_detect->rot_roll;
+                msg_lego_detect.rot_pitch = msg_detect->rot_pitch;
+                msg_lego_detect.rot_yaw = msg_detect->rot_yaw;
+                msg_lego_detect.date_time = msg_detect->date_time;
+                msg_lego_detect.comment = msg_detect->comment;    
+                msg_lego_detect.send_ack = msg_detect->send_ack; 
+
+                is_vision_msg_received = true; 
+
+                cout << "---------------------------------------" << endl;
+                cout << "Subscriber: " << sub_detect_commander << " receved some data:" << endl;      
+                cout << "---------------------------------------" << endl;   
+                cout << "Command ID " << msg_detect->command_id << endl;
+                cout << "Lego class: " << msg_detect->lego_class << endl;
+                cout << "X coordinate: " << msg_detect->coord_x << endl;
+                cout << "Y coordinate: " << msg_detect->coord_y << endl;
+                cout << "Z coordinate: " << msg_detect->coord_z << endl;
+                cout << "Roll orientation: " << msg_detect->rot_roll << endl;
+                cout << "Pitch orientation: " << msg_detect->rot_pitch << endl;
+                cout << "Yaw orientation: " << msg_detect->rot_yaw << endl;
+                cout << "Request datetime: " << msg_detect->date_time << endl;
+                cout << "Comment: " << msg_detect->comment << endl;
+                cout << "Send ack: " << msg_detect->send_ack << endl;
+                cout << "---------------------------------------" << endl;
+                
+        } else if (msg_detect->command_id == command_quit) {
+
+                quit_planner = true;
+
+                cout << "Quit request from vision!" << endl;
+
+        } else {
+              
+                is_vision_msg_received = false;
+                cout << "Unsupported command!" << endl;
         }
-        ros::spinOnce();
-    }
+
 }
 
-// ------------------- FUNCTIONS DEFINITIONS ------------------- //
+void pubDetectResulter(int risultato) {
 
-/**
- * @brief Convert the position of the block from the world frame to the base frame
- * 
- * @param xw 3D vector representing the position of the block in the world frame
- * @return Vector3f 
- */
-Vector3f worldToBase(Vector3f xw)
-{
-    Matrix4f T;
-    Vector3f xb;
-    Vector4f xt;
-    T << 1, 0, 0, 0.5,
-        0, -1, 0, 0.35,
-        0, 0, -1, 1.75,
-        0, 0, 0, 1;
-    xt = T.inverse() * Vector4f(xw(0), xw(1), xw(2), 1);
-    xb << xt(0), xt(1), xt(2);
-    return xb;
+        msg_evento_detect.event_id = vision_eseguendo.command_id;
+        msg_evento_detect.result_id = risultato;
+        msg_evento_detect.start_time = vision_eseguendo.request_time;
+        msg_evento_detect.duration_time = getInterval(vision_eseguendo.request_time);
+        msg_evento_detect.comment = "Automatic result message";
+        pub_detect_resulter_handle.publish(msg_evento_detect);
+
+        cout << "---------------------------------------" << endl;
+        cout << "Publisher: " << pub_detect_resulter << " sent some data:" << endl;
+        cout << "---------------------------------------" << endl;
+        cout << "Event ID: " << msg_evento_detect.event_id << endl;
+        cout << "Result ID: " << msg_evento_detect.result_id << endl;
+        cout << "Start time: " << msg_evento_detect.start_time << endl;
+        cout << "Duration time: " << msg_evento_detect.duration_time << endl;
+        cout << "Comment: " << msg_evento_detect.comment << endl;
+        cout << "---------------------------------------" << endl;
 }
 
-/**
- * @brief Convert the position of the block from the camera frame (real robot) to the world frame
- * 
- * @param xw 3D vector representing the position of the block in the camera frame
- * @return Vector3f 
- */
-Vector3f cameraToWorld(Vector3f xw)
-{
-    Matrix4f T;
-    Vector3f xb;
-    Vector4f xt;
-    T << 0.866, 0, 0.5, -0.4,
-              0, 1, 0, 0.53,
-              -0.5, 0, 0.866, 1.4,
-              0, 0, 0, 1;
-    xt = T * Vector4f(xw(0), xw(1), xw(2), 1);
-    xb << xt(0), xt(1), xt(2);
-    return xb;
+void pubTaskCommander(bool s_ack) {
+
+        msg_taskCommand.date_time = getTimeNow();
+        msg_taskCommand.send_ack = s_ack;
+        pub_task_commander_handle.publish(msg_taskCommand);
+
+        cout << "---------------------------------------" << endl;
+        cout << "Publisher: " << pub_task_commander << " sent some data:" << endl;
+        cout << "---------------------------------------" << endl;
+        cout << "Command ID: " << msg_taskCommand.command_id << endl;
+        cout << "Is real robot: " << msg_taskCommand.real_robot << endl;
+        cout << "X coordinate: " << msg_taskCommand.coord_x << endl;
+        cout << "Y coordinate: " << msg_taskCommand.coord_y << endl;
+        cout << "Z coordinate: " << msg_taskCommand.coord_z << endl;
+        cout << "Roll orientation: " << msg_taskCommand.rot_roll << endl;
+        cout << "Pitch orientation: " << msg_taskCommand.rot_pitch << endl;
+        cout << "Yaw orientation: " << msg_taskCommand.rot_yaw << endl;
+        cout << "Lego grasp diameter: " << msg_taskCommand.gasp_diam << endl;
+        cout << "X destination coordinate: " << msg_taskCommand.dest_x << endl;
+        cout << "Y destination coordinate: " << msg_taskCommand.dest_y << endl;
+        cout << "Z destination coordinate: " << msg_taskCommand.dest_z << endl;
+        cout << "Roll destination orientation: " << msg_taskCommand.dest_roll << endl;
+        cout << "Pitch destination orientation: " << msg_taskCommand.dest_pitch << endl;
+        cout << "Yaw destination orientation: " << msg_taskCommand.dest_yaw << endl;
+        cout << "Lego ungasp diameter " << msg_taskCommand.ungasp_diam << endl; 
+        cout << "Date time: " << msg_taskCommand.date_time << endl;
+        cout << "Comment: " << msg_taskCommand.comment << endl; 
+        cout << "Ack: " << msg_taskCommand.send_ack << endl;
+        cout << "---------------------------------------" << endl;
+
+        if (s_ack) {
+
+                movement_attesa.command_id = msg_taskCommand.command_id;
+                movement_attesa.request_time = msg_taskCommand.date_time;
+                movement_attesa.attesa = true;
+
+                cout << "Processo " << movement_attesa.command_id << " messo in attesa" << endl;
+        
+        } else {
+
+                movement_attesa.attesa = false;                
+        }        
 }
 
-/**
- * @brief Callback function for the vision topic, sets the detected position of the block
- * 
- * @param msg message received
- */
-void visionCallback(const motion::pos::ConstPtr &msg)
-{
-    vision_received = 1;                            // flag to indicate that the vision msg is received
-    block_pos << msg->x, msg->y, msg->z;
-    block_rot << msg->roll, msg->pitch, msg->yaw;
-    block_class = msg->class_id;
+void subTaskResulterCallback(const motion::eventResult::ConstPtr &msg_event) {
+
+        msg_evento_task.event_id = msg_event->event_id;
+        msg_evento_task.result_id = msg_event->result_id;
+        msg_evento_task.start_time = msg_event->start_time;
+        msg_evento_task.duration_time = msg_event->duration_time;
+        msg_evento_task.comment = msg_event->comment;
+
+        cout << "---------------------------------------" << endl;
+        cout << "Subscriber: " << sub_task_resulter << " receved some data:" << endl;
+        cout << "---------------------------------------" << endl;
+        cout << "Event ID: " << msg_event->event_id << endl;
+        cout << "Result ID: " << msg_event->result_id << endl;
+        cout << "Start time: " << msg_event->start_time << endl;
+        cout << "Duration time: " << msg_event->duration_time << endl;
+        cout << "Comment: " << msg_event->comment << endl;
+        cout << "---------------------------------------" << endl;
+
+        if (movement_attesa.attesa) {
+
+                if (movement_attesa.command_id == msg_evento_task.event_id && movement_attesa.request_time == msg_evento_task.start_time) {
+
+                        movement_attesa.attesa = false;
+                        cout << "Processo " << movement_attesa.command_id << " completato" << endl;
+                }
+                
+        }
+
+        if (vision_eseguendo.busy) {
+
+                if (msg_evento_task.event_id == command_catch && vision_eseguendo.command_id == command_detect) {
+
+                        pubDetectResulter(msg_evento_task.result_id);
+                        vision_eseguendo.busy = false;
+                        cout << "Task visione " << vision_eseguendo.command_id << " completato" << endl;
+                }
+        }
+        
 }
 
-/**
- * @brief Callback function for the ack topic, sets the ready variable -> finished the motion
- * 
- * @param msg message received
- */
-void ackCallback(const std_msgs::Int32::ConstPtr &msg)
-{
-    ready = msg->data;
-    ack();
+Eigen::Vector3f camera2SimulationR(Eigen::Vector3f simul_lego_pos) {
+
+        Eigen::Matrix4f sim2bas_matrix;
+        sim2bas_matrix << default_sim2bas_matrix;
+
+        Eigen::Vector4f prod_vect;
+        prod_vect = sim2bas_matrix.inverse() * Eigen::Vector4f(simul_lego_pos(0), simul_lego_pos(1), simul_lego_pos(2), 1);
+
+        Eigen::Vector3f result_vect;
+        result_vect << prod_vect(0), prod_vect(1), prod_vect(2);
+        return result_vect;
 }
 
-/**
- * @brief     This function is used to send the ack to the taskManager
- *              - send it when the robot has finished the motion task
- * 
- */
-void ack()
-{
-    ros::Rate loop_rate(LOOP_RATE);
-    std_msgs::Int32 ack;
-    ack.data = 1;
-    pub_ack.publish(ack);
+Eigen::Vector3f camera2RealR(Eigen::Vector3f camera_lego_pos) {
+
+        Eigen::Matrix4f cam2sim_matrix;
+        cam2sim_matrix << default_cam2sim_matrix;
+
+        Eigen::Vector4f prod_vect;
+        prod_vect = cam2sim_matrix * Eigen::Vector4f(camera_lego_pos(0), camera_lego_pos(1), camera_lego_pos(2), 1);
+
+        Eigen::Vector3f result_vect;
+        result_vect << prod_vect(0), prod_vect(1), prod_vect(2);
+        return result_vect;
 }
 
-/**
- * @brief Callback function for the stop topic, sets the stop variable -> stop the motion -> finished the task
- * 
- * @param msg 
- */
-void stopCallback(const std_msgs::Int32::ConstPtr &msg)
-{
-    stop = msg->data;
+void ungraspCommand() {
+
+        msg_taskCommand.command_id = command_ungrasp; 
+        msg_taskCommand.real_robot = is_real_robot;
+        msg_taskCommand.ungasp_diam = default_ungrasp_diam;
+        msg_taskCommand.comment = "Automatic command generation by planner module";
+        pubTaskCommander(request_motion_ack);
+}
+
+void homingCommand() {
+
+        msg_taskCommand.command_id = command_def_pos; 
+        msg_taskCommand.real_robot = is_real_robot;
+        msg_taskCommand.comment = "Automatic command generation by planner module";
+        pubTaskCommander(request_motion_ack);
+}
+
+void catchCommand(Eigen::Vector3f position) {
+
+        msg_taskCommand.command_id = command_catch; 
+        msg_taskCommand.real_robot = is_real_robot;
+        msg_taskCommand.coord_x = position(0);
+        msg_taskCommand.coord_y = position(1);
+        msg_taskCommand.coord_z = position(2);
+        msg_taskCommand.rot_roll = msg_lego_detect.rot_roll;
+        msg_taskCommand.rot_pitch = msg_lego_detect.rot_pitch;
+        msg_taskCommand.rot_yaw = msg_lego_detect.rot_yaw;
+        msg_taskCommand.comment = "Automatic command generation by planner module";
+
+        selectClass(msg_lego_detect.lego_class);
+        pubTaskCommander(request_motion_ack);
+}
+
+void selectClass(int lego_cl) {
+
+        Eigen::Vector3f position2arrive;
+
+        switch (lego_cl) {
+
+                case 0:         position2arrive << class_00_relocation;
+                                break;
+
+                case 1:         position2arrive << class_01_relocation;
+                                break;
+
+                case 2:         position2arrive << class_02_relocation;
+                                break;
+
+                case 3:         position2arrive << class_03_relocation;
+                                break;
+
+                case 4:         position2arrive << class_04_relocation;
+                                break;
+
+                case 5:         position2arrive << class_05_relocation;
+                                break;
+
+                case 6:         position2arrive << class_06_relocation;
+                                break;
+
+                case 7:         position2arrive << class_07_relocation;
+                                break;
+
+                case 8:         position2arrive << class_08_relocation;
+                                break;
+
+                case 9:         position2arrive << class_09_relocation;
+                                break;
+
+                case 10:        position2arrive << class_10_relocation;
+                                break;
+
+                default:        cout << "Unsupported lego class!" << endl;
+                                break;
+        }
+
+        msg_taskCommand.dest_x = position2arrive(0);
+        msg_taskCommand.dest_y = position2arrive(1);
+        msg_taskCommand.dest_z = position2arrive(2);
+
+        if (keep_orientation) {
+
+                msg_taskCommand.dest_roll = msg_taskCommand.rot_roll;
+                msg_taskCommand.dest_pitch = msg_taskCommand.rot_pitch;
+                msg_taskCommand.dest_yaw = msg_taskCommand.rot_yaw;
+
+        } else {
+
+                Eigen::Vector3f finalRotation;
+
+                switch (lego_cl) {
+
+                        case 0:         finalRotation << class_00_orient;
+                                        break;
+
+                        case 1:         finalRotation << class_01_orient;
+                                        break;
+
+                        case 2:         finalRotation << class_02_orient;
+                                        break;
+
+                        case 3:         finalRotation << class_03_orient;
+                                        break;
+
+                        case 4:         finalRotation << class_04_orient;
+                                        break;
+
+                        case 5:         finalRotation << class_05_orient;
+                                        break;
+
+                        case 6:         finalRotation << class_06_orient;
+                                        break;
+
+                        case 7:         finalRotation << class_07_orient;
+                                        break;
+
+                        case 8:         finalRotation << class_08_orient;
+                                        break;
+
+                        case 9:         finalRotation << class_09_orient;
+                                        break;
+
+                        case 10:        finalRotation << class_10_orient;
+                                        break;
+
+                        default:        cout << "Unsupported lego orientation!" << endl;
+                                        break;
+                }
+
+                msg_taskCommand.dest_roll = finalRotation(0);
+                msg_taskCommand.dest_pitch = finalRotation(1);
+                msg_taskCommand.dest_yaw = finalRotation(2);
+        }
+
+        if (is_real_robot) {
+
+                switch (lego_cl) {
+
+                        case 0:         msg_taskCommand.gasp_diam = class_00_real_grasp;
+                                        msg_taskCommand.ungasp_diam = class_00_real_ungrasp;
+                                        break;
+
+                        case 1:         msg_taskCommand.gasp_diam = class_01_real_grasp;
+                                        msg_taskCommand.ungasp_diam = class_01_real_ungrasp;
+                                        break;
+
+                        case 2:         msg_taskCommand.gasp_diam = class_02_real_grasp;
+                                        msg_taskCommand.ungasp_diam = class_02_real_ungrasp;
+                                        break;
+
+                        case 3:         msg_taskCommand.gasp_diam = class_03_real_grasp;
+                                        msg_taskCommand.ungasp_diam = class_03_real_ungrasp;
+                                        break;
+
+                        case 4:         msg_taskCommand.gasp_diam = class_04_real_grasp;
+                                        msg_taskCommand.ungasp_diam = class_04_real_ungrasp;
+                                        break;
+
+                        case 5:         msg_taskCommand.gasp_diam = class_05_real_grasp;
+                                        msg_taskCommand.ungasp_diam = class_05_real_ungrasp;
+                                        break;
+
+                        case 6:         msg_taskCommand.gasp_diam = class_06_real_grasp;
+                                        msg_taskCommand.ungasp_diam = class_06_real_ungrasp;
+                                        break;
+
+                        case 7:         msg_taskCommand.gasp_diam = class_07_real_grasp;
+                                        msg_taskCommand.ungasp_diam = class_07_real_ungrasp;
+                                        break;
+
+                        case 8:         msg_taskCommand.gasp_diam = class_08_real_grasp;
+                                        msg_taskCommand.ungasp_diam = class_08_real_ungrasp;
+                                        break;
+
+                        case 9:         msg_taskCommand.gasp_diam = class_09_real_grasp;
+                                        msg_taskCommand.ungasp_diam = class_09_real_ungrasp;
+                                        break;
+
+                        case 10:        msg_taskCommand.gasp_diam = class_10_real_grasp;
+                                        msg_taskCommand.ungasp_diam = class_10_real_ungrasp;
+                                        break;
+
+                        default:        cout << "Unsupported lego diameter!" << endl;
+                                        break;
+                }
+
+        } else {
+
+                switch (lego_cl) {
+
+                        case 0:         msg_taskCommand.gasp_diam = class_00_virt_grasp;
+                                        msg_taskCommand.ungasp_diam = class_00_virt_ungrasp;
+                                        break;
+
+                        case 1:         msg_taskCommand.gasp_diam = class_01_virt_grasp;
+                                        msg_taskCommand.ungasp_diam = class_01_virt_ungrasp;
+                                        break;
+
+                        case 2:         msg_taskCommand.gasp_diam = class_02_virt_grasp;
+                                        msg_taskCommand.ungasp_diam = class_02_virt_ungrasp;
+                                        break;
+
+                        case 3:         msg_taskCommand.gasp_diam = class_03_virt_grasp;
+                                        msg_taskCommand.ungasp_diam = class_03_virt_ungrasp;
+                                        break;
+
+                        case 4:         msg_taskCommand.gasp_diam = class_04_virt_grasp;
+                                        msg_taskCommand.ungasp_diam = class_04_virt_ungrasp;
+                                        break;
+
+                        case 5:         msg_taskCommand.gasp_diam = class_05_virt_grasp;
+                                        msg_taskCommand.ungasp_diam = class_05_virt_ungrasp;
+                                        break;
+
+                        case 6:         msg_taskCommand.gasp_diam = class_06_virt_grasp;
+                                        msg_taskCommand.ungasp_diam = class_06_virt_ungrasp;
+                                        break;
+
+                        case 7:         msg_taskCommand.gasp_diam = class_07_virt_grasp;
+                                        msg_taskCommand.ungasp_diam = class_07_virt_ungrasp;
+                                        break;
+
+                        case 8:         msg_taskCommand.gasp_diam = class_08_virt_grasp;
+                                        msg_taskCommand.ungasp_diam = class_08_virt_ungrasp;
+                                        break;
+
+                        case 9:         msg_taskCommand.gasp_diam = class_09_virt_grasp;
+                                        msg_taskCommand.ungasp_diam = class_09_virt_ungrasp;
+                                        break;
+
+                        case 10:        msg_taskCommand.gasp_diam = class_10_virt_grasp;
+                                        msg_taskCommand.ungasp_diam = class_10_virt_ungrasp;
+                                        break;
+
+                        default:        cout << "Unsupported lego virtual diameter!" << endl;
+                                        break;
+                }
+        }
+}
+
+double getTimeNow() {
+        ros::Time momento = ros::Time::now();        
+        double tempo = momento.sec + (momento.nsec / 1000000);
+        return tempo;
+}
+
+double getInterval(double start_t) {
+        return (getTimeNow()- start_t);
 }

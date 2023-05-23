@@ -66,16 +66,32 @@ include motion/CMakeFiles/motion_generate_messages_cpp.dir/compiler_depend.make
 # Include the progress variables for this target.
 include motion/CMakeFiles/motion_generate_messages_cpp.dir/progress.make
 
-motion/CMakeFiles/motion_generate_messages_cpp: /home/utente/Robotics_ICE23_UNITN/catkin_ws/devel/include/motion/pos.h
+motion/CMakeFiles/motion_generate_messages_cpp: /home/utente/Robotics_ICE23_UNITN/catkin_ws/devel/include/motion/legoTask.h
+motion/CMakeFiles/motion_generate_messages_cpp: /home/utente/Robotics_ICE23_UNITN/catkin_ws/devel/include/motion/legoFound.h
+motion/CMakeFiles/motion_generate_messages_cpp: /home/utente/Robotics_ICE23_UNITN/catkin_ws/devel/include/motion/eventResult.h
 
-/home/utente/Robotics_ICE23_UNITN/catkin_ws/devel/include/motion/pos.h: /opt/ros/noetic/lib/gencpp/gen_cpp.py
-/home/utente/Robotics_ICE23_UNITN/catkin_ws/devel/include/motion/pos.h: /home/utente/Robotics_ICE23_UNITN/catkin_ws/src/motion/msg/pos.msg
-/home/utente/Robotics_ICE23_UNITN/catkin_ws/devel/include/motion/pos.h: /opt/ros/noetic/share/gencpp/msg.h.template
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --blue --bold --progress-dir=/home/utente/Robotics_ICE23_UNITN/catkin_ws/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_1) "Generating C++ code from motion/pos.msg"
-	cd /home/utente/Robotics_ICE23_UNITN/catkin_ws/src/motion && /home/utente/Robotics_ICE23_UNITN/catkin_ws/build/catkin_generated/env_cached.sh /usr/bin/python3 /opt/ros/noetic/share/gencpp/cmake/../../../lib/gencpp/gen_cpp.py /home/utente/Robotics_ICE23_UNITN/catkin_ws/src/motion/msg/pos.msg -Imotion:/home/utente/Robotics_ICE23_UNITN/catkin_ws/src/motion/msg -Istd_msgs:/opt/ros/noetic/share/std_msgs/cmake/../msg -p motion -o /home/utente/Robotics_ICE23_UNITN/catkin_ws/devel/include/motion -e /opt/ros/noetic/share/gencpp/cmake/..
+/home/utente/Robotics_ICE23_UNITN/catkin_ws/devel/include/motion/eventResult.h: /opt/ros/noetic/lib/gencpp/gen_cpp.py
+/home/utente/Robotics_ICE23_UNITN/catkin_ws/devel/include/motion/eventResult.h: /home/utente/Robotics_ICE23_UNITN/catkin_ws/src/motion/msg/eventResult.msg
+/home/utente/Robotics_ICE23_UNITN/catkin_ws/devel/include/motion/eventResult.h: /opt/ros/noetic/share/gencpp/msg.h.template
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --blue --bold --progress-dir=/home/utente/Robotics_ICE23_UNITN/catkin_ws/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_1) "Generating C++ code from motion/eventResult.msg"
+	cd /home/utente/Robotics_ICE23_UNITN/catkin_ws/src/motion && /home/utente/Robotics_ICE23_UNITN/catkin_ws/build/catkin_generated/env_cached.sh /usr/bin/python3 /opt/ros/noetic/share/gencpp/cmake/../../../lib/gencpp/gen_cpp.py /home/utente/Robotics_ICE23_UNITN/catkin_ws/src/motion/msg/eventResult.msg -Imotion:/home/utente/Robotics_ICE23_UNITN/catkin_ws/src/motion/msg -Istd_msgs:/opt/ros/noetic/share/std_msgs/cmake/../msg -p motion -o /home/utente/Robotics_ICE23_UNITN/catkin_ws/devel/include/motion -e /opt/ros/noetic/share/gencpp/cmake/..
+
+/home/utente/Robotics_ICE23_UNITN/catkin_ws/devel/include/motion/legoFound.h: /opt/ros/noetic/lib/gencpp/gen_cpp.py
+/home/utente/Robotics_ICE23_UNITN/catkin_ws/devel/include/motion/legoFound.h: /home/utente/Robotics_ICE23_UNITN/catkin_ws/src/motion/msg/legoFound.msg
+/home/utente/Robotics_ICE23_UNITN/catkin_ws/devel/include/motion/legoFound.h: /opt/ros/noetic/share/gencpp/msg.h.template
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --blue --bold --progress-dir=/home/utente/Robotics_ICE23_UNITN/catkin_ws/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_2) "Generating C++ code from motion/legoFound.msg"
+	cd /home/utente/Robotics_ICE23_UNITN/catkin_ws/src/motion && /home/utente/Robotics_ICE23_UNITN/catkin_ws/build/catkin_generated/env_cached.sh /usr/bin/python3 /opt/ros/noetic/share/gencpp/cmake/../../../lib/gencpp/gen_cpp.py /home/utente/Robotics_ICE23_UNITN/catkin_ws/src/motion/msg/legoFound.msg -Imotion:/home/utente/Robotics_ICE23_UNITN/catkin_ws/src/motion/msg -Istd_msgs:/opt/ros/noetic/share/std_msgs/cmake/../msg -p motion -o /home/utente/Robotics_ICE23_UNITN/catkin_ws/devel/include/motion -e /opt/ros/noetic/share/gencpp/cmake/..
+
+/home/utente/Robotics_ICE23_UNITN/catkin_ws/devel/include/motion/legoTask.h: /opt/ros/noetic/lib/gencpp/gen_cpp.py
+/home/utente/Robotics_ICE23_UNITN/catkin_ws/devel/include/motion/legoTask.h: /home/utente/Robotics_ICE23_UNITN/catkin_ws/src/motion/msg/legoTask.msg
+/home/utente/Robotics_ICE23_UNITN/catkin_ws/devel/include/motion/legoTask.h: /opt/ros/noetic/share/gencpp/msg.h.template
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --blue --bold --progress-dir=/home/utente/Robotics_ICE23_UNITN/catkin_ws/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_3) "Generating C++ code from motion/legoTask.msg"
+	cd /home/utente/Robotics_ICE23_UNITN/catkin_ws/src/motion && /home/utente/Robotics_ICE23_UNITN/catkin_ws/build/catkin_generated/env_cached.sh /usr/bin/python3 /opt/ros/noetic/share/gencpp/cmake/../../../lib/gencpp/gen_cpp.py /home/utente/Robotics_ICE23_UNITN/catkin_ws/src/motion/msg/legoTask.msg -Imotion:/home/utente/Robotics_ICE23_UNITN/catkin_ws/src/motion/msg -Istd_msgs:/opt/ros/noetic/share/std_msgs/cmake/../msg -p motion -o /home/utente/Robotics_ICE23_UNITN/catkin_ws/devel/include/motion -e /opt/ros/noetic/share/gencpp/cmake/..
 
 motion_generate_messages_cpp: motion/CMakeFiles/motion_generate_messages_cpp
-motion_generate_messages_cpp: /home/utente/Robotics_ICE23_UNITN/catkin_ws/devel/include/motion/pos.h
+motion_generate_messages_cpp: /home/utente/Robotics_ICE23_UNITN/catkin_ws/devel/include/motion/eventResult.h
+motion_generate_messages_cpp: /home/utente/Robotics_ICE23_UNITN/catkin_ws/devel/include/motion/legoFound.h
+motion_generate_messages_cpp: /home/utente/Robotics_ICE23_UNITN/catkin_ws/devel/include/motion/legoTask.h
 motion_generate_messages_cpp: motion/CMakeFiles/motion_generate_messages_cpp.dir/build.make
 .PHONY : motion_generate_messages_cpp
 

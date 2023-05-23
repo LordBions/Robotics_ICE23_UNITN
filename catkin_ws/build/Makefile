@@ -302,6 +302,214 @@ _catkin_empty_exported_target/fast:
 .PHONY : _catkin_empty_exported_target/fast
 
 #=============================================================================
+# Target rules for targets named roscpp_generate_messages_cpp
+
+# Build rule for target.
+roscpp_generate_messages_cpp: cmake_check_build_system
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 roscpp_generate_messages_cpp
+.PHONY : roscpp_generate_messages_cpp
+
+# fast build rule for target.
+roscpp_generate_messages_cpp/fast:
+	$(MAKE) $(MAKESILENT) -f environment/CMakeFiles/roscpp_generate_messages_cpp.dir/build.make environment/CMakeFiles/roscpp_generate_messages_cpp.dir/build
+.PHONY : roscpp_generate_messages_cpp/fast
+
+#=============================================================================
+# Target rules for targets named roscpp_generate_messages_eus
+
+# Build rule for target.
+roscpp_generate_messages_eus: cmake_check_build_system
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 roscpp_generate_messages_eus
+.PHONY : roscpp_generate_messages_eus
+
+# fast build rule for target.
+roscpp_generate_messages_eus/fast:
+	$(MAKE) $(MAKESILENT) -f environment/CMakeFiles/roscpp_generate_messages_eus.dir/build.make environment/CMakeFiles/roscpp_generate_messages_eus.dir/build
+.PHONY : roscpp_generate_messages_eus/fast
+
+#=============================================================================
+# Target rules for targets named roscpp_generate_messages_lisp
+
+# Build rule for target.
+roscpp_generate_messages_lisp: cmake_check_build_system
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 roscpp_generate_messages_lisp
+.PHONY : roscpp_generate_messages_lisp
+
+# fast build rule for target.
+roscpp_generate_messages_lisp/fast:
+	$(MAKE) $(MAKESILENT) -f environment/CMakeFiles/roscpp_generate_messages_lisp.dir/build.make environment/CMakeFiles/roscpp_generate_messages_lisp.dir/build
+.PHONY : roscpp_generate_messages_lisp/fast
+
+#=============================================================================
+# Target rules for targets named roscpp_generate_messages_nodejs
+
+# Build rule for target.
+roscpp_generate_messages_nodejs: cmake_check_build_system
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 roscpp_generate_messages_nodejs
+.PHONY : roscpp_generate_messages_nodejs
+
+# fast build rule for target.
+roscpp_generate_messages_nodejs/fast:
+	$(MAKE) $(MAKESILENT) -f environment/CMakeFiles/roscpp_generate_messages_nodejs.dir/build.make environment/CMakeFiles/roscpp_generate_messages_nodejs.dir/build
+.PHONY : roscpp_generate_messages_nodejs/fast
+
+#=============================================================================
+# Target rules for targets named roscpp_generate_messages_py
+
+# Build rule for target.
+roscpp_generate_messages_py: cmake_check_build_system
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 roscpp_generate_messages_py
+.PHONY : roscpp_generate_messages_py
+
+# fast build rule for target.
+roscpp_generate_messages_py/fast:
+	$(MAKE) $(MAKESILENT) -f environment/CMakeFiles/roscpp_generate_messages_py.dir/build.make environment/CMakeFiles/roscpp_generate_messages_py.dir/build
+.PHONY : roscpp_generate_messages_py/fast
+
+#=============================================================================
+# Target rules for targets named rosgraph_msgs_generate_messages_cpp
+
+# Build rule for target.
+rosgraph_msgs_generate_messages_cpp: cmake_check_build_system
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 rosgraph_msgs_generate_messages_cpp
+.PHONY : rosgraph_msgs_generate_messages_cpp
+
+# fast build rule for target.
+rosgraph_msgs_generate_messages_cpp/fast:
+	$(MAKE) $(MAKESILENT) -f environment/CMakeFiles/rosgraph_msgs_generate_messages_cpp.dir/build.make environment/CMakeFiles/rosgraph_msgs_generate_messages_cpp.dir/build
+.PHONY : rosgraph_msgs_generate_messages_cpp/fast
+
+#=============================================================================
+# Target rules for targets named rosgraph_msgs_generate_messages_eus
+
+# Build rule for target.
+rosgraph_msgs_generate_messages_eus: cmake_check_build_system
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 rosgraph_msgs_generate_messages_eus
+.PHONY : rosgraph_msgs_generate_messages_eus
+
+# fast build rule for target.
+rosgraph_msgs_generate_messages_eus/fast:
+	$(MAKE) $(MAKESILENT) -f environment/CMakeFiles/rosgraph_msgs_generate_messages_eus.dir/build.make environment/CMakeFiles/rosgraph_msgs_generate_messages_eus.dir/build
+.PHONY : rosgraph_msgs_generate_messages_eus/fast
+
+#=============================================================================
+# Target rules for targets named rosgraph_msgs_generate_messages_lisp
+
+# Build rule for target.
+rosgraph_msgs_generate_messages_lisp: cmake_check_build_system
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 rosgraph_msgs_generate_messages_lisp
+.PHONY : rosgraph_msgs_generate_messages_lisp
+
+# fast build rule for target.
+rosgraph_msgs_generate_messages_lisp/fast:
+	$(MAKE) $(MAKESILENT) -f environment/CMakeFiles/rosgraph_msgs_generate_messages_lisp.dir/build.make environment/CMakeFiles/rosgraph_msgs_generate_messages_lisp.dir/build
+.PHONY : rosgraph_msgs_generate_messages_lisp/fast
+
+#=============================================================================
+# Target rules for targets named rosgraph_msgs_generate_messages_nodejs
+
+# Build rule for target.
+rosgraph_msgs_generate_messages_nodejs: cmake_check_build_system
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 rosgraph_msgs_generate_messages_nodejs
+.PHONY : rosgraph_msgs_generate_messages_nodejs
+
+# fast build rule for target.
+rosgraph_msgs_generate_messages_nodejs/fast:
+	$(MAKE) $(MAKESILENT) -f environment/CMakeFiles/rosgraph_msgs_generate_messages_nodejs.dir/build.make environment/CMakeFiles/rosgraph_msgs_generate_messages_nodejs.dir/build
+.PHONY : rosgraph_msgs_generate_messages_nodejs/fast
+
+#=============================================================================
+# Target rules for targets named rosgraph_msgs_generate_messages_py
+
+# Build rule for target.
+rosgraph_msgs_generate_messages_py: cmake_check_build_system
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 rosgraph_msgs_generate_messages_py
+.PHONY : rosgraph_msgs_generate_messages_py
+
+# fast build rule for target.
+rosgraph_msgs_generate_messages_py/fast:
+	$(MAKE) $(MAKESILENT) -f environment/CMakeFiles/rosgraph_msgs_generate_messages_py.dir/build.make environment/CMakeFiles/rosgraph_msgs_generate_messages_py.dir/build
+.PHONY : rosgraph_msgs_generate_messages_py/fast
+
+#=============================================================================
+# Target rules for targets named std_msgs_generate_messages_cpp
+
+# Build rule for target.
+std_msgs_generate_messages_cpp: cmake_check_build_system
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 std_msgs_generate_messages_cpp
+.PHONY : std_msgs_generate_messages_cpp
+
+# fast build rule for target.
+std_msgs_generate_messages_cpp/fast:
+	$(MAKE) $(MAKESILENT) -f environment/CMakeFiles/std_msgs_generate_messages_cpp.dir/build.make environment/CMakeFiles/std_msgs_generate_messages_cpp.dir/build
+.PHONY : std_msgs_generate_messages_cpp/fast
+
+#=============================================================================
+# Target rules for targets named std_msgs_generate_messages_eus
+
+# Build rule for target.
+std_msgs_generate_messages_eus: cmake_check_build_system
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 std_msgs_generate_messages_eus
+.PHONY : std_msgs_generate_messages_eus
+
+# fast build rule for target.
+std_msgs_generate_messages_eus/fast:
+	$(MAKE) $(MAKESILENT) -f environment/CMakeFiles/std_msgs_generate_messages_eus.dir/build.make environment/CMakeFiles/std_msgs_generate_messages_eus.dir/build
+.PHONY : std_msgs_generate_messages_eus/fast
+
+#=============================================================================
+# Target rules for targets named std_msgs_generate_messages_lisp
+
+# Build rule for target.
+std_msgs_generate_messages_lisp: cmake_check_build_system
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 std_msgs_generate_messages_lisp
+.PHONY : std_msgs_generate_messages_lisp
+
+# fast build rule for target.
+std_msgs_generate_messages_lisp/fast:
+	$(MAKE) $(MAKESILENT) -f environment/CMakeFiles/std_msgs_generate_messages_lisp.dir/build.make environment/CMakeFiles/std_msgs_generate_messages_lisp.dir/build
+.PHONY : std_msgs_generate_messages_lisp/fast
+
+#=============================================================================
+# Target rules for targets named std_msgs_generate_messages_nodejs
+
+# Build rule for target.
+std_msgs_generate_messages_nodejs: cmake_check_build_system
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 std_msgs_generate_messages_nodejs
+.PHONY : std_msgs_generate_messages_nodejs
+
+# fast build rule for target.
+std_msgs_generate_messages_nodejs/fast:
+	$(MAKE) $(MAKESILENT) -f environment/CMakeFiles/std_msgs_generate_messages_nodejs.dir/build.make environment/CMakeFiles/std_msgs_generate_messages_nodejs.dir/build
+.PHONY : std_msgs_generate_messages_nodejs/fast
+
+#=============================================================================
+# Target rules for targets named std_msgs_generate_messages_py
+
+# Build rule for target.
+std_msgs_generate_messages_py: cmake_check_build_system
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 std_msgs_generate_messages_py
+.PHONY : std_msgs_generate_messages_py
+
+# fast build rule for target.
+std_msgs_generate_messages_py/fast:
+	$(MAKE) $(MAKESILENT) -f environment/CMakeFiles/std_msgs_generate_messages_py.dir/build.make environment/CMakeFiles/std_msgs_generate_messages_py.dir/build
+.PHONY : std_msgs_generate_messages_py/fast
+
+#=============================================================================
+# Target rules for targets named spawnLego
+
+# Build rule for target.
+spawnLego: cmake_check_build_system
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 spawnLego
+.PHONY : spawnLego
+
+# fast build rule for target.
+spawnLego/fast:
+	$(MAKE) $(MAKESILENT) -f environment/CMakeFiles/spawnLego.dir/build.make environment/CMakeFiles/spawnLego.dir/build
+.PHONY : spawnLego/fast
+
+#=============================================================================
 # Target rules for targets named actionlib_generate_messages_cpp
 
 # Build rule for target.
@@ -430,201 +638,6 @@ actionlib_msgs_generate_messages_py: cmake_check_build_system
 actionlib_msgs_generate_messages_py/fast:
 	$(MAKE) $(MAKESILENT) -f "robot_urdf/gripper_description/grasping_plugin/general-message-pkgs /path_navigation_msgs/CMakeFiles/actionlib_msgs_generate_messages_py.dir/build.make" "robot_urdf/gripper_description/grasping_plugin/general-message-pkgs /path_navigation_msgs/CMakeFiles/actionlib_msgs_generate_messages_py.dir/build"
 .PHONY : actionlib_msgs_generate_messages_py/fast
-
-#=============================================================================
-# Target rules for targets named std_msgs_generate_messages_cpp
-
-# Build rule for target.
-std_msgs_generate_messages_cpp: cmake_check_build_system
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 std_msgs_generate_messages_cpp
-.PHONY : std_msgs_generate_messages_cpp
-
-# fast build rule for target.
-std_msgs_generate_messages_cpp/fast:
-	$(MAKE) $(MAKESILENT) -f "robot_urdf/gripper_description/grasping_plugin/general-message-pkgs /path_navigation_msgs/CMakeFiles/std_msgs_generate_messages_cpp.dir/build.make" "robot_urdf/gripper_description/grasping_plugin/general-message-pkgs /path_navigation_msgs/CMakeFiles/std_msgs_generate_messages_cpp.dir/build"
-.PHONY : std_msgs_generate_messages_cpp/fast
-
-#=============================================================================
-# Target rules for targets named std_msgs_generate_messages_eus
-
-# Build rule for target.
-std_msgs_generate_messages_eus: cmake_check_build_system
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 std_msgs_generate_messages_eus
-.PHONY : std_msgs_generate_messages_eus
-
-# fast build rule for target.
-std_msgs_generate_messages_eus/fast:
-	$(MAKE) $(MAKESILENT) -f "robot_urdf/gripper_description/grasping_plugin/general-message-pkgs /path_navigation_msgs/CMakeFiles/std_msgs_generate_messages_eus.dir/build.make" "robot_urdf/gripper_description/grasping_plugin/general-message-pkgs /path_navigation_msgs/CMakeFiles/std_msgs_generate_messages_eus.dir/build"
-.PHONY : std_msgs_generate_messages_eus/fast
-
-#=============================================================================
-# Target rules for targets named std_msgs_generate_messages_lisp
-
-# Build rule for target.
-std_msgs_generate_messages_lisp: cmake_check_build_system
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 std_msgs_generate_messages_lisp
-.PHONY : std_msgs_generate_messages_lisp
-
-# fast build rule for target.
-std_msgs_generate_messages_lisp/fast:
-	$(MAKE) $(MAKESILENT) -f "robot_urdf/gripper_description/grasping_plugin/general-message-pkgs /path_navigation_msgs/CMakeFiles/std_msgs_generate_messages_lisp.dir/build.make" "robot_urdf/gripper_description/grasping_plugin/general-message-pkgs /path_navigation_msgs/CMakeFiles/std_msgs_generate_messages_lisp.dir/build"
-.PHONY : std_msgs_generate_messages_lisp/fast
-
-#=============================================================================
-# Target rules for targets named std_msgs_generate_messages_nodejs
-
-# Build rule for target.
-std_msgs_generate_messages_nodejs: cmake_check_build_system
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 std_msgs_generate_messages_nodejs
-.PHONY : std_msgs_generate_messages_nodejs
-
-# fast build rule for target.
-std_msgs_generate_messages_nodejs/fast:
-	$(MAKE) $(MAKESILENT) -f "robot_urdf/gripper_description/grasping_plugin/general-message-pkgs /path_navigation_msgs/CMakeFiles/std_msgs_generate_messages_nodejs.dir/build.make" "robot_urdf/gripper_description/grasping_plugin/general-message-pkgs /path_navigation_msgs/CMakeFiles/std_msgs_generate_messages_nodejs.dir/build"
-.PHONY : std_msgs_generate_messages_nodejs/fast
-
-#=============================================================================
-# Target rules for targets named std_msgs_generate_messages_py
-
-# Build rule for target.
-std_msgs_generate_messages_py: cmake_check_build_system
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 std_msgs_generate_messages_py
-.PHONY : std_msgs_generate_messages_py
-
-# fast build rule for target.
-std_msgs_generate_messages_py/fast:
-	$(MAKE) $(MAKESILENT) -f "robot_urdf/gripper_description/grasping_plugin/general-message-pkgs /path_navigation_msgs/CMakeFiles/std_msgs_generate_messages_py.dir/build.make" "robot_urdf/gripper_description/grasping_plugin/general-message-pkgs /path_navigation_msgs/CMakeFiles/std_msgs_generate_messages_py.dir/build"
-.PHONY : std_msgs_generate_messages_py/fast
-
-#=============================================================================
-# Target rules for targets named roscpp_generate_messages_cpp
-
-# Build rule for target.
-roscpp_generate_messages_cpp: cmake_check_build_system
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 roscpp_generate_messages_cpp
-.PHONY : roscpp_generate_messages_cpp
-
-# fast build rule for target.
-roscpp_generate_messages_cpp/fast:
-	$(MAKE) $(MAKESILENT) -f "robot_urdf/gripper_description/grasping_plugin/general-message-pkgs /path_navigation_msgs/CMakeFiles/roscpp_generate_messages_cpp.dir/build.make" "robot_urdf/gripper_description/grasping_plugin/general-message-pkgs /path_navigation_msgs/CMakeFiles/roscpp_generate_messages_cpp.dir/build"
-.PHONY : roscpp_generate_messages_cpp/fast
-
-#=============================================================================
-# Target rules for targets named roscpp_generate_messages_eus
-
-# Build rule for target.
-roscpp_generate_messages_eus: cmake_check_build_system
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 roscpp_generate_messages_eus
-.PHONY : roscpp_generate_messages_eus
-
-# fast build rule for target.
-roscpp_generate_messages_eus/fast:
-	$(MAKE) $(MAKESILENT) -f "robot_urdf/gripper_description/grasping_plugin/general-message-pkgs /path_navigation_msgs/CMakeFiles/roscpp_generate_messages_eus.dir/build.make" "robot_urdf/gripper_description/grasping_plugin/general-message-pkgs /path_navigation_msgs/CMakeFiles/roscpp_generate_messages_eus.dir/build"
-.PHONY : roscpp_generate_messages_eus/fast
-
-#=============================================================================
-# Target rules for targets named roscpp_generate_messages_lisp
-
-# Build rule for target.
-roscpp_generate_messages_lisp: cmake_check_build_system
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 roscpp_generate_messages_lisp
-.PHONY : roscpp_generate_messages_lisp
-
-# fast build rule for target.
-roscpp_generate_messages_lisp/fast:
-	$(MAKE) $(MAKESILENT) -f "robot_urdf/gripper_description/grasping_plugin/general-message-pkgs /path_navigation_msgs/CMakeFiles/roscpp_generate_messages_lisp.dir/build.make" "robot_urdf/gripper_description/grasping_plugin/general-message-pkgs /path_navigation_msgs/CMakeFiles/roscpp_generate_messages_lisp.dir/build"
-.PHONY : roscpp_generate_messages_lisp/fast
-
-#=============================================================================
-# Target rules for targets named roscpp_generate_messages_nodejs
-
-# Build rule for target.
-roscpp_generate_messages_nodejs: cmake_check_build_system
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 roscpp_generate_messages_nodejs
-.PHONY : roscpp_generate_messages_nodejs
-
-# fast build rule for target.
-roscpp_generate_messages_nodejs/fast:
-	$(MAKE) $(MAKESILENT) -f "robot_urdf/gripper_description/grasping_plugin/general-message-pkgs /path_navigation_msgs/CMakeFiles/roscpp_generate_messages_nodejs.dir/build.make" "robot_urdf/gripper_description/grasping_plugin/general-message-pkgs /path_navigation_msgs/CMakeFiles/roscpp_generate_messages_nodejs.dir/build"
-.PHONY : roscpp_generate_messages_nodejs/fast
-
-#=============================================================================
-# Target rules for targets named roscpp_generate_messages_py
-
-# Build rule for target.
-roscpp_generate_messages_py: cmake_check_build_system
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 roscpp_generate_messages_py
-.PHONY : roscpp_generate_messages_py
-
-# fast build rule for target.
-roscpp_generate_messages_py/fast:
-	$(MAKE) $(MAKESILENT) -f "robot_urdf/gripper_description/grasping_plugin/general-message-pkgs /path_navigation_msgs/CMakeFiles/roscpp_generate_messages_py.dir/build.make" "robot_urdf/gripper_description/grasping_plugin/general-message-pkgs /path_navigation_msgs/CMakeFiles/roscpp_generate_messages_py.dir/build"
-.PHONY : roscpp_generate_messages_py/fast
-
-#=============================================================================
-# Target rules for targets named rosgraph_msgs_generate_messages_cpp
-
-# Build rule for target.
-rosgraph_msgs_generate_messages_cpp: cmake_check_build_system
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 rosgraph_msgs_generate_messages_cpp
-.PHONY : rosgraph_msgs_generate_messages_cpp
-
-# fast build rule for target.
-rosgraph_msgs_generate_messages_cpp/fast:
-	$(MAKE) $(MAKESILENT) -f "robot_urdf/gripper_description/grasping_plugin/general-message-pkgs /path_navigation_msgs/CMakeFiles/rosgraph_msgs_generate_messages_cpp.dir/build.make" "robot_urdf/gripper_description/grasping_plugin/general-message-pkgs /path_navigation_msgs/CMakeFiles/rosgraph_msgs_generate_messages_cpp.dir/build"
-.PHONY : rosgraph_msgs_generate_messages_cpp/fast
-
-#=============================================================================
-# Target rules for targets named rosgraph_msgs_generate_messages_eus
-
-# Build rule for target.
-rosgraph_msgs_generate_messages_eus: cmake_check_build_system
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 rosgraph_msgs_generate_messages_eus
-.PHONY : rosgraph_msgs_generate_messages_eus
-
-# fast build rule for target.
-rosgraph_msgs_generate_messages_eus/fast:
-	$(MAKE) $(MAKESILENT) -f "robot_urdf/gripper_description/grasping_plugin/general-message-pkgs /path_navigation_msgs/CMakeFiles/rosgraph_msgs_generate_messages_eus.dir/build.make" "robot_urdf/gripper_description/grasping_plugin/general-message-pkgs /path_navigation_msgs/CMakeFiles/rosgraph_msgs_generate_messages_eus.dir/build"
-.PHONY : rosgraph_msgs_generate_messages_eus/fast
-
-#=============================================================================
-# Target rules for targets named rosgraph_msgs_generate_messages_lisp
-
-# Build rule for target.
-rosgraph_msgs_generate_messages_lisp: cmake_check_build_system
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 rosgraph_msgs_generate_messages_lisp
-.PHONY : rosgraph_msgs_generate_messages_lisp
-
-# fast build rule for target.
-rosgraph_msgs_generate_messages_lisp/fast:
-	$(MAKE) $(MAKESILENT) -f "robot_urdf/gripper_description/grasping_plugin/general-message-pkgs /path_navigation_msgs/CMakeFiles/rosgraph_msgs_generate_messages_lisp.dir/build.make" "robot_urdf/gripper_description/grasping_plugin/general-message-pkgs /path_navigation_msgs/CMakeFiles/rosgraph_msgs_generate_messages_lisp.dir/build"
-.PHONY : rosgraph_msgs_generate_messages_lisp/fast
-
-#=============================================================================
-# Target rules for targets named rosgraph_msgs_generate_messages_nodejs
-
-# Build rule for target.
-rosgraph_msgs_generate_messages_nodejs: cmake_check_build_system
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 rosgraph_msgs_generate_messages_nodejs
-.PHONY : rosgraph_msgs_generate_messages_nodejs
-
-# fast build rule for target.
-rosgraph_msgs_generate_messages_nodejs/fast:
-	$(MAKE) $(MAKESILENT) -f "robot_urdf/gripper_description/grasping_plugin/general-message-pkgs /path_navigation_msgs/CMakeFiles/rosgraph_msgs_generate_messages_nodejs.dir/build.make" "robot_urdf/gripper_description/grasping_plugin/general-message-pkgs /path_navigation_msgs/CMakeFiles/rosgraph_msgs_generate_messages_nodejs.dir/build"
-.PHONY : rosgraph_msgs_generate_messages_nodejs/fast
-
-#=============================================================================
-# Target rules for targets named rosgraph_msgs_generate_messages_py
-
-# Build rule for target.
-rosgraph_msgs_generate_messages_py: cmake_check_build_system
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 rosgraph_msgs_generate_messages_py
-.PHONY : rosgraph_msgs_generate_messages_py
-
-# fast build rule for target.
-rosgraph_msgs_generate_messages_py/fast:
-	$(MAKE) $(MAKESILENT) -f "robot_urdf/gripper_description/grasping_plugin/general-message-pkgs /path_navigation_msgs/CMakeFiles/rosgraph_msgs_generate_messages_py.dir/build.make" "robot_urdf/gripper_description/grasping_plugin/general-message-pkgs /path_navigation_msgs/CMakeFiles/rosgraph_msgs_generate_messages_py.dir/build"
-.PHONY : rosgraph_msgs_generate_messages_py/fast
 
 #=============================================================================
 # Target rules for targets named control_msgs_generate_messages_cpp
@@ -1212,84 +1225,6 @@ path_navigation_msgs_genpy/fast:
 .PHONY : path_navigation_msgs_genpy/fast
 
 #=============================================================================
-# Target rules for targets named sensor_msgs_generate_messages_cpp
-
-# Build rule for target.
-sensor_msgs_generate_messages_cpp: cmake_check_build_system
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 sensor_msgs_generate_messages_cpp
-.PHONY : sensor_msgs_generate_messages_cpp
-
-# fast build rule for target.
-sensor_msgs_generate_messages_cpp/fast:
-	$(MAKE) $(MAKESILENT) -f control/cpp/CMakeFiles/sensor_msgs_generate_messages_cpp.dir/build.make control/cpp/CMakeFiles/sensor_msgs_generate_messages_cpp.dir/build
-.PHONY : sensor_msgs_generate_messages_cpp/fast
-
-#=============================================================================
-# Target rules for targets named sensor_msgs_generate_messages_eus
-
-# Build rule for target.
-sensor_msgs_generate_messages_eus: cmake_check_build_system
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 sensor_msgs_generate_messages_eus
-.PHONY : sensor_msgs_generate_messages_eus
-
-# fast build rule for target.
-sensor_msgs_generate_messages_eus/fast:
-	$(MAKE) $(MAKESILENT) -f control/cpp/CMakeFiles/sensor_msgs_generate_messages_eus.dir/build.make control/cpp/CMakeFiles/sensor_msgs_generate_messages_eus.dir/build
-.PHONY : sensor_msgs_generate_messages_eus/fast
-
-#=============================================================================
-# Target rules for targets named sensor_msgs_generate_messages_lisp
-
-# Build rule for target.
-sensor_msgs_generate_messages_lisp: cmake_check_build_system
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 sensor_msgs_generate_messages_lisp
-.PHONY : sensor_msgs_generate_messages_lisp
-
-# fast build rule for target.
-sensor_msgs_generate_messages_lisp/fast:
-	$(MAKE) $(MAKESILENT) -f control/cpp/CMakeFiles/sensor_msgs_generate_messages_lisp.dir/build.make control/cpp/CMakeFiles/sensor_msgs_generate_messages_lisp.dir/build
-.PHONY : sensor_msgs_generate_messages_lisp/fast
-
-#=============================================================================
-# Target rules for targets named sensor_msgs_generate_messages_nodejs
-
-# Build rule for target.
-sensor_msgs_generate_messages_nodejs: cmake_check_build_system
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 sensor_msgs_generate_messages_nodejs
-.PHONY : sensor_msgs_generate_messages_nodejs
-
-# fast build rule for target.
-sensor_msgs_generate_messages_nodejs/fast:
-	$(MAKE) $(MAKESILENT) -f control/cpp/CMakeFiles/sensor_msgs_generate_messages_nodejs.dir/build.make control/cpp/CMakeFiles/sensor_msgs_generate_messages_nodejs.dir/build
-.PHONY : sensor_msgs_generate_messages_nodejs/fast
-
-#=============================================================================
-# Target rules for targets named sensor_msgs_generate_messages_py
-
-# Build rule for target.
-sensor_msgs_generate_messages_py: cmake_check_build_system
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 sensor_msgs_generate_messages_py
-.PHONY : sensor_msgs_generate_messages_py
-
-# fast build rule for target.
-sensor_msgs_generate_messages_py/fast:
-	$(MAKE) $(MAKESILENT) -f control/cpp/CMakeFiles/sensor_msgs_generate_messages_py.dir/build.make control/cpp/CMakeFiles/sensor_msgs_generate_messages_py.dir/build
-.PHONY : sensor_msgs_generate_messages_py/fast
-
-#=============================================================================
-# Target rules for targets named custom_joint_publisher
-
-# Build rule for target.
-custom_joint_publisher: cmake_check_build_system
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 custom_joint_publisher
-.PHONY : custom_joint_publisher
-
-# fast build rule for target.
-custom_joint_publisher/fast:
-	$(MAKE) $(MAKESILENT) -f control/cpp/CMakeFiles/custom_joint_publisher.dir/build.make control/cpp/CMakeFiles/custom_joint_publisher.dir/build
-.PHONY : custom_joint_publisher/fast
-
-#=============================================================================
 # Target rules for targets named motion_generate_messages
 
 # Build rule for target.
@@ -1303,17 +1238,43 @@ motion_generate_messages/fast:
 .PHONY : motion_generate_messages/fast
 
 #=============================================================================
-# Target rules for targets named _motion_generate_messages_check_deps_pos
+# Target rules for targets named _motion_generate_messages_check_deps_legoTask
 
 # Build rule for target.
-_motion_generate_messages_check_deps_pos: cmake_check_build_system
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 _motion_generate_messages_check_deps_pos
-.PHONY : _motion_generate_messages_check_deps_pos
+_motion_generate_messages_check_deps_legoTask: cmake_check_build_system
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 _motion_generate_messages_check_deps_legoTask
+.PHONY : _motion_generate_messages_check_deps_legoTask
 
 # fast build rule for target.
-_motion_generate_messages_check_deps_pos/fast:
-	$(MAKE) $(MAKESILENT) -f motion/CMakeFiles/_motion_generate_messages_check_deps_pos.dir/build.make motion/CMakeFiles/_motion_generate_messages_check_deps_pos.dir/build
-.PHONY : _motion_generate_messages_check_deps_pos/fast
+_motion_generate_messages_check_deps_legoTask/fast:
+	$(MAKE) $(MAKESILENT) -f motion/CMakeFiles/_motion_generate_messages_check_deps_legoTask.dir/build.make motion/CMakeFiles/_motion_generate_messages_check_deps_legoTask.dir/build
+.PHONY : _motion_generate_messages_check_deps_legoTask/fast
+
+#=============================================================================
+# Target rules for targets named _motion_generate_messages_check_deps_legoFound
+
+# Build rule for target.
+_motion_generate_messages_check_deps_legoFound: cmake_check_build_system
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 _motion_generate_messages_check_deps_legoFound
+.PHONY : _motion_generate_messages_check_deps_legoFound
+
+# fast build rule for target.
+_motion_generate_messages_check_deps_legoFound/fast:
+	$(MAKE) $(MAKESILENT) -f motion/CMakeFiles/_motion_generate_messages_check_deps_legoFound.dir/build.make motion/CMakeFiles/_motion_generate_messages_check_deps_legoFound.dir/build
+.PHONY : _motion_generate_messages_check_deps_legoFound/fast
+
+#=============================================================================
+# Target rules for targets named _motion_generate_messages_check_deps_eventResult
+
+# Build rule for target.
+_motion_generate_messages_check_deps_eventResult: cmake_check_build_system
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 _motion_generate_messages_check_deps_eventResult
+.PHONY : _motion_generate_messages_check_deps_eventResult
+
+# fast build rule for target.
+_motion_generate_messages_check_deps_eventResult/fast:
+	$(MAKE) $(MAKESILENT) -f motion/CMakeFiles/_motion_generate_messages_check_deps_eventResult.dir/build.make motion/CMakeFiles/_motion_generate_messages_check_deps_eventResult.dir/build
+.PHONY : _motion_generate_messages_check_deps_eventResult/fast
 
 #=============================================================================
 # Target rules for targets named motion_generate_messages_cpp
@@ -1459,17 +1420,30 @@ planner/fast:
 .PHONY : planner/fast
 
 #=============================================================================
-# Target rules for targets named moviment
+# Target rules for targets named movement
 
 # Build rule for target.
-moviment: cmake_check_build_system
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 moviment
-.PHONY : moviment
+movement: cmake_check_build_system
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 movement
+.PHONY : movement
 
 # fast build rule for target.
-moviment/fast:
-	$(MAKE) $(MAKESILENT) -f motion/CMakeFiles/moviment.dir/build.make motion/CMakeFiles/moviment.dir/build
-.PHONY : moviment/fast
+movement/fast:
+	$(MAKE) $(MAKESILENT) -f motion/CMakeFiles/movement.dir/build.make motion/CMakeFiles/movement.dir/build
+.PHONY : movement/fast
+
+#=============================================================================
+# Target rules for targets named manualVision
+
+# Build rule for target.
+manualVision: cmake_check_build_system
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 manualVision
+.PHONY : manualVision
+
+# fast build rule for target.
+manualVision/fast:
+	$(MAKE) $(MAKESILENT) -f motion/CMakeFiles/manualVision.dir/build.make motion/CMakeFiles/manualVision.dir/build
+.PHONY : manualVision/fast
 
 #=============================================================================
 # Target rules for targets named shape_msgs_generate_messages_cpp
@@ -1600,6 +1574,71 @@ object_recognition_msgs_generate_messages_py: cmake_check_build_system
 object_recognition_msgs_generate_messages_py/fast:
 	$(MAKE) $(MAKESILENT) -f "robot_urdf/gripper_description/grasping_plugin/general-message-pkgs /object_msgs/CMakeFiles/object_recognition_msgs_generate_messages_py.dir/build.make" "robot_urdf/gripper_description/grasping_plugin/general-message-pkgs /object_msgs/CMakeFiles/object_recognition_msgs_generate_messages_py.dir/build"
 .PHONY : object_recognition_msgs_generate_messages_py/fast
+
+#=============================================================================
+# Target rules for targets named sensor_msgs_generate_messages_cpp
+
+# Build rule for target.
+sensor_msgs_generate_messages_cpp: cmake_check_build_system
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 sensor_msgs_generate_messages_cpp
+.PHONY : sensor_msgs_generate_messages_cpp
+
+# fast build rule for target.
+sensor_msgs_generate_messages_cpp/fast:
+	$(MAKE) $(MAKESILENT) -f "robot_urdf/gripper_description/grasping_plugin/general-message-pkgs /object_msgs/CMakeFiles/sensor_msgs_generate_messages_cpp.dir/build.make" "robot_urdf/gripper_description/grasping_plugin/general-message-pkgs /object_msgs/CMakeFiles/sensor_msgs_generate_messages_cpp.dir/build"
+.PHONY : sensor_msgs_generate_messages_cpp/fast
+
+#=============================================================================
+# Target rules for targets named sensor_msgs_generate_messages_eus
+
+# Build rule for target.
+sensor_msgs_generate_messages_eus: cmake_check_build_system
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 sensor_msgs_generate_messages_eus
+.PHONY : sensor_msgs_generate_messages_eus
+
+# fast build rule for target.
+sensor_msgs_generate_messages_eus/fast:
+	$(MAKE) $(MAKESILENT) -f "robot_urdf/gripper_description/grasping_plugin/general-message-pkgs /object_msgs/CMakeFiles/sensor_msgs_generate_messages_eus.dir/build.make" "robot_urdf/gripper_description/grasping_plugin/general-message-pkgs /object_msgs/CMakeFiles/sensor_msgs_generate_messages_eus.dir/build"
+.PHONY : sensor_msgs_generate_messages_eus/fast
+
+#=============================================================================
+# Target rules for targets named sensor_msgs_generate_messages_lisp
+
+# Build rule for target.
+sensor_msgs_generate_messages_lisp: cmake_check_build_system
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 sensor_msgs_generate_messages_lisp
+.PHONY : sensor_msgs_generate_messages_lisp
+
+# fast build rule for target.
+sensor_msgs_generate_messages_lisp/fast:
+	$(MAKE) $(MAKESILENT) -f "robot_urdf/gripper_description/grasping_plugin/general-message-pkgs /object_msgs/CMakeFiles/sensor_msgs_generate_messages_lisp.dir/build.make" "robot_urdf/gripper_description/grasping_plugin/general-message-pkgs /object_msgs/CMakeFiles/sensor_msgs_generate_messages_lisp.dir/build"
+.PHONY : sensor_msgs_generate_messages_lisp/fast
+
+#=============================================================================
+# Target rules for targets named sensor_msgs_generate_messages_nodejs
+
+# Build rule for target.
+sensor_msgs_generate_messages_nodejs: cmake_check_build_system
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 sensor_msgs_generate_messages_nodejs
+.PHONY : sensor_msgs_generate_messages_nodejs
+
+# fast build rule for target.
+sensor_msgs_generate_messages_nodejs/fast:
+	$(MAKE) $(MAKESILENT) -f "robot_urdf/gripper_description/grasping_plugin/general-message-pkgs /object_msgs/CMakeFiles/sensor_msgs_generate_messages_nodejs.dir/build.make" "robot_urdf/gripper_description/grasping_plugin/general-message-pkgs /object_msgs/CMakeFiles/sensor_msgs_generate_messages_nodejs.dir/build"
+.PHONY : sensor_msgs_generate_messages_nodejs/fast
+
+#=============================================================================
+# Target rules for targets named sensor_msgs_generate_messages_py
+
+# Build rule for target.
+sensor_msgs_generate_messages_py: cmake_check_build_system
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 sensor_msgs_generate_messages_py
+.PHONY : sensor_msgs_generate_messages_py
+
+# fast build rule for target.
+sensor_msgs_generate_messages_py/fast:
+	$(MAKE) $(MAKESILENT) -f "robot_urdf/gripper_description/grasping_plugin/general-message-pkgs /object_msgs/CMakeFiles/sensor_msgs_generate_messages_py.dir/build.make" "robot_urdf/gripper_description/grasping_plugin/general-message-pkgs /object_msgs/CMakeFiles/sensor_msgs_generate_messages_py.dir/build"
+.PHONY : sensor_msgs_generate_messages_py/fast
 
 #=============================================================================
 # Target rules for targets named object_msgs_generate_messages
@@ -2690,7 +2729,7 @@ ros_impedance_controller_generate_messages: cmake_check_build_system
 
 # fast build rule for target.
 ros_impedance_controller_generate_messages/fast:
-	$(MAKE) $(MAKESILENT) -f environment/CMakeFiles/ros_impedance_controller_generate_messages.dir/build.make environment/CMakeFiles/ros_impedance_controller_generate_messages.dir/build
+	$(MAKE) $(MAKESILENT) -f locosim/CMakeFiles/ros_impedance_controller_generate_messages.dir/build.make locosim/CMakeFiles/ros_impedance_controller_generate_messages.dir/build
 .PHONY : ros_impedance_controller_generate_messages/fast
 
 #=============================================================================
@@ -2703,7 +2742,7 @@ _ros_impedance_controller_generate_messages_check_deps_pid: cmake_check_build_sy
 
 # fast build rule for target.
 _ros_impedance_controller_generate_messages_check_deps_pid/fast:
-	$(MAKE) $(MAKESILENT) -f environment/CMakeFiles/_ros_impedance_controller_generate_messages_check_deps_pid.dir/build.make environment/CMakeFiles/_ros_impedance_controller_generate_messages_check_deps_pid.dir/build
+	$(MAKE) $(MAKESILENT) -f locosim/CMakeFiles/_ros_impedance_controller_generate_messages_check_deps_pid.dir/build.make locosim/CMakeFiles/_ros_impedance_controller_generate_messages_check_deps_pid.dir/build
 .PHONY : _ros_impedance_controller_generate_messages_check_deps_pid/fast
 
 #=============================================================================
@@ -2716,7 +2755,7 @@ _ros_impedance_controller_generate_messages_check_deps_BaseState: cmake_check_bu
 
 # fast build rule for target.
 _ros_impedance_controller_generate_messages_check_deps_BaseState/fast:
-	$(MAKE) $(MAKESILENT) -f environment/CMakeFiles/_ros_impedance_controller_generate_messages_check_deps_BaseState.dir/build.make environment/CMakeFiles/_ros_impedance_controller_generate_messages_check_deps_BaseState.dir/build
+	$(MAKE) $(MAKESILENT) -f locosim/CMakeFiles/_ros_impedance_controller_generate_messages_check_deps_BaseState.dir/build.make locosim/CMakeFiles/_ros_impedance_controller_generate_messages_check_deps_BaseState.dir/build
 .PHONY : _ros_impedance_controller_generate_messages_check_deps_BaseState/fast
 
 #=============================================================================
@@ -2729,7 +2768,7 @@ _ros_impedance_controller_generate_messages_check_deps_ContactsState: cmake_chec
 
 # fast build rule for target.
 _ros_impedance_controller_generate_messages_check_deps_ContactsState/fast:
-	$(MAKE) $(MAKESILENT) -f environment/CMakeFiles/_ros_impedance_controller_generate_messages_check_deps_ContactsState.dir/build.make environment/CMakeFiles/_ros_impedance_controller_generate_messages_check_deps_ContactsState.dir/build
+	$(MAKE) $(MAKESILENT) -f locosim/CMakeFiles/_ros_impedance_controller_generate_messages_check_deps_ContactsState.dir/build.make locosim/CMakeFiles/_ros_impedance_controller_generate_messages_check_deps_ContactsState.dir/build
 .PHONY : _ros_impedance_controller_generate_messages_check_deps_ContactsState/fast
 
 #=============================================================================
@@ -2742,7 +2781,7 @@ _ros_impedance_controller_generate_messages_check_deps_Forces: cmake_check_build
 
 # fast build rule for target.
 _ros_impedance_controller_generate_messages_check_deps_Forces/fast:
-	$(MAKE) $(MAKESILENT) -f environment/CMakeFiles/_ros_impedance_controller_generate_messages_check_deps_Forces.dir/build.make environment/CMakeFiles/_ros_impedance_controller_generate_messages_check_deps_Forces.dir/build
+	$(MAKE) $(MAKESILENT) -f locosim/CMakeFiles/_ros_impedance_controller_generate_messages_check_deps_Forces.dir/build.make locosim/CMakeFiles/_ros_impedance_controller_generate_messages_check_deps_Forces.dir/build
 .PHONY : _ros_impedance_controller_generate_messages_check_deps_Forces/fast
 
 #=============================================================================
@@ -2755,7 +2794,7 @@ _ros_impedance_controller_generate_messages_check_deps_EffortPid: cmake_check_bu
 
 # fast build rule for target.
 _ros_impedance_controller_generate_messages_check_deps_EffortPid/fast:
-	$(MAKE) $(MAKESILENT) -f environment/CMakeFiles/_ros_impedance_controller_generate_messages_check_deps_EffortPid.dir/build.make environment/CMakeFiles/_ros_impedance_controller_generate_messages_check_deps_EffortPid.dir/build
+	$(MAKE) $(MAKESILENT) -f locosim/CMakeFiles/_ros_impedance_controller_generate_messages_check_deps_EffortPid.dir/build.make locosim/CMakeFiles/_ros_impedance_controller_generate_messages_check_deps_EffortPid.dir/build
 .PHONY : _ros_impedance_controller_generate_messages_check_deps_EffortPid/fast
 
 #=============================================================================
@@ -2768,7 +2807,7 @@ _ros_impedance_controller_generate_messages_check_deps_set_pids: cmake_check_bui
 
 # fast build rule for target.
 _ros_impedance_controller_generate_messages_check_deps_set_pids/fast:
-	$(MAKE) $(MAKESILENT) -f environment/CMakeFiles/_ros_impedance_controller_generate_messages_check_deps_set_pids.dir/build.make environment/CMakeFiles/_ros_impedance_controller_generate_messages_check_deps_set_pids.dir/build
+	$(MAKE) $(MAKESILENT) -f locosim/CMakeFiles/_ros_impedance_controller_generate_messages_check_deps_set_pids.dir/build.make locosim/CMakeFiles/_ros_impedance_controller_generate_messages_check_deps_set_pids.dir/build
 .PHONY : _ros_impedance_controller_generate_messages_check_deps_set_pids/fast
 
 #=============================================================================
@@ -2781,7 +2820,7 @@ _ros_impedance_controller_generate_messages_check_deps_get_map: cmake_check_buil
 
 # fast build rule for target.
 _ros_impedance_controller_generate_messages_check_deps_get_map/fast:
-	$(MAKE) $(MAKESILENT) -f environment/CMakeFiles/_ros_impedance_controller_generate_messages_check_deps_get_map.dir/build.make environment/CMakeFiles/_ros_impedance_controller_generate_messages_check_deps_get_map.dir/build
+	$(MAKE) $(MAKESILENT) -f locosim/CMakeFiles/_ros_impedance_controller_generate_messages_check_deps_get_map.dir/build.make locosim/CMakeFiles/_ros_impedance_controller_generate_messages_check_deps_get_map.dir/build
 .PHONY : _ros_impedance_controller_generate_messages_check_deps_get_map/fast
 
 #=============================================================================
@@ -2794,7 +2833,7 @@ _ros_impedance_controller_generate_messages_check_deps_get_effort_pid: cmake_che
 
 # fast build rule for target.
 _ros_impedance_controller_generate_messages_check_deps_get_effort_pid/fast:
-	$(MAKE) $(MAKESILENT) -f environment/CMakeFiles/_ros_impedance_controller_generate_messages_check_deps_get_effort_pid.dir/build.make environment/CMakeFiles/_ros_impedance_controller_generate_messages_check_deps_get_effort_pid.dir/build
+	$(MAKE) $(MAKESILENT) -f locosim/CMakeFiles/_ros_impedance_controller_generate_messages_check_deps_get_effort_pid.dir/build.make locosim/CMakeFiles/_ros_impedance_controller_generate_messages_check_deps_get_effort_pid.dir/build
 .PHONY : _ros_impedance_controller_generate_messages_check_deps_get_effort_pid/fast
 
 #=============================================================================
@@ -2807,7 +2846,7 @@ _ros_impedance_controller_generate_messages_check_deps_generic_float: cmake_chec
 
 # fast build rule for target.
 _ros_impedance_controller_generate_messages_check_deps_generic_float/fast:
-	$(MAKE) $(MAKESILENT) -f environment/CMakeFiles/_ros_impedance_controller_generate_messages_check_deps_generic_float.dir/build.make environment/CMakeFiles/_ros_impedance_controller_generate_messages_check_deps_generic_float.dir/build
+	$(MAKE) $(MAKESILENT) -f locosim/CMakeFiles/_ros_impedance_controller_generate_messages_check_deps_generic_float.dir/build.make locosim/CMakeFiles/_ros_impedance_controller_generate_messages_check_deps_generic_float.dir/build
 .PHONY : _ros_impedance_controller_generate_messages_check_deps_generic_float/fast
 
 #=============================================================================
@@ -2820,7 +2859,7 @@ ros_impedance_controller_generate_messages_cpp: cmake_check_build_system
 
 # fast build rule for target.
 ros_impedance_controller_generate_messages_cpp/fast:
-	$(MAKE) $(MAKESILENT) -f environment/CMakeFiles/ros_impedance_controller_generate_messages_cpp.dir/build.make environment/CMakeFiles/ros_impedance_controller_generate_messages_cpp.dir/build
+	$(MAKE) $(MAKESILENT) -f locosim/CMakeFiles/ros_impedance_controller_generate_messages_cpp.dir/build.make locosim/CMakeFiles/ros_impedance_controller_generate_messages_cpp.dir/build
 .PHONY : ros_impedance_controller_generate_messages_cpp/fast
 
 #=============================================================================
@@ -2833,7 +2872,7 @@ ros_impedance_controller_gencpp: cmake_check_build_system
 
 # fast build rule for target.
 ros_impedance_controller_gencpp/fast:
-	$(MAKE) $(MAKESILENT) -f environment/CMakeFiles/ros_impedance_controller_gencpp.dir/build.make environment/CMakeFiles/ros_impedance_controller_gencpp.dir/build
+	$(MAKE) $(MAKESILENT) -f locosim/CMakeFiles/ros_impedance_controller_gencpp.dir/build.make locosim/CMakeFiles/ros_impedance_controller_gencpp.dir/build
 .PHONY : ros_impedance_controller_gencpp/fast
 
 #=============================================================================
@@ -2846,7 +2885,7 @@ ros_impedance_controller_generate_messages_eus: cmake_check_build_system
 
 # fast build rule for target.
 ros_impedance_controller_generate_messages_eus/fast:
-	$(MAKE) $(MAKESILENT) -f environment/CMakeFiles/ros_impedance_controller_generate_messages_eus.dir/build.make environment/CMakeFiles/ros_impedance_controller_generate_messages_eus.dir/build
+	$(MAKE) $(MAKESILENT) -f locosim/CMakeFiles/ros_impedance_controller_generate_messages_eus.dir/build.make locosim/CMakeFiles/ros_impedance_controller_generate_messages_eus.dir/build
 .PHONY : ros_impedance_controller_generate_messages_eus/fast
 
 #=============================================================================
@@ -2859,7 +2898,7 @@ ros_impedance_controller_geneus: cmake_check_build_system
 
 # fast build rule for target.
 ros_impedance_controller_geneus/fast:
-	$(MAKE) $(MAKESILENT) -f environment/CMakeFiles/ros_impedance_controller_geneus.dir/build.make environment/CMakeFiles/ros_impedance_controller_geneus.dir/build
+	$(MAKE) $(MAKESILENT) -f locosim/CMakeFiles/ros_impedance_controller_geneus.dir/build.make locosim/CMakeFiles/ros_impedance_controller_geneus.dir/build
 .PHONY : ros_impedance_controller_geneus/fast
 
 #=============================================================================
@@ -2872,7 +2911,7 @@ ros_impedance_controller_generate_messages_lisp: cmake_check_build_system
 
 # fast build rule for target.
 ros_impedance_controller_generate_messages_lisp/fast:
-	$(MAKE) $(MAKESILENT) -f environment/CMakeFiles/ros_impedance_controller_generate_messages_lisp.dir/build.make environment/CMakeFiles/ros_impedance_controller_generate_messages_lisp.dir/build
+	$(MAKE) $(MAKESILENT) -f locosim/CMakeFiles/ros_impedance_controller_generate_messages_lisp.dir/build.make locosim/CMakeFiles/ros_impedance_controller_generate_messages_lisp.dir/build
 .PHONY : ros_impedance_controller_generate_messages_lisp/fast
 
 #=============================================================================
@@ -2885,7 +2924,7 @@ ros_impedance_controller_genlisp: cmake_check_build_system
 
 # fast build rule for target.
 ros_impedance_controller_genlisp/fast:
-	$(MAKE) $(MAKESILENT) -f environment/CMakeFiles/ros_impedance_controller_genlisp.dir/build.make environment/CMakeFiles/ros_impedance_controller_genlisp.dir/build
+	$(MAKE) $(MAKESILENT) -f locosim/CMakeFiles/ros_impedance_controller_genlisp.dir/build.make locosim/CMakeFiles/ros_impedance_controller_genlisp.dir/build
 .PHONY : ros_impedance_controller_genlisp/fast
 
 #=============================================================================
@@ -2898,7 +2937,7 @@ ros_impedance_controller_generate_messages_nodejs: cmake_check_build_system
 
 # fast build rule for target.
 ros_impedance_controller_generate_messages_nodejs/fast:
-	$(MAKE) $(MAKESILENT) -f environment/CMakeFiles/ros_impedance_controller_generate_messages_nodejs.dir/build.make environment/CMakeFiles/ros_impedance_controller_generate_messages_nodejs.dir/build
+	$(MAKE) $(MAKESILENT) -f locosim/CMakeFiles/ros_impedance_controller_generate_messages_nodejs.dir/build.make locosim/CMakeFiles/ros_impedance_controller_generate_messages_nodejs.dir/build
 .PHONY : ros_impedance_controller_generate_messages_nodejs/fast
 
 #=============================================================================
@@ -2911,7 +2950,7 @@ ros_impedance_controller_gennodejs: cmake_check_build_system
 
 # fast build rule for target.
 ros_impedance_controller_gennodejs/fast:
-	$(MAKE) $(MAKESILENT) -f environment/CMakeFiles/ros_impedance_controller_gennodejs.dir/build.make environment/CMakeFiles/ros_impedance_controller_gennodejs.dir/build
+	$(MAKE) $(MAKESILENT) -f locosim/CMakeFiles/ros_impedance_controller_gennodejs.dir/build.make locosim/CMakeFiles/ros_impedance_controller_gennodejs.dir/build
 .PHONY : ros_impedance_controller_gennodejs/fast
 
 #=============================================================================
@@ -2924,7 +2963,7 @@ ros_impedance_controller_generate_messages_py: cmake_check_build_system
 
 # fast build rule for target.
 ros_impedance_controller_generate_messages_py/fast:
-	$(MAKE) $(MAKESILENT) -f environment/CMakeFiles/ros_impedance_controller_generate_messages_py.dir/build.make environment/CMakeFiles/ros_impedance_controller_generate_messages_py.dir/build
+	$(MAKE) $(MAKESILENT) -f locosim/CMakeFiles/ros_impedance_controller_generate_messages_py.dir/build.make locosim/CMakeFiles/ros_impedance_controller_generate_messages_py.dir/build
 .PHONY : ros_impedance_controller_generate_messages_py/fast
 
 #=============================================================================
@@ -2937,7 +2976,7 @@ ros_impedance_controller_genpy: cmake_check_build_system
 
 # fast build rule for target.
 ros_impedance_controller_genpy/fast:
-	$(MAKE) $(MAKESILENT) -f environment/CMakeFiles/ros_impedance_controller_genpy.dir/build.make environment/CMakeFiles/ros_impedance_controller_genpy.dir/build
+	$(MAKE) $(MAKESILENT) -f locosim/CMakeFiles/ros_impedance_controller_genpy.dir/build.make locosim/CMakeFiles/ros_impedance_controller_genpy.dir/build
 .PHONY : ros_impedance_controller_genpy/fast
 
 #=============================================================================
@@ -2950,7 +2989,7 @@ ros_impedance_controller: cmake_check_build_system
 
 # fast build rule for target.
 ros_impedance_controller/fast:
-	$(MAKE) $(MAKESILENT) -f environment/CMakeFiles/ros_impedance_controller.dir/build.make environment/CMakeFiles/ros_impedance_controller.dir/build
+	$(MAKE) $(MAKESILENT) -f locosim/CMakeFiles/ros_impedance_controller.dir/build.make locosim/CMakeFiles/ros_impedance_controller.dir/build
 .PHONY : ros_impedance_controller/fast
 
 #=============================================================================
@@ -2982,7 +3021,9 @@ help:
 	@echo "... _catkin_empty_exported_target"
 	@echo "... _gazebo_grasp_plugin_ros_generate_messages_check_deps_GazeboGraspEvent"
 	@echo "... _gazebo_test_tools_generate_messages_check_deps_RecognizeGazeboObject"
-	@echo "... _motion_generate_messages_check_deps_pos"
+	@echo "... _motion_generate_messages_check_deps_eventResult"
+	@echo "... _motion_generate_messages_check_deps_legoFound"
+	@echo "... _motion_generate_messages_check_deps_legoTask"
 	@echo "... _object_msgs_generate_messages_check_deps_Object"
 	@echo "... _object_msgs_generate_messages_check_deps_ObjectInfo"
 	@echo "... _object_msgs_generate_messages_check_deps_ObjectPose"
@@ -3170,7 +3211,6 @@ help:
 	@echo "... trajectory_msgs_generate_messages_py"
 	@echo "... base_robot_hw"
 	@echo "... cube_spawner"
-	@echo "... custom_joint_publisher"
 	@echo "... fake_object_recognizer"
 	@echo "... fake_object_recognizer_cmd"
 	@echo "... fake_object_recognizer_node"
@@ -3187,13 +3227,15 @@ help:
 	@echo "... gmock_main"
 	@echo "... gtest"
 	@echo "... gtest_main"
-	@echo "... moviment"
+	@echo "... manualVision"
+	@echo "... movement"
 	@echo "... object_msgs_tools"
 	@echo "... object_tf_broadcaster_node"
 	@echo "... planner"
 	@echo "... register_object_client"
 	@echo "... ros_impedance_controller"
 	@echo "... set_gazebo_physics_client"
+	@echo "... spawnLego"
 .PHONY : help
 
 

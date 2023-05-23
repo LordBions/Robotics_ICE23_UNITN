@@ -2,7 +2,7 @@
 <package format="2">
 
   <name>motion</name>
-  <version>1.0.0</version>
+  <version>2.0.0</version>
   <description>The motion package of our project</description>
   
   <maintainer email="filippo.conti@studenti.unitn.it">Filippo Conti, Mattia Meneghin e Nicola Gianuzzi</maintainer>

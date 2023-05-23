@@ -66,22 +66,38 @@ include motion/CMakeFiles/motion_generate_messages_py.dir/compiler_depend.make
 # Include the progress variables for this target.
 include motion/CMakeFiles/motion_generate_messages_py.dir/progress.make
 
-motion/CMakeFiles/motion_generate_messages_py: /home/utente/Robotics_ICE23_UNITN/catkin_ws/devel/lib/python3/dist-packages/motion/msg/_pos.py
+motion/CMakeFiles/motion_generate_messages_py: /home/utente/Robotics_ICE23_UNITN/catkin_ws/devel/lib/python3/dist-packages/motion/msg/_legoTask.py
+motion/CMakeFiles/motion_generate_messages_py: /home/utente/Robotics_ICE23_UNITN/catkin_ws/devel/lib/python3/dist-packages/motion/msg/_legoFound.py
+motion/CMakeFiles/motion_generate_messages_py: /home/utente/Robotics_ICE23_UNITN/catkin_ws/devel/lib/python3/dist-packages/motion/msg/_eventResult.py
 motion/CMakeFiles/motion_generate_messages_py: /home/utente/Robotics_ICE23_UNITN/catkin_ws/devel/lib/python3/dist-packages/motion/msg/__init__.py
 
 /home/utente/Robotics_ICE23_UNITN/catkin_ws/devel/lib/python3/dist-packages/motion/msg/__init__.py: /opt/ros/noetic/lib/genpy/genmsg_py.py
-/home/utente/Robotics_ICE23_UNITN/catkin_ws/devel/lib/python3/dist-packages/motion/msg/__init__.py: /home/utente/Robotics_ICE23_UNITN/catkin_ws/devel/lib/python3/dist-packages/motion/msg/_pos.py
+/home/utente/Robotics_ICE23_UNITN/catkin_ws/devel/lib/python3/dist-packages/motion/msg/__init__.py: /home/utente/Robotics_ICE23_UNITN/catkin_ws/devel/lib/python3/dist-packages/motion/msg/_legoTask.py
+/home/utente/Robotics_ICE23_UNITN/catkin_ws/devel/lib/python3/dist-packages/motion/msg/__init__.py: /home/utente/Robotics_ICE23_UNITN/catkin_ws/devel/lib/python3/dist-packages/motion/msg/_legoFound.py
+/home/utente/Robotics_ICE23_UNITN/catkin_ws/devel/lib/python3/dist-packages/motion/msg/__init__.py: /home/utente/Robotics_ICE23_UNITN/catkin_ws/devel/lib/python3/dist-packages/motion/msg/_eventResult.py
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --blue --bold --progress-dir=/home/utente/Robotics_ICE23_UNITN/catkin_ws/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_1) "Generating Python msg __init__.py for motion"
 	cd /home/utente/Robotics_ICE23_UNITN/catkin_ws/build/motion && ../catkin_generated/env_cached.sh /usr/bin/python3 /opt/ros/noetic/share/genpy/cmake/../../../lib/genpy/genmsg_py.py -o /home/utente/Robotics_ICE23_UNITN/catkin_ws/devel/lib/python3/dist-packages/motion/msg --initpy
 
-/home/utente/Robotics_ICE23_UNITN/catkin_ws/devel/lib/python3/dist-packages/motion/msg/_pos.py: /opt/ros/noetic/lib/genpy/genmsg_py.py
-/home/utente/Robotics_ICE23_UNITN/catkin_ws/devel/lib/python3/dist-packages/motion/msg/_pos.py: /home/utente/Robotics_ICE23_UNITN/catkin_ws/src/motion/msg/pos.msg
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --blue --bold --progress-dir=/home/utente/Robotics_ICE23_UNITN/catkin_ws/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_2) "Generating Python from MSG motion/pos"
-	cd /home/utente/Robotics_ICE23_UNITN/catkin_ws/build/motion && ../catkin_generated/env_cached.sh /usr/bin/python3 /opt/ros/noetic/share/genpy/cmake/../../../lib/genpy/genmsg_py.py /home/utente/Robotics_ICE23_UNITN/catkin_ws/src/motion/msg/pos.msg -Imotion:/home/utente/Robotics_ICE23_UNITN/catkin_ws/src/motion/msg -Istd_msgs:/opt/ros/noetic/share/std_msgs/cmake/../msg -p motion -o /home/utente/Robotics_ICE23_UNITN/catkin_ws/devel/lib/python3/dist-packages/motion/msg
+/home/utente/Robotics_ICE23_UNITN/catkin_ws/devel/lib/python3/dist-packages/motion/msg/_eventResult.py: /opt/ros/noetic/lib/genpy/genmsg_py.py
+/home/utente/Robotics_ICE23_UNITN/catkin_ws/devel/lib/python3/dist-packages/motion/msg/_eventResult.py: /home/utente/Robotics_ICE23_UNITN/catkin_ws/src/motion/msg/eventResult.msg
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --blue --bold --progress-dir=/home/utente/Robotics_ICE23_UNITN/catkin_ws/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_2) "Generating Python from MSG motion/eventResult"
+	cd /home/utente/Robotics_ICE23_UNITN/catkin_ws/build/motion && ../catkin_generated/env_cached.sh /usr/bin/python3 /opt/ros/noetic/share/genpy/cmake/../../../lib/genpy/genmsg_py.py /home/utente/Robotics_ICE23_UNITN/catkin_ws/src/motion/msg/eventResult.msg -Imotion:/home/utente/Robotics_ICE23_UNITN/catkin_ws/src/motion/msg -Istd_msgs:/opt/ros/noetic/share/std_msgs/cmake/../msg -p motion -o /home/utente/Robotics_ICE23_UNITN/catkin_ws/devel/lib/python3/dist-packages/motion/msg
+
+/home/utente/Robotics_ICE23_UNITN/catkin_ws/devel/lib/python3/dist-packages/motion/msg/_legoFound.py: /opt/ros/noetic/lib/genpy/genmsg_py.py
+/home/utente/Robotics_ICE23_UNITN/catkin_ws/devel/lib/python3/dist-packages/motion/msg/_legoFound.py: /home/utente/Robotics_ICE23_UNITN/catkin_ws/src/motion/msg/legoFound.msg
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --blue --bold --progress-dir=/home/utente/Robotics_ICE23_UNITN/catkin_ws/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_3) "Generating Python from MSG motion/legoFound"
+	cd /home/utente/Robotics_ICE23_UNITN/catkin_ws/build/motion && ../catkin_generated/env_cached.sh /usr/bin/python3 /opt/ros/noetic/share/genpy/cmake/../../../lib/genpy/genmsg_py.py /home/utente/Robotics_ICE23_UNITN/catkin_ws/src/motion/msg/legoFound.msg -Imotion:/home/utente/Robotics_ICE23_UNITN/catkin_ws/src/motion/msg -Istd_msgs:/opt/ros/noetic/share/std_msgs/cmake/../msg -p motion -o /home/utente/Robotics_ICE23_UNITN/catkin_ws/devel/lib/python3/dist-packages/motion/msg
+
+/home/utente/Robotics_ICE23_UNITN/catkin_ws/devel/lib/python3/dist-packages/motion/msg/_legoTask.py: /opt/ros/noetic/lib/genpy/genmsg_py.py
+/home/utente/Robotics_ICE23_UNITN/catkin_ws/devel/lib/python3/dist-packages/motion/msg/_legoTask.py: /home/utente/Robotics_ICE23_UNITN/catkin_ws/src/motion/msg/legoTask.msg
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --blue --bold --progress-dir=/home/utente/Robotics_ICE23_UNITN/catkin_ws/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_4) "Generating Python from MSG motion/legoTask"
+	cd /home/utente/Robotics_ICE23_UNITN/catkin_ws/build/motion && ../catkin_generated/env_cached.sh /usr/bin/python3 /opt/ros/noetic/share/genpy/cmake/../../../lib/genpy/genmsg_py.py /home/utente/Robotics_ICE23_UNITN/catkin_ws/src/motion/msg/legoTask.msg -Imotion:/home/utente/Robotics_ICE23_UNITN/catkin_ws/src/motion/msg -Istd_msgs:/opt/ros/noetic/share/std_msgs/cmake/../msg -p motion -o /home/utente/Robotics_ICE23_UNITN/catkin_ws/devel/lib/python3/dist-packages/motion/msg
 
 motion_generate_messages_py: motion/CMakeFiles/motion_generate_messages_py
 motion_generate_messages_py: /home/utente/Robotics_ICE23_UNITN/catkin_ws/devel/lib/python3/dist-packages/motion/msg/__init__.py
-motion_generate_messages_py: /home/utente/Robotics_ICE23_UNITN/catkin_ws/devel/lib/python3/dist-packages/motion/msg/_pos.py
+motion_generate_messages_py: /home/utente/Robotics_ICE23_UNITN/catkin_ws/devel/lib/python3/dist-packages/motion/msg/_eventResult.py
+motion_generate_messages_py: /home/utente/Robotics_ICE23_UNITN/catkin_ws/devel/lib/python3/dist-packages/motion/msg/_legoFound.py
+motion_generate_messages_py: /home/utente/Robotics_ICE23_UNITN/catkin_ws/devel/lib/python3/dist-packages/motion/msg/_legoTask.py
 motion_generate_messages_py: motion/CMakeFiles/motion_generate_messages_py.dir/build.make
 .PHONY : motion_generate_messages_py
 

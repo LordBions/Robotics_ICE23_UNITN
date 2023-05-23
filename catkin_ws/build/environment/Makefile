@@ -172,322 +172,252 @@ depend:
 .PHONY : depend
 
 # Convenience name for target.
-environment/CMakeFiles/ros_impedance_controller_generate_messages.dir/rule:
-	cd /home/utente/Robotics_ICE23_UNITN/catkin_ws/build && $(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 environment/CMakeFiles/ros_impedance_controller_generate_messages.dir/rule
-.PHONY : environment/CMakeFiles/ros_impedance_controller_generate_messages.dir/rule
+environment/CMakeFiles/roscpp_generate_messages_cpp.dir/rule:
+	cd /home/utente/Robotics_ICE23_UNITN/catkin_ws/build && $(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 environment/CMakeFiles/roscpp_generate_messages_cpp.dir/rule
+.PHONY : environment/CMakeFiles/roscpp_generate_messages_cpp.dir/rule
 
 # Convenience name for target.
-ros_impedance_controller_generate_messages: environment/CMakeFiles/ros_impedance_controller_generate_messages.dir/rule
-.PHONY : ros_impedance_controller_generate_messages
+roscpp_generate_messages_cpp: environment/CMakeFiles/roscpp_generate_messages_cpp.dir/rule
+.PHONY : roscpp_generate_messages_cpp
 
 # fast build rule for target.
-ros_impedance_controller_generate_messages/fast:
-	cd /home/utente/Robotics_ICE23_UNITN/catkin_ws/build && $(MAKE) $(MAKESILENT) -f environment/CMakeFiles/ros_impedance_controller_generate_messages.dir/build.make environment/CMakeFiles/ros_impedance_controller_generate_messages.dir/build
-.PHONY : ros_impedance_controller_generate_messages/fast
+roscpp_generate_messages_cpp/fast:
+	cd /home/utente/Robotics_ICE23_UNITN/catkin_ws/build && $(MAKE) $(MAKESILENT) -f environment/CMakeFiles/roscpp_generate_messages_cpp.dir/build.make environment/CMakeFiles/roscpp_generate_messages_cpp.dir/build
+.PHONY : roscpp_generate_messages_cpp/fast
 
 # Convenience name for target.
-environment/CMakeFiles/_ros_impedance_controller_generate_messages_check_deps_pid.dir/rule:
-	cd /home/utente/Robotics_ICE23_UNITN/catkin_ws/build && $(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 environment/CMakeFiles/_ros_impedance_controller_generate_messages_check_deps_pid.dir/rule
-.PHONY : environment/CMakeFiles/_ros_impedance_controller_generate_messages_check_deps_pid.dir/rule
+environment/CMakeFiles/roscpp_generate_messages_eus.dir/rule:
+	cd /home/utente/Robotics_ICE23_UNITN/catkin_ws/build && $(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 environment/CMakeFiles/roscpp_generate_messages_eus.dir/rule
+.PHONY : environment/CMakeFiles/roscpp_generate_messages_eus.dir/rule
 
 # Convenience name for target.
-_ros_impedance_controller_generate_messages_check_deps_pid: environment/CMakeFiles/_ros_impedance_controller_generate_messages_check_deps_pid.dir/rule
-.PHONY : _ros_impedance_controller_generate_messages_check_deps_pid
+roscpp_generate_messages_eus: environment/CMakeFiles/roscpp_generate_messages_eus.dir/rule
+.PHONY : roscpp_generate_messages_eus
 
 # fast build rule for target.
-_ros_impedance_controller_generate_messages_check_deps_pid/fast:
-	cd /home/utente/Robotics_ICE23_UNITN/catkin_ws/build && $(MAKE) $(MAKESILENT) -f environment/CMakeFiles/_ros_impedance_controller_generate_messages_check_deps_pid.dir/build.make environment/CMakeFiles/_ros_impedance_controller_generate_messages_check_deps_pid.dir/build
-.PHONY : _ros_impedance_controller_generate_messages_check_deps_pid/fast
+roscpp_generate_messages_eus/fast:
+	cd /home/utente/Robotics_ICE23_UNITN/catkin_ws/build && $(MAKE) $(MAKESILENT) -f environment/CMakeFiles/roscpp_generate_messages_eus.dir/build.make environment/CMakeFiles/roscpp_generate_messages_eus.dir/build
+.PHONY : roscpp_generate_messages_eus/fast
 
 # Convenience name for target.
-environment/CMakeFiles/_ros_impedance_controller_generate_messages_check_deps_BaseState.dir/rule:
-	cd /home/utente/Robotics_ICE23_UNITN/catkin_ws/build && $(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 environment/CMakeFiles/_ros_impedance_controller_generate_messages_check_deps_BaseState.dir/rule
-.PHONY : environment/CMakeFiles/_ros_impedance_controller_generate_messages_check_deps_BaseState.dir/rule
+environment/CMakeFiles/roscpp_generate_messages_lisp.dir/rule:
+	cd /home/utente/Robotics_ICE23_UNITN/catkin_ws/build && $(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 environment/CMakeFiles/roscpp_generate_messages_lisp.dir/rule
+.PHONY : environment/CMakeFiles/roscpp_generate_messages_lisp.dir/rule
 
 # Convenience name for target.
-_ros_impedance_controller_generate_messages_check_deps_BaseState: environment/CMakeFiles/_ros_impedance_controller_generate_messages_check_deps_BaseState.dir/rule
-.PHONY : _ros_impedance_controller_generate_messages_check_deps_BaseState
+roscpp_generate_messages_lisp: environment/CMakeFiles/roscpp_generate_messages_lisp.dir/rule
+.PHONY : roscpp_generate_messages_lisp
 
 # fast build rule for target.
-_ros_impedance_controller_generate_messages_check_deps_BaseState/fast:
-	cd /home/utente/Robotics_ICE23_UNITN/catkin_ws/build && $(MAKE) $(MAKESILENT) -f environment/CMakeFiles/_ros_impedance_controller_generate_messages_check_deps_BaseState.dir/build.make environment/CMakeFiles/_ros_impedance_controller_generate_messages_check_deps_BaseState.dir/build
-.PHONY : _ros_impedance_controller_generate_messages_check_deps_BaseState/fast
+roscpp_generate_messages_lisp/fast:
+	cd /home/utente/Robotics_ICE23_UNITN/catkin_ws/build && $(MAKE) $(MAKESILENT) -f environment/CMakeFiles/roscpp_generate_messages_lisp.dir/build.make environment/CMakeFiles/roscpp_generate_messages_lisp.dir/build
+.PHONY : roscpp_generate_messages_lisp/fast
 
 # Convenience name for target.
-environment/CMakeFiles/_ros_impedance_controller_generate_messages_check_deps_ContactsState.dir/rule:
-	cd /home/utente/Robotics_ICE23_UNITN/catkin_ws/build && $(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 environment/CMakeFiles/_ros_impedance_controller_generate_messages_check_deps_ContactsState.dir/rule
-.PHONY : environment/CMakeFiles/_ros_impedance_controller_generate_messages_check_deps_ContactsState.dir/rule
+environment/CMakeFiles/roscpp_generate_messages_nodejs.dir/rule:
+	cd /home/utente/Robotics_ICE23_UNITN/catkin_ws/build && $(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 environment/CMakeFiles/roscpp_generate_messages_nodejs.dir/rule
+.PHONY : environment/CMakeFiles/roscpp_generate_messages_nodejs.dir/rule
 
 # Convenience name for target.
-_ros_impedance_controller_generate_messages_check_deps_ContactsState: environment/CMakeFiles/_ros_impedance_controller_generate_messages_check_deps_ContactsState.dir/rule
-.PHONY : _ros_impedance_controller_generate_messages_check_deps_ContactsState
+roscpp_generate_messages_nodejs: environment/CMakeFiles/roscpp_generate_messages_nodejs.dir/rule
+.PHONY : roscpp_generate_messages_nodejs
 
 # fast build rule for target.
-_ros_impedance_controller_generate_messages_check_deps_ContactsState/fast:
-	cd /home/utente/Robotics_ICE23_UNITN/catkin_ws/build && $(MAKE) $(MAKESILENT) -f environment/CMakeFiles/_ros_impedance_controller_generate_messages_check_deps_ContactsState.dir/build.make environment/CMakeFiles/_ros_impedance_controller_generate_messages_check_deps_ContactsState.dir/build
-.PHONY : _ros_impedance_controller_generate_messages_check_deps_ContactsState/fast
+roscpp_generate_messages_nodejs/fast:
+	cd /home/utente/Robotics_ICE23_UNITN/catkin_ws/build && $(MAKE) $(MAKESILENT) -f environment/CMakeFiles/roscpp_generate_messages_nodejs.dir/build.make environment/CMakeFiles/roscpp_generate_messages_nodejs.dir/build
+.PHONY : roscpp_generate_messages_nodejs/fast
 
 # Convenience name for target.
-environment/CMakeFiles/_ros_impedance_controller_generate_messages_check_deps_Forces.dir/rule:
-	cd /home/utente/Robotics_ICE23_UNITN/catkin_ws/build && $(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 environment/CMakeFiles/_ros_impedance_controller_generate_messages_check_deps_Forces.dir/rule
-.PHONY : environment/CMakeFiles/_ros_impedance_controller_generate_messages_check_deps_Forces.dir/rule
+environment/CMakeFiles/roscpp_generate_messages_py.dir/rule:
+	cd /home/utente/Robotics_ICE23_UNITN/catkin_ws/build && $(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 environment/CMakeFiles/roscpp_generate_messages_py.dir/rule
+.PHONY : environment/CMakeFiles/roscpp_generate_messages_py.dir/rule
 
 # Convenience name for target.
-_ros_impedance_controller_generate_messages_check_deps_Forces: environment/CMakeFiles/_ros_impedance_controller_generate_messages_check_deps_Forces.dir/rule
-.PHONY : _ros_impedance_controller_generate_messages_check_deps_Forces
+roscpp_generate_messages_py: environment/CMakeFiles/roscpp_generate_messages_py.dir/rule
+.PHONY : roscpp_generate_messages_py
 
 # fast build rule for target.
-_ros_impedance_controller_generate_messages_check_deps_Forces/fast:
-	cd /home/utente/Robotics_ICE23_UNITN/catkin_ws/build && $(MAKE) $(MAKESILENT) -f environment/CMakeFiles/_ros_impedance_controller_generate_messages_check_deps_Forces.dir/build.make environment/CMakeFiles/_ros_impedance_controller_generate_messages_check_deps_Forces.dir/build
-.PHONY : _ros_impedance_controller_generate_messages_check_deps_Forces/fast
+roscpp_generate_messages_py/fast:
+	cd /home/utente/Robotics_ICE23_UNITN/catkin_ws/build && $(MAKE) $(MAKESILENT) -f environment/CMakeFiles/roscpp_generate_messages_py.dir/build.make environment/CMakeFiles/roscpp_generate_messages_py.dir/build
+.PHONY : roscpp_generate_messages_py/fast
 
 # Convenience name for target.
-environment/CMakeFiles/_ros_impedance_controller_generate_messages_check_deps_EffortPid.dir/rule:
-	cd /home/utente/Robotics_ICE23_UNITN/catkin_ws/build && $(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 environment/CMakeFiles/_ros_impedance_controller_generate_messages_check_deps_EffortPid.dir/rule
-.PHONY : environment/CMakeFiles/_ros_impedance_controller_generate_messages_check_deps_EffortPid.dir/rule
+environment/CMakeFiles/rosgraph_msgs_generate_messages_cpp.dir/rule:
+	cd /home/utente/Robotics_ICE23_UNITN/catkin_ws/build && $(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 environment/CMakeFiles/rosgraph_msgs_generate_messages_cpp.dir/rule
+.PHONY : environment/CMakeFiles/rosgraph_msgs_generate_messages_cpp.dir/rule
 
 # Convenience name for target.
-_ros_impedance_controller_generate_messages_check_deps_EffortPid: environment/CMakeFiles/_ros_impedance_controller_generate_messages_check_deps_EffortPid.dir/rule
-.PHONY : _ros_impedance_controller_generate_messages_check_deps_EffortPid
+rosgraph_msgs_generate_messages_cpp: environment/CMakeFiles/rosgraph_msgs_generate_messages_cpp.dir/rule
+.PHONY : rosgraph_msgs_generate_messages_cpp
 
 # fast build rule for target.
-_ros_impedance_controller_generate_messages_check_deps_EffortPid/fast:
-	cd /home/utente/Robotics_ICE23_UNITN/catkin_ws/build && $(MAKE) $(MAKESILENT) -f environment/CMakeFiles/_ros_impedance_controller_generate_messages_check_deps_EffortPid.dir/build.make environment/CMakeFiles/_ros_impedance_controller_generate_messages_check_deps_EffortPid.dir/build
-.PHONY : _ros_impedance_controller_generate_messages_check_deps_EffortPid/fast
+rosgraph_msgs_generate_messages_cpp/fast:
+	cd /home/utente/Robotics_ICE23_UNITN/catkin_ws/build && $(MAKE) $(MAKESILENT) -f environment/CMakeFiles/rosgraph_msgs_generate_messages_cpp.dir/build.make environment/CMakeFiles/rosgraph_msgs_generate_messages_cpp.dir/build
+.PHONY : rosgraph_msgs_generate_messages_cpp/fast
 
 # Convenience name for target.
-environment/CMakeFiles/_ros_impedance_controller_generate_messages_check_deps_set_pids.dir/rule:
-	cd /home/utente/Robotics_ICE23_UNITN/catkin_ws/build && $(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 environment/CMakeFiles/_ros_impedance_controller_generate_messages_check_deps_set_pids.dir/rule
-.PHONY : environment/CMakeFiles/_ros_impedance_controller_generate_messages_check_deps_set_pids.dir/rule
+environment/CMakeFiles/rosgraph_msgs_generate_messages_eus.dir/rule:
+	cd /home/utente/Robotics_ICE23_UNITN/catkin_ws/build && $(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 environment/CMakeFiles/rosgraph_msgs_generate_messages_eus.dir/rule
+.PHONY : environment/CMakeFiles/rosgraph_msgs_generate_messages_eus.dir/rule
 
 # Convenience name for target.
-_ros_impedance_controller_generate_messages_check_deps_set_pids: environment/CMakeFiles/_ros_impedance_controller_generate_messages_check_deps_set_pids.dir/rule
-.PHONY : _ros_impedance_controller_generate_messages_check_deps_set_pids
+rosgraph_msgs_generate_messages_eus: environment/CMakeFiles/rosgraph_msgs_generate_messages_eus.dir/rule
+.PHONY : rosgraph_msgs_generate_messages_eus
 
 # fast build rule for target.
-_ros_impedance_controller_generate_messages_check_deps_set_pids/fast:
-	cd /home/utente/Robotics_ICE23_UNITN/catkin_ws/build && $(MAKE) $(MAKESILENT) -f environment/CMakeFiles/_ros_impedance_controller_generate_messages_check_deps_set_pids.dir/build.make environment/CMakeFiles/_ros_impedance_controller_generate_messages_check_deps_set_pids.dir/build
-.PHONY : _ros_impedance_controller_generate_messages_check_deps_set_pids/fast
+rosgraph_msgs_generate_messages_eus/fast:
+	cd /home/utente/Robotics_ICE23_UNITN/catkin_ws/build && $(MAKE) $(MAKESILENT) -f environment/CMakeFiles/rosgraph_msgs_generate_messages_eus.dir/build.make environment/CMakeFiles/rosgraph_msgs_generate_messages_eus.dir/build
+.PHONY : rosgraph_msgs_generate_messages_eus/fast
 
 # Convenience name for target.
-environment/CMakeFiles/_ros_impedance_controller_generate_messages_check_deps_get_map.dir/rule:
-	cd /home/utente/Robotics_ICE23_UNITN/catkin_ws/build && $(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 environment/CMakeFiles/_ros_impedance_controller_generate_messages_check_deps_get_map.dir/rule
-.PHONY : environment/CMakeFiles/_ros_impedance_controller_generate_messages_check_deps_get_map.dir/rule
+environment/CMakeFiles/rosgraph_msgs_generate_messages_lisp.dir/rule:
+	cd /home/utente/Robotics_ICE23_UNITN/catkin_ws/build && $(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 environment/CMakeFiles/rosgraph_msgs_generate_messages_lisp.dir/rule
+.PHONY : environment/CMakeFiles/rosgraph_msgs_generate_messages_lisp.dir/rule
 
 # Convenience name for target.
-_ros_impedance_controller_generate_messages_check_deps_get_map: environment/CMakeFiles/_ros_impedance_controller_generate_messages_check_deps_get_map.dir/rule
-.PHONY : _ros_impedance_controller_generate_messages_check_deps_get_map
+rosgraph_msgs_generate_messages_lisp: environment/CMakeFiles/rosgraph_msgs_generate_messages_lisp.dir/rule
+.PHONY : rosgraph_msgs_generate_messages_lisp
 
 # fast build rule for target.
-_ros_impedance_controller_generate_messages_check_deps_get_map/fast:
-	cd /home/utente/Robotics_ICE23_UNITN/catkin_ws/build && $(MAKE) $(MAKESILENT) -f environment/CMakeFiles/_ros_impedance_controller_generate_messages_check_deps_get_map.dir/build.make environment/CMakeFiles/_ros_impedance_controller_generate_messages_check_deps_get_map.dir/build
-.PHONY : _ros_impedance_controller_generate_messages_check_deps_get_map/fast
+rosgraph_msgs_generate_messages_lisp/fast:
+	cd /home/utente/Robotics_ICE23_UNITN/catkin_ws/build && $(MAKE) $(MAKESILENT) -f environment/CMakeFiles/rosgraph_msgs_generate_messages_lisp.dir/build.make environment/CMakeFiles/rosgraph_msgs_generate_messages_lisp.dir/build
+.PHONY : rosgraph_msgs_generate_messages_lisp/fast
 
 # Convenience name for target.
-environment/CMakeFiles/_ros_impedance_controller_generate_messages_check_deps_get_effort_pid.dir/rule:
-	cd /home/utente/Robotics_ICE23_UNITN/catkin_ws/build && $(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 environment/CMakeFiles/_ros_impedance_controller_generate_messages_check_deps_get_effort_pid.dir/rule
-.PHONY : environment/CMakeFiles/_ros_impedance_controller_generate_messages_check_deps_get_effort_pid.dir/rule
+environment/CMakeFiles/rosgraph_msgs_generate_messages_nodejs.dir/rule:
+	cd /home/utente/Robotics_ICE23_UNITN/catkin_ws/build && $(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 environment/CMakeFiles/rosgraph_msgs_generate_messages_nodejs.dir/rule
+.PHONY : environment/CMakeFiles/rosgraph_msgs_generate_messages_nodejs.dir/rule
 
 # Convenience name for target.
-_ros_impedance_controller_generate_messages_check_deps_get_effort_pid: environment/CMakeFiles/_ros_impedance_controller_generate_messages_check_deps_get_effort_pid.dir/rule
-.PHONY : _ros_impedance_controller_generate_messages_check_deps_get_effort_pid
+rosgraph_msgs_generate_messages_nodejs: environment/CMakeFiles/rosgraph_msgs_generate_messages_nodejs.dir/rule
+.PHONY : rosgraph_msgs_generate_messages_nodejs
 
 # fast build rule for target.
-_ros_impedance_controller_generate_messages_check_deps_get_effort_pid/fast:
-	cd /home/utente/Robotics_ICE23_UNITN/catkin_ws/build && $(MAKE) $(MAKESILENT) -f environment/CMakeFiles/_ros_impedance_controller_generate_messages_check_deps_get_effort_pid.dir/build.make environment/CMakeFiles/_ros_impedance_controller_generate_messages_check_deps_get_effort_pid.dir/build
-.PHONY : _ros_impedance_controller_generate_messages_check_deps_get_effort_pid/fast
+rosgraph_msgs_generate_messages_nodejs/fast:
+	cd /home/utente/Robotics_ICE23_UNITN/catkin_ws/build && $(MAKE) $(MAKESILENT) -f environment/CMakeFiles/rosgraph_msgs_generate_messages_nodejs.dir/build.make environment/CMakeFiles/rosgraph_msgs_generate_messages_nodejs.dir/build
+.PHONY : rosgraph_msgs_generate_messages_nodejs/fast
 
 # Convenience name for target.
-environment/CMakeFiles/_ros_impedance_controller_generate_messages_check_deps_generic_float.dir/rule:
-	cd /home/utente/Robotics_ICE23_UNITN/catkin_ws/build && $(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 environment/CMakeFiles/_ros_impedance_controller_generate_messages_check_deps_generic_float.dir/rule
-.PHONY : environment/CMakeFiles/_ros_impedance_controller_generate_messages_check_deps_generic_float.dir/rule
+environment/CMakeFiles/rosgraph_msgs_generate_messages_py.dir/rule:
+	cd /home/utente/Robotics_ICE23_UNITN/catkin_ws/build && $(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 environment/CMakeFiles/rosgraph_msgs_generate_messages_py.dir/rule
+.PHONY : environment/CMakeFiles/rosgraph_msgs_generate_messages_py.dir/rule
 
 # Convenience name for target.
-_ros_impedance_controller_generate_messages_check_deps_generic_float: environment/CMakeFiles/_ros_impedance_controller_generate_messages_check_deps_generic_float.dir/rule
-.PHONY : _ros_impedance_controller_generate_messages_check_deps_generic_float
+rosgraph_msgs_generate_messages_py: environment/CMakeFiles/rosgraph_msgs_generate_messages_py.dir/rule
+.PHONY : rosgraph_msgs_generate_messages_py
 
 # fast build rule for target.
-_ros_impedance_controller_generate_messages_check_deps_generic_float/fast:
-	cd /home/utente/Robotics_ICE23_UNITN/catkin_ws/build && $(MAKE) $(MAKESILENT) -f environment/CMakeFiles/_ros_impedance_controller_generate_messages_check_deps_generic_float.dir/build.make environment/CMakeFiles/_ros_impedance_controller_generate_messages_check_deps_generic_float.dir/build
-.PHONY : _ros_impedance_controller_generate_messages_check_deps_generic_float/fast
+rosgraph_msgs_generate_messages_py/fast:
+	cd /home/utente/Robotics_ICE23_UNITN/catkin_ws/build && $(MAKE) $(MAKESILENT) -f environment/CMakeFiles/rosgraph_msgs_generate_messages_py.dir/build.make environment/CMakeFiles/rosgraph_msgs_generate_messages_py.dir/build
+.PHONY : rosgraph_msgs_generate_messages_py/fast
 
 # Convenience name for target.
-environment/CMakeFiles/ros_impedance_controller_generate_messages_cpp.dir/rule:
-	cd /home/utente/Robotics_ICE23_UNITN/catkin_ws/build && $(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 environment/CMakeFiles/ros_impedance_controller_generate_messages_cpp.dir/rule
-.PHONY : environment/CMakeFiles/ros_impedance_controller_generate_messages_cpp.dir/rule
+environment/CMakeFiles/std_msgs_generate_messages_cpp.dir/rule:
+	cd /home/utente/Robotics_ICE23_UNITN/catkin_ws/build && $(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 environment/CMakeFiles/std_msgs_generate_messages_cpp.dir/rule
+.PHONY : environment/CMakeFiles/std_msgs_generate_messages_cpp.dir/rule
 
 # Convenience name for target.
-ros_impedance_controller_generate_messages_cpp: environment/CMakeFiles/ros_impedance_controller_generate_messages_cpp.dir/rule
-.PHONY : ros_impedance_controller_generate_messages_cpp
+std_msgs_generate_messages_cpp: environment/CMakeFiles/std_msgs_generate_messages_cpp.dir/rule
+.PHONY : std_msgs_generate_messages_cpp
 
 # fast build rule for target.
-ros_impedance_controller_generate_messages_cpp/fast:
-	cd /home/utente/Robotics_ICE23_UNITN/catkin_ws/build && $(MAKE) $(MAKESILENT) -f environment/CMakeFiles/ros_impedance_controller_generate_messages_cpp.dir/build.make environment/CMakeFiles/ros_impedance_controller_generate_messages_cpp.dir/build
-.PHONY : ros_impedance_controller_generate_messages_cpp/fast
+std_msgs_generate_messages_cpp/fast:
+	cd /home/utente/Robotics_ICE23_UNITN/catkin_ws/build && $(MAKE) $(MAKESILENT) -f environment/CMakeFiles/std_msgs_generate_messages_cpp.dir/build.make environment/CMakeFiles/std_msgs_generate_messages_cpp.dir/build
+.PHONY : std_msgs_generate_messages_cpp/fast
 
 # Convenience name for target.
-environment/CMakeFiles/ros_impedance_controller_gencpp.dir/rule:
-	cd /home/utente/Robotics_ICE23_UNITN/catkin_ws/build && $(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 environment/CMakeFiles/ros_impedance_controller_gencpp.dir/rule
-.PHONY : environment/CMakeFiles/ros_impedance_controller_gencpp.dir/rule
+environment/CMakeFiles/std_msgs_generate_messages_eus.dir/rule:
+	cd /home/utente/Robotics_ICE23_UNITN/catkin_ws/build && $(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 environment/CMakeFiles/std_msgs_generate_messages_eus.dir/rule
+.PHONY : environment/CMakeFiles/std_msgs_generate_messages_eus.dir/rule
 
 # Convenience name for target.
-ros_impedance_controller_gencpp: environment/CMakeFiles/ros_impedance_controller_gencpp.dir/rule
-.PHONY : ros_impedance_controller_gencpp
+std_msgs_generate_messages_eus: environment/CMakeFiles/std_msgs_generate_messages_eus.dir/rule
+.PHONY : std_msgs_generate_messages_eus
 
 # fast build rule for target.
-ros_impedance_controller_gencpp/fast:
-	cd /home/utente/Robotics_ICE23_UNITN/catkin_ws/build && $(MAKE) $(MAKESILENT) -f environment/CMakeFiles/ros_impedance_controller_gencpp.dir/build.make environment/CMakeFiles/ros_impedance_controller_gencpp.dir/build
-.PHONY : ros_impedance_controller_gencpp/fast
+std_msgs_generate_messages_eus/fast:
+	cd /home/utente/Robotics_ICE23_UNITN/catkin_ws/build && $(MAKE) $(MAKESILENT) -f environment/CMakeFiles/std_msgs_generate_messages_eus.dir/build.make environment/CMakeFiles/std_msgs_generate_messages_eus.dir/build
+.PHONY : std_msgs_generate_messages_eus/fast
 
 # Convenience name for target.
-environment/CMakeFiles/ros_impedance_controller_generate_messages_eus.dir/rule:
-	cd /home/utente/Robotics_ICE23_UNITN/catkin_ws/build && $(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 environment/CMakeFiles/ros_impedance_controller_generate_messages_eus.dir/rule
-.PHONY : environment/CMakeFiles/ros_impedance_controller_generate_messages_eus.dir/rule
+environment/CMakeFiles/std_msgs_generate_messages_lisp.dir/rule:
+	cd /home/utente/Robotics_ICE23_UNITN/catkin_ws/build && $(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 environment/CMakeFiles/std_msgs_generate_messages_lisp.dir/rule
+.PHONY : environment/CMakeFiles/std_msgs_generate_messages_lisp.dir/rule
 
 # Convenience name for target.
-ros_impedance_controller_generate_messages_eus: environment/CMakeFiles/ros_impedance_controller_generate_messages_eus.dir/rule
-.PHONY : ros_impedance_controller_generate_messages_eus
+std_msgs_generate_messages_lisp: environment/CMakeFiles/std_msgs_generate_messages_lisp.dir/rule
+.PHONY : std_msgs_generate_messages_lisp
 
 # fast build rule for target.
-ros_impedance_controller_generate_messages_eus/fast:
-	cd /home/utente/Robotics_ICE23_UNITN/catkin_ws/build && $(MAKE) $(MAKESILENT) -f environment/CMakeFiles/ros_impedance_controller_generate_messages_eus.dir/build.make environment/CMakeFiles/ros_impedance_controller_generate_messages_eus.dir/build
-.PHONY : ros_impedance_controller_generate_messages_eus/fast
+std_msgs_generate_messages_lisp/fast:
+	cd /home/utente/Robotics_ICE23_UNITN/catkin_ws/build && $(MAKE) $(MAKESILENT) -f environment/CMakeFiles/std_msgs_generate_messages_lisp.dir/build.make environment/CMakeFiles/std_msgs_generate_messages_lisp.dir/build
+.PHONY : std_msgs_generate_messages_lisp/fast
 
 # Convenience name for target.
-environment/CMakeFiles/ros_impedance_controller_geneus.dir/rule:
-	cd /home/utente/Robotics_ICE23_UNITN/catkin_ws/build && $(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 environment/CMakeFiles/ros_impedance_controller_geneus.dir/rule
-.PHONY : environment/CMakeFiles/ros_impedance_controller_geneus.dir/rule
+environment/CMakeFiles/std_msgs_generate_messages_nodejs.dir/rule:
+	cd /home/utente/Robotics_ICE23_UNITN/catkin_ws/build && $(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 environment/CMakeFiles/std_msgs_generate_messages_nodejs.dir/rule
+.PHONY : environment/CMakeFiles/std_msgs_generate_messages_nodejs.dir/rule
 
 # Convenience name for target.
-ros_impedance_controller_geneus: environment/CMakeFiles/ros_impedance_controller_geneus.dir/rule
-.PHONY : ros_impedance_controller_geneus
+std_msgs_generate_messages_nodejs: environment/CMakeFiles/std_msgs_generate_messages_nodejs.dir/rule
+.PHONY : std_msgs_generate_messages_nodejs
 
 # fast build rule for target.
-ros_impedance_controller_geneus/fast:
-	cd /home/utente/Robotics_ICE23_UNITN/catkin_ws/build && $(MAKE) $(MAKESILENT) -f environment/CMakeFiles/ros_impedance_controller_geneus.dir/build.make environment/CMakeFiles/ros_impedance_controller_geneus.dir/build
-.PHONY : ros_impedance_controller_geneus/fast
+std_msgs_generate_messages_nodejs/fast:
+	cd /home/utente/Robotics_ICE23_UNITN/catkin_ws/build && $(MAKE) $(MAKESILENT) -f environment/CMakeFiles/std_msgs_generate_messages_nodejs.dir/build.make environment/CMakeFiles/std_msgs_generate_messages_nodejs.dir/build
+.PHONY : std_msgs_generate_messages_nodejs/fast
 
 # Convenience name for target.
-environment/CMakeFiles/ros_impedance_controller_generate_messages_lisp.dir/rule:
-	cd /home/utente/Robotics_ICE23_UNITN/catkin_ws/build && $(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 environment/CMakeFiles/ros_impedance_controller_generate_messages_lisp.dir/rule
-.PHONY : environment/CMakeFiles/ros_impedance_controller_generate_messages_lisp.dir/rule
+environment/CMakeFiles/std_msgs_generate_messages_py.dir/rule:
+	cd /home/utente/Robotics_ICE23_UNITN/catkin_ws/build && $(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 environment/CMakeFiles/std_msgs_generate_messages_py.dir/rule
+.PHONY : environment/CMakeFiles/std_msgs_generate_messages_py.dir/rule
 
 # Convenience name for target.
-ros_impedance_controller_generate_messages_lisp: environment/CMakeFiles/ros_impedance_controller_generate_messages_lisp.dir/rule
-.PHONY : ros_impedance_controller_generate_messages_lisp
+std_msgs_generate_messages_py: environment/CMakeFiles/std_msgs_generate_messages_py.dir/rule
+.PHONY : std_msgs_generate_messages_py
 
 # fast build rule for target.
-ros_impedance_controller_generate_messages_lisp/fast:
-	cd /home/utente/Robotics_ICE23_UNITN/catkin_ws/build && $(MAKE) $(MAKESILENT) -f environment/CMakeFiles/ros_impedance_controller_generate_messages_lisp.dir/build.make environment/CMakeFiles/ros_impedance_controller_generate_messages_lisp.dir/build
-.PHONY : ros_impedance_controller_generate_messages_lisp/fast
+std_msgs_generate_messages_py/fast:
+	cd /home/utente/Robotics_ICE23_UNITN/catkin_ws/build && $(MAKE) $(MAKESILENT) -f environment/CMakeFiles/std_msgs_generate_messages_py.dir/build.make environment/CMakeFiles/std_msgs_generate_messages_py.dir/build
+.PHONY : std_msgs_generate_messages_py/fast
 
 # Convenience name for target.
-environment/CMakeFiles/ros_impedance_controller_genlisp.dir/rule:
-	cd /home/utente/Robotics_ICE23_UNITN/catkin_ws/build && $(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 environment/CMakeFiles/ros_impedance_controller_genlisp.dir/rule
-.PHONY : environment/CMakeFiles/ros_impedance_controller_genlisp.dir/rule
+environment/CMakeFiles/spawnLego.dir/rule:
+	cd /home/utente/Robotics_ICE23_UNITN/catkin_ws/build && $(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 environment/CMakeFiles/spawnLego.dir/rule
+.PHONY : environment/CMakeFiles/spawnLego.dir/rule
 
 # Convenience name for target.
-ros_impedance_controller_genlisp: environment/CMakeFiles/ros_impedance_controller_genlisp.dir/rule
-.PHONY : ros_impedance_controller_genlisp
+spawnLego: environment/CMakeFiles/spawnLego.dir/rule
+.PHONY : spawnLego
 
 # fast build rule for target.
-ros_impedance_controller_genlisp/fast:
-	cd /home/utente/Robotics_ICE23_UNITN/catkin_ws/build && $(MAKE) $(MAKESILENT) -f environment/CMakeFiles/ros_impedance_controller_genlisp.dir/build.make environment/CMakeFiles/ros_impedance_controller_genlisp.dir/build
-.PHONY : ros_impedance_controller_genlisp/fast
+spawnLego/fast:
+	cd /home/utente/Robotics_ICE23_UNITN/catkin_ws/build && $(MAKE) $(MAKESILENT) -f environment/CMakeFiles/spawnLego.dir/build.make environment/CMakeFiles/spawnLego.dir/build
+.PHONY : spawnLego/fast
 
-# Convenience name for target.
-environment/CMakeFiles/ros_impedance_controller_generate_messages_nodejs.dir/rule:
-	cd /home/utente/Robotics_ICE23_UNITN/catkin_ws/build && $(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 environment/CMakeFiles/ros_impedance_controller_generate_messages_nodejs.dir/rule
-.PHONY : environment/CMakeFiles/ros_impedance_controller_generate_messages_nodejs.dir/rule
-
-# Convenience name for target.
-ros_impedance_controller_generate_messages_nodejs: environment/CMakeFiles/ros_impedance_controller_generate_messages_nodejs.dir/rule
-.PHONY : ros_impedance_controller_generate_messages_nodejs
-
-# fast build rule for target.
-ros_impedance_controller_generate_messages_nodejs/fast:
-	cd /home/utente/Robotics_ICE23_UNITN/catkin_ws/build && $(MAKE) $(MAKESILENT) -f environment/CMakeFiles/ros_impedance_controller_generate_messages_nodejs.dir/build.make environment/CMakeFiles/ros_impedance_controller_generate_messages_nodejs.dir/build
-.PHONY : ros_impedance_controller_generate_messages_nodejs/fast
-
-# Convenience name for target.
-environment/CMakeFiles/ros_impedance_controller_gennodejs.dir/rule:
-	cd /home/utente/Robotics_ICE23_UNITN/catkin_ws/build && $(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 environment/CMakeFiles/ros_impedance_controller_gennodejs.dir/rule
-.PHONY : environment/CMakeFiles/ros_impedance_controller_gennodejs.dir/rule
-
-# Convenience name for target.
-ros_impedance_controller_gennodejs: environment/CMakeFiles/ros_impedance_controller_gennodejs.dir/rule
-.PHONY : ros_impedance_controller_gennodejs
-
-# fast build rule for target.
-ros_impedance_controller_gennodejs/fast:
-	cd /home/utente/Robotics_ICE23_UNITN/catkin_ws/build && $(MAKE) $(MAKESILENT) -f environment/CMakeFiles/ros_impedance_controller_gennodejs.dir/build.make environment/CMakeFiles/ros_impedance_controller_gennodejs.dir/build
-.PHONY : ros_impedance_controller_gennodejs/fast
-
-# Convenience name for target.
-environment/CMakeFiles/ros_impedance_controller_generate_messages_py.dir/rule:
-	cd /home/utente/Robotics_ICE23_UNITN/catkin_ws/build && $(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 environment/CMakeFiles/ros_impedance_controller_generate_messages_py.dir/rule
-.PHONY : environment/CMakeFiles/ros_impedance_controller_generate_messages_py.dir/rule
-
-# Convenience name for target.
-ros_impedance_controller_generate_messages_py: environment/CMakeFiles/ros_impedance_controller_generate_messages_py.dir/rule
-.PHONY : ros_impedance_controller_generate_messages_py
-
-# fast build rule for target.
-ros_impedance_controller_generate_messages_py/fast:
-	cd /home/utente/Robotics_ICE23_UNITN/catkin_ws/build && $(MAKE) $(MAKESILENT) -f environment/CMakeFiles/ros_impedance_controller_generate_messages_py.dir/build.make environment/CMakeFiles/ros_impedance_controller_generate_messages_py.dir/build
-.PHONY : ros_impedance_controller_generate_messages_py/fast
-
-# Convenience name for target.
-environment/CMakeFiles/ros_impedance_controller_genpy.dir/rule:
-	cd /home/utente/Robotics_ICE23_UNITN/catkin_ws/build && $(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 environment/CMakeFiles/ros_impedance_controller_genpy.dir/rule
-.PHONY : environment/CMakeFiles/ros_impedance_controller_genpy.dir/rule
-
-# Convenience name for target.
-ros_impedance_controller_genpy: environment/CMakeFiles/ros_impedance_controller_genpy.dir/rule
-.PHONY : ros_impedance_controller_genpy
-
-# fast build rule for target.
-ros_impedance_controller_genpy/fast:
-	cd /home/utente/Robotics_ICE23_UNITN/catkin_ws/build && $(MAKE) $(MAKESILENT) -f environment/CMakeFiles/ros_impedance_controller_genpy.dir/build.make environment/CMakeFiles/ros_impedance_controller_genpy.dir/build
-.PHONY : ros_impedance_controller_genpy/fast
-
-# Convenience name for target.
-environment/CMakeFiles/ros_impedance_controller.dir/rule:
-	cd /home/utente/Robotics_ICE23_UNITN/catkin_ws/build && $(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 environment/CMakeFiles/ros_impedance_controller.dir/rule
-.PHONY : environment/CMakeFiles/ros_impedance_controller.dir/rule
-
-# Convenience name for target.
-ros_impedance_controller: environment/CMakeFiles/ros_impedance_controller.dir/rule
-.PHONY : ros_impedance_controller
-
-# fast build rule for target.
-ros_impedance_controller/fast:
-	cd /home/utente/Robotics_ICE23_UNITN/catkin_ws/build && $(MAKE) $(MAKESILENT) -f environment/CMakeFiles/ros_impedance_controller.dir/build.make environment/CMakeFiles/ros_impedance_controller.dir/build
-.PHONY : ros_impedance_controller/fast
-
-src/controller.o: src/controller.cpp.o
-.PHONY : src/controller.o
+src/spawnLego.o: src/spawnLego.cpp.o
+.PHONY : src/spawnLego.o
 
 # target to build an object file
-src/controller.cpp.o:
-	cd /home/utente/Robotics_ICE23_UNITN/catkin_ws/build && $(MAKE) $(MAKESILENT) -f environment/CMakeFiles/ros_impedance_controller.dir/build.make environment/CMakeFiles/ros_impedance_controller.dir/src/controller.cpp.o
-.PHONY : src/controller.cpp.o
+src/spawnLego.cpp.o:
+	cd /home/utente/Robotics_ICE23_UNITN/catkin_ws/build && $(MAKE) $(MAKESILENT) -f environment/CMakeFiles/spawnLego.dir/build.make environment/CMakeFiles/spawnLego.dir/src/spawnLego.cpp.o
+.PHONY : src/spawnLego.cpp.o
 
-src/controller.i: src/controller.cpp.i
-.PHONY : src/controller.i
+src/spawnLego.i: src/spawnLego.cpp.i
+.PHONY : src/spawnLego.i
 
 # target to preprocess a source file
-src/controller.cpp.i:
-	cd /home/utente/Robotics_ICE23_UNITN/catkin_ws/build && $(MAKE) $(MAKESILENT) -f environment/CMakeFiles/ros_impedance_controller.dir/build.make environment/CMakeFiles/ros_impedance_controller.dir/src/controller.cpp.i
-.PHONY : src/controller.cpp.i
+src/spawnLego.cpp.i:
+	cd /home/utente/Robotics_ICE23_UNITN/catkin_ws/build && $(MAKE) $(MAKESILENT) -f environment/CMakeFiles/spawnLego.dir/build.make environment/CMakeFiles/spawnLego.dir/src/spawnLego.cpp.i
+.PHONY : src/spawnLego.cpp.i
 
-src/controller.s: src/controller.cpp.s
-.PHONY : src/controller.s
+src/spawnLego.s: src/spawnLego.cpp.s
+.PHONY : src/spawnLego.s
 
 # target to generate assembly for a file
-src/controller.cpp.s:
-	cd /home/utente/Robotics_ICE23_UNITN/catkin_ws/build && $(MAKE) $(MAKESILENT) -f environment/CMakeFiles/ros_impedance_controller.dir/build.make environment/CMakeFiles/ros_impedance_controller.dir/src/controller.cpp.s
-.PHONY : src/controller.cpp.s
+src/spawnLego.cpp.s:
+	cd /home/utente/Robotics_ICE23_UNITN/catkin_ws/build && $(MAKE) $(MAKESILENT) -f environment/CMakeFiles/spawnLego.dir/build.make environment/CMakeFiles/spawnLego.dir/src/spawnLego.cpp.s
+.PHONY : src/spawnLego.cpp.s
 
 # Help Target
 help:
@@ -502,30 +432,25 @@ help:
 	@echo "... list_install_components"
 	@echo "... rebuild_cache"
 	@echo "... test"
-	@echo "... _ros_impedance_controller_generate_messages_check_deps_BaseState"
-	@echo "... _ros_impedance_controller_generate_messages_check_deps_ContactsState"
-	@echo "... _ros_impedance_controller_generate_messages_check_deps_EffortPid"
-	@echo "... _ros_impedance_controller_generate_messages_check_deps_Forces"
-	@echo "... _ros_impedance_controller_generate_messages_check_deps_generic_float"
-	@echo "... _ros_impedance_controller_generate_messages_check_deps_get_effort_pid"
-	@echo "... _ros_impedance_controller_generate_messages_check_deps_get_map"
-	@echo "... _ros_impedance_controller_generate_messages_check_deps_pid"
-	@echo "... _ros_impedance_controller_generate_messages_check_deps_set_pids"
-	@echo "... ros_impedance_controller_gencpp"
-	@echo "... ros_impedance_controller_generate_messages"
-	@echo "... ros_impedance_controller_generate_messages_cpp"
-	@echo "... ros_impedance_controller_generate_messages_eus"
-	@echo "... ros_impedance_controller_generate_messages_lisp"
-	@echo "... ros_impedance_controller_generate_messages_nodejs"
-	@echo "... ros_impedance_controller_generate_messages_py"
-	@echo "... ros_impedance_controller_geneus"
-	@echo "... ros_impedance_controller_genlisp"
-	@echo "... ros_impedance_controller_gennodejs"
-	@echo "... ros_impedance_controller_genpy"
-	@echo "... ros_impedance_controller"
-	@echo "... src/controller.o"
-	@echo "... src/controller.i"
-	@echo "... src/controller.s"
+	@echo "... roscpp_generate_messages_cpp"
+	@echo "... roscpp_generate_messages_eus"
+	@echo "... roscpp_generate_messages_lisp"
+	@echo "... roscpp_generate_messages_nodejs"
+	@echo "... roscpp_generate_messages_py"
+	@echo "... rosgraph_msgs_generate_messages_cpp"
+	@echo "... rosgraph_msgs_generate_messages_eus"
+	@echo "... rosgraph_msgs_generate_messages_lisp"
+	@echo "... rosgraph_msgs_generate_messages_nodejs"
+	@echo "... rosgraph_msgs_generate_messages_py"
+	@echo "... std_msgs_generate_messages_cpp"
+	@echo "... std_msgs_generate_messages_eus"
+	@echo "... std_msgs_generate_messages_lisp"
+	@echo "... std_msgs_generate_messages_nodejs"
+	@echo "... std_msgs_generate_messages_py"
+	@echo "... spawnLego"
+	@echo "... src/spawnLego.o"
+	@echo "... src/spawnLego.i"
+	@echo "... src/spawnLego.s"
 .PHONY : help
 
 

@@ -1,6 +1,6 @@
 # generated from genmsg/cmake/pkg-genmsg.context.in
 
-messages_str = "/home/utente/Robotics_ICE23_UNITN/catkin_ws/src/motion/msg/pos.msg"
+messages_str = "/home/utente/Robotics_ICE23_UNITN/catkin_ws/src/motion/msg/legoTask.msg;/home/utente/Robotics_ICE23_UNITN/catkin_ws/src/motion/msg/legoFound.msg;/home/utente/Robotics_ICE23_UNITN/catkin_ws/src/motion/msg/eventResult.msg"
 services_str = ""
 pkg_name = "motion"
 dependencies_str = "std_msgs"

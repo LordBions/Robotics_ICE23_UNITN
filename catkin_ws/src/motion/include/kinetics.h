@@ -1,461 +1,387 @@
 /*
-*
 * Authors: Filippo Conti, Mattia Meneghin e Nicola Gianuzzi
-*
 */
 
 #ifndef KINETICS_H
 #define KINETICS_H
 
-#include <Eigen/Dense>
 #include <iostream>
 #include <cmath>
+
+// Library that provides functionality for working with complex number in C++
 #include <complex>
 
-using namespace std;
-using namespace Eigen;
+// Dense module of the Eigen library
+// includes the necessary classes and functions for dense matrix operations
+// provides a wide range of functionalities, including matrix arithmetic operations
+#include <Eigen/Dense>
 
-/**
- * @brief Structure to store the position and rotation of the end effector
- *
- */
-struct frame
-{
-    Matrix3f rot;
-    Vector3f xyz;
+using namespace std;
+
+#define null_vector 0, 0, 0 // this is the vector having the norm = 0
+
+// used mainly by movement module, describes the orientations of an object in the workspace
+struct objectPositionOrientation {
+        Eigen::Vector3f position;
+        Eigen::Vector3f orientation;
 };
 
-/**
- * @brief create the transformation matrix for the first joint
- *
- * @param th1 Angle of the first joint
- * @return Eigen::Matrix4f
- */
-Matrix4f t10f(float th1)
-{
-    Matrix4f aux;
-    // Vector of A distances (meters)
-    VectorXf a(6);
-    a << 0, -0.425, -0.3922, 0, 0, 0;
-    // Vector of D distances (meters)
-    VectorXf d(6);
-    d << 0.1625, 0, 0, 0.1333, 0.0997, 0.0996 + 0.14;
-    aux << cos(th1), -sin(th1), 0, 0,
-        sin(th1), cos(th1), 0, 0,
-        0, 0, 1, d(0),
-        0, 0, 0, 1;
+// struct which describes the end effector
+struct end_effector {
+    Eigen::Vector3f posit;
+    Eigen::Matrix3f orient;
+};
 
-    return aux;
+// It returns 3x3 matrix based on the input Euler angles
+Eigen::Matrix3f orient2matrix(Eigen::Vector3f eu_angles) {
+
+    Eigen::Matrix3f resMatrix;
+    resMatrix = Eigen::AngleAxisf(eu_angles(0), Eigen::Vector3f::UnitZ()) * Eigen::AngleAxisf(eu_angles(1), Eigen::Vector3f::UnitY()) * Eigen::AngleAxisf(eu_angles(2), Eigen::Vector3f::UnitX());
+    return resMatrix;
 }
 
-/**
- * @brief create the transformation matrix for the second joint
- *
- * @param th2 Angle of the second joint
- * @return Eigen::Matrix4f
- */
-Matrix4f t21f(float th2)
-{
-    Matrix4f aux;
-    // Vector of A distances (meters)
-    VectorXf a(6);
-    a << 0, -0.425, -0.3922, 0, 0, 0;
-    // Vector of D distances (meters)
-    VectorXf d(6);
-    d << 0.1625, 0, 0, 0.1333, 0.0997, 0.0996 + 0.14;
-    aux << cos(th2), -sin(th2), 0, 0,
-        0, 0, -1, 0,
-        sin(th2), cos(th2), 0, 0,
-        0, 0, 0, 1;
+// It calculates the orientation error between two given orientation matrices
+Eigen::Vector3f correctOrientation(Eigen::Matrix3f curr_orientation, Eigen::Matrix3f final_orientation) {
+    
+        Eigen::Matrix3f relative_or_mtx;
+        relative_or_mtx = final_orientation.transpose() * curr_orientation;
 
-    return aux;
+        Eigen::MatrixXf aux_mtx(3, 2);
+        aux_mtx << relative_or_mtx(2, 1), -relative_or_mtx(1, 2), relative_or_mtx(0, 2), -relative_or_mtx(2, 0), relative_or_mtx(1, 0), -relative_or_mtx(0, 1);
+    
+        float delta_angle_sin = (pow(aux_mtx(0, 0), 2) + pow(aux_mtx(0, 1), 2) + pow(aux_mtx(1, 0), 2) + pow(aux_mtx(1, 1), 2) + pow(aux_mtx(2, 0), 2) + pow(aux_mtx(2, 1), 2)) * 0.5;
+        float delta_angle_cos = (relative_or_mtx(0, 0) + relative_or_mtx(1, 1) + relative_or_mtx(2, 2) - 1) / 2;
+        float tan_angle = atan2(delta_angle_sin, delta_angle_cos);
+    
+        Eigen::Vector3f axis_v;
+        Eigen::Vector3f or_error;
+    
+        if (tan_angle == 0) { or_error << null_vector; }
+
+        else {
+                axis_v = 1 / (2 * delta_angle_sin) * Eigen::Vector3f(relative_or_mtx(2, 1) - relative_or_mtx(1, 2), relative_or_mtx(0, 2) - relative_or_mtx(2, 0), relative_or_mtx(1, 0) - relative_or_mtx(0, 1));
+                or_error = final_orientation * tan_angle * axis_v;
+        }
+
+        return or_error;
 }
 
-/**
- * @brief create the transformation matrix for the third joint
- *
- * @param th3 Angle of the third joint
- * @return Eigen::Matrix4f
- */
-Matrix4f t32f(float th3)
-{
-    Matrix4f aux;
-    // Vector of A distances (meters)
-    VectorXf a(6);
-    a << 0, -0.425, -0.3922, 0, 0, 0;
-    // Vector of D distances (meters)
-    VectorXf d(6);
-    d << 0.1625, 0, 0, 0.1333, 0.0997, 0.0996 + 0.14;
-    aux << cos(th3), -sin(th3), 0, a(1),
-        sin(th3), cos(th3), 0, 0,
-        0, 0, 1, d(2),
-        0, 0, 0, 1;
 
-    return aux;
+// It calculates the jacobian Matrix related to the change of the reference system
+Eigen::MatrixXf jacobMatrix(Eigen::VectorXf jo_ang) {
+
+    Eigen::VectorXf v_1(6);
+    v_1 << 0, -0.425, -0.3922, 0, 0, 0;
+
+    Eigen::VectorXf v_2(6);
+    v_2 << 0.1625, 0, 0, 0.1333, 0.0997, 0.0996 + 0.14;
+
+    Eigen::MatrixXf jac_mtx_1(6, 1);
+    jac_mtx_1 <<    v_2(4) * (cos(jo_ang(0)) * cos(jo_ang(4)) + cos(jo_ang(1) + jo_ang(2) + jo_ang(3)) * sin(jo_ang(0)) * sin(jo_ang(4))) + v_2(2) * cos(jo_ang(0)) + v_2(3) * cos(jo_ang(0)) - v_1(2) * cos(jo_ang(1) + jo_ang(2)) * sin(jo_ang(0)) - v_1(1) * cos(jo_ang(1)) * sin(jo_ang(0)) - v_2(4) * sin(jo_ang(1) + jo_ang(2) + jo_ang(3)) * sin(jo_ang(0)),
+                    v_2(4) * (cos(jo_ang(4)) * sin(jo_ang(0)) - cos(jo_ang(1) + jo_ang(2) + jo_ang(3)) * cos(jo_ang(0)) * sin(jo_ang(4))) + v_2(2) * sin(jo_ang(0)) + v_2(3) * sin(jo_ang(0)) + v_1(2) * cos(jo_ang(1) + jo_ang(2)) * cos(jo_ang(0)) + v_1(1) * cos(jo_ang(0)) * cos(jo_ang(1)) + v_2(4) * sin(jo_ang(1) + jo_ang(2) + jo_ang(3)) * cos(jo_ang(0)),
+                    0,
+                    0,
+                    0,
+                    1;
+    
+    Eigen::MatrixXf jac_mtx_2(6, 1);
+    jac_mtx_2 <<    -cos(jo_ang(0)) * (v_1(2) * sin(jo_ang(1) + jo_ang(2)) + v_1(1) * sin(jo_ang(1)) + v_2(4) * (sin(jo_ang(1) + jo_ang(2)) * sin(jo_ang(3)) - cos(jo_ang(1) + jo_ang(2)) * cos(jo_ang(3))) - v_2(4) * sin(jo_ang(4)) * (cos(jo_ang(1) + jo_ang(2)) * sin(jo_ang(3)) + sin(jo_ang(1) + jo_ang(2)) * cos(jo_ang(3)))),
+                    -sin(jo_ang(0)) * (v_1(2) * sin(jo_ang(1) + jo_ang(2)) + v_1(1) * sin(jo_ang(1)) + v_2(4) * (sin(jo_ang(1) + jo_ang(2)) * sin(jo_ang(3)) - cos(jo_ang(1) + jo_ang(2)) * cos(jo_ang(3))) - v_2(4) * sin(jo_ang(4)) * (cos(jo_ang(1) + jo_ang(2)) * sin(jo_ang(3)) + sin(jo_ang(1) + jo_ang(2)) * cos(jo_ang(3)))),
+                    v_1(2) * cos(jo_ang(1) + jo_ang(2)) - (v_2(4) * sin(jo_ang(1) + jo_ang(2) + jo_ang(3) + jo_ang(4))) / 2 + v_1(1) * cos(jo_ang(1)) + (v_2(4) * sin(jo_ang(1) + jo_ang(2) + jo_ang(3) - jo_ang(4))) / 2 + v_2(4) * sin(jo_ang(1) + jo_ang(2) + jo_ang(3)),
+                    sin(jo_ang(0)),
+                    -cos(jo_ang(0)),
+                    0;
+    
+    Eigen::MatrixXf jac_mtx_3(6, 1);
+    jac_mtx_3 <<    cos(jo_ang(0)) * (v_2(4) * cos(jo_ang(1) + jo_ang(2) + jo_ang(3)) - v_1(2) * sin(jo_ang(1) + jo_ang(2)) + v_2(4) * sin(jo_ang(1) + jo_ang(2) + jo_ang(3)) * sin(jo_ang(4))),
+                    sin(jo_ang(0)) * (v_2(4) * cos(jo_ang(1) + jo_ang(2) + jo_ang(3)) - v_1(2) * sin(jo_ang(1) + jo_ang(2)) + v_2(4) * sin(jo_ang(1) + jo_ang(2) + jo_ang(3)) * sin(jo_ang(4))),
+                    v_1(2) * cos(jo_ang(1) + jo_ang(2)) - (v_2(4) * sin(jo_ang(1) + jo_ang(2) + jo_ang(3) + jo_ang(4))) / 2 + (v_2(4) * sin(jo_ang(1) + jo_ang(2) + jo_ang(3) - jo_ang(4))) / 2 + v_2(4) * sin(jo_ang(1) + jo_ang(2) + jo_ang(3)),
+                    sin(jo_ang(0)),
+                    -cos(jo_ang(0)),
+                    0;
+    
+    Eigen::MatrixXf jac_mtx_4(6, 1);
+    jac_mtx_4 <<    v_2(4) * cos(jo_ang(0)) * (cos(jo_ang(1) + jo_ang(2) + jo_ang(3)) + sin(jo_ang(1) + jo_ang(2) + jo_ang(3)) * sin(jo_ang(4))),
+                    v_2(4) * sin(jo_ang(0)) * (cos(jo_ang(1) + jo_ang(2) + jo_ang(3)) + sin(jo_ang(1) + jo_ang(2) + jo_ang(3)) * sin(jo_ang(4))),
+                    v_2(4) * (sin(jo_ang(1) + jo_ang(2) + jo_ang(3) - jo_ang(4)) / 2 + sin(jo_ang(1) + jo_ang(2) + jo_ang(3)) - sin(jo_ang(1) + jo_ang(2) + jo_ang(3) + jo_ang(4)) / 2),
+                    sin(jo_ang(0)),
+                    -cos(jo_ang(0)),
+                    0;
+    
+    Eigen::MatrixXf jac_mtx_5(6, 1);
+    jac_mtx_5 <<    -v_2(4) * sin(jo_ang(0)) * sin(jo_ang(4)) - v_2(4) * cos(jo_ang(1) + jo_ang(2) + jo_ang(3)) * cos(jo_ang(0)) * cos(jo_ang(4)),
+                    v_2(4) * cos(jo_ang(0)) * sin(jo_ang(4)) - v_2(4) * cos(jo_ang(1) + jo_ang(2) + jo_ang(3)) * cos(jo_ang(4)) * sin(jo_ang(0)),
+                    -v_2(4) * (sin(jo_ang(1) + jo_ang(2) + jo_ang(3) - jo_ang(4)) / 2 + sin(jo_ang(1) + jo_ang(2) + jo_ang(3) + jo_ang(4)) / 2),
+                    sin(jo_ang(1) + jo_ang(2) + jo_ang(3)) * cos(jo_ang(0)),
+                    sin(jo_ang(1) + jo_ang(2) + jo_ang(3)) * sin(jo_ang(0)),
+                    -cos(jo_ang(1) + jo_ang(2) + jo_ang(3));
+    
+    Eigen::MatrixXf jac_mtx_6(6, 1);
+    jac_mtx_6 <<    0,
+                    0,
+                    0,
+                    cos(jo_ang(4)) * sin(jo_ang(0)) - cos(jo_ang(1) + jo_ang(2) + jo_ang(3)) * cos(jo_ang(0)) * sin(jo_ang(4)),
+                    -cos(jo_ang(0)) * cos(jo_ang(4)) - cos(jo_ang(1) + jo_ang(2) + jo_ang(3)) * sin(jo_ang(0)) * sin(jo_ang(4)),
+                    -sin(jo_ang(1) + jo_ang(2) + jo_ang(3)) * sin(jo_ang(4));
+    
+    Eigen::MatrixXf jacob_mtx(6, 6);
+    jacob_mtx.setZero();
+    jacob_mtx << jac_mtx_1, jac_mtx_2, jac_mtx_3, jac_mtx_4, jac_mtx_5, jac_mtx_6;
+    return jacob_mtx;
 }
 
-/**
- * @brief create the transformation matrix for the fourth joint
- *
- * @param th4 Angle of the fourth joint
- * @return Eigen::Matrix4f
- */
-Matrix4f t43f(float th4)
-{
-    Matrix4f aux;
-    // Vector of A distances (meters)
-    VectorXf a(6);
-    a << 0, -0.425, -0.3922, 0, 0, 0;
-    // Vector of D distances (meters)
-    VectorXf d(6);
-    d << 0.1625, 0, 0, 0.1333, 0.0997, 0.0996 + 0.14;
-    aux << cos(th4), -sin(th4), 0, a(2),
-        sin(th4), cos(th4), 0, 0,
-        0, 0, 1, d(3),
-        0, 0, 0, 1;
+// It calculates the transformation matrix for the joint 1 given an input angle between joint 0 and 1
+Eigen::Matrix4f joint1Transf(float j1_angle) {
 
-    return aux;
+    Eigen::VectorXf j1_1(6);
+    j1_1 << 0, -0.425, -0.3922, 0, 0, 0;
+
+    Eigen::VectorXf j1_2(6);
+    j1_2 << 0.1625, 0, 0, 0.1333, 0.0997, 0.0996 + 0.14;
+    
+    Eigen::Matrix4f j1_matrix;
+    j1_matrix << cos(j1_angle), -sin(j1_angle), 0, 0, sin(j1_angle), cos(j1_angle), 0, 0, 0, 0, 1, j1_2(0), 0, 0, 0, 1;
+    return j1_matrix;
 }
 
-/**
- * @brief create the transformation matrix for the fifth joint
- *
- * @param th5 Angle of the fifth joint
- * @return Eigen::Matrix4f
- */
-Matrix4f t54f(float th5)
-{
-    Matrix4f aux;
-    // Vector of A distances (meters)
-    VectorXf a(6);
-    a << 0, -0.425, -0.3922, 0, 0, 0;
-    // Vector of D distances (meters)
-    VectorXf d(6);
-    d << 0.1625, 0, 0, 0.1333, 0.0997, 0.0996 + 0.14;
-    aux << cos(th5), -sin(th5), 0, 0,
-        0, 0, -1, -d(4),
-        sin(th5), cos(th5), 0, 0,
-        0, 0, 0, 1;
+// It calculates the transformation matrix for the joint 2 given an input angle between joint 1 and 2
+Eigen::Matrix4f joint2Transf(float j2_angle) {
 
-    return aux;
+    Eigen::VectorXf j2_1(6);
+    j2_1 << 0, -0.425, -0.3922, 0, 0, 0;
+
+    Eigen::VectorXf j2_2(6);
+    j2_2 << 0.1625, 0, 0, 0.1333, 0.0997, 0.0996 + 0.14;
+
+    Eigen::Matrix4f j2_matrix;
+    j2_matrix << cos(j2_angle), -sin(j2_angle), 0, 0, 0, 0, -1, 0, sin(j2_angle), cos(j2_angle), 0, 0, 0, 0, 0, 1;
+    return j2_matrix;
 }
 
-/**
- * @brief create the transformation matrix for the sixth joint
- *
- * @param th6 Angle of the sixth joint
- * @return Eigen::Matrix4f
- */
-Matrix4f t65f(float th6)
-{
-    Matrix4f aux;
-    // Vector of A distances (meters)
-    VectorXf a(6);
-    a << 0, -0.425, -0.3922, 0, 0, 0;
-    // Vector of D distances (meters)
-    VectorXf d(6);
-    d << 0.1625, 0, 0, 0.1333, 0.0997, 0.0996 + 0.14;
-    aux << cos(th6), -sin(th6), 0, 0,
-        0, 0, 1, d(5),
-        -sin(th6), -cos(th6), 0, 0,
-        0, 0, 0, 1;
+// It calculates the transformation matrix for the joint 3 given an input angle between joint 2 and 3
+Eigen::Matrix4f joint3Transf(float j3_angle) {
 
-    return aux;
+    Eigen::VectorXf j3_1(6);
+    j3_1 << 0, -0.425, -0.3922, 0, 0, 0;
+
+    Eigen::VectorXf j3_2(6);
+    j3_2 << 0.1625, 0, 0, 0.1333, 0.0997, 0.0996 + 0.14;
+
+    Eigen::Matrix4f j3_matrix;
+    j3_matrix << cos(j3_angle), -sin(j3_angle), 0, j3_1(1), sin(j3_angle), cos(j3_angle), 0, 0, 0, 0, 1, j3_2(2), 0, 0, 0, 1;
+    return j3_matrix;
 }
 
-/**
- * @brief compute the direct kinematics
- *
- * @param th joint angles
- * @return frame : rot matrix and cartesian point respect of the base frame
- */
-frame directKin(VectorXf th)
-{
-    frame ret;
-    Matrix4f T60 = t10f(th(0)) * t21f(th(1)) * t32f(th(2)) * t43f(th(3)) * t54f(th(4)) * t65f(th(5));
+// It calculates the transformation matrix for the joint 4 given an input angle between joint 3 and 4
+Eigen::Matrix4f joint4Transf(float j4_angle) {
 
-    ret.rot = T60.block(0, 0, 3, 3);
-    ret.xyz = T60.block(0, 3, 3, 1);
+    Eigen::VectorXf j4_1(6);
+    j4_1 << 0, -0.425, -0.3922, 0, 0, 0;
 
-    return ret;
+    Eigen::VectorXf j4_2(6);
+    j4_2 << 0.1625, 0, 0, 0.1333, 0.0997, 0.0996 + 0.14;
+
+    Eigen::Matrix4f j4_matrix;
+    j4_matrix << cos(j4_angle), -sin(j4_angle), 0, j4_1(2), sin(j4_angle), cos(j4_angle), 0, 0, 0, 0, 1, j4_2(3), 0, 0, 0, 1;
+    return j4_matrix;
 }
 
-/**
- * @brief compute the inverse kinematics
- * 
- * @param frame current frame of the end effector
- * @return MatrixXf 
- */
-MatrixXf invKin(frame &frame)
-{
-    // Vector of A distances (meters)
-    VectorXf a(6);
-    a << 0, -0.425, -0.3922, 0, 0, 0;
-    // Vector of D distances (meters)
-    VectorXf d(6);
-    d << 0.1625, 0, 0, 0.1333, 0.0997, 0.0996 + 0.14;
+// It calculates the transformation matrix for the joint 5 given an input angle between joint 4 and 5
+Eigen::Matrix4f joint5Transf(float j5_angle) {
 
-    Matrix4f T60;
-    T60.setZero();
-    T60.block(0, 0, 3, 3) = frame.rot;
-    T60.block(0, 3, 3, 1) = frame.xyz;
-    T60(3, 3) = 1;
+    Eigen::VectorXf j5_1(6);
+    j5_1 << 0, -0.425, -0.3922, 0, 0, 0;
+
+    Eigen::VectorXf j5_2(6);
+    j5_2 << 0.1625, 0, 0, 0.1333, 0.0997, 0.0996 + 0.14;
+
+    Eigen::Matrix4f j5_matrix;
+    j5_matrix << cos(j5_angle), -sin(j5_angle), 0, 0, 0, 0, -1, -j5_2(4), sin(j5_angle), cos(j5_angle), 0, 0, 0, 0, 0, 1;
+    return j5_matrix;
+}
+
+// It calculates the transformation matrix for the joint 6 given an input angle between joint 5 and 6
+Eigen::Matrix4f joint6Transf(float j6_angle) {
+
+    Eigen::VectorXf j6_1(6);
+    j6_1 << 0, -0.425, -0.3922, 0, 0, 0;
+
+    Eigen::VectorXf j6_2(6);
+    j6_2 << 0.1625, 0, 0, 0.1333, 0.0997, 0.0996 + 0.14;
+
+    Eigen::Matrix4f j6_matrix;
+    j6_matrix << cos(j6_angle), -sin(j6_angle), 0, 0, 0, 0, 1, j6_2(5), -sin(j6_angle), -cos(j6_angle), 0, 0, 0, 0, 0, 1;
+    return j6_matrix;
+}
+
+// It calculates the position and orientation of the end effector
+end_effector directKinematic(Eigen::VectorXf j_angles) {
+
+    Eigen::Matrix4f temp_mtx;
+    temp_mtx = joint1Transf(j_angles(0)) * joint2Transf(j_angles(1)) * joint3Transf(j_angles(2)) * joint4Transf(j_angles(3)) * joint5Transf(j_angles(4)) * joint6Transf(j_angles(5));
+
+    end_effector retMatrix;
+    retMatrix.orient = temp_mtx.block(0, 0, 3, 3);
+    retMatrix.posit = temp_mtx.block(0, 3, 3, 1);
+    return retMatrix;
+}
+
+// Find the joint motion as a function of the “desired” end-effector motion and configuration
+Eigen::MatrixXf inverseKinematic(end_effector &arm) {
+
+    Eigen::VectorXf v_1d(6);
+    v_1d << 0, -0.425, -0.3922, 0, 0, 0;
+
+    Eigen::VectorXf v_2d(6);
+    v_2d << 0.1625, 0, 0, 0.1333, 0.0997, 0.0996 + 0.14;
+
+    Eigen::Matrix4f temp_mtx;
+    temp_mtx.setZero();
+    temp_mtx.block(0, 3, 3, 1) = arm.posit;
+    temp_mtx.block(0, 0, 3, 3) = arm.orient;
+    temp_mtx(3, 3) = 1;
 
     // finding th1
 
-    Vector4f p50;
-    p50 = T60 * Vector4f(0, 0, -d(5), 1);
-    float th1_1 = real(atan2(p50(1), p50(0)) + acos(d(3) / hypot(p50(1), p50(0)))) + M_PI / 2;
-    float th1_2 = real(atan2(p50(1), p50(0)) - acos(d(3) / hypot(p50(1), p50(0)))) + M_PI / 2;
+    Eigen::Vector4f j1_v;
+    j1_v = temp_mtx * Eigen::Vector4f(0, 0, -v_2d(5), 1);
+    float jo1_1 = real(atan2(j1_v(1), j1_v(0)) + acos(v_2d(3) / hypot(j1_v(1), j1_v(0)))) + M_PI / 2;
+    float jo1_2 = real(atan2(j1_v(1), j1_v(0)) - acos(v_2d(3) / hypot(j1_v(1), j1_v(0)))) + M_PI / 2;
 
     // finding th5
 
-    float th5_1 = +real(acos((frame.xyz(0) * sin(th1_1) - frame.xyz(1) * cos(th1_1) - d(3)) / d(5)));
-    float th5_2 = -real(acos((frame.xyz(0) * sin(th1_1) - frame.xyz(1) * cos(th1_1) - d(3)) / d(5)));
-    float th5_3 = +real(acos((frame.xyz(0) * sin(th1_2) - frame.xyz(1) * cos(th1_2) - d(3)) / d(5)));
-    float th5_4 = -real(acos((frame.xyz(0) * sin(th1_2) - frame.xyz(1) * cos(th1_2) - d(3)) / d(5)));
+    float jo5_1 = +real(acos((arm.posit(0) * sin(jo1_1) - arm.posit(1) * cos(jo1_1) - v_2d(3)) / v_2d(5)));
+    float jo5_2 = -real(acos((arm.posit(0) * sin(jo1_1) - arm.posit(1) * cos(jo1_1) - v_2d(3)) / v_2d(5)));
+    float jo5_3 = +real(acos((arm.posit(0) * sin(jo1_2) - arm.posit(1) * cos(jo1_2) - v_2d(3)) / v_2d(5)));
+    float jo5_4 = -real(acos((arm.posit(0) * sin(jo1_2) - arm.posit(1) * cos(jo1_2) - v_2d(3)) / v_2d(5)));
 
     // finding th6
 
-    Matrix4f t06;
-    t06 = T60.inverse();
+    Eigen::Matrix4f inv_mtx;
+    inv_mtx = temp_mtx.inverse();
 
-    Vector3f Xhat;
-    Xhat = t06.block(0, 0, 3, 1);
-    Vector3f Yhat;
-    Yhat = t06.block(0, 1, 3, 1);
+    Eigen::Vector3f x_vect;
+    x_vect = inv_mtx.block(0, 0, 3, 1);
 
-    float th6_1 = real(atan2(((-Xhat(1) * sin(th1_1) + Yhat(1) * cos(th1_1))) / sin(th5_1), ((Xhat(0) * sin(th1_1) - Yhat(0) * cos(th1_1))) / sin(th5_1)));
-    float th6_2 = real(atan2(((-Xhat(1) * sin(th1_1) + Yhat(1) * cos(th1_1))) / sin(th5_2), ((Xhat(0) * sin(th1_1) - Yhat(0) * cos(th1_1))) / sin(th5_2)));
-    float th6_3 = real(atan2(((-Xhat(1) * sin(th1_2) + Yhat(1) * cos(th1_2))) / sin(th5_3), ((Xhat(0) * sin(th1_2) - Yhat(0) * cos(th1_2))) / sin(th5_3)));
-    float th6_4 = real(atan2(((-Xhat(1) * sin(th1_2) + Yhat(1) * cos(th1_2))) / sin(th5_4), ((Xhat(0) * sin(th1_2) - Yhat(0) * cos(th1_2))) / sin(th5_4)));
+    Eigen::Vector3f y_vect;
+    y_vect = inv_mtx.block(0, 1, 3, 1);
 
-    Matrix4f t41m;
-    Vector3f p41_1;
-    Vector3f p41_2;
-    Vector3f p41_3;
-    Vector3f p41_4;
-    float p41xz_1;
-    float p41xz_2;
-    float p41xz_3;
-    float p41xz_4;
+    float jo6_1 = real(atan2(((-x_vect(1) * sin(jo1_1) + y_vect(1) * cos(jo1_1))) / sin(jo5_1), ((x_vect(0) * sin(jo1_1) - y_vect(0) * cos(jo1_1))) / sin(jo5_1)));
+    float jo6_2 = real(atan2(((-x_vect(1) * sin(jo1_1) + y_vect(1) * cos(jo1_1))) / sin(jo5_2), ((x_vect(0) * sin(jo1_1) - y_vect(0) * cos(jo1_1))) / sin(jo5_2)));
+    float jo6_3 = real(atan2(((-x_vect(1) * sin(jo1_2) + y_vect(1) * cos(jo1_2))) / sin(jo5_3), ((x_vect(0) * sin(jo1_2) - y_vect(0) * cos(jo1_2))) / sin(jo5_3)));
+    float jo6_4 = real(atan2(((-x_vect(1) * sin(jo1_2) + y_vect(1) * cos(jo1_2))) / sin(jo5_4), ((x_vect(0) * sin(jo1_2) - y_vect(0) * cos(jo1_2))) / sin(jo5_4)));
 
-    t41m = t10f(th1_1).inverse() * T60 * t65f(th6_1).inverse() * t54f(th5_1).inverse();
-    p41_1 = t41m.block(0, 3, 3, 1);
-    p41xz_1 = hypot(p41_1(0), p41_1(2));
+    Eigen::Matrix4f transf_mtx;
+    transf_mtx = joint1Transf(jo1_1).inverse() * temp_mtx * joint6Transf(jo6_1).inverse() * joint5Transf(jo5_1).inverse();
 
-    t41m = t10f(th1_1).inverse() * T60 * t65f(th6_2).inverse() * t54f(th5_2).inverse();
-    p41_2 = t41m.block(0, 3, 3, 1);
-    p41xz_2 = hypot(p41_2(0), p41_2(2));
+    Eigen::Vector3f v4_1;
+    v4_1 = transf_mtx.block(0, 3, 3, 1);
 
-    t41m = t10f(th1_2).inverse() * T60 * t65f(th6_3).inverse() * t54f(th5_3).inverse();
-    p41_3 = t41m.block(0, 3, 3, 1);
-    p41xz_3 = hypot(p41_3(0), p41_3(2));
+    float f4_1;
+    f4_1 = hypot(v4_1(0), v4_1(2));
 
-    t41m = t10f(th1_2).inverse() * T60 * t65f(th6_4).inverse() * t54f(th5_4).inverse();
-    p41_4 = t41m.block(0, 3, 3, 1);
-    p41xz_4 = hypot(p41_4(0), p41_4(2));
+    transf_mtx = joint1Transf(jo1_1).inverse() * temp_mtx * joint6Transf(jo6_2).inverse() * joint5Transf(jo5_2).inverse();
+
+    Eigen::Vector3f v4_2;    
+    v4_2 = transf_mtx.block(0, 3, 3, 1);
+
+    float f4_2;
+    f4_2 = hypot(v4_2(0), v4_2(2));
+
+    transf_mtx = joint1Transf(jo1_2).inverse() * temp_mtx * joint6Transf(jo6_3).inverse() * joint5Transf(jo5_3).inverse();
+
+    Eigen::Vector3f v4_3;
+    v4_3 = transf_mtx.block(0, 3, 3, 1);
+
+    float f4_3;
+    f4_3 = hypot(v4_3(0), v4_3(2));
+
+    transf_mtx = joint1Transf(jo1_2).inverse() * temp_mtx * joint6Transf(jo6_4).inverse() * joint5Transf(jo5_4).inverse();
+
+    Eigen::Vector3f v4_4;
+    v4_4 = transf_mtx.block(0, 3, 3, 1);
+
+    float f4_4;
+    f4_4 = hypot(v4_4(0), v4_4(2));
 
     // find th3
 
-    float th3_1;
+    float jo3_1;
+    if ((pow(f4_1, 2) - pow(v_1d(1), 2) - pow(v_1d(2), 2)) / (2 * v_1d(1) * v_1d(2)) > 1) { jo3_1 = 0; }
+    else if ((pow(f4_1, 2) - pow(v_1d(1), 2) - pow(v_1d(2), 2)) / (2 * v_1d(1) * v_1d(2)) < -1) { jo3_1 = M_PI; }
+    else { jo3_1 = acos((pow(f4_1, 2) - pow(v_1d(1), 2) - pow(v_1d(2), 2)) / (2 * v_1d(1) * v_1d(2))); }
+    float jo3_5 = -jo3_1;
 
-    if ((pow(p41xz_1, 2) - pow(a(1), 2) - pow(a(2), 2)) / (2 * a(1) * a(2)) > 1)
-    {
-        th3_1 = 0;
-    }
-    else if ((pow(p41xz_1, 2) - pow(a(1), 2) - pow(a(2), 2)) / (2 * a(1) * a(2)) < -1)
-    {
-        th3_1 = M_PI;
-    }
-    else
-    {
-        th3_1 = acos((pow(p41xz_1, 2) - pow(a(1), 2) - pow(a(2), 2)) / (2 * a(1) * a(2)));
-    }
+    float jo3_2;
+    if ((pow(f4_2, 2) - pow(v_1d(1), 2) - pow(v_1d(2), 2)) / (2 * v_1d(1) * v_1d(2)) > 1) { jo3_2 = 0; }
+    else if ((pow(f4_2, 2) - pow(v_1d(1), 2) - pow(v_1d(2), 2)) / (2 * v_1d(1) * v_1d(2)) < -1) { jo3_2 = M_PI; }
+    else { jo3_2 = acos((pow(f4_2, 2) - pow(v_1d(1), 2) - pow(v_1d(2), 2)) / (2 * v_1d(1) * v_1d(2))); }
+    float jo3_6 = -jo3_2;    
 
-    float th3_2;
+    float jo3_3;
+    if ((pow(f4_3, 2) - pow(v_1d(1), 2) - pow(v_1d(2), 2)) / (2 * v_1d(1) * v_1d(2)) > 1) { jo3_3 = 0; }
+    else if ((pow(f4_3, 2) - pow(v_1d(1), 2) - pow(v_1d(2), 2)) / (2 * v_1d(1) * v_1d(2)) < -1) { jo3_3 = M_PI; }
+    else { jo3_3 = acos((pow(f4_3, 2) - pow(v_1d(1), 2) - pow(v_1d(2), 2)) / (2 * v_1d(1) * v_1d(2))); }
+    float jo3_7 = -jo3_3;
 
-    if ((pow(p41xz_2, 2) - pow(a(1), 2) - pow(a(2), 2)) / (2 * a(1) * a(2)) > 1)
-    {
-        th3_2 = 0;
-    }
-    else if ((pow(p41xz_2, 2) - pow(a(1), 2) - pow(a(2), 2)) / (2 * a(1) * a(2)) < -1)
-    {
-        th3_2 = M_PI;
-    }
-    else
-    {
-        th3_2 = acos((pow(p41xz_2, 2) - pow(a(1), 2) - pow(a(2), 2)) / (2 * a(1) * a(2)));
-    }
-
-    float th3_3;
-
-    if ((pow(p41xz_3, 2) - pow(a(1), 2) - pow(a(2), 2)) / (2 * a(1) * a(2)) > 1)
-    {
-        th3_3 = 0;
-    }
-    else if ((pow(p41xz_3, 2) - pow(a(1), 2) - pow(a(2), 2)) / (2 * a(1) * a(2)) < -1)
-    {
-        th3_3 = M_PI;
-    }
-    else
-    {
-        th3_3 = acos((pow(p41xz_3, 2) - pow(a(1), 2) - pow(a(2), 2)) / (2 * a(1) * a(2)));
-    }
-
-    float th3_4;
-
-    if ((pow(p41xz_4, 2) - pow(a(1), 2) - pow(a(2), 2)) / (2 * a(1) * a(2)) > 1)
-    {
-        th3_4 = 0;
-    }
-    else if ((pow(p41xz_4, 2) - pow(a(1), 2) - pow(a(2), 2)) / (2 * a(1) * a(2)) < -1)
-    {
-        th3_4 = M_PI;
-    }
-    else
-    {
-        th3_4 = acos((pow(p41xz_4, 2) - pow(a(1), 2) - pow(a(2), 2)) / (2 * a(1) * a(2)));
-    }
-
-    float th3_5 = -th3_1;
-    float th3_6 = -th3_2;
-    float th3_7 = -th3_3;
-    float th3_8 = -th3_4;
+    float jo3_4;
+    if ((pow(f4_4, 2) - pow(v_1d(1), 2) - pow(v_1d(2), 2)) / (2 * v_1d(1) * v_1d(2)) > 1) { jo3_4 = 0; }
+    else if ((pow(f4_4, 2) - pow(v_1d(1), 2) - pow(v_1d(2), 2)) / (2 * v_1d(1) * v_1d(2)) < -1) { jo3_4 = M_PI; }
+    else { jo3_4 = acos((pow(f4_4, 2) - pow(v_1d(1), 2) - pow(v_1d(2), 2)) / (2 * v_1d(1) * v_1d(2))); }
+    float jo3_8 = -jo3_4;
 
     // find th2
 
-    float th2_1 = atan2(-p41_1(2), -p41_1(0)) - asin((-a(2) * sin(th3_1)) / p41xz_1);
-    float th2_2 = atan2(-p41_2(2), -p41_2(0)) - asin((-a(2) * sin(th3_2)) / p41xz_2);
-    float th2_3 = atan2(-p41_3(2), -p41_3(0)) - asin((-a(2) * sin(th3_3)) / p41xz_3);
-    float th2_4 = atan2(-p41_4(2), -p41_4(0)) - asin((-a(2) * sin(th3_4)) / p41xz_4);
-
-    float th2_5 = atan2(-p41_1(2), -p41_1(0)) - asin((a(2) * sin(th3_1)) / p41xz_1);
-    float th2_6 = atan2(-p41_2(2), -p41_2(0)) - asin((a(2) * sin(th3_2)) / p41xz_2);
-    float th2_7 = atan2(-p41_3(2), -p41_3(0)) - asin((a(2) * sin(th3_3)) / p41xz_3);
-    float th2_8 = atan2(-p41_4(2), -p41_4(0)) - asin((a(2) * sin(th3_4)) / p41xz_4);
+    float jo2_1 = atan2(-v4_1(2), -v4_1(0)) - asin((-v_1d(2) * sin(jo3_1)) / f4_1);
+    float jo2_2 = atan2(-v4_2(2), -v4_2(0)) - asin((-v_1d(2) * sin(jo3_2)) / f4_2);
+    float jo2_3 = atan2(-v4_3(2), -v4_3(0)) - asin((-v_1d(2) * sin(jo3_3)) / f4_3);
+    float jo2_4 = atan2(-v4_4(2), -v4_4(0)) - asin((-v_1d(2) * sin(jo3_4)) / f4_4);
+    float jo2_5 = atan2(-v4_1(2), -v4_1(0)) - asin((v_1d(2) * sin(jo3_1)) / f4_1);
+    float jo2_6 = atan2(-v4_2(2), -v4_2(0)) - asin((v_1d(2) * sin(jo3_2)) / f4_2);
+    float jo2_7 = atan2(-v4_3(2), -v4_3(0)) - asin((v_1d(2) * sin(jo3_3)) / f4_3);
+    float jo2_8 = atan2(-v4_4(2), -v4_4(0)) - asin((v_1d(2) * sin(jo3_4)) / f4_4);
 
     // find th4
 
-    Matrix4f t43m;
-    Vector3f xhat43;
-    t43m = t32f(th3_1).inverse() * t21f(th2_1).inverse() * t10f(th1_1).inverse() * T60 * t65f(th6_1).inverse() * t54f(th5_1).inverse();
-    xhat43 = t43m.block(0, 0, 3, 1);
-    float th4_1 = atan2(xhat43(1), xhat43(0));
+    Eigen::Matrix4f j4_mtx;    
+    j4_mtx = joint3Transf(jo3_1).inverse() * joint2Transf(jo2_1).inverse() * joint1Transf(jo1_1).inverse() * temp_mtx * joint6Transf(jo6_1).inverse() * joint5Transf(jo5_1).inverse();
+    
+    Eigen::Vector3f x_4v;
+    x_4v = j4_mtx.block(0, 0, 3, 1);
+    float jo4_1 = atan2(x_4v(1), x_4v(0));
 
-    t43m = t32f(th3_2).inverse() * t21f(th2_2).inverse() * t10f(th1_1).inverse() * T60 * t65f(th6_2).inverse() * t54f(th5_2).inverse();
-    xhat43 = t43m.block(0, 0, 3, 1);
-    float th4_2 = atan2(xhat43(1), xhat43(0));
+    j4_mtx = joint3Transf(jo3_2).inverse() * joint2Transf(jo2_2).inverse() * joint1Transf(jo1_1).inverse() * temp_mtx * joint6Transf(jo6_2).inverse() * joint5Transf(jo5_2).inverse();
+    x_4v = j4_mtx.block(0, 0, 3, 1);
+    float jo4_2 = atan2(x_4v(1), x_4v(0));
 
-    t43m = t32f(th3_3).inverse() * t21f(th2_3).inverse() * t10f(th1_2).inverse() * T60 * t65f(th6_3).inverse() * t54f(th5_3).inverse();
-    xhat43 = t43m.block(0, 0, 3, 1);
-    float th4_3 = atan2(xhat43(1), xhat43(0));
+    j4_mtx = joint3Transf(jo3_3).inverse() * joint2Transf(jo2_3).inverse() * joint1Transf(jo1_2).inverse() * temp_mtx * joint6Transf(jo6_3).inverse() * joint5Transf(jo5_3).inverse();
+    x_4v = j4_mtx.block(0, 0, 3, 1);
+    float jo4_3 = atan2(x_4v(1), x_4v(0));
 
-    t43m = t32f(th3_4).inverse() * t21f(th2_4).inverse() * t10f(th1_2).inverse() * T60 * t65f(th6_4).inverse() * t54f(th5_4).inverse();
-    xhat43 = t43m.block(0, 0, 3, 1);
-    float th4_4 = atan2(xhat43(1), xhat43(0));
+    j4_mtx = joint3Transf(jo3_4).inverse() * joint2Transf(jo2_4).inverse() * joint1Transf(jo1_2).inverse() * temp_mtx * joint6Transf(jo6_4).inverse() * joint5Transf(jo5_4).inverse();
+    x_4v = j4_mtx.block(0, 0, 3, 1);
+    float jo4_4 = atan2(x_4v(1), x_4v(0));
 
-    t43m = t32f(th3_5).inverse() * t21f(th2_5).inverse() * t10f(th1_1).inverse() * T60 * t65f(th6_1).inverse() * t54f(th5_1).inverse();
-    xhat43 = t43m.block(0, 0, 3, 1);
-    float th4_5 = atan2(xhat43(1), xhat43(0));
+    j4_mtx = joint3Transf(jo3_5).inverse() * joint2Transf(jo2_5).inverse() * joint1Transf(jo1_1).inverse() * temp_mtx * joint6Transf(jo6_1).inverse() * joint5Transf(jo5_1).inverse();
+    x_4v = j4_mtx.block(0, 0, 3, 1);
+    float jo4_5 = atan2(x_4v(1), x_4v(0));
 
-    t43m = t32f(th3_6).inverse() * t21f(th2_6).inverse() * t10f(th1_1).inverse() * T60 * t65f(th6_2).inverse() * t54f(th5_2).inverse();
-    xhat43 = t43m.block(0, 0, 3, 1);
-    float th4_6 = atan2(xhat43(1), xhat43(0));
+    j4_mtx = joint3Transf(jo3_6).inverse() * joint2Transf(jo2_6).inverse() * joint1Transf(jo1_1).inverse() * temp_mtx * joint6Transf(jo6_2).inverse() * joint5Transf(jo5_2).inverse();
+    x_4v = j4_mtx.block(0, 0, 3, 1);
+    float jo4_6 = atan2(x_4v(1), x_4v(0));
 
-    t43m = t32f(th3_7).inverse() * t21f(th2_7).inverse() * t10f(th1_2).inverse() * T60 * t65f(th6_3).inverse() * t54f(th5_3).inverse();
-    xhat43 = t43m.block(0, 0, 3, 1);
-    float th4_7 = atan2(xhat43(1), xhat43(0));
+    j4_mtx = joint3Transf(jo3_7).inverse() * joint2Transf(jo2_7).inverse() * joint1Transf(jo1_2).inverse() * temp_mtx * joint6Transf(jo6_3).inverse() * joint5Transf(jo5_3).inverse();
+    x_4v = j4_mtx.block(0, 0, 3, 1);
+    float jo4_7 = atan2(x_4v(1), x_4v(0));
 
-    t43m = t32f(th3_8).inverse() * t21f(th2_8).inverse() * t10f(th1_2).inverse() * T60 * t65f(th6_4).inverse() * t54f(th5_4).inverse();
-    xhat43 = t43m.block(0, 0, 3, 1);
-    float th4_8 = atan2(xhat43(1), xhat43(0));
+    j4_mtx = joint3Transf(jo3_8).inverse() * joint2Transf(jo2_8).inverse() * joint1Transf(jo1_2).inverse() * temp_mtx * joint6Transf(jo6_4).inverse() * joint5Transf(jo5_4).inverse();
+    x_4v = j4_mtx.block(0, 0, 3, 1);
+    float jo4_8 = atan2(x_4v(1), x_4v(0));
 
-    MatrixXf ret(8, 6);
-    ret << th1_1, th2_1, th3_1, th4_1, th5_1, th6_1,
-        th1_1, th2_2, th3_2, th4_2, th5_2, th6_2,
-        th1_2, th2_3, th3_3, th4_3, th5_3, th6_3,
-        th1_2, th2_4, th3_4, th4_4, th5_4, th6_4,
-        th1_1, th2_5, th3_5, th4_5, th5_1, th6_1,
-        th1_1, th2_6, th3_6, th4_6, th5_2, th6_2,
-        th1_2, th2_7, th3_7, th4_7, th5_3, th6_3,
-        th1_2, th2_8, th3_8, th4_8, th5_4, th6_4;
-
-    return ret;
-}
-
-/**
- * @brief Calculate the jacobian matrix
- *
- * @param q joint angles
- * @return Eigen::MatrixXf
- */
-MatrixXf jacobian(VectorXf q)
-{
-    VectorXf A(6);
-    A << 0, -0.425, -0.3922, 0, 0, 0;
-    VectorXf D(6);
-    D << 0.1625, 0, 0, 0.1333, 0.0997, 0.0996 + 0.14;
-
-    MatrixXf J(6, 6);
-    J.setZero();
-    MatrixXf J1(6, 1);
-    J1 << D(4) * (cos(q(0)) * cos(q(4)) + cos(q(1) + q(2) + q(3)) * sin(q(0)) * sin(q(4))) + D(2) * cos(q(0)) + D(3) * cos(q(0)) - A(2) * cos(q(1) + q(2)) * sin(q(0)) - A(1) * cos(q(1)) * sin(q(0)) - D(4) * sin(q(1) + q(2) + q(3)) * sin(q(0)),
-        D(4) * (cos(q(4)) * sin(q(0)) - cos(q(1) + q(2) + q(3)) * cos(q(0)) * sin(q(4))) + D(2) * sin(q(0)) + D(3) * sin(q(0)) + A(2) * cos(q(1) + q(2)) * cos(q(0)) + A(1) * cos(q(0)) * cos(q(1)) + D(4) * sin(q(1) + q(2) + q(3)) * cos(q(0)),
-        0,
-        0,
-        0,
-        1;
-    MatrixXf J2(6, 1);
-    J2 << -cos(q(0)) * (A(2) * sin(q(1) + q(2)) + A(1) * sin(q(1)) + D(4) * (sin(q(1) + q(2)) * sin(q(3)) - cos(q(1) + q(2)) * cos(q(3))) - D(4) * sin(q(4)) * (cos(q(1) + q(2)) * sin(q(3)) + sin(q(1) + q(2)) * cos(q(3)))),
-        -sin(q(0)) * (A(2) * sin(q(1) + q(2)) + A(1) * sin(q(1)) + D(4) * (sin(q(1) + q(2)) * sin(q(3)) - cos(q(1) + q(2)) * cos(q(3))) - D(4) * sin(q(4)) * (cos(q(1) + q(2)) * sin(q(3)) + sin(q(1) + q(2)) * cos(q(3)))),
-        A(2) * cos(q(1) + q(2)) - (D(4) * sin(q(1) + q(2) + q(3) + q(4))) / 2 + A(1) * cos(q(1)) + (D(4) * sin(q(1) + q(2) + q(3) - q(4))) / 2 + D(4) * sin(q(1) + q(2) + q(3)),
-        sin(q(0)),
-        -cos(q(0)),
-        0;
-    MatrixXf J3(6, 1);
-    J3 << cos(q(0)) * (D(4) * cos(q(1) + q(2) + q(3)) - A(2) * sin(q(1) + q(2)) + D(4) * sin(q(1) + q(2) + q(3)) * sin(q(4))),
-        sin(q(0)) * (D(4) * cos(q(1) + q(2) + q(3)) - A(2) * sin(q(1) + q(2)) + D(4) * sin(q(1) + q(2) + q(3)) * sin(q(4))),
-        A(2) * cos(q(1) + q(2)) - (D(4) * sin(q(1) + q(2) + q(3) + q(4))) / 2 + (D(4) * sin(q(1) + q(2) + q(3) - q(4))) / 2 + D(4) * sin(q(1) + q(2) + q(3)),
-        sin(q(0)),
-        -cos(q(0)),
-        0;
-    MatrixXf J4(6, 1);
-    J4 << D(4) * cos(q(0)) * (cos(q(1) + q(2) + q(3)) + sin(q(1) + q(2) + q(3)) * sin(q(4))),
-        D(4) * sin(q(0)) * (cos(q(1) + q(2) + q(3)) + sin(q(1) + q(2) + q(3)) * sin(q(4))),
-        D(4) * (sin(q(1) + q(2) + q(3) - q(4)) / 2 + sin(q(1) + q(2) + q(3)) - sin(q(1) + q(2) + q(3) + q(4)) / 2),
-        sin(q(0)),
-        -cos(q(0)),
-        0;
-    MatrixXf J5(6, 1);
-    J5 << -D(4) * sin(q(0)) * sin(q(4)) - D(4) * cos(q(1) + q(2) + q(3)) * cos(q(0)) * cos(q(4)),
-        D(4) * cos(q(0)) * sin(q(4)) - D(4) * cos(q(1) + q(2) + q(3)) * cos(q(4)) * sin(q(0)),
-        -D(4) * (sin(q(1) + q(2) + q(3) - q(4)) / 2 + sin(q(1) + q(2) + q(3) + q(4)) / 2),
-        sin(q(1) + q(2) + q(3)) * cos(q(0)),
-        sin(q(1) + q(2) + q(3)) * sin(q(0)),
-        -cos(q(1) + q(2) + q(3));
-    MatrixXf J6(6, 1);
-    J6 << 0,
-        0,
-        0,
-        cos(q(4)) * sin(q(0)) - cos(q(1) + q(2) + q(3)) * cos(q(0)) * sin(q(4)),
-        -cos(q(0)) * cos(q(4)) - cos(q(1) + q(2) + q(3)) * sin(q(0)) * sin(q(4)),
-        -sin(q(1) + q(2) + q(3)) * sin(q(4));
-    J << J1, J2, J3, J4, J5, J6;
-    return J;
-}
-
-/**
- * @brief From euler angles to rotation matrix
- * 
- * @param rpy Euler angles
- * @return Matrix3f 
- */
-Matrix3f eul2rotm(Vector3f rpy)
-{
-    Matrix3f R;
-    R = AngleAxisf(rpy(0), Vector3f::UnitZ()) * AngleAxisf(rpy(1), Vector3f::UnitY()) * AngleAxisf(rpy(2), Vector3f::UnitX());
-    return R;
+    Eigen::MatrixXf result_mtx(8, 6);
+    result_mtx <<   jo1_1, jo2_1, jo3_1, jo4_1, jo5_1, jo6_1, jo1_1, jo2_2, jo3_2, jo4_2, jo5_2, jo6_2, jo1_2, jo2_3, jo3_3, jo4_3, jo5_3, jo6_3, jo1_2, jo2_4, jo3_4, jo4_4, jo5_4, jo6_4,
+                    jo1_1, jo2_5, jo3_5, jo4_5, jo5_1, jo6_1, jo1_1, jo2_6, jo3_6, jo4_6, jo5_2, jo6_2, jo1_2, jo2_7, jo3_7, jo4_7, jo5_3, jo6_3, jo1_2, jo2_8, jo3_8, jo4_8, jo5_4, jo6_4;
+    return result_mtx;
 }
 
 #endif

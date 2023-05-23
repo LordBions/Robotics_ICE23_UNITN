@@ -186,18 +186,46 @@ motion_generate_messages/fast:
 .PHONY : motion_generate_messages/fast
 
 # Convenience name for target.
-motion/CMakeFiles/_motion_generate_messages_check_deps_pos.dir/rule:
-	cd /home/utente/Robotics_ICE23_UNITN/catkin_ws/build && $(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 motion/CMakeFiles/_motion_generate_messages_check_deps_pos.dir/rule
-.PHONY : motion/CMakeFiles/_motion_generate_messages_check_deps_pos.dir/rule
+motion/CMakeFiles/_motion_generate_messages_check_deps_legoTask.dir/rule:
+	cd /home/utente/Robotics_ICE23_UNITN/catkin_ws/build && $(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 motion/CMakeFiles/_motion_generate_messages_check_deps_legoTask.dir/rule
+.PHONY : motion/CMakeFiles/_motion_generate_messages_check_deps_legoTask.dir/rule
 
 # Convenience name for target.
-_motion_generate_messages_check_deps_pos: motion/CMakeFiles/_motion_generate_messages_check_deps_pos.dir/rule
-.PHONY : _motion_generate_messages_check_deps_pos
+_motion_generate_messages_check_deps_legoTask: motion/CMakeFiles/_motion_generate_messages_check_deps_legoTask.dir/rule
+.PHONY : _motion_generate_messages_check_deps_legoTask
 
 # fast build rule for target.
-_motion_generate_messages_check_deps_pos/fast:
-	cd /home/utente/Robotics_ICE23_UNITN/catkin_ws/build && $(MAKE) $(MAKESILENT) -f motion/CMakeFiles/_motion_generate_messages_check_deps_pos.dir/build.make motion/CMakeFiles/_motion_generate_messages_check_deps_pos.dir/build
-.PHONY : _motion_generate_messages_check_deps_pos/fast
+_motion_generate_messages_check_deps_legoTask/fast:
+	cd /home/utente/Robotics_ICE23_UNITN/catkin_ws/build && $(MAKE) $(MAKESILENT) -f motion/CMakeFiles/_motion_generate_messages_check_deps_legoTask.dir/build.make motion/CMakeFiles/_motion_generate_messages_check_deps_legoTask.dir/build
+.PHONY : _motion_generate_messages_check_deps_legoTask/fast
+
+# Convenience name for target.
+motion/CMakeFiles/_motion_generate_messages_check_deps_legoFound.dir/rule:
+	cd /home/utente/Robotics_ICE23_UNITN/catkin_ws/build && $(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 motion/CMakeFiles/_motion_generate_messages_check_deps_legoFound.dir/rule
+.PHONY : motion/CMakeFiles/_motion_generate_messages_check_deps_legoFound.dir/rule
+
+# Convenience name for target.
+_motion_generate_messages_check_deps_legoFound: motion/CMakeFiles/_motion_generate_messages_check_deps_legoFound.dir/rule
+.PHONY : _motion_generate_messages_check_deps_legoFound
+
+# fast build rule for target.
+_motion_generate_messages_check_deps_legoFound/fast:
+	cd /home/utente/Robotics_ICE23_UNITN/catkin_ws/build && $(MAKE) $(MAKESILENT) -f motion/CMakeFiles/_motion_generate_messages_check_deps_legoFound.dir/build.make motion/CMakeFiles/_motion_generate_messages_check_deps_legoFound.dir/build
+.PHONY : _motion_generate_messages_check_deps_legoFound/fast
+
+# Convenience name for target.
+motion/CMakeFiles/_motion_generate_messages_check_deps_eventResult.dir/rule:
+	cd /home/utente/Robotics_ICE23_UNITN/catkin_ws/build && $(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 motion/CMakeFiles/_motion_generate_messages_check_deps_eventResult.dir/rule
+.PHONY : motion/CMakeFiles/_motion_generate_messages_check_deps_eventResult.dir/rule
+
+# Convenience name for target.
+_motion_generate_messages_check_deps_eventResult: motion/CMakeFiles/_motion_generate_messages_check_deps_eventResult.dir/rule
+.PHONY : _motion_generate_messages_check_deps_eventResult
+
+# fast build rule for target.
+_motion_generate_messages_check_deps_eventResult/fast:
+	cd /home/utente/Robotics_ICE23_UNITN/catkin_ws/build && $(MAKE) $(MAKESILENT) -f motion/CMakeFiles/_motion_generate_messages_check_deps_eventResult.dir/build.make motion/CMakeFiles/_motion_generate_messages_check_deps_eventResult.dir/build
+.PHONY : _motion_generate_messages_check_deps_eventResult/fast
 
 # Convenience name for target.
 motion/CMakeFiles/motion_generate_messages_cpp.dir/rule:
@@ -354,42 +382,80 @@ planner/fast:
 .PHONY : planner/fast
 
 # Convenience name for target.
-motion/CMakeFiles/moviment.dir/rule:
-	cd /home/utente/Robotics_ICE23_UNITN/catkin_ws/build && $(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 motion/CMakeFiles/moviment.dir/rule
-.PHONY : motion/CMakeFiles/moviment.dir/rule
+motion/CMakeFiles/movement.dir/rule:
+	cd /home/utente/Robotics_ICE23_UNITN/catkin_ws/build && $(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 motion/CMakeFiles/movement.dir/rule
+.PHONY : motion/CMakeFiles/movement.dir/rule
 
 # Convenience name for target.
-moviment: motion/CMakeFiles/moviment.dir/rule
-.PHONY : moviment
+movement: motion/CMakeFiles/movement.dir/rule
+.PHONY : movement
 
 # fast build rule for target.
-moviment/fast:
-	cd /home/utente/Robotics_ICE23_UNITN/catkin_ws/build && $(MAKE) $(MAKESILENT) -f motion/CMakeFiles/moviment.dir/build.make motion/CMakeFiles/moviment.dir/build
-.PHONY : moviment/fast
+movement/fast:
+	cd /home/utente/Robotics_ICE23_UNITN/catkin_ws/build && $(MAKE) $(MAKESILENT) -f motion/CMakeFiles/movement.dir/build.make motion/CMakeFiles/movement.dir/build
+.PHONY : movement/fast
 
-src/moviment.o: src/moviment.cpp.o
-.PHONY : src/moviment.o
+# Convenience name for target.
+motion/CMakeFiles/manualVision.dir/rule:
+	cd /home/utente/Robotics_ICE23_UNITN/catkin_ws/build && $(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 motion/CMakeFiles/manualVision.dir/rule
+.PHONY : motion/CMakeFiles/manualVision.dir/rule
+
+# Convenience name for target.
+manualVision: motion/CMakeFiles/manualVision.dir/rule
+.PHONY : manualVision
+
+# fast build rule for target.
+manualVision/fast:
+	cd /home/utente/Robotics_ICE23_UNITN/catkin_ws/build && $(MAKE) $(MAKESILENT) -f motion/CMakeFiles/manualVision.dir/build.make motion/CMakeFiles/manualVision.dir/build
+.PHONY : manualVision/fast
+
+src/manualVision.o: src/manualVision.cpp.o
+.PHONY : src/manualVision.o
 
 # target to build an object file
-src/moviment.cpp.o:
-	cd /home/utente/Robotics_ICE23_UNITN/catkin_ws/build && $(MAKE) $(MAKESILENT) -f motion/CMakeFiles/moviment.dir/build.make motion/CMakeFiles/moviment.dir/src/moviment.cpp.o
-.PHONY : src/moviment.cpp.o
+src/manualVision.cpp.o:
+	cd /home/utente/Robotics_ICE23_UNITN/catkin_ws/build && $(MAKE) $(MAKESILENT) -f motion/CMakeFiles/manualVision.dir/build.make motion/CMakeFiles/manualVision.dir/src/manualVision.cpp.o
+.PHONY : src/manualVision.cpp.o
 
-src/moviment.i: src/moviment.cpp.i
-.PHONY : src/moviment.i
+src/manualVision.i: src/manualVision.cpp.i
+.PHONY : src/manualVision.i
 
 # target to preprocess a source file
-src/moviment.cpp.i:
-	cd /home/utente/Robotics_ICE23_UNITN/catkin_ws/build && $(MAKE) $(MAKESILENT) -f motion/CMakeFiles/moviment.dir/build.make motion/CMakeFiles/moviment.dir/src/moviment.cpp.i
-.PHONY : src/moviment.cpp.i
+src/manualVision.cpp.i:
+	cd /home/utente/Robotics_ICE23_UNITN/catkin_ws/build && $(MAKE) $(MAKESILENT) -f motion/CMakeFiles/manualVision.dir/build.make motion/CMakeFiles/manualVision.dir/src/manualVision.cpp.i
+.PHONY : src/manualVision.cpp.i
 
-src/moviment.s: src/moviment.cpp.s
-.PHONY : src/moviment.s
+src/manualVision.s: src/manualVision.cpp.s
+.PHONY : src/manualVision.s
 
 # target to generate assembly for a file
-src/moviment.cpp.s:
-	cd /home/utente/Robotics_ICE23_UNITN/catkin_ws/build && $(MAKE) $(MAKESILENT) -f motion/CMakeFiles/moviment.dir/build.make motion/CMakeFiles/moviment.dir/src/moviment.cpp.s
-.PHONY : src/moviment.cpp.s
+src/manualVision.cpp.s:
+	cd /home/utente/Robotics_ICE23_UNITN/catkin_ws/build && $(MAKE) $(MAKESILENT) -f motion/CMakeFiles/manualVision.dir/build.make motion/CMakeFiles/manualVision.dir/src/manualVision.cpp.s
+.PHONY : src/manualVision.cpp.s
+
+src/movement.o: src/movement.cpp.o
+.PHONY : src/movement.o
+
+# target to build an object file
+src/movement.cpp.o:
+	cd /home/utente/Robotics_ICE23_UNITN/catkin_ws/build && $(MAKE) $(MAKESILENT) -f motion/CMakeFiles/movement.dir/build.make motion/CMakeFiles/movement.dir/src/movement.cpp.o
+.PHONY : src/movement.cpp.o
+
+src/movement.i: src/movement.cpp.i
+.PHONY : src/movement.i
+
+# target to preprocess a source file
+src/movement.cpp.i:
+	cd /home/utente/Robotics_ICE23_UNITN/catkin_ws/build && $(MAKE) $(MAKESILENT) -f motion/CMakeFiles/movement.dir/build.make motion/CMakeFiles/movement.dir/src/movement.cpp.i
+.PHONY : src/movement.cpp.i
+
+src/movement.s: src/movement.cpp.s
+.PHONY : src/movement.s
+
+# target to generate assembly for a file
+src/movement.cpp.s:
+	cd /home/utente/Robotics_ICE23_UNITN/catkin_ws/build && $(MAKE) $(MAKESILENT) -f motion/CMakeFiles/movement.dir/build.make motion/CMakeFiles/movement.dir/src/movement.cpp.s
+.PHONY : src/movement.cpp.s
 
 src/planner.o: src/planner.cpp.o
 .PHONY : src/planner.o
@@ -428,7 +494,9 @@ help:
 	@echo "... list_install_components"
 	@echo "... rebuild_cache"
 	@echo "... test"
-	@echo "... _motion_generate_messages_check_deps_pos"
+	@echo "... _motion_generate_messages_check_deps_eventResult"
+	@echo "... _motion_generate_messages_check_deps_legoFound"
+	@echo "... _motion_generate_messages_check_deps_legoTask"
 	@echo "... motion_gencpp"
 	@echo "... motion_generate_messages"
 	@echo "... motion_generate_messages_cpp"
@@ -440,11 +508,15 @@ help:
 	@echo "... motion_genlisp"
 	@echo "... motion_gennodejs"
 	@echo "... motion_genpy"
-	@echo "... moviment"
+	@echo "... manualVision"
+	@echo "... movement"
 	@echo "... planner"
-	@echo "... src/moviment.o"
-	@echo "... src/moviment.i"
-	@echo "... src/moviment.s"
+	@echo "... src/manualVision.o"
+	@echo "... src/manualVision.i"
+	@echo "... src/manualVision.s"
+	@echo "... src/movement.o"
+	@echo "... src/movement.i"
+	@echo "... src/movement.s"
 	@echo "... src/planner.o"
 	@echo "... src/planner.i"
 	@echo "... src/planner.s"

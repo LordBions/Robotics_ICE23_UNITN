@@ -30,7 +30,7 @@ WEIGHTS_PATH = os.path.join(VISION_PATH, "../../install/include/vision/include/w
 
 YOLO_PATH = os.path.join(VISION_PATH, "include/yolo5")
 
-CONFIDENCE = 0.7
+CONFIDENCE = 0.51 # minimum confidence
 
 MODEL = torch.hub.load('ultralytics/yolov5', 'custom', WEIGHTS_PATH)
 

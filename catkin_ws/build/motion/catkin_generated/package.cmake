@@ -1,5 +1,5 @@
 set(_CATKIN_CURRENT_PACKAGE "motion")
-set(motion_VERSION "1.0.0")
+set(motion_VERSION "2.0.0")
 set(motion_MAINTAINER "Filippo Conti, Mattia Meneghin e Nicola Gianuzzi <filippo.conti@studenti.unitn.it>")
 set(motion_PACKAGE_FORMAT "2")
 set(motion_BUILD_DEPENDS "message_generation" "roscpp" "std_msgs" "sensor_msgs")

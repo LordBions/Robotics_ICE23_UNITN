@@ -1,95 +1,37 @@
-cmake_minimum_required(VERSION 2.8.3)
-project(ros_impedance_controller)
+cmake_minimum_required(VERSION 3.0.2)
+project(environment)
 
-
-set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS}  -std=c++11")
-# ROS
-
-find_package( Eigen3 REQUIRED )
-
-find_package(catkin REQUIRED tf controller_interface
-            realtime_tools sensor_msgs message_generation gazebo_msgs  geometry_msgs     REQUIRED)
-
-
-add_message_files(
-  DIRECTORY
-  msg
-  FILES
-  pid.msg
-  BaseState.msg
-  ContactsState.msg
-  Forces.msg
-  EffortPid.msg
+find_package(catkin REQUIRED COMPONENTS
+  roscpp
+  rospy
+  std_msgs
 )
 
-add_service_files(
-  DIRECTORY
-  srv
-  FILES
-  set_pids.srv
-  get_map.srv
-  get_effort_pid.srv
-  generic_float.srv
-)
+## Generate messages in the 'msg' folder
+# add_message_files(
+#   FILES
+#   Message1.msg
+#   Message2.msg
+# )
 
-generate_messages(DEPENDENCIES geometry_msgs)
+catkin_package()
 
-catkin_package(
-  INCLUDE_DIRS include ${GAZEBO_INCLUDE_DIRS}
-  LIBRARIES ${PROJECT_NAME} ${GAZEBO_LIBRARIES}
-  CATKIN_DEPENDS message_runtime sensor_msgs geometry_msgs
-)
+include_directories(include ${catkin_INCLUDE_DIRS} )
 
+add_executable(spawnLego src/spawnLego.cpp)
+target_link_libraries(spawnLego ${catkin_LIBRARIES})
 
-###########
-## Build ##
-###########
-
-## Specify additional locations of header files
-## Your package locations should be listed before other locations
-include_directories(
-    include  ${GAZEBO_INCLUDE_DIRS}
-    ${catkin_INCLUDE_DIRS}
-    ${EIGEN3_INCLUDE_DIR}
-)
-
-link_directories(${GAZEBO_LIBRARY_DIRS})
-
-add_library(${PROJECT_NAME} src/controller.cpp)
-target_link_libraries(${PROJECT_NAME} ${catkin_LIBRARIES} ${GAZEBO_LIBRARIES})
-add_dependencies(${PROJECT_NAME} ${ros_impedance_controller_EXPORTED_TARGETS})
-
-install(DIRECTORY include/${PROJECT_NAME}/
-        DESTINATION ${CATKIN_PACKAGE_INCLUDE_DESTINATION})
-
-install(TARGETS ${PROJECT_NAME}
+install(TARGETS spawnLego
   ARCHIVE DESTINATION ${CATKIN_PACKAGE_LIB_DESTINATION}
   LIBRARY DESTINATION ${CATKIN_PACKAGE_LIB_DESTINATION}
   RUNTIME DESTINATION ${CATKIN_PACKAGE_BIN_DESTINATION}
 )
 
-install(FILES controller_plugin.xml
-DESTINATION ${CATKIN_PACKAGE_SHARE_DESTINATION})
+# add_executable(imageCapture src/imageCapture.cpp)
+# target_link_libraries(imageCapture ${catkin_LIBRARIES})
 
-install(DIRECTORY launch/
-  DESTINATION ${CATKIN_PACKAGE_SHARE_DESTINATION}/launch
-  PATTERN ".svn" EXCLUDE)
-
-install(DIRECTORY config/
-  DESTINATION ${CATKIN_PACKAGE_SHARE_DESTINATION}/config
-  PATTERN ".svn" EXCLUDE)
-
-install(DIRECTORY worlds/
-  DESTINATION ${CATKIN_PACKAGE_SHARE_DESTINATION}/worlds
-  PATTERN ".svn" EXCLUDE)
-
-install(TARGETS ${PROJECT_NAME} 
-  ARCHIVE DESTINATION ${CATKIN_PACKAGE_LIB_DESTINATION}
-  LIBRARY DESTINATION ${CATKIN_PACKAGE_LIB_DESTINATION}
-  RUNTIME DESTINATION ${CATKIN_PACKAGE_BIN_DESTINATION}
-)
-
-catkin_install_python(PROGRAMS
-  scripts/spawnLego.py
-  DESTINATION ${CATKIN_PACKAGE_BIN_DESTINATION}
-)
+# install(TARGETS imageCapture
+#  ARCHIVE DESTINATION ${CATKIN_PACKAGE_LIB_DESTINATION}
+#  LIBRARY DESTINATION ${CATKIN_PACKAGE_LIB_DESTINATION}
+#  RUNTIME DESTINATION ${CATKIN_PACKAGE_BIN_DESTINATION}
+#)

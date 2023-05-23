@@ -1,8 +1,12 @@
 
 "use strict";
 
-let pos = require('./pos.js');
+let legoFound = require('./legoFound.js');
+let legoTask = require('./legoTask.js');
+let eventResult = require('./eventResult.js');
 
 module.exports = {
-  pos: pos,
+  legoFound: legoFound,
+  legoTask: legoTask,
+  eventResult: eventResult,
 };

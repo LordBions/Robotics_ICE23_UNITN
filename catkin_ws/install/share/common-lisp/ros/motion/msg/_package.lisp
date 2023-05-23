@@ -1,7 +1,11 @@
 (cl:defpackage motion-msg
   (:use )
   (:export
-   "<POS>"
-   "POS"
+   "<EVENTRESULT>"
+   "EVENTRESULT"
+   "<LEGOFOUND>"
+   "LEGOFOUND"
+   "<LEGOTASK>"
+   "LEGOTASK"
   ))
 

@@ -66,15 +66,29 @@ include motion/CMakeFiles/motion_generate_messages_nodejs.dir/compiler_depend.ma
 # Include the progress variables for this target.
 include motion/CMakeFiles/motion_generate_messages_nodejs.dir/progress.make
 
-motion/CMakeFiles/motion_generate_messages_nodejs: /home/utente/Robotics_ICE23_UNITN/catkin_ws/devel/share/gennodejs/ros/motion/msg/pos.js
+motion/CMakeFiles/motion_generate_messages_nodejs: /home/utente/Robotics_ICE23_UNITN/catkin_ws/devel/share/gennodejs/ros/motion/msg/legoTask.js
+motion/CMakeFiles/motion_generate_messages_nodejs: /home/utente/Robotics_ICE23_UNITN/catkin_ws/devel/share/gennodejs/ros/motion/msg/legoFound.js
+motion/CMakeFiles/motion_generate_messages_nodejs: /home/utente/Robotics_ICE23_UNITN/catkin_ws/devel/share/gennodejs/ros/motion/msg/eventResult.js
 
-/home/utente/Robotics_ICE23_UNITN/catkin_ws/devel/share/gennodejs/ros/motion/msg/pos.js: /opt/ros/noetic/lib/gennodejs/gen_nodejs.py
-/home/utente/Robotics_ICE23_UNITN/catkin_ws/devel/share/gennodejs/ros/motion/msg/pos.js: /home/utente/Robotics_ICE23_UNITN/catkin_ws/src/motion/msg/pos.msg
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --blue --bold --progress-dir=/home/utente/Robotics_ICE23_UNITN/catkin_ws/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_1) "Generating Javascript code from motion/pos.msg"
-	cd /home/utente/Robotics_ICE23_UNITN/catkin_ws/build/motion && ../catkin_generated/env_cached.sh /usr/bin/python3 /opt/ros/noetic/share/gennodejs/cmake/../../../lib/gennodejs/gen_nodejs.py /home/utente/Robotics_ICE23_UNITN/catkin_ws/src/motion/msg/pos.msg -Imotion:/home/utente/Robotics_ICE23_UNITN/catkin_ws/src/motion/msg -Istd_msgs:/opt/ros/noetic/share/std_msgs/cmake/../msg -p motion -o /home/utente/Robotics_ICE23_UNITN/catkin_ws/devel/share/gennodejs/ros/motion/msg
+/home/utente/Robotics_ICE23_UNITN/catkin_ws/devel/share/gennodejs/ros/motion/msg/eventResult.js: /opt/ros/noetic/lib/gennodejs/gen_nodejs.py
+/home/utente/Robotics_ICE23_UNITN/catkin_ws/devel/share/gennodejs/ros/motion/msg/eventResult.js: /home/utente/Robotics_ICE23_UNITN/catkin_ws/src/motion/msg/eventResult.msg
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --blue --bold --progress-dir=/home/utente/Robotics_ICE23_UNITN/catkin_ws/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_1) "Generating Javascript code from motion/eventResult.msg"
+	cd /home/utente/Robotics_ICE23_UNITN/catkin_ws/build/motion && ../catkin_generated/env_cached.sh /usr/bin/python3 /opt/ros/noetic/share/gennodejs/cmake/../../../lib/gennodejs/gen_nodejs.py /home/utente/Robotics_ICE23_UNITN/catkin_ws/src/motion/msg/eventResult.msg -Imotion:/home/utente/Robotics_ICE23_UNITN/catkin_ws/src/motion/msg -Istd_msgs:/opt/ros/noetic/share/std_msgs/cmake/../msg -p motion -o /home/utente/Robotics_ICE23_UNITN/catkin_ws/devel/share/gennodejs/ros/motion/msg
+
+/home/utente/Robotics_ICE23_UNITN/catkin_ws/devel/share/gennodejs/ros/motion/msg/legoFound.js: /opt/ros/noetic/lib/gennodejs/gen_nodejs.py
+/home/utente/Robotics_ICE23_UNITN/catkin_ws/devel/share/gennodejs/ros/motion/msg/legoFound.js: /home/utente/Robotics_ICE23_UNITN/catkin_ws/src/motion/msg/legoFound.msg
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --blue --bold --progress-dir=/home/utente/Robotics_ICE23_UNITN/catkin_ws/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_2) "Generating Javascript code from motion/legoFound.msg"
+	cd /home/utente/Robotics_ICE23_UNITN/catkin_ws/build/motion && ../catkin_generated/env_cached.sh /usr/bin/python3 /opt/ros/noetic/share/gennodejs/cmake/../../../lib/gennodejs/gen_nodejs.py /home/utente/Robotics_ICE23_UNITN/catkin_ws/src/motion/msg/legoFound.msg -Imotion:/home/utente/Robotics_ICE23_UNITN/catkin_ws/src/motion/msg -Istd_msgs:/opt/ros/noetic/share/std_msgs/cmake/../msg -p motion -o /home/utente/Robotics_ICE23_UNITN/catkin_ws/devel/share/gennodejs/ros/motion/msg
+
+/home/utente/Robotics_ICE23_UNITN/catkin_ws/devel/share/gennodejs/ros/motion/msg/legoTask.js: /opt/ros/noetic/lib/gennodejs/gen_nodejs.py
+/home/utente/Robotics_ICE23_UNITN/catkin_ws/devel/share/gennodejs/ros/motion/msg/legoTask.js: /home/utente/Robotics_ICE23_UNITN/catkin_ws/src/motion/msg/legoTask.msg
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --blue --bold --progress-dir=/home/utente/Robotics_ICE23_UNITN/catkin_ws/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_3) "Generating Javascript code from motion/legoTask.msg"
+	cd /home/utente/Robotics_ICE23_UNITN/catkin_ws/build/motion && ../catkin_generated/env_cached.sh /usr/bin/python3 /opt/ros/noetic/share/gennodejs/cmake/../../../lib/gennodejs/gen_nodejs.py /home/utente/Robotics_ICE23_UNITN/catkin_ws/src/motion/msg/legoTask.msg -Imotion:/home/utente/Robotics_ICE23_UNITN/catkin_ws/src/motion/msg -Istd_msgs:/opt/ros/noetic/share/std_msgs/cmake/../msg -p motion -o /home/utente/Robotics_ICE23_UNITN/catkin_ws/devel/share/gennodejs/ros/motion/msg
 
 motion_generate_messages_nodejs: motion/CMakeFiles/motion_generate_messages_nodejs
-motion_generate_messages_nodejs: /home/utente/Robotics_ICE23_UNITN/catkin_ws/devel/share/gennodejs/ros/motion/msg/pos.js
+motion_generate_messages_nodejs: /home/utente/Robotics_ICE23_UNITN/catkin_ws/devel/share/gennodejs/ros/motion/msg/eventResult.js
+motion_generate_messages_nodejs: /home/utente/Robotics_ICE23_UNITN/catkin_ws/devel/share/gennodejs/ros/motion/msg/legoFound.js
+motion_generate_messages_nodejs: /home/utente/Robotics_ICE23_UNITN/catkin_ws/devel/share/gennodejs/ros/motion/msg/legoTask.js
 motion_generate_messages_nodejs: motion/CMakeFiles/motion_generate_messages_nodejs.dir/build.make
 .PHONY : motion_generate_messages_nodejs
 

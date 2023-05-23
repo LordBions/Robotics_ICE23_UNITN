@@ -1,6 +1,6 @@
 # generated from genmsg/cmake/pkg-genmsg.cmake.em
 
-message(STATUS "motion: 1 messages, 0 services")
+message(STATUS "motion: 3 messages, 0 services")
 
 set(MSG_I_FLAGS "-Imotion:/home/utente/Robotics_ICE23_UNITN/catkin_ws/src/motion/msg;-Istd_msgs:/opt/ros/noetic/share/std_msgs/cmake/../msg")
 
@@ -17,9 +17,19 @@ add_custom_target(motion_generate_messages ALL)
 
 
 
-get_filename_component(_filename "/home/utente/Robotics_ICE23_UNITN/catkin_ws/src/motion/msg/pos.msg" NAME_WE)
+get_filename_component(_filename "/home/utente/Robotics_ICE23_UNITN/catkin_ws/src/motion/msg/legoTask.msg" NAME_WE)
 add_custom_target(_motion_generate_messages_check_deps_${_filename}
-  COMMAND ${CATKIN_ENV} ${PYTHON_EXECUTABLE} ${GENMSG_CHECK_DEPS_SCRIPT} "motion" "/home/utente/Robotics_ICE23_UNITN/catkin_ws/src/motion/msg/pos.msg" ""
+  COMMAND ${CATKIN_ENV} ${PYTHON_EXECUTABLE} ${GENMSG_CHECK_DEPS_SCRIPT} "motion" "/home/utente/Robotics_ICE23_UNITN/catkin_ws/src/motion/msg/legoTask.msg" ""
+)
+
+get_filename_component(_filename "/home/utente/Robotics_ICE23_UNITN/catkin_ws/src/motion/msg/legoFound.msg" NAME_WE)
+add_custom_target(_motion_generate_messages_check_deps_${_filename}
+  COMMAND ${CATKIN_ENV} ${PYTHON_EXECUTABLE} ${GENMSG_CHECK_DEPS_SCRIPT} "motion" "/home/utente/Robotics_ICE23_UNITN/catkin_ws/src/motion/msg/legoFound.msg" ""
+)
+
+get_filename_component(_filename "/home/utente/Robotics_ICE23_UNITN/catkin_ws/src/motion/msg/eventResult.msg" NAME_WE)
+add_custom_target(_motion_generate_messages_check_deps_${_filename}
+  COMMAND ${CATKIN_ENV} ${PYTHON_EXECUTABLE} ${GENMSG_CHECK_DEPS_SCRIPT} "motion" "/home/utente/Robotics_ICE23_UNITN/catkin_ws/src/motion/msg/eventResult.msg" ""
 )
 
 #
@@ -29,7 +39,19 @@ add_custom_target(_motion_generate_messages_check_deps_${_filename}
 ### Section generating for lang: gencpp
 ### Generating Messages
 _generate_msg_cpp(motion
-  "/home/utente/Robotics_ICE23_UNITN/catkin_ws/src/motion/msg/pos.msg"
+  "/home/utente/Robotics_ICE23_UNITN/catkin_ws/src/motion/msg/legoTask.msg"
+  "${MSG_I_FLAGS}"
+  ""
+  ${CATKIN_DEVEL_PREFIX}/${gencpp_INSTALL_DIR}/motion
+)
+_generate_msg_cpp(motion
+  "/home/utente/Robotics_ICE23_UNITN/catkin_ws/src/motion/msg/legoFound.msg"
+  "${MSG_I_FLAGS}"
+  ""
+  ${CATKIN_DEVEL_PREFIX}/${gencpp_INSTALL_DIR}/motion
+)
+_generate_msg_cpp(motion
+  "/home/utente/Robotics_ICE23_UNITN/catkin_ws/src/motion/msg/eventResult.msg"
   "${MSG_I_FLAGS}"
   ""
   ${CATKIN_DEVEL_PREFIX}/${gencpp_INSTALL_DIR}/motion
@@ -49,7 +71,11 @@ add_custom_target(motion_generate_messages_cpp
 add_dependencies(motion_generate_messages motion_generate_messages_cpp)
 
 # add dependencies to all check dependencies targets
-get_filename_component(_filename "/home/utente/Robotics_ICE23_UNITN/catkin_ws/src/motion/msg/pos.msg" NAME_WE)
+get_filename_component(_filename "/home/utente/Robotics_ICE23_UNITN/catkin_ws/src/motion/msg/legoTask.msg" NAME_WE)
+add_dependencies(motion_generate_messages_cpp _motion_generate_messages_check_deps_${_filename})
+get_filename_component(_filename "/home/utente/Robotics_ICE23_UNITN/catkin_ws/src/motion/msg/legoFound.msg" NAME_WE)
+add_dependencies(motion_generate_messages_cpp _motion_generate_messages_check_deps_${_filename})
+get_filename_component(_filename "/home/utente/Robotics_ICE23_UNITN/catkin_ws/src/motion/msg/eventResult.msg" NAME_WE)
 add_dependencies(motion_generate_messages_cpp _motion_generate_messages_check_deps_${_filename})
 
 # target for backward compatibility
@@ -62,7 +88,19 @@ list(APPEND ${PROJECT_NAME}_EXPORTED_TARGETS motion_generate_messages_cpp)
 ### Section generating for lang: geneus
 ### Generating Messages
 _generate_msg_eus(motion
-  "/home/utente/Robotics_ICE23_UNITN/catkin_ws/src/motion/msg/pos.msg"
+  "/home/utente/Robotics_ICE23_UNITN/catkin_ws/src/motion/msg/legoTask.msg"
+  "${MSG_I_FLAGS}"
+  ""
+  ${CATKIN_DEVEL_PREFIX}/${geneus_INSTALL_DIR}/motion
+)
+_generate_msg_eus(motion
+  "/home/utente/Robotics_ICE23_UNITN/catkin_ws/src/motion/msg/legoFound.msg"
+  "${MSG_I_FLAGS}"
+  ""
+  ${CATKIN_DEVEL_PREFIX}/${geneus_INSTALL_DIR}/motion
+)
+_generate_msg_eus(motion
+  "/home/utente/Robotics_ICE23_UNITN/catkin_ws/src/motion/msg/eventResult.msg"
   "${MSG_I_FLAGS}"
   ""
   ${CATKIN_DEVEL_PREFIX}/${geneus_INSTALL_DIR}/motion
@@ -82,7 +120,11 @@ add_custom_target(motion_generate_messages_eus
 add_dependencies(motion_generate_messages motion_generate_messages_eus)
 
 # add dependencies to all check dependencies targets
-get_filename_component(_filename "/home/utente/Robotics_ICE23_UNITN/catkin_ws/src/motion/msg/pos.msg" NAME_WE)
+get_filename_component(_filename "/home/utente/Robotics_ICE23_UNITN/catkin_ws/src/motion/msg/legoTask.msg" NAME_WE)
+add_dependencies(motion_generate_messages_eus _motion_generate_messages_check_deps_${_filename})
+get_filename_component(_filename "/home/utente/Robotics_ICE23_UNITN/catkin_ws/src/motion/msg/legoFound.msg" NAME_WE)
+add_dependencies(motion_generate_messages_eus _motion_generate_messages_check_deps_${_filename})
+get_filename_component(_filename "/home/utente/Robotics_ICE23_UNITN/catkin_ws/src/motion/msg/eventResult.msg" NAME_WE)
 add_dependencies(motion_generate_messages_eus _motion_generate_messages_check_deps_${_filename})
 
 # target for backward compatibility
@@ -95,7 +137,19 @@ list(APPEND ${PROJECT_NAME}_EXPORTED_TARGETS motion_generate_messages_eus)
 ### Section generating for lang: genlisp
 ### Generating Messages
 _generate_msg_lisp(motion
-  "/home/utente/Robotics_ICE23_UNITN/catkin_ws/src/motion/msg/pos.msg"
+  "/home/utente/Robotics_ICE23_UNITN/catkin_ws/src/motion/msg/legoTask.msg"
+  "${MSG_I_FLAGS}"
+  ""
+  ${CATKIN_DEVEL_PREFIX}/${genlisp_INSTALL_DIR}/motion
+)
+_generate_msg_lisp(motion
+  "/home/utente/Robotics_ICE23_UNITN/catkin_ws/src/motion/msg/legoFound.msg"
+  "${MSG_I_FLAGS}"
+  ""
+  ${CATKIN_DEVEL_PREFIX}/${genlisp_INSTALL_DIR}/motion
+)
+_generate_msg_lisp(motion
+  "/home/utente/Robotics_ICE23_UNITN/catkin_ws/src/motion/msg/eventResult.msg"
   "${MSG_I_FLAGS}"
   ""
   ${CATKIN_DEVEL_PREFIX}/${genlisp_INSTALL_DIR}/motion
@@ -115,7 +169,11 @@ add_custom_target(motion_generate_messages_lisp
 add_dependencies(motion_generate_messages motion_generate_messages_lisp)
 
 # add dependencies to all check dependencies targets
-get_filename_component(_filename "/home/utente/Robotics_ICE23_UNITN/catkin_ws/src/motion/msg/pos.msg" NAME_WE)
+get_filename_component(_filename "/home/utente/Robotics_ICE23_UNITN/catkin_ws/src/motion/msg/legoTask.msg" NAME_WE)
+add_dependencies(motion_generate_messages_lisp _motion_generate_messages_check_deps_${_filename})
+get_filename_component(_filename "/home/utente/Robotics_ICE23_UNITN/catkin_ws/src/motion/msg/legoFound.msg" NAME_WE)
+add_dependencies(motion_generate_messages_lisp _motion_generate_messages_check_deps_${_filename})
+get_filename_component(_filename "/home/utente/Robotics_ICE23_UNITN/catkin_ws/src/motion/msg/eventResult.msg" NAME_WE)
 add_dependencies(motion_generate_messages_lisp _motion_generate_messages_check_deps_${_filename})
 
 # target for backward compatibility
@@ -128,7 +186,19 @@ list(APPEND ${PROJECT_NAME}_EXPORTED_TARGETS motion_generate_messages_lisp)
 ### Section generating for lang: gennodejs
 ### Generating Messages
 _generate_msg_nodejs(motion
-  "/home/utente/Robotics_ICE23_UNITN/catkin_ws/src/motion/msg/pos.msg"
+  "/home/utente/Robotics_ICE23_UNITN/catkin_ws/src/motion/msg/legoTask.msg"
+  "${MSG_I_FLAGS}"
+  ""
+  ${CATKIN_DEVEL_PREFIX}/${gennodejs_INSTALL_DIR}/motion
+)
+_generate_msg_nodejs(motion
+  "/home/utente/Robotics_ICE23_UNITN/catkin_ws/src/motion/msg/legoFound.msg"
+  "${MSG_I_FLAGS}"
+  ""
+  ${CATKIN_DEVEL_PREFIX}/${gennodejs_INSTALL_DIR}/motion
+)
+_generate_msg_nodejs(motion
+  "/home/utente/Robotics_ICE23_UNITN/catkin_ws/src/motion/msg/eventResult.msg"
   "${MSG_I_FLAGS}"
   ""
   ${CATKIN_DEVEL_PREFIX}/${gennodejs_INSTALL_DIR}/motion
@@ -148,7 +218,11 @@ add_custom_target(motion_generate_messages_nodejs
 add_dependencies(motion_generate_messages motion_generate_messages_nodejs)
 
 # add dependencies to all check dependencies targets
-get_filename_component(_filename "/home/utente/Robotics_ICE23_UNITN/catkin_ws/src/motion/msg/pos.msg" NAME_WE)
+get_filename_component(_filename "/home/utente/Robotics_ICE23_UNITN/catkin_ws/src/motion/msg/legoTask.msg" NAME_WE)
+add_dependencies(motion_generate_messages_nodejs _motion_generate_messages_check_deps_${_filename})
+get_filename_component(_filename "/home/utente/Robotics_ICE23_UNITN/catkin_ws/src/motion/msg/legoFound.msg" NAME_WE)
+add_dependencies(motion_generate_messages_nodejs _motion_generate_messages_check_deps_${_filename})
+get_filename_component(_filename "/home/utente/Robotics_ICE23_UNITN/catkin_ws/src/motion/msg/eventResult.msg" NAME_WE)
 add_dependencies(motion_generate_messages_nodejs _motion_generate_messages_check_deps_${_filename})
 
 # target for backward compatibility
@@ -161,7 +235,19 @@ list(APPEND ${PROJECT_NAME}_EXPORTED_TARGETS motion_generate_messages_nodejs)
 ### Section generating for lang: genpy
 ### Generating Messages
 _generate_msg_py(motion
-  "/home/utente/Robotics_ICE23_UNITN/catkin_ws/src/motion/msg/pos.msg"
+  "/home/utente/Robotics_ICE23_UNITN/catkin_ws/src/motion/msg/legoTask.msg"
+  "${MSG_I_FLAGS}"
+  ""
+  ${CATKIN_DEVEL_PREFIX}/${genpy_INSTALL_DIR}/motion
+)
+_generate_msg_py(motion
+  "/home/utente/Robotics_ICE23_UNITN/catkin_ws/src/motion/msg/legoFound.msg"
+  "${MSG_I_FLAGS}"
+  ""
+  ${CATKIN_DEVEL_PREFIX}/${genpy_INSTALL_DIR}/motion
+)
+_generate_msg_py(motion
+  "/home/utente/Robotics_ICE23_UNITN/catkin_ws/src/motion/msg/eventResult.msg"
   "${MSG_I_FLAGS}"
   ""
   ${CATKIN_DEVEL_PREFIX}/${genpy_INSTALL_DIR}/motion
@@ -181,7 +267,11 @@ add_custom_target(motion_generate_messages_py
 add_dependencies(motion_generate_messages motion_generate_messages_py)
 
 # add dependencies to all check dependencies targets
-get_filename_component(_filename "/home/utente/Robotics_ICE23_UNITN/catkin_ws/src/motion/msg/pos.msg" NAME_WE)
+get_filename_component(_filename "/home/utente/Robotics_ICE23_UNITN/catkin_ws/src/motion/msg/legoTask.msg" NAME_WE)
+add_dependencies(motion_generate_messages_py _motion_generate_messages_check_deps_${_filename})
+get_filename_component(_filename "/home/utente/Robotics_ICE23_UNITN/catkin_ws/src/motion/msg/legoFound.msg" NAME_WE)
+add_dependencies(motion_generate_messages_py _motion_generate_messages_check_deps_${_filename})
+get_filename_component(_filename "/home/utente/Robotics_ICE23_UNITN/catkin_ws/src/motion/msg/eventResult.msg" NAME_WE)
 add_dependencies(motion_generate_messages_py _motion_generate_messages_check_deps_${_filename})
 
 # target for backward compatibility

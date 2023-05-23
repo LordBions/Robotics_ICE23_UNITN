@@ -66,21 +66,35 @@ include motion/CMakeFiles/motion_generate_messages_eus.dir/compiler_depend.make
 # Include the progress variables for this target.
 include motion/CMakeFiles/motion_generate_messages_eus.dir/progress.make
 
-motion/CMakeFiles/motion_generate_messages_eus: /home/utente/Robotics_ICE23_UNITN/catkin_ws/devel/share/roseus/ros/motion/msg/pos.l
+motion/CMakeFiles/motion_generate_messages_eus: /home/utente/Robotics_ICE23_UNITN/catkin_ws/devel/share/roseus/ros/motion/msg/legoTask.l
+motion/CMakeFiles/motion_generate_messages_eus: /home/utente/Robotics_ICE23_UNITN/catkin_ws/devel/share/roseus/ros/motion/msg/legoFound.l
+motion/CMakeFiles/motion_generate_messages_eus: /home/utente/Robotics_ICE23_UNITN/catkin_ws/devel/share/roseus/ros/motion/msg/eventResult.l
 motion/CMakeFiles/motion_generate_messages_eus: /home/utente/Robotics_ICE23_UNITN/catkin_ws/devel/share/roseus/ros/motion/manifest.l
 
 /home/utente/Robotics_ICE23_UNITN/catkin_ws/devel/share/roseus/ros/motion/manifest.l: /opt/ros/noetic/lib/geneus/gen_eus.py
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --blue --bold --progress-dir=/home/utente/Robotics_ICE23_UNITN/catkin_ws/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_1) "Generating EusLisp manifest code for motion"
 	cd /home/utente/Robotics_ICE23_UNITN/catkin_ws/build/motion && ../catkin_generated/env_cached.sh /usr/bin/python3 /opt/ros/noetic/share/geneus/cmake/../../../lib/geneus/gen_eus.py -m -o /home/utente/Robotics_ICE23_UNITN/catkin_ws/devel/share/roseus/ros/motion motion std_msgs
 
-/home/utente/Robotics_ICE23_UNITN/catkin_ws/devel/share/roseus/ros/motion/msg/pos.l: /opt/ros/noetic/lib/geneus/gen_eus.py
-/home/utente/Robotics_ICE23_UNITN/catkin_ws/devel/share/roseus/ros/motion/msg/pos.l: /home/utente/Robotics_ICE23_UNITN/catkin_ws/src/motion/msg/pos.msg
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --blue --bold --progress-dir=/home/utente/Robotics_ICE23_UNITN/catkin_ws/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_2) "Generating EusLisp code from motion/pos.msg"
-	cd /home/utente/Robotics_ICE23_UNITN/catkin_ws/build/motion && ../catkin_generated/env_cached.sh /usr/bin/python3 /opt/ros/noetic/share/geneus/cmake/../../../lib/geneus/gen_eus.py /home/utente/Robotics_ICE23_UNITN/catkin_ws/src/motion/msg/pos.msg -Imotion:/home/utente/Robotics_ICE23_UNITN/catkin_ws/src/motion/msg -Istd_msgs:/opt/ros/noetic/share/std_msgs/cmake/../msg -p motion -o /home/utente/Robotics_ICE23_UNITN/catkin_ws/devel/share/roseus/ros/motion/msg
+/home/utente/Robotics_ICE23_UNITN/catkin_ws/devel/share/roseus/ros/motion/msg/eventResult.l: /opt/ros/noetic/lib/geneus/gen_eus.py
+/home/utente/Robotics_ICE23_UNITN/catkin_ws/devel/share/roseus/ros/motion/msg/eventResult.l: /home/utente/Robotics_ICE23_UNITN/catkin_ws/src/motion/msg/eventResult.msg
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --blue --bold --progress-dir=/home/utente/Robotics_ICE23_UNITN/catkin_ws/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_2) "Generating EusLisp code from motion/eventResult.msg"
+	cd /home/utente/Robotics_ICE23_UNITN/catkin_ws/build/motion && ../catkin_generated/env_cached.sh /usr/bin/python3 /opt/ros/noetic/share/geneus/cmake/../../../lib/geneus/gen_eus.py /home/utente/Robotics_ICE23_UNITN/catkin_ws/src/motion/msg/eventResult.msg -Imotion:/home/utente/Robotics_ICE23_UNITN/catkin_ws/src/motion/msg -Istd_msgs:/opt/ros/noetic/share/std_msgs/cmake/../msg -p motion -o /home/utente/Robotics_ICE23_UNITN/catkin_ws/devel/share/roseus/ros/motion/msg
+
+/home/utente/Robotics_ICE23_UNITN/catkin_ws/devel/share/roseus/ros/motion/msg/legoFound.l: /opt/ros/noetic/lib/geneus/gen_eus.py
+/home/utente/Robotics_ICE23_UNITN/catkin_ws/devel/share/roseus/ros/motion/msg/legoFound.l: /home/utente/Robotics_ICE23_UNITN/catkin_ws/src/motion/msg/legoFound.msg
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --blue --bold --progress-dir=/home/utente/Robotics_ICE23_UNITN/catkin_ws/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_3) "Generating EusLisp code from motion/legoFound.msg"
+	cd /home/utente/Robotics_ICE23_UNITN/catkin_ws/build/motion && ../catkin_generated/env_cached.sh /usr/bin/python3 /opt/ros/noetic/share/geneus/cmake/../../../lib/geneus/gen_eus.py /home/utente/Robotics_ICE23_UNITN/catkin_ws/src/motion/msg/legoFound.msg -Imotion:/home/utente/Robotics_ICE23_UNITN/catkin_ws/src/motion/msg -Istd_msgs:/opt/ros/noetic/share/std_msgs/cmake/../msg -p motion -o /home/utente/Robotics_ICE23_UNITN/catkin_ws/devel/share/roseus/ros/motion/msg
+
+/home/utente/Robotics_ICE23_UNITN/catkin_ws/devel/share/roseus/ros/motion/msg/legoTask.l: /opt/ros/noetic/lib/geneus/gen_eus.py
+/home/utente/Robotics_ICE23_UNITN/catkin_ws/devel/share/roseus/ros/motion/msg/legoTask.l: /home/utente/Robotics_ICE23_UNITN/catkin_ws/src/motion/msg/legoTask.msg
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --blue --bold --progress-dir=/home/utente/Robotics_ICE23_UNITN/catkin_ws/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_4) "Generating EusLisp code from motion/legoTask.msg"
+	cd /home/utente/Robotics_ICE23_UNITN/catkin_ws/build/motion && ../catkin_generated/env_cached.sh /usr/bin/python3 /opt/ros/noetic/share/geneus/cmake/../../../lib/geneus/gen_eus.py /home/utente/Robotics_ICE23_UNITN/catkin_ws/src/motion/msg/legoTask.msg -Imotion:/home/utente/Robotics_ICE23_UNITN/catkin_ws/src/motion/msg -Istd_msgs:/opt/ros/noetic/share/std_msgs/cmake/../msg -p motion -o /home/utente/Robotics_ICE23_UNITN/catkin_ws/devel/share/roseus/ros/motion/msg
 
 motion_generate_messages_eus: motion/CMakeFiles/motion_generate_messages_eus
 motion_generate_messages_eus: /home/utente/Robotics_ICE23_UNITN/catkin_ws/devel/share/roseus/ros/motion/manifest.l
-motion_generate_messages_eus: /home/utente/Robotics_ICE23_UNITN/catkin_ws/devel/share/roseus/ros/motion/msg/pos.l
+motion_generate_messages_eus: /home/utente/Robotics_ICE23_UNITN/catkin_ws/devel/share/roseus/ros/motion/msg/eventResult.l
+motion_generate_messages_eus: /home/utente/Robotics_ICE23_UNITN/catkin_ws/devel/share/roseus/ros/motion/msg/legoFound.l
+motion_generate_messages_eus: /home/utente/Robotics_ICE23_UNITN/catkin_ws/devel/share/roseus/ros/motion/msg/legoTask.l
 motion_generate_messages_eus: motion/CMakeFiles/motion_generate_messages_eus.dir/build.make
 .PHONY : motion_generate_messages_eus
 
