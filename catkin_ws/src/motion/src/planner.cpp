@@ -156,23 +156,13 @@ bool is_vision_msg_received = false;    // if planner receives a command from vi
 
 double un_momento;                      // time
 
-// struct used to coordinate messages between vision and planner
-struct ExecutingTask {
-        int command_id;
-        double request_time;
-        bool busy;        
-};
-
-ExecutingTask vision_eseguendo;
-
 // struct used to coordinate messages between planner and movement
 struct WaitingTask {
         int command_id;
-        double request_time;
-        bool attesa;
+        bool busy;
 };
 
-WaitingTask movement_attesa;
+WaitingTask movement_task, vision_task;
 
 // message used by vision to talk to planner
 motion::legoFound msg_lego_detect;
@@ -225,8 +215,8 @@ int main(int argc, char **argv) {
 
         ros::Rate loop_rate(loop_wait_rate);
 
-        movement_attesa.attesa = false;
-        vision_eseguendo.busy = false;
+        movement_task.busy = false;
+        vision_task.busy = false;
 
         cout << "----------------------------" << endl;
         cout << "Planner module ready!" << endl;
@@ -237,7 +227,7 @@ int main(int argc, char **argv) {
         cout << "Moviment module connected!" << endl;
 
         ungraspCommand(); 
-        while (ros::ok() && movement_attesa.attesa) {
+        while (ros::ok() && movement_task.busy) {
 
                 if (quit_planner) { break; }
 
@@ -245,7 +235,7 @@ int main(int argc, char **argv) {
         } 
 
         homingCommand();
-        while (ros::ok() && movement_attesa.attesa) {
+        while (ros::ok() && movement_task.busy) {
 
                 if (quit_planner) { break; }
 
@@ -256,15 +246,14 @@ int main(int argc, char **argv) {
 
                 if (quit_planner) { break; }
                                               
-                if (is_vision_msg_received && !vision_eseguendo.busy) {    
+                if (is_vision_msg_received && !vision_task.busy) {    
 
                         is_vision_msg_received = false;
 
                         if (msg_lego_detect.send_ack) {
 
-                                vision_eseguendo.command_id = msg_lego_detect.command_id;
-                                vision_eseguendo.request_time = msg_lego_detect.date_time;
-                                vision_eseguendo.busy = true;
+                                vision_task.command_id = msg_lego_detect.command_id;
+                                vision_task.busy = true;
                         }
 
                         Eigen::Vector3f position2move;
@@ -300,6 +289,7 @@ void subDetectCommanderCallback(const motion::legoFound::ConstPtr &msg_detect) {
                 quit_planner = false;
 
                 msg_lego_detect.command_id = msg_detect->command_id;
+                msg_lego_detect.send_ack = msg_detect->send_ack; 
                 msg_lego_detect.lego_class = msg_detect->lego_class;
                 msg_lego_detect.coord_x = msg_detect->coord_x;
                 msg_lego_detect.coord_y = msg_detect->coord_y;
@@ -307,9 +297,6 @@ void subDetectCommanderCallback(const motion::legoFound::ConstPtr &msg_detect) {
                 msg_lego_detect.rot_roll = msg_detect->rot_roll;
                 msg_lego_detect.rot_pitch = msg_detect->rot_pitch;
                 msg_lego_detect.rot_yaw = msg_detect->rot_yaw;
-                msg_lego_detect.date_time = msg_detect->date_time;
-                msg_lego_detect.comment = msg_detect->comment;    
-                msg_lego_detect.send_ack = msg_detect->send_ack; 
 
                 is_vision_msg_received = true; 
 
@@ -317,6 +304,7 @@ void subDetectCommanderCallback(const motion::legoFound::ConstPtr &msg_detect) {
                 cout << "Subscriber: " << sub_detect_commander << " receved some data:" << endl;      
                 cout << "---------------------------------------" << endl;   
                 cout << "Command ID " << msg_detect->command_id << endl;
+                cout << "Send ack: " << msg_detect->send_ack << endl;
                 cout << "Lego class: " << msg_detect->lego_class << endl;
                 cout << "X coordinate: " << msg_detect->coord_x << endl;
                 cout << "Y coordinate: " << msg_detect->coord_y << endl;
@@ -324,9 +312,6 @@ void subDetectCommanderCallback(const motion::legoFound::ConstPtr &msg_detect) {
                 cout << "Roll orientation: " << msg_detect->rot_roll << endl;
                 cout << "Pitch orientation: " << msg_detect->rot_pitch << endl;
                 cout << "Yaw orientation: " << msg_detect->rot_yaw << endl;
-                cout << "Request datetime: " << msg_detect->date_time << endl;
-                cout << "Comment: " << msg_detect->comment << endl;
-                cout << "Send ack: " << msg_detect->send_ack << endl;
                 cout << "---------------------------------------" << endl;
                 
         } else if (msg_detect->command_id == command_quit) {
@@ -345,11 +330,8 @@ void subDetectCommanderCallback(const motion::legoFound::ConstPtr &msg_detect) {
 
 void pubDetectResulter(int risultato) {
 
-        msg_evento_detect.event_id = vision_eseguendo.command_id;
+        msg_evento_detect.event_id = vision_task.command_id;
         msg_evento_detect.result_id = risultato;
-        msg_evento_detect.start_time = vision_eseguendo.request_time;
-        msg_evento_detect.duration_time = getInterval(vision_eseguendo.request_time);
-        msg_evento_detect.comment = "Automatic result message";
         pub_detect_resulter_handle.publish(msg_evento_detect);
 
         cout << "---------------------------------------" << endl;
@@ -357,15 +339,11 @@ void pubDetectResulter(int risultato) {
         cout << "---------------------------------------" << endl;
         cout << "Event ID: " << msg_evento_detect.event_id << endl;
         cout << "Result ID: " << msg_evento_detect.result_id << endl;
-        cout << "Start time: " << msg_evento_detect.start_time << endl;
-        cout << "Duration time: " << msg_evento_detect.duration_time << endl;
-        cout << "Comment: " << msg_evento_detect.comment << endl;
         cout << "---------------------------------------" << endl;
 }
 
 void pubTaskCommander(bool s_ack) {
 
-        msg_taskCommand.date_time = getTimeNow();
         msg_taskCommand.send_ack = s_ack;
         pub_task_commander_handle.publish(msg_taskCommand);
 
@@ -373,6 +351,8 @@ void pubTaskCommander(bool s_ack) {
         cout << "Publisher: " << pub_task_commander << " sent some data:" << endl;
         cout << "---------------------------------------" << endl;
         cout << "Command ID: " << msg_taskCommand.command_id << endl;
+        cout << "Ack: " << msg_taskCommand.send_ack << endl;
+        cout << "Wait time: " << msg_taskCommand.w_time << endl;       
         cout << "Is real robot: " << msg_taskCommand.real_robot << endl;
         cout << "X coordinate: " << msg_taskCommand.coord_x << endl;
         cout << "Y coordinate: " << msg_taskCommand.coord_y << endl;
@@ -388,22 +368,18 @@ void pubTaskCommander(bool s_ack) {
         cout << "Pitch destination orientation: " << msg_taskCommand.dest_pitch << endl;
         cout << "Yaw destination orientation: " << msg_taskCommand.dest_yaw << endl;
         cout << "Lego ungasp diameter " << msg_taskCommand.ungasp_diam << endl; 
-        cout << "Date time: " << msg_taskCommand.date_time << endl;
-        cout << "Comment: " << msg_taskCommand.comment << endl; 
-        cout << "Ack: " << msg_taskCommand.send_ack << endl;
         cout << "---------------------------------------" << endl;
 
         if (s_ack) {
 
-                movement_attesa.command_id = msg_taskCommand.command_id;
-                movement_attesa.request_time = msg_taskCommand.date_time;
-                movement_attesa.attesa = true;
+                movement_task.command_id = msg_taskCommand.command_id;
+                movement_task.busy = true;
 
-                cout << "Processo " << movement_attesa.command_id << " messo in attesa" << endl;
+                cout << "Processo " << movement_task.command_id << " messo in attesa" << endl;
         
         } else {
 
-                movement_attesa.attesa = false;                
+                movement_task.busy = false;                
         }        
 }
 
@@ -411,37 +387,31 @@ void subTaskResulterCallback(const motion::eventResult::ConstPtr &msg_event) {
 
         msg_evento_task.event_id = msg_event->event_id;
         msg_evento_task.result_id = msg_event->result_id;
-        msg_evento_task.start_time = msg_event->start_time;
-        msg_evento_task.duration_time = msg_event->duration_time;
-        msg_evento_task.comment = msg_event->comment;
 
         cout << "---------------------------------------" << endl;
         cout << "Subscriber: " << sub_task_resulter << " receved some data:" << endl;
         cout << "---------------------------------------" << endl;
         cout << "Event ID: " << msg_event->event_id << endl;
         cout << "Result ID: " << msg_event->result_id << endl;
-        cout << "Start time: " << msg_event->start_time << endl;
-        cout << "Duration time: " << msg_event->duration_time << endl;
-        cout << "Comment: " << msg_event->comment << endl;
         cout << "---------------------------------------" << endl;
 
-        if (movement_attesa.attesa) {
+        if (movement_task.busy) {
 
-                if (movement_attesa.command_id == msg_evento_task.event_id && movement_attesa.request_time == msg_evento_task.start_time) {
+                if (movement_task.command_id == msg_evento_task.event_id) {
 
-                        movement_attesa.attesa = false;
-                        cout << "Processo " << movement_attesa.command_id << " completato" << endl;
+                        movement_task.busy = false;
+                        cout << "Processo " << movement_task.command_id << " completato" << endl;
                 }
                 
         }
 
-        if (vision_eseguendo.busy) {
+        if (vision_task.busy) {
 
-                if (msg_evento_task.event_id == command_catch && vision_eseguendo.command_id == command_detect) {
+                if (msg_evento_task.event_id == command_catch && vision_task.command_id == command_detect) {
 
                         pubDetectResulter(msg_evento_task.result_id);
-                        vision_eseguendo.busy = false;
-                        cout << "Task visione " << vision_eseguendo.command_id << " completato" << endl;
+                        vision_task.busy = false;
+                        cout << "Task visione " << vision_task.command_id << " completato" << endl;
                 }
         }
         
@@ -478,7 +448,6 @@ void ungraspCommand() {
         msg_taskCommand.command_id = command_ungrasp; 
         msg_taskCommand.real_robot = is_real_robot;
         msg_taskCommand.ungasp_diam = default_ungrasp_diam;
-        msg_taskCommand.comment = "Automatic command generation by planner module";
         pubTaskCommander(request_motion_ack);
 }
 
@@ -486,7 +455,6 @@ void homingCommand() {
 
         msg_taskCommand.command_id = command_def_pos; 
         msg_taskCommand.real_robot = is_real_robot;
-        msg_taskCommand.comment = "Automatic command generation by planner module";
         pubTaskCommander(request_motion_ack);
 }
 
@@ -500,7 +468,6 @@ void catchCommand(Eigen::Vector3f position) {
         msg_taskCommand.rot_roll = msg_lego_detect.rot_roll;
         msg_taskCommand.rot_pitch = msg_lego_detect.rot_pitch;
         msg_taskCommand.rot_yaw = msg_lego_detect.rot_yaw;
-        msg_taskCommand.comment = "Automatic command generation by planner module";
 
         selectClass(msg_lego_detect.lego_class);
         pubTaskCommander(request_motion_ack);

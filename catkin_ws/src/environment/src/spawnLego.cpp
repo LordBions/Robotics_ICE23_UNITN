@@ -38,7 +38,7 @@ using namespace std;
 #define max_rotation 2 * M_PI
 #define min_rotation 0
 
-#define table_max_x 0.50
+#define table_max_x 0.40
 #define table_min_x 0.05
 #define table_max_y 0.75
 #define table_min_y 0.20
@@ -62,7 +62,8 @@ using namespace std;
 #define max_lego_in_table 11
 #define loop_wait_rate 0.75
 
-#define max_random_position_iterations 50
+#define max_random_position_iterations 100
+#define default_min_d_between 0.12
 
 ros::ServiceClient cli_spawner_commander_handle, cli_delete_commander_handle;
 ros::Publisher pub_spawner_ack_handle;
@@ -394,7 +395,7 @@ double randomInInterval(double max_d, double min_d) {
 
 int randomNumber(int max_n) {
 
-        int random_n = rand() % max_n;
+        int random_n = rand() % (max_n + 1);
         return random_n;       
 }
 
@@ -413,7 +414,7 @@ void assignment2() {
 
         for (int i = 0; i < type_numbers_of_legos; i++) {
                 
-                spawnLego(true, false, i, -1, 0.08);
+                spawnLego(true, false, i, -1, default_min_d_between);
         }
 
         cout << "Ready for assignment 2!" << endl;
@@ -447,24 +448,7 @@ void special2() {
 
         for (int i = 0; i < max_lego_spawn; i++) {     
 
-                spawnLego(true, true,10); 
-                spawnLego(true, true,10); 
-
-                spawnLego(true, true,9); 
-                spawnLego(true, true,9); 
-                spawnLego(true, true,9); 
-
                 spawnLego(true, true,1); 
-                spawnLego(true, true,1); 
-                spawnLego(true, true,1); 
-                spawnLego(true, true,1); 
-
-                spawnLego(true, true,6); 
-
-                spawnLego(true, true,3); 
-                spawnLego(true, true,3);
-
-                spawnLego(true, true,7); 
 
                 waitCommand();        
                 deleteAllLego();        

@@ -108,7 +108,7 @@ motion::legoTask task_command;
 // Ack used to response
 motion::eventResult evento;
 
-// 
+// variable to store the success of the task
 int risultato_var;
 
 double un_momento;
@@ -116,7 +116,6 @@ double un_momento;
 // struct used to coordinate messages between planner and movement
 struct ExecutingTask {
         int command_id;         // used to understand which task movement must execute
-        double request_time;    // time to complete the task
         bool busy;              // It shows if the movement is performing a task or not
 };
 
@@ -209,6 +208,8 @@ void taskCommanderCallback(const motion::legoTask::ConstPtr &msg_taskCommand) {
         }
 
         task_command.command_id = msg_taskCommand->command_id;
+        task_command.send_ack = msg_taskCommand->send_ack;
+        task_command.w_time = msg_taskCommand->w_time;
         task_command.real_robot = msg_taskCommand->real_robot;
         task_command.coord_x = msg_taskCommand->coord_x;
         task_command.coord_y = msg_taskCommand->coord_y;
@@ -224,15 +225,13 @@ void taskCommanderCallback(const motion::legoTask::ConstPtr &msg_taskCommand) {
         task_command.dest_pitch = msg_taskCommand->dest_pitch;
         task_command.dest_yaw = msg_taskCommand->dest_yaw;
         task_command.ungasp_diam = msg_taskCommand->ungasp_diam;
-        task_command.w_time = msg_taskCommand->w_time;
-        task_command.date_time = msg_taskCommand->date_time;
-        task_command.comment = msg_taskCommand->comment;
-        task_command.send_ack = msg_taskCommand->send_ack;
 
         cout << "---------------------------------------" << endl;
         cout << "Subscriber: " << sub_task_commander << " receved some data:" << endl;
         cout << "---------------------------------------" << endl;
         cout << "Command id: " << msg_taskCommand->command_id << endl;
+        cout << "Send ack: " << msg_taskCommand->send_ack << endl;
+        cout << "Wait time: " << msg_taskCommand->w_time << endl;        
         cout << "Is real robot: " << msg_taskCommand->real_robot << endl;
         cout << "X coordinate: " << msg_taskCommand->coord_x << endl;
         cout << "Y coordinate: " << msg_taskCommand->coord_y << endl;
@@ -248,16 +247,11 @@ void taskCommanderCallback(const motion::legoTask::ConstPtr &msg_taskCommand) {
         cout << "Pitch destination orientation: " << msg_taskCommand->dest_pitch << endl;
         cout << "Yaw destination orientation: " << msg_taskCommand->dest_yaw<< endl;
         cout << "Lego ungasp diameter: " << msg_taskCommand->ungasp_diam << endl;
-        cout << "Wait time: " << msg_taskCommand->w_time << endl;
-        cout << "Request Date time: " << msg_taskCommand->date_time << endl;
-        cout << "Comment: " << msg_taskCommand->comment << endl;
-        cout << "Send ack: " << msg_taskCommand->send_ack << endl;
         cout << "---------------------------------------" << endl;
 
         if (task_command.send_ack) {
 
                 planner_eseguendo.command_id = task_command.command_id;
-                planner_eseguendo.request_time = task_command.date_time;
                 planner_eseguendo.busy = true;
         }
 
@@ -319,9 +313,7 @@ void pubTaskResulter(int risultato) {
   
         evento.event_id = planner_eseguendo.command_id;
         evento.result_id = risultato;
-        evento.start_time = planner_eseguendo.request_time;
-        evento.duration_time = getInterval(planner_eseguendo.request_time);
-        evento.comment = "Automatic result message";
+
         pub_task_resulter_handle.publish(evento);       
 
         cout << "---------------------------------------" << endl;
@@ -329,9 +321,6 @@ void pubTaskResulter(int risultato) {
         cout << "---------------------------------------" << endl;
         cout << "Event ID: " << evento.event_id << endl;
         cout << "Result ID: " << evento.result_id << endl;
-        cout << "Start time: " << evento.start_time << endl;
-        cout << "Duration time: " << evento.duration_time << endl;
-        cout << "Comment: " << evento.comment << endl;
         cout << "---------------------------------------" << endl;
 }
 
