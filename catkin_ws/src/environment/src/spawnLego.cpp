@@ -94,9 +94,10 @@ int spawn_counter = 0;
 void readParams(int argc, char **argv);
 void defaultFunction();
 void unknownUsage();
-bool spawnLego(bool random_pos, bool random_or, int lego_class = -1, int colour_index = -1, double min_dis= 0 );
+bool spawnLego(bool random_pos, bool random_or, bool keep_base_down = false, int lego_class = -1, int colour_index = -1, double min_dis= 0 );
 string getModelXML(string model_name);
 void calculateRandomOr();
+void calculateBaseDown();
 bool calculateRandomPose(double max_x, double min_x, double max_y, double min_y, double min_distance = 0);
 string setColour( string l_xml, int color_index = -1); 
 bool cliSpawnObjectRequest();
@@ -191,7 +192,7 @@ void defaultFunction() {
         cout << "Default function selected" << endl;
 }
 
-bool spawnLego(bool random_pos, bool random_or, int lego_class, int colour_index, double min_dis ) { 
+bool spawnLego(bool random_pos, bool random_or, bool keep_base_down, int lego_class, int colour_index, double min_dis ) { 
 
         if (random_pos) { 
                 
@@ -203,7 +204,11 @@ bool spawnLego(bool random_pos, bool random_or, int lego_class, int colour_index
 
         }
         
-        if (random_or) { calculateRandomOr(); }
+        if (random_or) { 
+                
+                if (keep_base_down) { calculateBaseDown(); }
+                else { calculateRandomOr(); }        
+        }
 
         if (lego_class == -1) { 
         
@@ -283,6 +288,14 @@ void calculateRandomOr() {
         pose_object.orientation.x = randomInInterval(max_vector,min_vector);
         pose_object.orientation.y = randomInInterval(max_vector,min_vector);
         pose_object.orientation.z = randomInInterval(max_vector,min_vector);
+        pose_object.orientation.w = randomInInterval(max_rotation,min_rotation);
+}
+
+void calculateBaseDown() {
+
+        pose_object.orientation.x = 0;
+        pose_object.orientation.y = 0;
+        pose_object.orientation.z = 1;
         pose_object.orientation.w = randomInInterval(max_rotation,min_rotation);
 }
 
@@ -403,7 +416,7 @@ void assignment1() {
 
         cout << "Assignment 1 selected!" << endl;
 
-        spawnLego(true, false);
+        spawnLego(true, false); // 1 lego random pos, no random or
 
         cout << "Ready for assignment 1!" << endl;
 }
@@ -412,9 +425,9 @@ void assignment2() {
 
         cout << "Assignment 2 selected!" << endl;
 
-        for (int i = 0; i < type_numbers_of_legos; i++) {
+        for (int i = 0; i < type_numbers_of_legos; i++) { // tutte le classi
                 
-                spawnLego(true, false, i, -1, default_min_d_between);
+                spawnLego(true, true, true, i, -1, default_min_d_between); // base in giu, random pos e random or
         }
 
         cout << "Ready for assignment 2!" << endl;
@@ -425,11 +438,23 @@ void assignment3() {
 
         cout << "Assignment 3 selected!" << endl;
 
+        for (int i = 0; i < 8; i++) { // 8 lego a caso
+                
+                spawnLego(true, true, false, -1, -1, default_min_d_between); // random pos, random or, no base giu
+        }
+
+        cout << "Ready for assignment 3!" << endl;        
+
 }
 
 void assignment4() {
 
         cout << "Assignment 4 selected!" << endl;
+
+
+        ////////////////////////////////////
+
+        cout << "Ready for assignment 4!" << endl;
 
 }
 
