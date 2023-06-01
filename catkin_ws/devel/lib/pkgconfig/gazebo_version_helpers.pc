@@ -1,8 +1,0 @@
-prefix=/home/utente/Robotics_ICE23_UNITN/catkin_ws/devel
-
-Name: gazebo_version_helpers
-Description: Description of gazebo_version_helpers
-Version: 0.0.0
-Cflags: -I/home/utente/Robotics_ICE23_UNITN/catkin_ws/src/robot_urdf/gripper_description/grasping_plugin/gazebo_version_helpers/include
-Libs: -L${prefix}/lib -lgazebo_version_helpers
-Requires: gazebo_ros roscpp

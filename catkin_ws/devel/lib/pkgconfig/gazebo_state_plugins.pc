@@ -1,8 +1,0 @@
-prefix=/home/utente/Robotics_ICE23_UNITN/catkin_ws/devel
-
-Name: gazebo_state_plugins
-Description: Description of gazebo_state_plugins
-Version: 1.0.2
-Cflags: -I/home/utente/Robotics_ICE23_UNITN/catkin_ws/src/robot_urdf/gripper_description/grasping_plugin/gazebo_state_plugins/include
-Libs: -L${prefix}/lib -lgazebo_state_plugins -lgazebo_map_publisher
-Requires: geometry_msgs roscpp shape_msgs std_msgs nav_msgs gazebo_world_plugin_loader gazebo_ros object_msgs object_msgs_tools eigen_conversions gazebo_ros

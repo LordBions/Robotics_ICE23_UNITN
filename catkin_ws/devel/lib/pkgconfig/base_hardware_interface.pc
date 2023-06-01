@@ -1,8 +1,0 @@
-prefix=/home/utente/Robotics_ICE23_UNITN/catkin_ws/devel
-
-Name: base_hardware_interface
-Description: Description of base_hardware_interface
-Version: 0.0.1
-Cflags: -I/home/utente/Robotics_ICE23_UNITN/catkin_ws/src/robot_urdf/base_hardware_interface/include
-Libs: -L${prefix}/lib -lbase_robot_hw
-Requires: 

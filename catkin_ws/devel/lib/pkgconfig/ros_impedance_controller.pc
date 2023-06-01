@@ -1,8 +1,0 @@
-prefix=/home/utente/Robotics_ICE23_UNITN/catkin_ws/devel
-
-Name: ros_impedance_controller
-Description: Description of ros_impedance_controller
-Version: 0.0.0
-Cflags: -I/home/utente/Robotics_ICE23_UNITN/catkin_ws/devel/include -I/home/utente/Robotics_ICE23_UNITN/catkin_ws/src/locosim/include
-Libs: -L${prefix}/lib -lros_impedance_controller
-Requires: message_runtime sensor_msgs geometry_msgs
