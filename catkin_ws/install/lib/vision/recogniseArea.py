@@ -8,13 +8,16 @@ from pathlib import Path
 import sys
 import os
 
-file_path = Path(__file__).resolve()
-root_path = file_path.parents[0]
-if str(root_path) not in sys.path:
-    sys.path.append(str(root_path))  # add ROOT to PATH
+FILE = Path(__file__).resolve()
 
-root_path = Path(os.path.relpath(root_path, Path.cwd()))  # relative
-is_real_robot = False
+ROOT = FILE.parents[0]
+
+if str(ROOT) not in sys.path:
+    sys.path.append(str(ROOT))  # add ROOT to PATH
+
+ROOT = Path(os.path.relpath(ROOT, Path.cwd()))  # relative
+
+USING_REAL_CAM = False
 
 class RecogniseArea:
     # @brief This class defines custom Region Of Interest
@@ -34,7 +37,7 @@ class RecogniseArea:
         #create a mask of the same size of the image
         mask = np.zeros(self.img.shape[0:2], dtype=np.uint8)
         # check if the image is from real camera or simulation camera
-        if is_real_robot:
+        if USING_REAL_CAM:
             points = np.array([[[457,557], [555,272], [779,267], [960,532]]])
         else:
             points = np.array([[[845,409], [1201,412], [1545,913], [658, 921]]])
@@ -52,7 +55,20 @@ class RecogniseArea:
         # cv2.waitKey(0)
         cv2.destroyAllWindows()
 
-if __name__ == '__main__':
+# ---------------------- MAIN ----------------------
+# To use in command:
+# python3 recogniseArea.py /path/to/input/img /path/to/output/img
 
+if __name__ == '__main__':
     roi = RecogniseArea(img_path=sys.argv[1], output_path=sys.argv[2])
     roi.run()
+
+
+
+
+
+
+
+
+
+

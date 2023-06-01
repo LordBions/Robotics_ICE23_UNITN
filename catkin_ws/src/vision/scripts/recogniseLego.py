@@ -13,21 +13,28 @@ from IPython.display import display
 from PIL import Image
 from recogniseArea import RecogniseArea
 
-file_path = Path(__file__).resolve()
-root_path = file_path.parents[0]
-if str(root_path) not in sys.path:
-    sys.path.append(str(root_path))  # add root to PATH
+FILE = Path(__file__).resolve()
 
-root_path = Path(os.path.relpath(root_path, Path.cwd()))  # relative
-pkg_vision_path = os.path.abspath(os.path.join(root_path, ".."))
-zed_roi_image = os.path.join(pkg_vision_path, "../../src/vision/images/img_Area.png")
-weights_path = os.path.join(pkg_vision_path, "../../install/include/vision/include/best.pt")
-pkg_yolo_path = os.path.join(pkg_vision_path, "include/yolo5")
-lego_model = torch.hub.load('ultralytics/yolov5', 'custom', weights_path)
+ROOT = FILE.parents[0]
 
-min_level_confidence = 0.51 # minimum confidence
+if str(ROOT) not in sys.path:
+    sys.path.append(str(ROOT))  # add ROOT to PATH
 
-lego_models_list = [  'X1-Y1-Z2',
+ROOT = Path(os.path.relpath(ROOT, Path.cwd()))  # relative
+
+VISION_PATH = os.path.abspath(os.path.join(ROOT, ".."))
+
+IMG_ROI = os.path.join(VISION_PATH, "../../src/vision/images/img_Area.png")
+
+WEIGHTS_PATH = os.path.join(VISION_PATH, "../../install/include/vision/include/weights.pt")
+
+YOLO_PATH = os.path.join(VISION_PATH, "include/yolo5")
+
+CONFIDENCE = 0.51 # minimum confidence
+
+MODEL = torch.hub.load('ultralytics/yolov5', 'custom', WEIGHTS_PATH)
+
+LEGO_NAMES = [  'X1-Y1-Z2',
                 'X1-Y2-Z1',
                 'X1-Y2-Z2',
                 'X1-Y2-Z2-CHAMFER',
@@ -46,8 +53,8 @@ class RecogniseLego:
         # @brief Class constructor
         # @param img_path (String): path of input image
         
-        lego_model.conf = min_level_confidence
-        lego_model.multi_label = False
+        MODEL.conf = CONFIDENCE
+        MODEL.multi_label = False
         # MODEL.iou = 0.5
     
         self.lego_list = []
@@ -83,10 +90,10 @@ class RecogniseLego:
         #  @param img_path (String): path of input image
         
         print('Draw working Area')
-        roi = RecogniseArea(img_path, zed_roi_image)
+        roi = RecogniseArea(img_path, IMG_ROI)
         roi.run_auto()
         print('Detecting working area...')
-        self.detect(zed_roi_image)
+        self.detect(IMG_ROI)
 
     def detect(self, img_path):
         # @brief This function pass the image path to the model and calculate bounding boxes for each object
@@ -95,7 +102,7 @@ class RecogniseLego:
         self.lego_list.clear()
 
         # Detection model
-        self.results = lego_model(img_path)
+        self.results = MODEL(img_path)
         self.results.show()
         img = Image.open(img_path)
         print(img_path)
@@ -138,7 +145,7 @@ class Lego:
         #    @param img_source_path (String): path to image
 
         self.name = name
-        self.class_id = lego_models_list.index(name)
+        self.class_id = LEGO_NAMES.index(name)
         self.confidence = conf
         self.xmin = x1
         self.ymin = y1
@@ -174,6 +181,10 @@ class Lego:
         print('--> point world =', self.point_world)
         print()
 
-if __name__ == '__main__':
+# ---------------------- MAIN ----------------------
+# To use in command:
+# python3 recogniseLego.py /path/to/img...
 
+if __name__ == '__main__':
     legoDetect = LegoDetect(img_origin_path=sys.argv[1])
+

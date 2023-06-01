@@ -37,7 +37,6 @@
  
                      <pose>0 0 0 0 -0 0</pose>
                     
-                    
                      <geometry> 
                          <mesh> 
                              <uri>model://X1-Y3-Z2/mesh/X1-Y3-Z2.stl</uri> 
@@ -60,7 +59,7 @@
                          <script> 
                              <uri>file://media/materials/scripts/gazebo.material</uri>
 
-                             <name>Gazebo/Green</name>
+                             <name>Gazebo/Red</name>
                          </script>
                          <shader type="vertex">
                            <normal_map>__default__</normal_map>

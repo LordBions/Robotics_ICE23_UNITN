@@ -90,7 +90,7 @@ using namespace std;
 #define max_diameter_ext 130 // max fingers space  
 #define min_diameter_ext 22 // min  fingers space
 
-bool verbose_flag = true;
+bool verbose_flag = false;
 
 // Declares publishers
 ros::Publisher pub_joint_commander_handle, pub_task_resulter_handle;

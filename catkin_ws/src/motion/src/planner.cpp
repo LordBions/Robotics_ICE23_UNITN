@@ -140,7 +140,7 @@ using namespace std;
 // default value for ungrasp diameter
 #define default_ungrasp_diam 100
 
-bool verbose_flag = true;
+bool verbose_flag = false;
 
 // Publishers
 ros::Publisher pub_task_commander_handle, pub_detect_resulter_handle; 
@@ -230,6 +230,14 @@ int main(int argc, char **argv) {
         cout << "Moviment module connected!" << endl;
 
         ungraspCommand(); 
+        while (ros::ok() && movement_task.busy) {
+
+                if (quit_planner) { break; }
+
+                ros::spinOnce();
+        } 
+
+        homingCommand(); 
         while (ros::ok() && movement_task.busy) {
 
                 if (quit_planner) { break; }
