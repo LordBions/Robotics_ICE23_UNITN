@@ -25,7 +25,7 @@ weights_path = os.path.join(pkg_vision_path, "../../install/include/vision/inclu
 pkg_yolo_path = os.path.join(pkg_vision_path, "include/yolo5")
 lego_model = torch.hub.load('ultralytics/yolov5', 'custom', weights_path)
 
-min_level_confidence = 0.51 # minimum confidence
+min_level_confidence = 0.75 # minimum confidence
 
 lego_models_list = [  'X1-Y1-Z2',
                 'X1-Y2-Z1',
@@ -53,42 +53,16 @@ class RecogniseLego:
         self.lego_list = []
         self.detect(img_path)
 
-        # Let user choose detect method
-        choice = '0'
-        while True:
-            while (choice != '1' and choice != '2' and choice != ''):
-                ask =  ('\nContinue     (ENTER)'+
-                        '\nDetect again (1)'+
-                        '\nDetect ROI   (2)'+
-                        '\nchoice ----> ')
-                choice = input(ask)
-
-            # Continue
-            if choice == '':
-                break
-
-            # Detect again using original image
-            if choice == '1':
-                print('Detecting again...')
-                self.detect(img_path)
-                choice = '0'
-
-            # Detect using ROI
-            if choice == '2':
-                self.detect_ROI(img_path)
-                choice = '0'
-
-    def detect_ROI(self, img_path):
+    def recogniseArea(self, img_path):
         # @brief Detect using Region Of Interest
         #  @param img_path (String): path of input image
         
-        print('Draw working Area')
+        print('Selected table area only')
         roi = RecogniseArea(img_path, zed_roi_image)
         roi.run_auto()
-        print('Detecting working area...')
         self.detect(zed_roi_image)
 
-    def detect(self, img_path):
+    def recognise(self, img_path):
         # @brief This function pass the image path to the model and calculate bounding boxes for each object
         #  @param img_path (String): path of input image
         

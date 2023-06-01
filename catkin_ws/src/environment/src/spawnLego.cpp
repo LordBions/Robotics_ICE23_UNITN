@@ -25,7 +25,7 @@ using namespace std;
 #define sub_spawner_commander "/vision/spawnerCommander"
 #define pub_spawner_ack "/vision/spawnerAck"
 
-#define models_path "/home/utente/Robotics_ICE23_UNITN/catkin_ws/src/locosim/worlds/models/"
+#define models_path "/Robotics_ICE23_UNITN/catkin_ws/src/environment/legos/"
 #define default_model_file "/model.sdf"
 #define default_reference_frame "world"
 
@@ -73,6 +73,7 @@ gazebo_msgs::SpawnModel msg_spawn_object;
 geometry_msgs::Pose  pose_object;
 gazebo_msgs::DeleteModel msg_delete;
 
+string home_path = getenv("HOME");
 string lego_names[] = {"X1-Y1-Z2", "X1-Y2-Z1", "X1-Y2-Z2", "X1-Y2-Z2-CHAMFER", "X1-Y2-Z2-TWINFILLET", "X1-Y3-Z2", "X1-Y3-Z2-FILLET", "X1-Y4-Z1", "X1-Y4-Z2", "X2-Y2-Z2", "X2-Y2-Z2-FILLET"};
 string lego_colours[] = {"Gazebo/Indigo", "Gazebo/Orange", "Gazebo/Red", "Gazebo/Purple", "Gazebo/SkyBlue", "Gazebo/DarkYellow", "Gazebo/Green" };
 
@@ -262,7 +263,7 @@ bool spawnLego(bool random_pos, bool random_or, bool keep_base_down, int lego_cl
 
 string getModelXML(string model_name) {
 
-        string filename = models_path + model_name + default_model_file;
+        string filename = home_path + models_path + model_name + default_model_file;
         cout << "reading the file: " << filename << endl;
 
         ifstream file(filename);
@@ -416,7 +417,7 @@ void assignment1() {
 
         cout << "Assignment 1 selected!" << endl;
 
-        spawnLego(true, false); // 1 lego random pos, no random or
+        spawnLego(true, true, true ); // 1 lego base in giu, random pos e random or
 
         cout << "Ready for assignment 1!" << endl;
 }

@@ -56,8 +56,8 @@ using namespace std;
 #define lego_coord_z 0.835      // z lego coordinate as the table height
 
 // base matrix for functions
-#define default_sim2bas_matrix 1, 0, 0, 0.5, 0, -1, 0, 0.35, 0, 0, -1, 1.75, 0, 0, 0, 1
-#define default_cam2sim_matrix 0.866, 0, 0.5, -0.4, 0, 1, 0, 0.53, -0.5, 0, 0.866, 1.4, 0, 0, 0, 1
+#define default_sim2bas_matrix 1, 0, 0, 1/2, 0, -1, 0, 7/20, 0, 0, -1, 7/4, 0, 0, 0, 1
+#define default_cam2sim_matrix 13/15, 0, 1/2, -2/5, 0, 1, 0, 8/15, -1/2, 0, 13/15, 7/5, 0, 0, 0, 1
 
 // all classes relocation
 #define class_00_relocation 0.4, -0.000, 0.82

@@ -37,7 +37,7 @@
       <static>true</static>
       <include>
         <uri>model://modern_table</uri>
-         <pose>3 3 0 0 0 3.1415926535</pose>
+         <pose>-1.5 2 0 0 0 3.1415926535</pose>
       </include>
     </model>
     
@@ -46,7 +46,7 @@
       <static>true</static>
       <include>
         <uri>model://person_standing</uri>
-         <pose>2 2 0 0 0 3.1415926535</pose>
+         <pose>-2 1 0 0 0 3.1415926535</pose>
       </include>
     </model>    
     
@@ -55,7 +55,7 @@
       <static>true</static>
       <include>
         <uri>model://person_standing</uri>
-         <pose>3 1.5 0 0 0 3.1415926535</pose>
+         <pose>-3 2 0 0 0 3.1415926535</pose>
       </include>
     </model>       
     

@@ -72,10 +72,36 @@ def subReceiveImage(data):
         print(e)
 
     cv.imwrite(zed_image_file, cv_image)
-    foundLego = RecogniseLego(zed_image_file)
-    lego_list = foundLego.lego_list
+    self.recognise(img_path)
 
-    allow_receive_pointcloud = True
+# Let user choose detect method
+    ask =  ('\nContinue recognise [ENTER]'+
+            '\nDetect legos again [A]'+
+            '\nDetect only table area (T)'+
+            'Press CTRL + C to EXIT'+
+            '\nYour choice is ----> ')
+            
+    choice = input(ask)
+
+    # Detect again using another image
+    if choice == 'A' or choice == 'a':
+        print('Detecting again...')
+        allow_receive_image = True
+        allow_receive_pointcloud = False
+        break
+
+    # Detect using area table
+    if choice == 'T' or choice == 't':
+        self.recogniseArea(img_path)
+        choice = '0'
+
+    # Continue
+    if choice == '':
+
+        foundLego = RecogniseLego(zed_image_file)
+        lego_list = foundLego.lego_list
+
+        allow_receive_pointcloud = True
 
 def pointCloudCallBack(msg):
 

@@ -15,6 +15,11 @@ read -p " Please insert the assignment number: " assignment
 gnome-terminal -- rosrun environment spawnLego -a$assignment
 
 echo " "
+echo "Starting the Vision module..."
+gnome-terminal -- rosrun vision vision.py
+sleep 5
+
+echo " "
 echo "Starting the Moviment module..."
 gnome-terminal -- rosrun motion movement
 sleep 3
@@ -22,11 +27,6 @@ sleep 3
 echo " "
 echo "Starting the Planner module..."
 gnome-terminal -- rosrun motion planner
-sleep 3
-
-echo " "
-echo "Starting the Vision module..."
-gnome-terminal -- rosrun vision vision.py
 sleep 3
 
 echo "ALL STARTED!"
