@@ -1,13 +1,4 @@
-<<<<<<< HEAD
-logs
-=======
-catkin_ws/devel
-catkin_ws/build
-catkin_ws/install
 catkin_ws/.catkin_tools
->>>>>>> spinlocks
 .vscode
 .git
 .gitconfig
-.gitignore
-**/__pycache__/

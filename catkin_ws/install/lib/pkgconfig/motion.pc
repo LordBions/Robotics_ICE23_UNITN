@@ -1,0 +1,8 @@
+prefix=/home/utente/Robotics_ICE23_UNITN/catkin_ws/install
+
+Name: motion
+Description: Description of motion
+Version: 2.0.0
+Cflags: -I${prefix}/include
+Libs: -L${prefix}/lib 
+Requires: 

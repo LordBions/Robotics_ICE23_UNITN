@@ -1,0 +1,8 @@
+prefix=/home/utente/Robotics_ICE23_UNITN/catkin_ws/install
+
+Name: hyq_description
+Description: Description of hyq_description
+Version: 0.1.2
+Cflags: 
+Libs: -L${prefix}/lib 
+Requires: 
