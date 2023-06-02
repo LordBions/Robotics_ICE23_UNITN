@@ -3,6 +3,7 @@
 # Authors: Filippo Conti, Mattia Meneghin e Nicola Gianuzzi
 
 from pathlib import Path
+import rospy as ros
 import sys
 import os
 import torch
@@ -50,6 +51,7 @@ class RecogniseLego:
     #    @brief This class use custom trained weights and detect lego blocks with YOLOv5
     
     def __init__(self, img_path):
+
         # @brief Class constructor
         # @param img_path (String): path of input image
         
@@ -96,6 +98,9 @@ class RecogniseLego:
         self.detect(IMG_ROI)
 
     def detect(self, img_path):
+
+        detect_time = ros.get_rostime()   
+
         # @brief This function pass the image path to the model and calculate bounding boxes for each object
         #  @param img_path (String): path of input image
         
@@ -122,7 +127,11 @@ class RecogniseLego:
 
         # Info
         print('Detected', len(self.lego_list), 'object(s)\n')
+
+        detect_time = ros.get_rostime() - detect_time
         self.show()
+
+        print("\n Vision recognition KPI: ", detect_time.secs ,",", detect_time.nsecs ," seconds! \n")
 
     def show(self):
         # @brief This function show infos of detected legos

@@ -56,12 +56,13 @@ def subReceiveImage(data):
     global allow_receive_image
     global allow_receive_pointcloud
     global vision_ready
+
     # @brief Callback function whenever take msg from ZED camera
     #  @param data (msg): msg taken from ZED node
     
     # Flag
     if not allow_receive_image:
-        return
+        return 
 
     allow_receive_image = False
 
@@ -111,7 +112,9 @@ def pointCloudCallBack(msg):
 
         # Create msg for pos_pub
         pos_msg = legoFound()
+
         pos_msg.command_id = command_detect
+        pos_msg.send_ack = 1
         pos_msg.lego_class = lego.class_id
         pos_msg.coord_x = lego.point_world[0, 0]
         pos_msg.coord_y = lego.point_world[0, 1]
@@ -119,10 +122,6 @@ def pointCloudCallBack(msg):
         pos_msg.rot_pitch = 0
         pos_msg.rot_roll = 0
         pos_msg.rot_yaw = 0
-        pos_msg.date_time = ros.Time.now()
-        pos_msg.comment = "Automatic message by vision module"
-        pos_msg.send_ack = 1
-
 
         if pos_msg.coord_z < OFF_SET:
             pos_msg_list.append(pos_msg)
