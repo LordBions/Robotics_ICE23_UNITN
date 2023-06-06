@@ -1,5 +1,6 @@
 # Robotics_ICE23_UNITN
-For our university exam
+For our Foundamentals Of Robotics university exam.
+> Please refer to guidelines.pdf
 
 This project requires ROS Noetic Ninjemys
 in ubuntu focal fossa operative system, and
