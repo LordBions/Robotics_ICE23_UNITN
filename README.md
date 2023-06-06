@@ -17,7 +17,7 @@ If done, go to step 3:
 Then you can run the desired assignment
 
 3. Open the terminal
-4. execute 'start_assignment.sh'
+4. execute 'start.sh'
 5. when asked, insert the assignment number
 
 Enjoy
