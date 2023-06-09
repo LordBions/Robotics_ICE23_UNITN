@@ -38,10 +38,10 @@ using namespace std;
 #define max_rotation 2 * M_PI
 #define min_rotation 0
 
-#define table_max_x 0.40
+#define table_max_x 0.55
 #define table_min_x 0.05
 #define table_max_y 0.75
-#define table_min_y 0.20
+#define table_min_y 0.25
 
 #define queque_size 10
 
