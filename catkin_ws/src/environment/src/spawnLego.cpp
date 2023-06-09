@@ -420,7 +420,7 @@ void assignment1() {
 
         cout << "Assignment 1 selected!" << endl;
 
-        spawnLego(true, true, true); // 1 lego base in giu, random pos e random or
+        spawnLego(true, true, true); // 1 lego, random pos e random or con base in giu
 
         cout << "Ready for assignment 1!" << endl;
 }
@@ -431,7 +431,7 @@ void assignment2() {
 
         for (int i = 0; i < type_numbers_of_legos; i++) { // tutte le classi
                 
-                spawnLego(true, true, true, i, -1, default_min_d_between); // base in giu, random pos e random or
+                spawnLego(true, true, true, i, -1, default_min_d_between); // random pos e random or con base in giu
         }
 
         cout << "Ready for assignment 2!" << endl;
@@ -464,7 +464,10 @@ void assignment4() {
 
 void special1() { 
 
+        // for testing purpose only
+
         cout << "Easter egg 1 selected!" << endl;
+        cout << "Function for comanding the spawner by another ROS module" << endl;
 
         while (ros::ok()) { ros::spinOnce(); }    
 

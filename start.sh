@@ -3,29 +3,31 @@
 trap 'printf "\n";stop;exit 1' 2
 
 start(){
-    planner
-    movement
     vision
+    movement
+    planner
+    printf "\n\e[1;92mALL STARTED!\e[0m\n"
 }
 
 banner() {
     clear
-    printf "     \n"
-    printf "     \e[100m\e[1;77m:: Foundamentals of Robotics project          ::\e[0m\n"
-    printf "     \e[100m\e[1;77m:: Authors:                                   ::\e[0m\n"
-    printf "     \e[100m\e[1;77m::    - Conti Filippo                         ::\e[0m\n"
-    printf "     \e[100m\e[1;77m::    - Gianuzzi Nicola                       ::\e[0m\n"
-    printf "     \e[100m\e[1;77m::    - Meneghin Mattia                       ::\e[0m\n"
-    printf "     \n"
+    printf "   \n"
+    printf "   \e[100m\e[1;77m:: Foundamentals of Robotics project          ::\e[0m\n"
+    printf "   \e[100m\e[1;77m:: Authors:                                   ::\e[0m\n"
+    printf "   \e[100m\e[1;77m::    - Conti Filippo                         ::\e[0m\n"
+    printf "   \e[100m\e[1;77m::    - Gianuzzi Nicola                       ::\e[0m\n"
+    printf "   \e[100m\e[1;77m::    - Meneghin Mattia                       ::\e[0m\n"
+    printf "   \n"
 }
 
 assignment() {
-    
-    printf "Please insert the assignment number:                                          \n"
-    printf "          \e[1;92m[\e[0m\e[1;77m1\e[0m\e[1;92m]\e[0m\e[1;91m Assignment 1\e[0m\n"                                
-    printf "          \e[1;92m[\e[0m\e[1;77m2\e[0m\e[1;92m]\e[0m\e[1;91m Assignment 2\e[0m\n"
-    printf "          \e[1;92m[\e[0m\e[1;77m3\e[0m\e[1;92m]\e[0m\e[1;91m Assignment 3\e[0m\n"
-    printf "          \e[1;92m[\e[0m\e[1;77m4\e[0m\e[1;92m]\e[0m\e[1;91m Assignment 4\e[0m\n"                
+    printf "   \n"
+    printf "   \e[100m\e[1;77m:: Please insert the assignment number:       ::\e[0m\n"
+    printf "   \e[1;92m[\e[0m\e[1;77m1\e[0m\e[1;92m]\e[0m\e[1;91m Assignment 1\e[0m\n"                                
+    printf "   \e[1;92m[\e[0m\e[1;77m2\e[0m\e[1;92m]\e[0m\e[1;91m Assignment 2\e[0m\n"
+    printf "   \e[1;92m[\e[0m\e[1;77m3\e[0m\e[1;92m]\e[0m\e[1;91m Assignment 3\e[0m\n"
+    printf "   \e[1;92m[\e[0m\e[1;77m4\e[0m\e[1;92m]\e[0m\e[1;91m Assignment 4\e[0m\n"
+    printf "   \e[1;92m[\e[0m\e[1;77mK\e[0m\e[1;92m]\e[0m\e[1;91m EXIT \e[0m\n"                
 
     read -p "Choose an option: " option
     printf "Will be execute the assignment \e[1;92m[\e[0m\e[1;77m$option\e[0m\e[1;92m]\e[0m\n"
@@ -42,6 +44,10 @@ assignment() {
     elif [[ $option == 4 ]]; then
         spawnLego 4
         start
+    elif [[ $option == K ]]; then
+        killNode
+    elif [[ $option == k ]]; then
+        killNode
     else
         printf "\e[1;93m [!] Invalid option!\e[0m\n"
         assignment
@@ -63,8 +69,37 @@ environment(){
 }
 
 next(){
-    printf "     \e[101m\e[1;77m:: Note: Wait the end HOMING PROCEDURE        ::\e[0m\n"
-    read -p "PRESS ANY KEY to continue or close terminal in case of faliure " answer
+    printf "   \e[101m\e[1;77m:: Note: Wait the end HOMING PROCEDURE        ::\e[0m\n\n"
+    printf "Once HOMING PROCEDURE ACCOMPLISHED, check the correctly start of the Environment\n"
+    printf "Press [\e[1;92mY\e[0m] to continue\n"
+    printf "Press [\e[1;91mn\e[0m] to restart the environment\n"
+    
+    read -p "Continue? " answer
+
+    if [[ $answer == Y ]]; then
+        return
+    elif [[ $answer == y ]]; then
+        return
+        
+    elif [[ $answer == N ]]; then
+        killNode
+        sleep 5
+        clear
+        banner
+        environment
+        next
+    elif [[ $answer == n ]]; then
+        killNode
+        sleep 5
+        clear
+        banner
+        environment
+        next
+    else
+        printf "\e[1;93m [!] Invalid option!\e[0m\n"
+        next
+    fi
+
 }
 
 planner() {
@@ -92,6 +127,7 @@ selectModule(){
     printf "          \e[1;92m[\e[0m\e[1;77m1\e[0m\e[1;92m]\e[0m\e[1;91m planner\e[0m\n"                            
     printf "          \e[1;92m[\e[0m\e[1;77m2\e[0m\e[1;92m]\e[0m\e[1;91m movement\e[0m\n"
     printf "          \e[1;92m[\e[0m\e[1;77m3\e[0m\e[1;92m]\e[0m\e[1;91m vision\e[0m\n"
+    printf "          \e[1;92m[\e[0m\e[1;77m4\e[0m\e[1;92m]\e[0m\e[1;91m spawnLego\e[0m\n"
 
     read -p "Choose a module: " module
     printf "\n"
@@ -104,6 +140,8 @@ selectModule(){
         movement
     elif [[ $module == 3 ]]; then
         vision
+    elif [[ $module == 4 ]]; then
+        spawnLego $assign_choosen
     else
         printf "\e[1;93m [!] Invalid option!\e[0m\n"
         selectModule
@@ -116,7 +154,7 @@ killNode(){
 
 again() {
     printf "\nDo you need to re-call some modules? [\e[1;92mY\e[0m/\e[1;91mn\e[0m]\n"
-    printf "If you type n all the ROS node will be killed\n"
+    printf "If you type \e[1;91mn\e[0m] all the ROS node will be killed\n"
     read -p "" _exit
 
     if [[ $_exit == Y ]]; then
@@ -137,10 +175,6 @@ banner
 environment
 next
 assignment
-
-printf "\n\e[1;92mALL STARTED!\e[0m\n"
 sleep 5
-
 #End of the jobs
-
 again
