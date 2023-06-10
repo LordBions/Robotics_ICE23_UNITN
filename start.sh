@@ -70,7 +70,7 @@ environment(){
 
 next(){
     printf "   \e[101m\e[1;77m:: Note: Wait the end HOMING PROCEDURE        ::\e[0m\n\n"
-    printf "Once HOMING PROCEDURE ACCOMPLISHED, check the correctly start of the Environment\n"
+    printf "Once \e[1;91mHOMING PROCEDURE ACCOMPLISHED\e[0m, check the correctly start of the Environment\n"
     printf "Press [\e[1;92mY\e[0m] to continue\n"
     printf "Press [\e[1;91mn\e[0m] to restart the environment\n"
     
@@ -154,7 +154,7 @@ killNode(){
 
 again() {
     printf "\nDo you need to re-call some modules? [\e[1;92mY\e[0m/\e[1;91mn\e[0m]\n"
-    printf "If you type \e[1;91mn\e[0m] all the ROS node will be killed\n"
+    printf "If you type \e[1;91mn\e[0m all the ROS node will be killed\n"
     read -p "" _exit
 
     if [[ $_exit == Y ]]; then
