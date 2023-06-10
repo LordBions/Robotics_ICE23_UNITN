@@ -30,12 +30,12 @@ using namespace std;
 // topic that 'planner_module' subscribes to take task from motion
 #define sub_task_resulter "/motion/taskResulter"                
 
-// constants used to manage commands received
+// constants used to manage commands received from vision
 #define no_command 0
 #define command_detect 1
 #define command_quit 2
 
-// Constants used to identify commands type
+// Constants used to identify commands type to send to movement
 #define command_test 1
 #define command_wait 2
 #define command_move 3
@@ -44,6 +44,7 @@ using namespace std;
 #define command_def_pos 6
 #define command_fast_catch 7
 #define command_catch 8
+#define command_handshake 9
 
 // Constants to identify the results type
 #define result_error -1         // constant used to identify an execution error    
@@ -52,8 +53,9 @@ using namespace std;
 
 #define queque_size 10          // buffer size
 #define loop_wait_rate 100     // 10 msec of waiting
-
 #define lego_coord_z 0.835      // z lego coordinate as the table height
+
+#define planner_security_key 35687543210
 
 // base matrix for functions
 #define default_sim2bas_matrix 1.000, 0.000, 0.000, 0.500, 0.000, -1.000, 0.000, 0.350, 0.000, 0.000, -1.000, 1.750, 0.000, 0.000, 0.000, 1.000
@@ -140,7 +142,15 @@ using namespace std;
 // default value for ungrasp diameter
 #define default_ungrasp_diam 100
 
+// commandline parameters
+#define param0 "-s"
+#define param1 "-secureOn"
+
 bool verbose_flag = false;
+bool security_flag;
+
+int encode_key;
+int decode_key;
 
 // Publishers
 ros::Publisher pub_task_commander_handle, pub_detect_resulter_handle; 
@@ -176,6 +186,11 @@ objectPositionOrientation lego_dest;
 
 /*---------------------------------------------function headers---------------------------------------------*/
 
+void readParams(int argc, char **argv);
+void defaultFunction();
+void secureEnable();
+void unknownUsage();     
+bool handShake(); 
 void subDetectCommanderCallback(const motion::legoFound::ConstPtr &msg_detect); // reception and analysis of a received request.
 void pubDetectResulter(int risultato); // publish the result
 void pubTaskCommander(bool s_ack); // publish the task 
@@ -229,6 +244,8 @@ int main(int argc, char **argv) {
         while (pub_task_commander_handle.getNumSubscribers() < 1) { loop_rate.sleep(); }
         cout << "Moviment module connected!" << endl;
 
+        readParams(argc, argv);
+
         ungraspCommand(); 
         while (ros::ok() && movement_task.busy) {
 
@@ -278,6 +295,71 @@ int main(int argc, char **argv) {
         cout << "----------------------------" << endl;
         return 0;
     
+}
+
+void readParams(int argc, char **argv) {
+
+        string parameter;
+
+        if (argc <= 1) { defaultFunction(); }
+
+        else {
+
+                for (int i = 1; i < argc; i++) {
+
+                        parameter = argv[i];
+
+                        if (parameter == param0 || parameter == param1) { secureEnable(); }
+                        else { unknownUsage(); } 
+                }
+        }
+}
+
+void defaultFunction() {
+
+        security_flag = false;
+
+        cout << "----------------------------------------------" << endl;
+        cout << "Default function selected: NO SECURITY" << endl;
+        cout << "----------------------------------------------" << endl;
+}
+
+void secureEnable() {
+
+        security_flag = true;
+
+        cout << "----------------------------------------------" << endl;
+        cout << "Security ON" << endl;
+        cout << "----------------------------------------------" << endl;
+
+        if (handShake()) {
+
+                ///////////////////////////////////
+
+        } else {
+
+                ///////////////////////////////////
+
+        }
+}
+
+void unknownUsage() {
+
+        cout << "----------------------------------------------" << endl;
+        cout << "Unknown or too much parameters" << endl;
+        cout << "----------------------------------------------" << endl;
+        cout << "USAGE: " << endl;
+        cout << "-s or -secureOn to enable security system " << endl;
+        cout << "----------------------------------------------" << endl;
+        cout << endl;
+}
+
+bool handShake() {
+
+        ////////////////////////////////////////
+
+        return true;
+
 }
 
 /*---------------------------------------------Implemented functions---------------------------------------------*/

@@ -409,30 +409,6 @@ manualVision/fast:
 	cd /home/utente/Robotics_ICE23_UNITN/catkin_ws/build && $(MAKE) $(MAKESILENT) -f motion/CMakeFiles/manualVision.dir/build.make motion/CMakeFiles/manualVision.dir/build
 .PHONY : manualVision/fast
 
-src/manualVision.o: src/manualVision.cpp.o
-.PHONY : src/manualVision.o
-
-# target to build an object file
-src/manualVision.cpp.o:
-	cd /home/utente/Robotics_ICE23_UNITN/catkin_ws/build && $(MAKE) $(MAKESILENT) -f motion/CMakeFiles/manualVision.dir/build.make motion/CMakeFiles/manualVision.dir/src/manualVision.cpp.o
-.PHONY : src/manualVision.cpp.o
-
-src/manualVision.i: src/manualVision.cpp.i
-.PHONY : src/manualVision.i
-
-# target to preprocess a source file
-src/manualVision.cpp.i:
-	cd /home/utente/Robotics_ICE23_UNITN/catkin_ws/build && $(MAKE) $(MAKESILENT) -f motion/CMakeFiles/manualVision.dir/build.make motion/CMakeFiles/manualVision.dir/src/manualVision.cpp.i
-.PHONY : src/manualVision.cpp.i
-
-src/manualVision.s: src/manualVision.cpp.s
-.PHONY : src/manualVision.s
-
-# target to generate assembly for a file
-src/manualVision.cpp.s:
-	cd /home/utente/Robotics_ICE23_UNITN/catkin_ws/build && $(MAKE) $(MAKESILENT) -f motion/CMakeFiles/manualVision.dir/build.make motion/CMakeFiles/manualVision.dir/src/manualVision.cpp.s
-.PHONY : src/manualVision.cpp.s
-
 src/movement.o: src/movement.cpp.o
 .PHONY : src/movement.o
 
@@ -481,6 +457,30 @@ src/planner.cpp.s:
 	cd /home/utente/Robotics_ICE23_UNITN/catkin_ws/build && $(MAKE) $(MAKESILENT) -f motion/CMakeFiles/planner.dir/build.make motion/CMakeFiles/planner.dir/src/planner.cpp.s
 .PHONY : src/planner.cpp.s
 
+testing/manualVision.o: testing/manualVision.cpp.o
+.PHONY : testing/manualVision.o
+
+# target to build an object file
+testing/manualVision.cpp.o:
+	cd /home/utente/Robotics_ICE23_UNITN/catkin_ws/build && $(MAKE) $(MAKESILENT) -f motion/CMakeFiles/manualVision.dir/build.make motion/CMakeFiles/manualVision.dir/testing/manualVision.cpp.o
+.PHONY : testing/manualVision.cpp.o
+
+testing/manualVision.i: testing/manualVision.cpp.i
+.PHONY : testing/manualVision.i
+
+# target to preprocess a source file
+testing/manualVision.cpp.i:
+	cd /home/utente/Robotics_ICE23_UNITN/catkin_ws/build && $(MAKE) $(MAKESILENT) -f motion/CMakeFiles/manualVision.dir/build.make motion/CMakeFiles/manualVision.dir/testing/manualVision.cpp.i
+.PHONY : testing/manualVision.cpp.i
+
+testing/manualVision.s: testing/manualVision.cpp.s
+.PHONY : testing/manualVision.s
+
+# target to generate assembly for a file
+testing/manualVision.cpp.s:
+	cd /home/utente/Robotics_ICE23_UNITN/catkin_ws/build && $(MAKE) $(MAKESILENT) -f motion/CMakeFiles/manualVision.dir/build.make motion/CMakeFiles/manualVision.dir/testing/manualVision.cpp.s
+.PHONY : testing/manualVision.cpp.s
+
 # Help Target
 help:
 	@echo "The following are some of the valid targets for this Makefile:"
@@ -511,15 +511,15 @@ help:
 	@echo "... manualVision"
 	@echo "... movement"
 	@echo "... planner"
-	@echo "... src/manualVision.o"
-	@echo "... src/manualVision.i"
-	@echo "... src/manualVision.s"
 	@echo "... src/movement.o"
 	@echo "... src/movement.i"
 	@echo "... src/movement.s"
 	@echo "... src/planner.o"
 	@echo "... src/planner.i"
 	@echo "... src/planner.s"
+	@echo "... testing/manualVision.o"
+	@echo "... testing/manualVision.i"
+	@echo "... testing/manualVision.s"
 .PHONY : help
 
 

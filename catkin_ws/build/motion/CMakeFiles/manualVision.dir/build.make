@@ -69,28 +69,28 @@ include motion/CMakeFiles/manualVision.dir/progress.make
 # Include the compile flags for this target's objects.
 include motion/CMakeFiles/manualVision.dir/flags.make
 
-motion/CMakeFiles/manualVision.dir/src/manualVision.cpp.o: motion/CMakeFiles/manualVision.dir/flags.make
-motion/CMakeFiles/manualVision.dir/src/manualVision.cpp.o: /home/utente/Robotics_ICE23_UNITN/catkin_ws/src/motion/src/manualVision.cpp
-motion/CMakeFiles/manualVision.dir/src/manualVision.cpp.o: motion/CMakeFiles/manualVision.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/utente/Robotics_ICE23_UNITN/catkin_ws/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_1) "Building CXX object motion/CMakeFiles/manualVision.dir/src/manualVision.cpp.o"
-	cd /home/utente/Robotics_ICE23_UNITN/catkin_ws/build/motion && /usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT motion/CMakeFiles/manualVision.dir/src/manualVision.cpp.o -MF CMakeFiles/manualVision.dir/src/manualVision.cpp.o.d -o CMakeFiles/manualVision.dir/src/manualVision.cpp.o -c /home/utente/Robotics_ICE23_UNITN/catkin_ws/src/motion/src/manualVision.cpp
+motion/CMakeFiles/manualVision.dir/testing/manualVision.cpp.o: motion/CMakeFiles/manualVision.dir/flags.make
+motion/CMakeFiles/manualVision.dir/testing/manualVision.cpp.o: /home/utente/Robotics_ICE23_UNITN/catkin_ws/src/motion/testing/manualVision.cpp
+motion/CMakeFiles/manualVision.dir/testing/manualVision.cpp.o: motion/CMakeFiles/manualVision.dir/compiler_depend.ts
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/utente/Robotics_ICE23_UNITN/catkin_ws/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_1) "Building CXX object motion/CMakeFiles/manualVision.dir/testing/manualVision.cpp.o"
+	cd /home/utente/Robotics_ICE23_UNITN/catkin_ws/build/motion && /usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT motion/CMakeFiles/manualVision.dir/testing/manualVision.cpp.o -MF CMakeFiles/manualVision.dir/testing/manualVision.cpp.o.d -o CMakeFiles/manualVision.dir/testing/manualVision.cpp.o -c /home/utente/Robotics_ICE23_UNITN/catkin_ws/src/motion/testing/manualVision.cpp
 
-motion/CMakeFiles/manualVision.dir/src/manualVision.cpp.i: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/manualVision.dir/src/manualVision.cpp.i"
-	cd /home/utente/Robotics_ICE23_UNITN/catkin_ws/build/motion && /usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/utente/Robotics_ICE23_UNITN/catkin_ws/src/motion/src/manualVision.cpp > CMakeFiles/manualVision.dir/src/manualVision.cpp.i
+motion/CMakeFiles/manualVision.dir/testing/manualVision.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/manualVision.dir/testing/manualVision.cpp.i"
+	cd /home/utente/Robotics_ICE23_UNITN/catkin_ws/build/motion && /usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/utente/Robotics_ICE23_UNITN/catkin_ws/src/motion/testing/manualVision.cpp > CMakeFiles/manualVision.dir/testing/manualVision.cpp.i
 
-motion/CMakeFiles/manualVision.dir/src/manualVision.cpp.s: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/manualVision.dir/src/manualVision.cpp.s"
-	cd /home/utente/Robotics_ICE23_UNITN/catkin_ws/build/motion && /usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/utente/Robotics_ICE23_UNITN/catkin_ws/src/motion/src/manualVision.cpp -o CMakeFiles/manualVision.dir/src/manualVision.cpp.s
+motion/CMakeFiles/manualVision.dir/testing/manualVision.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/manualVision.dir/testing/manualVision.cpp.s"
+	cd /home/utente/Robotics_ICE23_UNITN/catkin_ws/build/motion && /usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/utente/Robotics_ICE23_UNITN/catkin_ws/src/motion/testing/manualVision.cpp -o CMakeFiles/manualVision.dir/testing/manualVision.cpp.s
 
 # Object files for target manualVision
 manualVision_OBJECTS = \
-"CMakeFiles/manualVision.dir/src/manualVision.cpp.o"
+"CMakeFiles/manualVision.dir/testing/manualVision.cpp.o"
 
 # External object files for target manualVision
 manualVision_EXTERNAL_OBJECTS =
 
-/home/utente/Robotics_ICE23_UNITN/catkin_ws/devel/lib/motion/manualVision: motion/CMakeFiles/manualVision.dir/src/manualVision.cpp.o
+/home/utente/Robotics_ICE23_UNITN/catkin_ws/devel/lib/motion/manualVision: motion/CMakeFiles/manualVision.dir/testing/manualVision.cpp.o
 /home/utente/Robotics_ICE23_UNITN/catkin_ws/devel/lib/motion/manualVision: motion/CMakeFiles/manualVision.dir/build.make
 /home/utente/Robotics_ICE23_UNITN/catkin_ws/devel/lib/motion/manualVision: /opt/ros/noetic/lib/libroscpp.so
 /home/utente/Robotics_ICE23_UNITN/catkin_ws/devel/lib/motion/manualVision: /usr/lib/x86_64-linux-gnu/libpthread.so

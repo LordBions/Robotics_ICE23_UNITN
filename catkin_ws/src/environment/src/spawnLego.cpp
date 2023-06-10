@@ -185,8 +185,8 @@ void unknownUsage() {
         cout << "Unknown or too much parameters" << endl;
         cout << "----------------------------------------------" << endl;
         cout << "USAGE: " << endl;
-        cout << "-a <assignment numer from 1 to 4>  " << endl;
-        cout << "-e <easter egg number from 1 to 2> " << endl;
+        cout << "-a<numer from 1 to 4> or -assignment<<numer from 1 to 4> " << endl;
+        cout << "-s<number from 1 to 2> or -special<number from 1 to 2> " << endl;
         cout << "----------------------------------------------" << endl;
         cout << endl;
 }

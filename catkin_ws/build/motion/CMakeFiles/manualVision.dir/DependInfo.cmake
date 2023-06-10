@@ -8,7 +8,7 @@ set(CMAKE_DEPENDS_LANGUAGES
 
 # The set of dependency files which are needed:
 set(CMAKE_DEPENDS_DEPENDENCY_FILES
-  "/home/utente/Robotics_ICE23_UNITN/catkin_ws/src/motion/src/manualVision.cpp" "motion/CMakeFiles/manualVision.dir/src/manualVision.cpp.o" "gcc" "motion/CMakeFiles/manualVision.dir/src/manualVision.cpp.o.d"
+  "/home/utente/Robotics_ICE23_UNITN/catkin_ws/src/motion/testing/manualVision.cpp" "motion/CMakeFiles/manualVision.dir/testing/manualVision.cpp.o" "gcc" "motion/CMakeFiles/manualVision.dir/testing/manualVision.cpp.o.d"
   )
 
 # Targets to which this target links which contain Fortran sources.

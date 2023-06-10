@@ -7,35 +7,29 @@ import rospy as ros
 import sys
 import os
 import torch
-from matplotlib import pyplot as plt
-import numpy as np
-import cv2 as cv
 from IPython.display import display
 from PIL import Image
 from recogniseArea import RecogniseArea
 
-FILE = Path(__file__).resolve()
+resize_width = 75
 
-ROOT = FILE.parents[0]
+# strings
+file_path = Path(__file__).resolve()
+root_path = file_path.parents[0]
+if str(root_path) not in sys.path:
+    sys.path.append(str(root_path))
+root_path = Path(os.path.relpath(root_path, Path.cwd())) 
+pkg_vision_path = os.path.abspath(os.path.join(root_path, ".."))
+zed_roi_image = os.path.join(pkg_vision_path, "../../src/vision/images/img_Area.png")
 
-if str(ROOT) not in sys.path:
-    sys.path.append(str(ROOT))  # add ROOT to PATH
+# yolo settings
+weights_path = os.path.join(pkg_vision_path, "../../install/include/vision/include/best.pt")
+pkg_yolo_path = os.path.join(pkg_vision_path, "include/yolo5")
+lego_model = torch.hub.load('ultralytics/yolov5', 'custom', weights_path)
 
-ROOT = Path(os.path.relpath(ROOT, Path.cwd()))  # relative
+min_level_confidence = 0.75 # minimum confidence
 
-VISION_PATH = os.path.abspath(os.path.join(ROOT, ".."))
-
-IMG_ROI = os.path.join(VISION_PATH, "../../src/vision/images/img_Area.png")
-
-WEIGHTS_PATH = os.path.join(VISION_PATH, "../../install/include/vision/include/weights.pt")
-
-YOLO_PATH = os.path.join(VISION_PATH, "include/yolo5")
-
-CONFIDENCE = 0.51 # minimum confidence
-
-MODEL = torch.hub.load('ultralytics/yolov5', 'custom', WEIGHTS_PATH)
-
-LEGO_NAMES = [  'X1-Y1-Z2',
+lego_models_list = [  'X1-Y1-Z2',
                 'X1-Y2-Z1',
                 'X1-Y2-Z2',
                 'X1-Y2-Z2-CHAMFER',
@@ -48,72 +42,56 @@ LEGO_NAMES = [  'X1-Y1-Z2',
                 'X2-Y2-Z2-FILLET']
 
 class RecogniseLego:
-    #    @brief This class use custom trained weights and detect lego blocks with YOLOv5
     
     def __init__(self, img_path):
-
-        # @brief Class constructor
-        # @param img_path (String): path of input image
         
-        MODEL.conf = CONFIDENCE
-        MODEL.multi_label = False
-        # MODEL.iou = 0.5
+        lego_model.conf = min_level_confidence
+        lego_model.multi_label = False
     
         self.lego_list = []
-        self.detect(img_path)
+        self.detectLegos(img_path)
 
-        # Let user choose detect method
         choice = '0'
         while True:
             while (choice != '1' and choice != '2' and choice != ''):
-                ask =  ('\nContinue     (ENTER)'+
-                        '\nDetect again (1)'+
-                        '\nDetect ROI   (2)'+
-                        '\nchoice ----> ')
+                ask =  ('\n Press [ENTER] to continue...'+
+                        '\n Press [a] to detect the full image again'+
+                        '\n Press [t] to detect the table area only'+
+                        '\n \n Your choice: ')
                 choice = input(ask)
 
-            # Continue
             if choice == '':
                 break
 
-            # Detect again using original image
-            if choice == '1':
-                print('Detecting again...')
-                self.detect(img_path)
+            if choice == 'a':
+                print('Full image again selected!')
+                self.detectLegos(img_path)
                 choice = '0'
 
-            # Detect using ROI
-            if choice == '2':
-                self.detect_ROI(img_path)
+            if choice == 't':
+                print('Table area only selected!')
+                self.detectArea(img_path)
                 choice = '0'
 
-    def detect_ROI(self, img_path):
-        # @brief Detect using Region Of Interest
-        #  @param img_path (String): path of input image
+    def detectArea(self, img_path):
         
-        print('Draw working Area')
-        roi = RecogniseArea(img_path, IMG_ROI)
+        roi = RecogniseArea(img_path, zed_roi_image)
         roi.run_auto()
-        print('Detecting working area...')
-        self.detect(IMG_ROI)
+        print('Detecting the working area...')
+        self.detectLegos(zed_roi_image)
 
-    def detect(self, img_path):
+    def detectLegos(self, img_path):
 
         detect_time = ros.get_rostime()   
-
-        # @brief This function pass the image path to the model and calculate bounding boxes for each object
-        #  @param img_path (String): path of input image
         
         self.lego_list.clear()
 
-        # Detection model
-        self.results = MODEL(img_path)
+        self.results = lego_model(img_path)
         self.results.show()
         img = Image.open(img_path)
         print(img_path)
         print('img size:', img.width, 'x', img.height)
 
-        # Bounding boxes
         bboxes = self.results.pandas().xyxy[0].to_dict(orient="records")
         for bbox in bboxes:
             name = bbox['name']
@@ -122,39 +100,27 @@ class RecogniseLego:
             y1 = int(bbox['ymin'])
             x2 = int(bbox['xmax'])
             y2 = int(bbox['ymax'])
-            # Add lego to list
+
             self.lego_list.append(Lego(name, conf, x1, y1, x2, y2, img_path))
 
-        # Info
-        print('Detected', len(self.lego_list), 'object(s)\n')
-
         detect_time = ros.get_rostime() - detect_time
-        self.show()
-
         print("\n Vision recognition KPI: ", detect_time.secs ,",", detect_time.nsecs ," seconds! \n")
 
-    def show(self):
-        # @brief This function show infos of detected legos
-        
+        print('Detected', len(self.lego_list), 'object(s)\n')
+        self.showImg()
+
+    def showImg(self):
+
         for index, lego in enumerate(self.lego_list, start=1):
             print(index)
-            lego.show()
+            lego.showImg()
 
 class Lego:
-    # @brief This class represents info of detected lego
 
     def __init__(self, name, conf, x1, y1, x2, y2, img_source_path):
-        # @brief Class constructor
-        #    @param name (String): lego name
-        #    @param conf (float): confidence
-        #    @param x1 (float): xmin of bounding box
-        #    @param y1 (float): ymin of bounding box
-        #    @param x2 (float): xmax of bounding box
-        #    @param y2 (float): ymax of bounding box
-        #    @param img_source_path (String): path to image
 
         self.name = name
-        self.class_id = LEGO_NAMES.index(name)
+        self.class_id = lego_models_list.index(name)
         self.confidence = conf
         self.xmin = x1
         self.ymin = y1
@@ -167,33 +133,25 @@ class Lego:
         self.point_cloud = ()
         self.point_world = ()
 
-    def show(self):
-        # @brief Show lego info
+    def showImg(self):
         
         self.img = self.img_source.crop((self.xmin, self.ymin, self.xmax, self.ymax))
 
-        # Resize detected obj
-        # Not neccessary. Useful when the obj is too small to see
         aspect_ratio = self.img.size[1] / self.img.size[0]
-        new_width = 70  # resize width (pixel) for detected object to show
+        new_width = resize_width 
         new_size = (new_width, int(new_width * aspect_ratio))
         self.img = self.img.resize(new_size, Image.LANCZOS)
 
-        # Lego details
         display(self.img)
-        print('class =', self.name)
-        print('id =', self.class_id)
-        print('confidence =', '%.2f' %self.confidence)
-        print('center_point =', self.center_point)
-        print('center_point_uv =', self.center_point_uv)
-        print('--> point cloud =', self.point_cloud)
-        print('--> point world =', self.point_world)
+        print('Lego name =', self.name)
+        print('class id =', self.class_id)
+        print('detection confidence =', '%.2f' %self.confidence)
+        print('center point =', self.center_point)
+        print('center point uv =', self.center_point_uv)
+        print('point cloud data =', self.point_cloud)
+        print('point in world =', self.point_world)
         print()
 
-# ---------------------- MAIN ----------------------
-# To use in command:
-# python3 recogniseLego.py /path/to/img...
-
 if __name__ == '__main__':
-    legoDetect = LegoDetect(img_origin_path=sys.argv[1])
 
+    legoDetect = LegoDetect(img_origin_path=sys.argv[1])

@@ -43,7 +43,7 @@ install(TARGETS movement
   RUNTIME DESTINATION ${CATKIN_PACKAGE_BIN_DESTINATION}
 )
 
-add_executable(manualVision src/manualVision.cpp)
+add_executable(manualVision testing/manualVision.cpp)
 target_link_libraries(manualVision ${catkin_LIBRARIES})
 
 install(TARGETS manualVision

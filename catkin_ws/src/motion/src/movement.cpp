@@ -68,6 +68,7 @@ using namespace std;
 #define command_def_pos 6
 #define command_fast_catch 7
 #define command_catch 8
+#define command_handshake 9
 
 #define result_error -1         // constant used to identify an execution error
 #define result_unknown 0        // constant used to identify an unknown result
@@ -90,7 +91,13 @@ using namespace std;
 #define max_diameter_ext 130 // max fingers space  
 #define min_diameter_ext 22 // min  fingers space
 
+#define movement_security_key 94567345375
+
 bool verbose_flag = false;
+bool security_flag = false;
+
+int encode_key;
+int decode_key;
 
 // Declares publishers
 ros::Publisher pub_joint_commander_handle, pub_task_resulter_handle;
@@ -157,6 +164,8 @@ void catchProcedure(); // used when the command received is command_catch:  goes
 double getTimeNow(); // return the current time
 
 double getInterval(double start_t); // return the interval between the start time and the current time
+
+void handShake(); // the procedure to pass the security keys
 
 /*---------------------------------------------Main zone---------------------------------------------*/
 
@@ -304,7 +313,12 @@ void taskCommanderCallback(const motion::legoTask::ConstPtr &msg_taskCommand) {
                 case(command_catch):    if (verbose_flag) cout << "execution of catch command..." << endl;
                                         catchProcedure();
                                         if (verbose_flag) cout << "Catch command terminated" << endl;
-                                        break;                                                                           
+                                        break;            
+
+                case(command_handshake):         if (verbose_flag) cout << "execution of handshake command..." << endl;
+                                                handShake();
+                                                if (verbose_flag) cout << "Handshake command terminated" << endl;
+                                                break;                                                                                                   
 
                 default:                if (verbose_flag) cout << "Unsupported command receved!" << endl;
                                         break;
@@ -602,4 +616,10 @@ double getTimeNow() {
 
 double getInterval(double start_t) {
         return (getTimeNow()- start_t);
+}
+
+void handShake() {
+
+
+        ////////////////////////////////////////
 }
