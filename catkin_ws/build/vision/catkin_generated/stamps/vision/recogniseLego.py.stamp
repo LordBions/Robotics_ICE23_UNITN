@@ -3,7 +3,7 @@
 # Authors: Filippo Conti, Mattia Meneghin e Nicola Gianuzzi
 
 from pathlib import Path
-import rospy as ros
+import rospy
 import sys
 import os
 import torch
@@ -11,6 +11,7 @@ from IPython.display import display
 from PIL import Image
 from recogniseArea import RecogniseArea
 
+# parameters
 resize_width = 75
 
 # strings
@@ -23,11 +24,10 @@ pkg_vision_path = os.path.abspath(os.path.join(root_path, ".."))
 zed_roi_image = os.path.join(pkg_vision_path, "../../src/vision/images/img_Area.png")
 
 # yolo settings
+min_level_confidence = 0.75 # minimum confidence
 weights_path = os.path.join(pkg_vision_path, "../../install/include/vision/include/best.pt")
 pkg_yolo_path = os.path.join(pkg_vision_path, "include/yolo5")
 lego_model = torch.hub.load('ultralytics/yolov5', 'custom', weights_path)
-
-min_level_confidence = 0.75 # minimum confidence
 
 lego_models_list = [  'X1-Y1-Z2',
                 'X1-Y2-Z1',
@@ -51,41 +51,40 @@ class RecogniseLego:
         self.lego_list = []
         self.detectLegos(img_path)
 
-        choice = '0'
+        userAnswer = ''
         while True:
-            while (choice != 'a' and choice != 't' and choice != ''):
-                ask =  ('\n Press [ENTER] to continue...'+
+            while (userAnswer != 'a' and userAnswer != 't' and userAnswer != 'c'):
+                ask =  ('\n Press [c] to continue...'+
                         '\n Press [a] to detect the full image again'+
                         '\n Press [t] to detect the table area only'+
                         '\n \n Your choice: ')
-                choice = input(ask)
+                userAnswer = input(ask)
 
-            if choice == '':
+            if userAnswer == 'c':
                 break
 
-            if choice == 'a':
+            if userAnswer == 'a':
                 print('Full image again selected!')
                 self.detectLegos(img_path)
-                choice = '0'
+                userAnswer = ''
 
-            if choice == 't':
+            if userAnswer == 't':
                 print('Table area only selected!')
                 self.detectArea(img_path)
-                choice = '0'
+                userAnswer = ''
 
     def detectArea(self, img_path):
         
         roi = RecogniseArea(img_path, zed_roi_image)
-        roi.run_auto()
+        roi.execute()
         print('Detecting the working area...')
         self.detectLegos(zed_roi_image)
 
     def detectLegos(self, img_path):
 
-        detect_time = ros.get_rostime()   
+        detect_time = rospy.get_rostime()   
         
         self.lego_list.clear()
-
         self.results = lego_model(img_path)
         self.results.show()
         img = Image.open(img_path)
@@ -103,7 +102,7 @@ class RecogniseLego:
 
             self.lego_list.append(Lego(name, conf, x1, y1, x2, y2, img_path))
 
-        detect_time = ros.get_rostime() - detect_time
+        detect_time = rospy.get_rostime() - detect_time
         print("\n Vision recognition KPI: ", detect_time.secs ,",", detect_time.nsecs ," seconds! \n")
 
         print('Detected', len(self.lego_list), 'object(s)\n')
@@ -143,14 +142,6 @@ class Lego:
         self.img = self.img.resize(new_size, Image.LANCZOS)
 
         display(self.img)
-        print('Lego name =', self.name)
-        print('class id =', self.class_id)
-        print('detection confidence =', '%.2f' %self.confidence)
-        print('center point =', self.center_point)
-        print('center point uv =', self.center_point_uv)
-        print('point cloud data =', self.point_cloud)
-        print('point in world =', self.point_world)
-        print()
 
 if __name__ == '__main__':
 
