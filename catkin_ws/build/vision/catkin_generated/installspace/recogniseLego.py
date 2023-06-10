@@ -53,7 +53,7 @@ class RecogniseLego:
 
         choice = '0'
         while True:
-            while (choice != '1' and choice != '2' and choice != ''):
+            while (choice != 'a' and choice != 't' and choice != ''):
                 ask =  ('\n Press [ENTER] to continue...'+
                         '\n Press [a] to detect the full image again'+
                         '\n Press [t] to detect the table area only'+
