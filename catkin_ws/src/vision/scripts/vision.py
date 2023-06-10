@@ -5,12 +5,12 @@
 from pathlib import Path
 import sys
 import os
-import rospy as ros
-import numpy as np
+import rospy
+import numpy
 import cv2
 from cv_bridge import CvBridge
 from sensor_msgs.msg import Image
-import sensor_msgs.point_cloud2 as point_cloud2
+import sensor_msgs.point_cloud2 as pcloud2
 from sensor_msgs.msg import PointCloud2
 from std_msgs.msg import Int32
 from motion.msg import legoFound
@@ -33,8 +33,8 @@ vision_ready = False
 # arrays and matrix
 lego_position_array = []
 lego_list = []
-matrixVirtual = np.matrix([[0.000, -0.499, 0.866], [-1.000, 0.000, 0.000], [0.000, -0.866, -0.499]])
-vectorVirtual = np.array([-0.900, 0.240, -0.350])
+matrixVirtual = numpy.matrix([[0.000, -0.499, 0.866], [-1.000, 0.000, 0.000], [0.000, -0.866, -0.499]])
+vectorVirtual = numpy.array([-0.900, 0.240, -0.350])
 
 # command lists
 no_command = 0
@@ -43,7 +43,7 @@ command_quit = 2
 
 # other vars 
 default_queque_size = 10
-base_offset = np.array([0.500, 0.350, 1.750])
+base_offset = numpy.array([0.500, 0.350, 1.750])
 table_coord_z = 0.860 + 0.100
 
 # strings
@@ -69,7 +69,6 @@ def subReceiveImage(data):
 
     try:
         cv_image_output = bridge.imgmsg_to_cv2(data, "bgr8")
-
     except CvBridgeError as e:
         print(e)
 
@@ -94,13 +93,14 @@ def pointCloudCallBack(msg):
 
     for lego in lego_list:
 
-        for data in point_cloud2.read_points(msg, field_names=['x','y','z'], skip_nans=True, uvs=[lego.center_point]):
+        for data in pcloud2.read_points(msg, field_names=['x','y','z'], skip_nans=True, uvs=[lego.center_point]):
             lego.point_cloud = (data[0], data[1], data[2])
 
         if is_real_robot:
             lego.point_world = lego.point_cloud
         else:
             lego.point_world = matrixVirtual.dot(lego.point_cloud) + vectorVirtual + base_offset           
+        
         lego.showImg()
 
         lego_position_packet = legoFound()
@@ -164,19 +164,19 @@ if __name__ == '__main__':
     print("Starting the vision module!")
     print("----------------------------")
 
-    ros.init_node(node_name, anonymous = True)
+    rospy.init_node(node_name, anonymous = True)
     print("Node: " + node_name + " initialized!")
     
-    pos_pub = ros.Publisher(pub_detect_commander, legoFound, queue_size = default_queque_size)
+    pos_pub = rospy.Publisher(pub_detect_commander, legoFound, queue_size = default_queque_size)
     print("Publisher: " + pub_detect_commander + " enabled with queque: " + str(default_queque_size))
 
-    ack_sub = ros.Subscriber(sub_detect_resulter, eventResult, detectResulterCallback, queue_size = default_queque_size)
+    ack_sub = rospy.Subscriber(sub_detect_resulter, eventResult, detectResulterCallback, queue_size = default_queque_size)
     print("Subscriber: " + sub_detect_resulter + " enabled with queque: " + str(default_queque_size))
     
-    image_sub = ros.Subscriber(sub_receive_image, Image, subReceiveImage, queue_size = default_queque_size)
+    image_sub = rospy.Subscriber(sub_receive_image, Image, subReceiveImage, queue_size = default_queque_size)
     print("Subscriber: " + sub_receive_image + " enabled with queque: " + str(default_queque_size))
 
-    pointcloud_sub = ros.Subscriber(sub_receive_pointcloud, PointCloud2, pointCloudCallBack, queue_size = default_queque_size)
+    pointcloud_sub = rospy.Subscriber(sub_receive_pointcloud, PointCloud2, pointCloudCallBack, queue_size = default_queque_size)
     print("Subscriber: " + sub_receive_pointcloud + " enabled with queque: " + str(default_queque_size))
 
     bridge = CvBridge()
@@ -186,7 +186,6 @@ if __name__ == '__main__':
     print("----------------------------")   
 
     try:
-        ros.spin()
-
+        rospy.spin()
     except KeyboardInterrupt:
         print("Shutting down the vision module")

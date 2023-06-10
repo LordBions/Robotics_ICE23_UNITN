@@ -81,7 +81,7 @@ using namespace std;
 
 // 
 #define default_dt 0.001 // default time variation
-#define default_max_traj_time 7 // max trajectory time: max time that robot can make a trajectory
+#define default_max_traj_time 4 // max trajectory time: max time that robot can make a trajectory
 #define sleep_time 50 // default time used to wait a command
 #define damping_exponent -5 // exponent for the damping coefficient
 

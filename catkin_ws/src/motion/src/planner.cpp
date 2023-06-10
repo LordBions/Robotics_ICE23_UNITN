@@ -62,17 +62,19 @@ using namespace std;
 #define default_cam2sim_matrix 0.866, 0.000, 0.500, -0.400, 0.000, 1.000, 0.000, 0.530, -0.500, 0.000, 0.866, 1.400, 0.000, 0.000, 0.000, 1.000
 
 // all classes relocation
-#define class_00_relocation 0.4, -0.000, 0.82
-#define class_01_relocation 0.4, -0.046, 0.82
-#define class_02_relocation 0.4, -0.092, 0.82
-#define class_03_relocation 0.4, -0.138, 0.82
-#define class_04_relocation 0.4, -0.022, 0.82
-#define class_05_relocation 0.4, -0.230, 0.82
-#define class_06_relocation 0.4, -0.276, 0.82
-#define class_07_relocation 0.4, -0.322, 0.82
-#define class_08_relocation 0.4, -0.368, 0.82
-#define class_09_relocation 0.4, -0.414, 0.82
-#define class_10_relocation 0.4, -0.460, 0.82
+#define class_00_relocation 0.4, -0.000, 0.82           //X1-Y1-Z2
+#define class_01_relocation 0.4, -0.046, 0.82           //X1-Y2-Z1
+#define class_02_relocation 0.4, -0.092, 0.82           //X1-Y2-Z2
+#define class_03_relocation 0.4, -0.138, 0.82           //X1-Y2-Z2-CHAMFER
+
+#define class_04_relocation 0.3, -0.000, 0.82           //X1-Y2-Z2-TWINFILLET
+#define class_05_relocation 0.3, -0.046, 0.82           //X1-Y3-Z2
+#define class_06_relocation 0.3, -0.092, 0.82           //X1-Y3-Z2-FILLET
+#define class_07_relocation 0.3, -0.138, 0.82           //X1-Y4-Z1
+
+#define class_08_relocation 0.2, -0.000, 0.82           //X1-Y4-Z2
+#define class_09_relocation 0.2, -0.046, 0.82           //X2-Y2-Z2
+#define class_10_relocation 0.2, -0.092, 0.82           //X2-Y2-Z2-FILLET
 
 // custom orientation
 #define class_00_orient 0.0, 0.0, 0.0
