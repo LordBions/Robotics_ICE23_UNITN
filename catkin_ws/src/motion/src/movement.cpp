@@ -99,11 +99,11 @@ bool verbose_flag = true;       // to enable deep logging
 // security section
 bool security_flag;
 
-#define key_max_resolution      1000000
+#define key_max_resolution 10000
 
-#define own_secret_key          735621          // never transmit this key!
-#define own_preshared_key       923452          // used to make the first transmission
-#define other_preshared_key     654345          // used to read the first receive
+#define own_secret_key       7356           // never transmit this key!
+#define own_preshared_key    9234           // used to make the first transmission
+#define other_preshared_key  6543           // used to read the first receive
 
 int own_base_key;                               // used to check auth keys
 int other_base_key;                             // used to create auth keys to send
@@ -130,12 +130,11 @@ motion::eventResult evento;
 // variable to store the success of the task
 int risultato_var;
 
-double un_momento;
-
 // struct used to coordinate messages between planner and movement
 struct ExecutingTask {
         int command_id;         // used to understand which task movement must execute
-        double process_time;
+        ros::Time start_moment;
+        ros::Duration interval_moment;
         bool busy;              // It shows if the movement is performing a task or not
 };
 
@@ -173,9 +172,9 @@ void fastCatchProcedure(); // used when the command received is command_fast_cat
 
 void catchProcedure(); // used when the command received is command_catch:  goes to the object using a full protocol
 
-double getTimeNow(); // return the current time
+ros::Time getTimeNow(); // return the current time
 
-double getInterval(double start_t); // return the interval between the start time and the current time
+ros::Duration getInterval(ros::Time start_t); // return the interval between the start time and the current time
 
 void handShake(); // the procedure to pass the security keys
 
@@ -282,7 +281,7 @@ void taskCommanderCallback(const motion::legoTask::ConstPtr &msg_taskCommand) {
         if (task_command.send_ack) {
 
                 planner_eseguendo.command_id = task_command.command_id;
-                planner_eseguendo.process_time = getTimeNow();
+                planner_eseguendo.start_moment = getTimeNow();
                 planner_eseguendo.busy = true;
         }
 
@@ -360,9 +359,9 @@ void pubTaskResulter(int risultato) {
         if (verbose_flag) cout << "Authorization key: " << evento.authkey << endl;
         if (verbose_flag) cout << "---------------------------------------" << endl;
 
+        planner_eseguendo.interval_moment = getInterval(planner_eseguendo.start_moment);
         planner_eseguendo.busy = false;
-        planner_eseguendo.process_time = getInterval(planner_eseguendo.process_time);
-        cout << endl << " Planner process ID: " << planner_eseguendo.command_id << " KPI: " << planner_eseguendo.process_time << " seconds!" << endl;
+        cout << endl << " Planner process ID: " << planner_eseguendo.command_id << " KPI: " << planner_eseguendo.interval_moment << " seconds!" << endl;
 }
 
 Eigen::Vector3f getTrajectory(double t_time, Eigen::Vector3f begin_position, Eigen::Vector3f final_position) {
@@ -627,31 +626,38 @@ void catchProcedure() {
         risultato_var = result_completed;
 }
 
-double getTimeNow() {
-        ros::Time momento = ros::Time::now();        
-        double tempo = momento.sec + (momento.nsec / 1000000);
-        return tempo;
+ros::Time getTimeNow() {
+        ros::Time start_moment = ros::Time::now();        
+        if (verbose_flag) cout << "momento in secondi: " << start_moment.sec << endl;
+        if (verbose_flag) cout << "momento in nano secondi: " << start_moment.nsec << endl;
+        return start_moment;
 }
 
-double getInterval(double start_t) {
-        return (getTimeNow()- start_t);
+ros::Duration getInterval(ros::Time start_t) {
+        if (verbose_flag) cout << "momento finale: " << endl;
+        ros::Time end_moment = getTimeNow(); 
+
+        ros:: Duration interval_moment = end_moment - start_t;
+        if (verbose_flag) cout << "momento intervallo in secondi: " << interval_moment.sec << endl;
+        if (verbose_flag) cout << "momento intervallo in nano secondi: " << interval_moment.nsec << endl;
+        return interval_moment;
 }
 
 void handShake() {
 
         // get the other base key
         other_base_key = task_command.authkey - other_preshared_key;
-        if (verbose_flag) cout << "Other base key received:  " + other_base_key << endl;
+        if (verbose_flag) cout << "Other base key received:  " << other_base_key << endl;
 
         // generate current key for the day
         own_base_key = own_secret_key + randomNumber(key_max_resolution);
-        if (verbose_flag) cout << "Current base key generated:  " + own_base_key << endl;
+        if (verbose_flag) cout << "Current base key generated:  " << own_base_key << endl;
 
         // generate the first key send
         evento.event_id = planner_eseguendo.command_id;
         evento.result_id = result_completed;
         evento.authkey = own_base_key + own_preshared_key;
-        if (verbose_flag) cout << "First key send:  " + evento.authkey << endl; 
+        if (verbose_flag) cout << "First key send:  " << evento.authkey << endl; 
 
         // send the first key as answer
         pub_task_resulter_handle.publish(evento);    

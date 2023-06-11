@@ -11,10 +11,6 @@ echo "When the environment is ready and homing complete, "
 read -p "PRESS ANY KEY to continue or close terminal in case of faliure " answer
 
 echo " "
-read -p " Please insert the assignment number: " assignment
-gnome-terminal -- rosrun environment spawnLego -a$assignment
-
-echo " "
 echo "Starting the Vision module..."
 gnome-terminal -- rosrun vision vision.py
 sleep 3

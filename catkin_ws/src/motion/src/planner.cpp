@@ -63,17 +63,19 @@ using namespace std;
 #define default_cam2sim_matrix 0.866, 0.000, 0.500, -0.400, 0.000, 1.000, 0.000, 0.530, -0.500, 0.000, 0.866, 1.400, 0.000, 0.000, 0.000, 1.000
 
 // all classes relocation
-#define class_00_relocation 0.4, -0.000, 0.82
-#define class_01_relocation 0.4, -0.046, 0.82
-#define class_02_relocation 0.4, -0.092, 0.82
-#define class_03_relocation 0.4, -0.138, 0.82
-#define class_04_relocation 0.4, -0.022, 0.82
-#define class_05_relocation 0.4, -0.230, 0.82
-#define class_06_relocation 0.4, -0.276, 0.82
-#define class_07_relocation 0.4, -0.322, 0.82
-#define class_08_relocation 0.4, -0.368, 0.82
-#define class_09_relocation 0.4, -0.414, 0.82
-#define class_10_relocation 0.4, -0.460, 0.82
+#define class_00_relocation 0.42, -0.000, 0.82           //X1-Y1-Z2              x=0.913 y=0.288 z=0.869
+#define class_01_relocation 0.42, -0.111, 0.82           //X1-Y2-Z1
+#define class_02_relocation 0.42, -0.227, 0.82           //X1-Y2-Z2
+#define class_03_relocation 0.42, -0.355, 0.82           //X1-Y2-Z2-CHAMFER      x=0.913 y=0.693               //OK
+
+#define class_04_relocation 0.3, -0.000, 0.82           //X1-Y2-Z2-TWINFILLET
+#define class_05_relocation 0.3, -0.111, 0.82           //X1-Y3-Z2
+#define class_06_relocation 0.3, -0.227, 0.82           //X1-Y3-Z2-FILLET
+#define class_07_relocation 0.3, -0.355, 0.82           //X1-Y4-Z1
+
+#define class_08_relocation 0.16, -0.000, 0.82           //X1-Y4-Z2              x=0.613 y=0.331
+#define class_09_relocation 0.16, -0.227, 0.82           //X2-Y2-Z2
+#define class_10_relocation 0.16, -0.355, 0.82           //X2-Y2-Z2-FILLET       x=0.616 y=0.693
 
 // custom orientation
 #define class_00_orient 0.0, 0.0, 0.0
@@ -152,11 +154,11 @@ bool verbose_flag = true;       // to enable deep logging
 // security section
 bool security_flag;
 
-#define key_max_resolution      1000000
+#define key_max_resolution 10000
 
-#define own_secret_key          356820          // never transmit this key!
-#define own_preshared_key       654345          // used to make the first transmission
-#define other_preshared_key     923452          // used to read the first receive
+#define own_secret_key       3568          // never transmit this key!
+#define own_preshared_key    6543          // used to make the first transmission
+#define other_preshared_key  9234          // used to read the first receive
 
 int own_base_key;                               // used to check auth keys
 int other_base_key;                             // used to create auth keys to send
@@ -178,12 +180,11 @@ bool quit_planner = false;              // false --> planner active
 bool request_motion_ack = true;         // request an ack from movement
 bool is_vision_msg_received = false;    // if planner receives a command from vision, this var becomes true
 
-double un_momento;                      // time
-
 // struct used to coordinate messages between planner and movement
 struct WaitingTask {
         int command_id;
-        double process_time;
+        ros::Time start_moment;
+        ros::Duration interval_moment;
         bool busy;
 };
 
@@ -219,8 +220,8 @@ void homingCommand(); // move the arm to default to avoid camera interferences
 void catchCommand(Eigen::Vector3f position); // send the complete catch command to the moviment module
 
 void selectClass(int lego_cl);  // In relation to lego received from vision, load right lego parameters
-double getTimeNow(); // Returns the current time
-double getInterval(double start_t); // Returns the difference between the currentTime and the start time
+ros::Time getTimeNow(); // Returns the current time
+ros::Duration getInterval(ros::Time start_t); // Returns the difference between the currentTime and the start time
 
 /*---------------------------------------------Main zone---------------------------------------------*/
 
@@ -290,6 +291,7 @@ int main(int argc, char **argv) {
                         if (msg_lego_detect.send_ack) {
 
                                 vision_task.command_id = msg_lego_detect.command_id;
+                                vision_task.start_moment = getTimeNow();
                                 vision_task.busy = true;
                         }
 
@@ -336,29 +338,22 @@ void defaultFunction() {
 
         security_flag = false;
 
-        cout << "----------------------------------------------" << endl;
-        cout << "Default function selected: NO SECURITY" << endl;
-        cout << "----------------------------------------------" << endl;
+        if (verbose_flag) cout << "Default function selected: NO SECURITY" << endl;
 }
 
 void secureEnable() {
 
-        cout << "----------------------------------------------" << endl;
-        cout << "Starting the handshake" << endl;
-        cout << "----------------------------------------------" << endl;
+        if (verbose_flag) cout << "Security mode selected!" << endl;
 
         if (handShake()) {
 
                 security_flag = true;
+                if (verbose_flag) cout << " Security enabled!" << endl;
 
-                cout << " Security enabled!" << endl;
-                cout << "----------------------------------------------" << endl;
         } else {
 
                 security_flag = false;
-
-                cout << " Fail to enable security system!" << endl;
-                cout << "----------------------------------------------" << endl;
+                if (verbose_flag) cout << " Fail to enable security system!" << endl;
         }
 }
 
@@ -375,17 +370,19 @@ void unknownUsage() {
 
 bool handShake() {
 
+        if (verbose_flag) cout << "Starting the handshake..." << endl;
+
         // generate current base key for the day
         own_base_key = own_secret_key + randomNumber(key_max_resolution);
-        if (verbose_flag) cout << "Current base key generated:  " + own_base_key << endl;
+        if (verbose_flag) cout << "Current base key generated:  " << own_base_key << endl;
 
         // generate the first key send
         msg_taskCommand.authkey = own_base_key + own_preshared_key;
-        if (verbose_flag) cout << "First key send:  " + msg_taskCommand.authkey << endl;
+        if (verbose_flag) cout << "First key send:  " << msg_taskCommand.authkey << endl;
 
         // send the first key
         msg_taskCommand.command_id = command_handshake; 
-        pubTaskCommander(request_motion_ack);
+        pubTaskCommander(true);
 
         // wait handshake answer        
         if (verbose_flag) cout << "Waiting for handshake answer..." << endl;
@@ -399,7 +396,7 @@ bool handShake() {
 
         // get the other base key
         other_base_key = msg_evento_task.authkey - other_preshared_key;
-        if (verbose_flag) cout << "Other base key received:  " + other_base_key << endl;
+        if (verbose_flag) cout << "Other base key received:  " << other_base_key << endl;
 
         return true;
 }
@@ -509,7 +506,7 @@ void pubTaskCommander(bool s_ack) {
         if (s_ack) {
 
                 movement_task.command_id = msg_taskCommand.command_id;
-                movement_task.process_time = getTimeNow();
+                movement_task.start_moment = getTimeNow();
                 movement_task.busy = true;
 
                 if (verbose_flag) cout << "Processo " << movement_task.command_id << " messo in attesa" << endl;
@@ -538,11 +535,11 @@ void subTaskResulterCallback(const motion::eventResult::ConstPtr &msg_event) {
 
                 if (movement_task.command_id == msg_evento_task.event_id) {
 
+                        movement_task.interval_moment = getInterval(movement_task.start_moment);
                         movement_task.busy = false;
-                        movement_task.process_time = getInterval(movement_task.process_time);
                         if (verbose_flag) cout << "Processo " << movement_task.command_id << " completato" << endl;
 
-                        cout << endl << " Movement process ID: " << movement_task.command_id << " KPI: " << movement_task.process_time << " seconds!" << endl;
+                        cout << endl << " Movement process ID: " << movement_task.command_id << " KPI: " << movement_task.interval_moment << " seconds!" << endl;
                 }
                 
         }
@@ -552,11 +549,11 @@ void subTaskResulterCallback(const motion::eventResult::ConstPtr &msg_event) {
                 if (msg_evento_task.event_id == command_catch && vision_task.command_id == command_detect) {
 
                         pubDetectResulter(msg_evento_task.result_id);
+                        vision_task.interval_moment = getInterval(vision_task.start_moment);
                         vision_task.busy = false;
-                        vision_task.process_time = getInterval(vision_task.process_time);
                         if (verbose_flag) cout << "Task visione " << vision_task.command_id << " completato" << endl;
 
-                        cout << endl << " Vision process ID: " << vision_task.command_id << " KPI: " << vision_task.process_time << " seconds!" << endl;
+                        cout << endl << " Vision process ID: " << vision_task.command_id << " KPI: " << vision_task.interval_moment << " seconds!" << endl;
                 }
         }       
 }
@@ -824,12 +821,19 @@ void selectClass(int lego_cl) {
         }
 }
 
-double getTimeNow() {
-        ros::Time momento = ros::Time::now();        
-        double tempo = momento.sec + (momento.nsec / 1000000);
-        return tempo;
+ros::Time getTimeNow() {
+        ros::Time start_moment = ros::Time::now();        
+        if (verbose_flag) cout << "momento in secondi: " << start_moment.sec << endl;
+        if (verbose_flag) cout << "momento in nano secondi: " << start_moment.nsec << endl;
+        return start_moment;
 }
 
-double getInterval(double start_t) {
-        return (getTimeNow()- start_t);
+ros::Duration getInterval(ros::Time start_t) {
+        if (verbose_flag) cout << "momento finale: " << endl;
+        ros::Time end_moment = getTimeNow(); 
+
+        ros:: Duration interval_moment = end_moment - start_t;
+        if (verbose_flag) cout << "momento intervallo in secondi: " << interval_moment.sec << endl;
+        if (verbose_flag) cout << "momento intervallo in nano secondi: " << interval_moment.nsec << endl;
+        return interval_moment;
 }

@@ -154,7 +154,9 @@ killNode(){
 
 again() {
     printf "\nDo you need to re-call some modules? [\e[1;92mY\e[0m/\e[1;91mn\e[0m]\n"
-    printf "If you type \e[1;91mn\e[0m all the ROS node will be killed\n"
+    printf "\e[1;91mn\e[0m - Kill all the ROS node\n"
+    printf "\e[1;93mr\e[0m - If you want to restart\n"
+    printf "\e[1;93mR\e[0m - If you want to rebuild and restart\n"
     read -p "" _exit
 
     if [[ $_exit == Y ]]; then
@@ -165,11 +167,22 @@ again() {
         killNode
     elif [[ $_exit == n ]]; then
         killNode
+    elif [[ $_exit == R ]]; then
+        killNode
+        sleep 3
+        cd catkin_ws && catkin_make install
+        sleep 5
+        bash ~/Robotics_ICE23_UNITN/start.sh
+    elif [[ $_exit == r ]]; then
+        killNode
+        sleep 5
+        bash ~/Robotics_ICE23_UNITN/start.sh
     else
         printf "\e[1;93m [!] Invalid option!\e[0m\n"
         again
     fi
 }
+
 
 banner
 environment
