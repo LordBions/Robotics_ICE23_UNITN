@@ -1,10 +1,13 @@
 /*
-* Authors: Filippo Conti, Mattia Meneghin e Nicola Gianuzzi
+* Group: Filippo Conti, Mattia Meneghin e Nicola Gianuzzi
+*
+* Author: Filippo Conti
 */
 
 // Used libraries. Described in kinetics.h and movement.cpp files
 #include <iostream>
 #include <cmath>
+#include <ctime>
 #include <complex>
 #include <Eigen/Dense>
 #include "ros/ros.h"
@@ -55,26 +58,22 @@ using namespace std;
 #define loop_wait_rate 100     // 10 msec of waiting
 #define lego_coord_z 0.835      // z lego coordinate as the table height
 
-#define planner_security_key 35687543210
-
 // base matrix for functions
 #define default_sim2bas_matrix 1.000, 0.000, 0.000, 0.500, 0.000, -1.000, 0.000, 0.350, 0.000, 0.000, -1.000, 1.750, 0.000, 0.000, 0.000, 1.000
 #define default_cam2sim_matrix 0.866, 0.000, 0.500, -0.400, 0.000, 1.000, 0.000, 0.530, -0.500, 0.000, 0.866, 1.400, 0.000, 0.000, 0.000, 1.000
 
 // all classes relocation
-#define class_00_relocation 0.4, -0.000, 0.82           //X1-Y1-Z2
-#define class_01_relocation 0.4, -0.105, 0.82           //X1-Y2-Z1
-#define class_02_relocation 0.4, -0.210, 0.82           //X1-Y2-Z2
-#define class_03_relocation 0.4, -0.325, 0.82           //X1-Y2-Z2-CHAMFER
-
-#define class_04_relocation 0.3, -0.000, 0.82           //X1-Y2-Z2-TWINFILLET
-#define class_05_relocation 0.3, -0.105, 0.82           //X1-Y3-Z2
-#define class_06_relocation 0.3, -0.210, 0.82           //X1-Y3-Z2-FILLET
-#define class_07_relocation 0.3, -0.325, 0.82           //X1-Y4-Z1
-
-#define class_08_relocation 0.2, -0.000, 0.82           //X1-Y4-Z2
-#define class_09_relocation 0.2, -0.105, 0.82           //X2-Y2-Z2
-#define class_10_relocation 0.2, -0.210, 0.82           //X2-Y2-Z2-FILLET
+#define class_00_relocation 0.4, -0.000, 0.82
+#define class_01_relocation 0.4, -0.046, 0.82
+#define class_02_relocation 0.4, -0.092, 0.82
+#define class_03_relocation 0.4, -0.138, 0.82
+#define class_04_relocation 0.4, -0.022, 0.82
+#define class_05_relocation 0.4, -0.230, 0.82
+#define class_06_relocation 0.4, -0.276, 0.82
+#define class_07_relocation 0.4, -0.322, 0.82
+#define class_08_relocation 0.4, -0.368, 0.82
+#define class_09_relocation 0.4, -0.414, 0.82
+#define class_10_relocation 0.4, -0.460, 0.82
 
 // custom orientation
 #define class_00_orient 0.0, 0.0, 0.0
@@ -148,11 +147,22 @@ using namespace std;
 #define param0 "-s"
 #define param1 "-secureOn"
 
-bool verbose_flag = false;
+bool verbose_flag = true;       // to enable deep logging
+
+// security section
 bool security_flag;
 
-int encode_key;
-int decode_key;
+#define key_max_resolution      1000000
+
+#define own_secret_key          356820          // never transmit this key!
+#define own_preshared_key       654345          // used to make the first transmission
+#define other_preshared_key     923452          // used to read the first receive
+
+int own_base_key;                               // used to check auth keys
+int other_base_key;                             // used to create auth keys to send
+
+int own_auth_random_key;                        // stores the random auth key
+int other_auth_random_key;
 
 // Publishers
 ros::Publisher pub_task_commander_handle, pub_detect_resulter_handle; 
@@ -188,11 +198,14 @@ objectPositionOrientation lego_dest;
 
 /*---------------------------------------------function headers---------------------------------------------*/
 
-void readParams(int argc, char **argv);
+void readParams(int argc, char **argv); // parameters functions
 void defaultFunction();
 void secureEnable();
-void unknownUsage();     
-bool handShake(); 
+void unknownUsage(); 
+
+bool handShake(); // start the handshake process
+int randomNumber(int max_n); // to generate random numbers
+
 void subDetectCommanderCallback(const motion::legoFound::ConstPtr &msg_detect); // reception and analysis of a received request.
 void pubDetectResulter(int risultato); // publish the result
 void pubTaskCommander(bool s_ack); // publish the task 
@@ -234,6 +247,8 @@ int main(int argc, char **argv) {
         cout << "Subscriber: " << sub_task_resulter << " enabled with queque: " << queque_size << endl;
 
         ros::Rate loop_rate(loop_wait_rate);
+
+        srand(time(NULL)); 
 
         movement_task.busy = false;
         vision_task.busy = false;
@@ -328,20 +343,22 @@ void defaultFunction() {
 
 void secureEnable() {
 
-        security_flag = true;
-
         cout << "----------------------------------------------" << endl;
-        cout << "Security ON" << endl;
+        cout << "Starting the handshake" << endl;
         cout << "----------------------------------------------" << endl;
 
         if (handShake()) {
 
-                ///////////////////////////////////
+                security_flag = true;
 
+                cout << " Security enabled!" << endl;
+                cout << "----------------------------------------------" << endl;
         } else {
 
-                ///////////////////////////////////
+                security_flag = false;
 
+                cout << " Fail to enable security system!" << endl;
+                cout << "----------------------------------------------" << endl;
         }
 }
 
@@ -358,10 +375,39 @@ void unknownUsage() {
 
 bool handShake() {
 
-        ////////////////////////////////////////
+        // generate current base key for the day
+        own_base_key = own_secret_key + randomNumber(key_max_resolution);
+        if (verbose_flag) cout << "Current base key generated:  " + own_base_key << endl;
+
+        // generate the first key send
+        msg_taskCommand.authkey = own_base_key + own_preshared_key;
+        if (verbose_flag) cout << "First key send:  " + msg_taskCommand.authkey << endl;
+
+        // send the first key
+        msg_taskCommand.command_id = command_handshake; 
+        pubTaskCommander(request_motion_ack);
+
+        // wait handshake answer        
+        if (verbose_flag) cout << "Waiting for handshake answer..." << endl;
+
+        while (ros::ok() && movement_task.busy) {
+
+                if (quit_planner) { break; }
+
+                ros::spinOnce();
+        } 
+
+        // get the other base key
+        other_base_key = msg_evento_task.authkey - other_preshared_key;
+        if (verbose_flag) cout << "Other base key received:  " + other_base_key << endl;
 
         return true;
+}
 
+int randomNumber(int max_n) {
+
+        int random_n = rand() % (max_n + 1);
+        return random_n;       
 }
 
 /*---------------------------------------------Implemented functions---------------------------------------------*/
@@ -457,6 +503,7 @@ void pubTaskCommander(bool s_ack) {
         if (verbose_flag) cout << "Pitch destination orientation: " << msg_taskCommand.dest_pitch << endl;
         if (verbose_flag) cout << "Yaw destination orientation: " << msg_taskCommand.dest_yaw << endl;
         if (verbose_flag) cout << "Lego ungasp diameter " << msg_taskCommand.ungasp_diam << endl; 
+        if (verbose_flag) cout << "Authorization key " << msg_taskCommand.authkey << endl; 
         if (verbose_flag) cout << "---------------------------------------" << endl;
 
         if (s_ack) {
@@ -477,12 +524,14 @@ void subTaskResulterCallback(const motion::eventResult::ConstPtr &msg_event) {
 
         msg_evento_task.event_id = msg_event->event_id;
         msg_evento_task.result_id = msg_event->result_id;
+        msg_evento_task.authkey = msg_event->authkey;
 
         if (verbose_flag) cout << "---------------------------------------" << endl;
         if (verbose_flag) cout << "Subscriber: " << sub_task_resulter << " receved some data:" << endl;
         if (verbose_flag) cout << "---------------------------------------" << endl;
         if (verbose_flag) cout << "Event ID: " << msg_event->event_id << endl;
         if (verbose_flag) cout << "Result ID: " << msg_event->result_id << endl;
+        if (verbose_flag) cout << "Authorization key: " << msg_event->authkey << endl;
         if (verbose_flag) cout << "---------------------------------------" << endl;
 
         if (movement_task.busy) {

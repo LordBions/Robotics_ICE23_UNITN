@@ -36,6 +36,7 @@ class legoTask {
       this.dest_pitch = null;
       this.dest_yaw = null;
       this.ungasp_diam = null;
+      this.authkey = null;
     }
     else {
       if (initObj.hasOwnProperty('command_id')) {
@@ -146,6 +147,12 @@ class legoTask {
       else {
         this.ungasp_diam = 0.0;
       }
+      if (initObj.hasOwnProperty('authkey')) {
+        this.authkey = initObj.authkey
+      }
+      else {
+        this.authkey = 0;
+      }
     }
   }
 
@@ -187,6 +194,8 @@ class legoTask {
     bufferOffset = _serializer.float64(obj.dest_yaw, buffer, bufferOffset);
     // Serialize message field [ungasp_diam]
     bufferOffset = _serializer.float64(obj.ungasp_diam, buffer, bufferOffset);
+    // Serialize message field [authkey]
+    bufferOffset = _serializer.int32(obj.authkey, buffer, bufferOffset);
     return bufferOffset;
   }
 
@@ -230,11 +239,13 @@ class legoTask {
     data.dest_yaw = _deserializer.float64(buffer, bufferOffset);
     // Deserialize message field [ungasp_diam]
     data.ungasp_diam = _deserializer.float64(buffer, bufferOffset);
+    // Deserialize message field [authkey]
+    data.authkey = _deserializer.int32(buffer, bufferOffset);
     return data;
   }
 
   static getMessageSize(object) {
-    return 128;
+    return 132;
   }
 
   static datatype() {
@@ -244,7 +255,7 @@ class legoTask {
 
   static md5sum() {
     //Returns md5sum for a message object
-    return '8a4e5c0c91e8ae65724694327df784ce';
+    return 'decb1f5b883745a241107ee3a143d2b8';
   }
 
   static messageDefinition() {
@@ -268,6 +279,7 @@ class legoTask {
     float64 dest_pitch
     float64 dest_yaw
     float64 ungasp_diam
+    int32 authkey
     
     `;
   }
@@ -402,6 +414,13 @@ class legoTask {
     }
     else {
       resolved.ungasp_diam = 0.0
+    }
+
+    if (msg.authkey !== undefined) {
+      resolved.authkey = msg.authkey;
+    }
+    else {
+      resolved.authkey = 0
     }
 
     return resolved;

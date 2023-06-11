@@ -1,9 +1,12 @@
 /*
-* Authors: Filippo Conti, Mattia Meneghin e Nicola Gianuzzi
+* Group: Filippo Conti, Mattia Meneghin e Nicola Gianuzzi
+*
+* Author: Filippo Conti
 */
 
 #include <iostream>
 #include <cmath>
+#include <ctime>
 #include <complex>
 
 // Described in kinetics.h, provides a wide range of functionalities, including matrix arithmetic operations
@@ -91,13 +94,22 @@ using namespace std;
 #define max_diameter_ext 130 // max fingers space  
 #define min_diameter_ext 22 // min  fingers space
 
-#define movement_security_key 94567345375
+bool verbose_flag = true;       // to enable deep logging
 
-bool verbose_flag = false;
-bool security_flag = false;
+// security section
+bool security_flag;
 
-int encode_key;
-int decode_key;
+#define key_max_resolution      1000000
+
+#define own_secret_key          735621          // never transmit this key!
+#define own_preshared_key       923452          // used to make the first transmission
+#define other_preshared_key     654345          // used to read the first receive
+
+int own_base_key;                               // used to check auth keys
+int other_base_key;                             // used to create auth keys to send
+
+int own_auth_random_key;                        // stores the random auth key
+int other_auth_random_key;
 
 // Declares publishers
 ros::Publisher pub_joint_commander_handle, pub_task_resulter_handle;
@@ -167,6 +179,8 @@ double getInterval(double start_t); // return the interval between the start tim
 
 void handShake(); // the procedure to pass the security keys
 
+int randomNumber(int max_n); // to generate random numbers
+
 /*---------------------------------------------Main zone---------------------------------------------*/
 
 int main(int argc, char **argv) {
@@ -192,6 +206,8 @@ int main(int argc, char **argv) {
         cout << "Service client: " << client_gripper_commander << " enabled!" << endl;
 
         joint_state_vector << default_joint_state_vector;
+
+        srand(time(NULL)); 
 
         planner_eseguendo.busy = false;
 
@@ -237,6 +253,7 @@ void taskCommanderCallback(const motion::legoTask::ConstPtr &msg_taskCommand) {
         task_command.dest_pitch = msg_taskCommand->dest_pitch;
         task_command.dest_yaw = msg_taskCommand->dest_yaw;
         task_command.ungasp_diam = msg_taskCommand->ungasp_diam;
+        task_command.authkey = msg_taskCommand->authkey;
 
         if (verbose_flag) cout << "---------------------------------------" << endl;
         if (verbose_flag) cout << "Subscriber: " << sub_task_commander << " receved some data:" << endl;
@@ -259,6 +276,7 @@ void taskCommanderCallback(const motion::legoTask::ConstPtr &msg_taskCommand) {
         if (verbose_flag) cout << "Pitch destination orientation: " << msg_taskCommand->dest_pitch << endl;
         if (verbose_flag) cout << "Yaw destination orientation: " << msg_taskCommand->dest_yaw<< endl;
         if (verbose_flag) cout << "Lego ungasp diameter: " << msg_taskCommand->ungasp_diam << endl;
+        if (verbose_flag) cout << "Authorization Key: " << msg_taskCommand->authkey << endl;
         if (verbose_flag) cout << "---------------------------------------" << endl;
 
         if (task_command.send_ack) {
@@ -315,7 +333,7 @@ void taskCommanderCallback(const motion::legoTask::ConstPtr &msg_taskCommand) {
                                         if (verbose_flag) cout << "Catch command terminated" << endl;
                                         break;            
 
-                case(command_handshake):         if (verbose_flag) cout << "execution of handshake command..." << endl;
+                case(command_handshake):        if (verbose_flag) cout << "execution of handshake command..." << endl;
                                                 handShake();
                                                 if (verbose_flag) cout << "Handshake command terminated" << endl;
                                                 break;                                                                                                   
@@ -339,6 +357,7 @@ void pubTaskResulter(int risultato) {
         if (verbose_flag) cout << "---------------------------------------" << endl;
         if (verbose_flag) cout << "Event ID: " << evento.event_id << endl;
         if (verbose_flag) cout << "Result ID: " << evento.result_id << endl;
+        if (verbose_flag) cout << "Authorization key: " << evento.authkey << endl;
         if (verbose_flag) cout << "---------------------------------------" << endl;
 
         planner_eseguendo.busy = false;
@@ -620,6 +639,27 @@ double getInterval(double start_t) {
 
 void handShake() {
 
+        // get the other base key
+        other_base_key = task_command.authkey - other_preshared_key;
+        if (verbose_flag) cout << "Other base key received:  " + other_base_key << endl;
 
-        ////////////////////////////////////////
+        // generate current key for the day
+        own_base_key = own_secret_key + randomNumber(key_max_resolution);
+        if (verbose_flag) cout << "Current base key generated:  " + own_base_key << endl;
+
+        // generate the first key send
+        evento.event_id = planner_eseguendo.command_id;
+        evento.result_id = result_completed;
+        evento.authkey = own_base_key + own_preshared_key;
+        if (verbose_flag) cout << "First key send:  " + evento.authkey << endl; 
+
+        // send the first key as answer
+        pub_task_resulter_handle.publish(evento);    
+        if (verbose_flag) cout << "handshake answer sent!" << endl;
+}
+
+int randomNumber(int max_n) {
+
+        int random_n = rand() % (max_n + 1);
+        return random_n;       
 }

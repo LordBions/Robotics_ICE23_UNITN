@@ -1,5 +1,7 @@
 /*
-* Authors: Filippo Conti, Mattia Meneghin e Nicola Gianuzzi
+* Group: Filippo Conti, Mattia Meneghin e Nicola Gianuzzi
+*
+* Author: Filippo Conti
 */
 
 #ifndef KINETICS_H

@@ -14,7 +14,7 @@
 
 (defclass motion::legoTask
   :super ros::object
-  :slots (_command_id _send_ack _real_robot _w_time _coord_x _coord_y _coord_z _rot_roll _rot_pitch _rot_yaw _gasp_diam _dest_x _dest_y _dest_z _dest_roll _dest_pitch _dest_yaw _ungasp_diam ))
+  :slots (_command_id _send_ack _real_robot _w_time _coord_x _coord_y _coord_z _rot_roll _rot_pitch _rot_yaw _gasp_diam _dest_x _dest_y _dest_z _dest_roll _dest_pitch _dest_yaw _ungasp_diam _authkey ))
 
 (defmethod motion::legoTask
   (:init
@@ -37,6 +37,7 @@
     ((:dest_pitch __dest_pitch) 0.0)
     ((:dest_yaw __dest_yaw) 0.0)
     ((:ungasp_diam __ungasp_diam) 0.0)
+    ((:authkey __authkey) 0)
     )
    (send-super :init)
    (setq _command_id (round __command_id))
@@ -57,6 +58,7 @@
    (setq _dest_pitch (float __dest_pitch))
    (setq _dest_yaw (float __dest_yaw))
    (setq _ungasp_diam (float __ungasp_diam))
+   (setq _authkey (round __authkey))
    self)
   (:command_id
    (&optional __command_id)
@@ -112,6 +114,9 @@
   (:ungasp_diam
    (&optional __ungasp_diam)
    (if __ungasp_diam (setq _ungasp_diam __ungasp_diam)) _ungasp_diam)
+  (:authkey
+   (&optional __authkey)
+   (if __authkey (setq _authkey __authkey)) _authkey)
   (:serialization-length
    ()
    (+
@@ -151,6 +156,8 @@
     8
     ;; float64 _ungasp_diam
     8
+    ;; int32 _authkey
+    4
     ))
   (:serialize
    (&optional strm)
@@ -192,6 +199,8 @@
        (sys::poke _dest_yaw (send s :buffer) (send s :count) :double) (incf (stream-count s) 8)
      ;; float64 _ungasp_diam
        (sys::poke _ungasp_diam (send s :buffer) (send s :count) :double) (incf (stream-count s) 8)
+     ;; int32 _authkey
+       (write-long _authkey s)
      ;;
      (if (null strm) (get-output-stream-string s))))
   (:deserialize
@@ -232,11 +241,13 @@
      (setq _dest_yaw (sys::peek buf ptr- :double)) (incf ptr- 8)
    ;; float64 _ungasp_diam
      (setq _ungasp_diam (sys::peek buf ptr- :double)) (incf ptr- 8)
+   ;; int32 _authkey
+     (setq _authkey (sys::peek buf ptr- :integer)) (incf ptr- 4)
    ;;
    self)
   )
 
-(setf (get motion::legoTask :md5sum-) "8a4e5c0c91e8ae65724694327df784ce")
+(setf (get motion::legoTask :md5sum-) "decb1f5b883745a241107ee3a143d2b8")
 (setf (get motion::legoTask :datatype-) "motion/legoTask")
 (setf (get motion::legoTask :definition-)
       "int32 command_id
@@ -257,11 +268,12 @@ float64 dest_roll
 float64 dest_pitch
 float64 dest_yaw
 float64 ungasp_diam
+int32 authkey
 
 ")
 
 
 
-(provide :motion/legoTask "8a4e5c0c91e8ae65724694327df784ce")
+(provide :motion/legoTask "decb1f5b883745a241107ee3a143d2b8")
 
 

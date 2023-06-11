@@ -3,4 +3,6 @@
           EVENT_ID
           RESULT_ID-VAL
           RESULT_ID
+          AUTHKEY-VAL
+          AUTHKEY
 ))

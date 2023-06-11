@@ -41,7 +41,8 @@ struct legoTask_
     , dest_roll(0.0)
     , dest_pitch(0.0)
     , dest_yaw(0.0)
-    , ungasp_diam(0.0)  {
+    , ungasp_diam(0.0)
+    , authkey(0)  {
     }
   legoTask_(const ContainerAllocator& _alloc)
     : command_id(0)
@@ -61,7 +62,8 @@ struct legoTask_
     , dest_roll(0.0)
     , dest_pitch(0.0)
     , dest_yaw(0.0)
-    , ungasp_diam(0.0)  {
+    , ungasp_diam(0.0)
+    , authkey(0)  {
   (void)_alloc;
     }
 
@@ -121,6 +123,9 @@ struct legoTask_
    typedef double _ungasp_diam_type;
   _ungasp_diam_type ungasp_diam;
 
+   typedef int32_t _authkey_type;
+  _authkey_type authkey;
+
 
 
 
@@ -167,7 +172,8 @@ bool operator==(const ::motion::legoTask_<ContainerAllocator1> & lhs, const ::mo
     lhs.dest_roll == rhs.dest_roll &&
     lhs.dest_pitch == rhs.dest_pitch &&
     lhs.dest_yaw == rhs.dest_yaw &&
-    lhs.ungasp_diam == rhs.ungasp_diam;
+    lhs.ungasp_diam == rhs.ungasp_diam &&
+    lhs.authkey == rhs.authkey;
 }
 
 template<typename ContainerAllocator1, typename ContainerAllocator2>
@@ -224,12 +230,12 @@ struct MD5Sum< ::motion::legoTask_<ContainerAllocator> >
 {
   static const char* value()
   {
-    return "8a4e5c0c91e8ae65724694327df784ce";
+    return "decb1f5b883745a241107ee3a143d2b8";
   }
 
   static const char* value(const ::motion::legoTask_<ContainerAllocator>&) { return value(); }
-  static const uint64_t static_value1 = 0x8a4e5c0c91e8ae65ULL;
-  static const uint64_t static_value2 = 0x724694327df784ceULL;
+  static const uint64_t static_value1 = 0xdecb1f5b883745a2ULL;
+  static const uint64_t static_value2 = 0x41107ee3a143d2b8ULL;
 };
 
 template<class ContainerAllocator>
@@ -266,6 +272,7 @@ struct Definition< ::motion::legoTask_<ContainerAllocator> >
 "float64 dest_pitch\n"
 "float64 dest_yaw\n"
 "float64 ungasp_diam\n"
+"int32 authkey\n"
 ;
   }
 
@@ -302,6 +309,7 @@ namespace serialization
       stream.next(m.dest_pitch);
       stream.next(m.dest_yaw);
       stream.next(m.ungasp_diam);
+      stream.next(m.authkey);
     }
 
     ROS_DECLARE_ALLINONE_SERIALIZER
@@ -356,6 +364,8 @@ struct Printer< ::motion::legoTask_<ContainerAllocator> >
     Printer<double>::stream(s, indent + "  ", v.dest_yaw);
     s << indent << "ungasp_diam: ";
     Printer<double>::stream(s, indent + "  ", v.ungasp_diam);
+    s << indent << "authkey: ";
+    Printer<int32_t>::stream(s, indent + "  ", v.authkey);
   }
 };
 

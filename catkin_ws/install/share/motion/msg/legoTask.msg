@@ -16,3 +16,4 @@ float64 dest_roll
 float64 dest_pitch
 float64 dest_yaw
 float64 ungasp_diam
+int32 authkey

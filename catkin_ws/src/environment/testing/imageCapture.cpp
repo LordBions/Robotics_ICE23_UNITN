@@ -1,3 +1,8 @@
+/*
+* Group: Filippo Conti, Mattia Meneghin e Nicola Gianuzzi
+*
+*/
+
 #include <stdio.h>
 #include <string.h>
 #include <sl/Camera.hpp>

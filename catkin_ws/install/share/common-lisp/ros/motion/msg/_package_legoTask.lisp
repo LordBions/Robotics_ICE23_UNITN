@@ -35,4 +35,6 @@
           DEST_YAW
           UNGASP_DIAM-VAL
           UNGASP_DIAM
+          AUTHKEY-VAL
+          AUTHKEY
 ))

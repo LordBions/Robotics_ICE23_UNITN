@@ -1,6 +1,6 @@
 #!/usr/bin/python3
 
-# Authors: Filippo Conti, Mattia Meneghin e Nicola Gianuzzi
+# Group: Filippo Conti, Mattia Meneghin e Nicola Gianuzzi
 
 from pathlib import Path
 import sys

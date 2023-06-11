@@ -146,7 +146,7 @@ gazebo_request_object_info_EXTERNAL_OBJECTS =
 /home/utente/Robotics_ICE23_UNITN/catkin_ws/devel/lib/gazebo_state_plugins/gazebo_request_object_info: /usr/lib/x86_64-linux-gnu/libsdformat9.so.9.10.0
 /home/utente/Robotics_ICE23_UNITN/catkin_ws/devel/lib/gazebo_state_plugins/gazebo_request_object_info: /usr/lib/x86_64-linux-gnu/libignition-transport8.so.8.4.0
 /home/utente/Robotics_ICE23_UNITN/catkin_ws/devel/lib/gazebo_state_plugins/gazebo_request_object_info: /usr/lib/x86_64-linux-gnu/libignition-common3-graphics.so.3.15.1
-/home/utente/Robotics_ICE23_UNITN/catkin_ws/devel/lib/gazebo_state_plugins/gazebo_request_object_info: /usr/lib/x86_64-linux-gnu/libignition-fuel_tools4.so.4.8.1
+/home/utente/Robotics_ICE23_UNITN/catkin_ws/devel/lib/gazebo_state_plugins/gazebo_request_object_info: /usr/lib/x86_64-linux-gnu/libignition-fuel_tools4.so.4.8.2
 /home/utente/Robotics_ICE23_UNITN/catkin_ws/devel/lib/gazebo_state_plugins/gazebo_request_object_info: /usr/lib/x86_64-linux-gnu/libignition-msgs5.so.5.11.0
 /home/utente/Robotics_ICE23_UNITN/catkin_ws/devel/lib/gazebo_state_plugins/gazebo_request_object_info: /usr/lib/x86_64-linux-gnu/libignition-math6.so.6.13.0
 /home/utente/Robotics_ICE23_UNITN/catkin_ws/devel/lib/gazebo_state_plugins/gazebo_request_object_info: /usr/lib/x86_64-linux-gnu/libprotobuf.so
@@ -195,7 +195,7 @@ gazebo_request_object_info_EXTERNAL_OBJECTS =
 /home/utente/Robotics_ICE23_UNITN/catkin_ws/devel/lib/gazebo_state_plugins/gazebo_request_object_info: /usr/lib/x86_64-linux-gnu/libsdformat9.so.9.10.0
 /home/utente/Robotics_ICE23_UNITN/catkin_ws/devel/lib/gazebo_state_plugins/gazebo_request_object_info: /usr/lib/x86_64-linux-gnu/libignition-transport8.so.8.4.0
 /home/utente/Robotics_ICE23_UNITN/catkin_ws/devel/lib/gazebo_state_plugins/gazebo_request_object_info: /usr/lib/x86_64-linux-gnu/libignition-common3-graphics.so.3.15.1
-/home/utente/Robotics_ICE23_UNITN/catkin_ws/devel/lib/gazebo_state_plugins/gazebo_request_object_info: /usr/lib/x86_64-linux-gnu/libignition-fuel_tools4.so.4.8.1
+/home/utente/Robotics_ICE23_UNITN/catkin_ws/devel/lib/gazebo_state_plugins/gazebo_request_object_info: /usr/lib/x86_64-linux-gnu/libignition-fuel_tools4.so.4.8.2
 /home/utente/Robotics_ICE23_UNITN/catkin_ws/devel/lib/gazebo_state_plugins/gazebo_request_object_info: /usr/lib/x86_64-linux-gnu/libignition-msgs5.so.5.11.0
 /home/utente/Robotics_ICE23_UNITN/catkin_ws/devel/lib/gazebo_state_plugins/gazebo_request_object_info: /usr/lib/x86_64-linux-gnu/libignition-math6.so.6.13.0
 /home/utente/Robotics_ICE23_UNITN/catkin_ws/devel/lib/gazebo_state_plugins/gazebo_request_object_info: /usr/lib/x86_64-linux-gnu/libprotobuf.so

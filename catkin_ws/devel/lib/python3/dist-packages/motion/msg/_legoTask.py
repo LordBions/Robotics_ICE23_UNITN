@@ -8,7 +8,7 @@ import struct
 
 
 class legoTask(genpy.Message):
-  _md5sum = "8a4e5c0c91e8ae65724694327df784ce"
+  _md5sum = "decb1f5b883745a241107ee3a143d2b8"
   _type = "motion/legoTask"
   _has_header = False  # flag to mark the presence of a Header object
   _full_text = """int32 command_id
@@ -29,9 +29,10 @@ float64 dest_roll
 float64 dest_pitch
 float64 dest_yaw
 float64 ungasp_diam
+int32 authkey
 """
-  __slots__ = ['command_id','send_ack','real_robot','w_time','coord_x','coord_y','coord_z','rot_roll','rot_pitch','rot_yaw','gasp_diam','dest_x','dest_y','dest_z','dest_roll','dest_pitch','dest_yaw','ungasp_diam']
-  _slot_types = ['int32','int32','int32','int32','float64','float64','float64','float64','float64','float64','float64','float64','float64','float64','float64','float64','float64','float64']
+  __slots__ = ['command_id','send_ack','real_robot','w_time','coord_x','coord_y','coord_z','rot_roll','rot_pitch','rot_yaw','gasp_diam','dest_x','dest_y','dest_z','dest_roll','dest_pitch','dest_yaw','ungasp_diam','authkey']
+  _slot_types = ['int32','int32','int32','int32','float64','float64','float64','float64','float64','float64','float64','float64','float64','float64','float64','float64','float64','float64','int32']
 
   def __init__(self, *args, **kwds):
     """
@@ -41,7 +42,7 @@ float64 ungasp_diam
     changes.  You cannot mix in-order arguments and keyword arguments.
 
     The available fields are:
-       command_id,send_ack,real_robot,w_time,coord_x,coord_y,coord_z,rot_roll,rot_pitch,rot_yaw,gasp_diam,dest_x,dest_y,dest_z,dest_roll,dest_pitch,dest_yaw,ungasp_diam
+       command_id,send_ack,real_robot,w_time,coord_x,coord_y,coord_z,rot_roll,rot_pitch,rot_yaw,gasp_diam,dest_x,dest_y,dest_z,dest_roll,dest_pitch,dest_yaw,ungasp_diam,authkey
 
     :param args: complete set of field values, in .msg order
     :param kwds: use keyword arguments corresponding to message field names
@@ -86,6 +87,8 @@ float64 ungasp_diam
         self.dest_yaw = 0.
       if self.ungasp_diam is None:
         self.ungasp_diam = 0.
+      if self.authkey is None:
+        self.authkey = 0
     else:
       self.command_id = 0
       self.send_ack = 0
@@ -105,6 +108,7 @@ float64 ungasp_diam
       self.dest_pitch = 0.
       self.dest_yaw = 0.
       self.ungasp_diam = 0.
+      self.authkey = 0
 
   def _get_types(self):
     """
@@ -119,7 +123,7 @@ float64 ungasp_diam
     """
     try:
       _x = self
-      buff.write(_get_struct_4i14d().pack(_x.command_id, _x.send_ack, _x.real_robot, _x.w_time, _x.coord_x, _x.coord_y, _x.coord_z, _x.rot_roll, _x.rot_pitch, _x.rot_yaw, _x.gasp_diam, _x.dest_x, _x.dest_y, _x.dest_z, _x.dest_roll, _x.dest_pitch, _x.dest_yaw, _x.ungasp_diam))
+      buff.write(_get_struct_4i14di().pack(_x.command_id, _x.send_ack, _x.real_robot, _x.w_time, _x.coord_x, _x.coord_y, _x.coord_z, _x.rot_roll, _x.rot_pitch, _x.rot_yaw, _x.gasp_diam, _x.dest_x, _x.dest_y, _x.dest_z, _x.dest_roll, _x.dest_pitch, _x.dest_yaw, _x.ungasp_diam, _x.authkey))
     except struct.error as se: self._check_types(struct.error("%s: '%s' when writing '%s'" % (type(se), str(se), str(locals().get('_x', self)))))
     except TypeError as te: self._check_types(ValueError("%s: '%s' when writing '%s'" % (type(te), str(te), str(locals().get('_x', self)))))
 
@@ -134,8 +138,8 @@ float64 ungasp_diam
       end = 0
       _x = self
       start = end
-      end += 128
-      (_x.command_id, _x.send_ack, _x.real_robot, _x.w_time, _x.coord_x, _x.coord_y, _x.coord_z, _x.rot_roll, _x.rot_pitch, _x.rot_yaw, _x.gasp_diam, _x.dest_x, _x.dest_y, _x.dest_z, _x.dest_roll, _x.dest_pitch, _x.dest_yaw, _x.ungasp_diam,) = _get_struct_4i14d().unpack(str[start:end])
+      end += 132
+      (_x.command_id, _x.send_ack, _x.real_robot, _x.w_time, _x.coord_x, _x.coord_y, _x.coord_z, _x.rot_roll, _x.rot_pitch, _x.rot_yaw, _x.gasp_diam, _x.dest_x, _x.dest_y, _x.dest_z, _x.dest_roll, _x.dest_pitch, _x.dest_yaw, _x.ungasp_diam, _x.authkey,) = _get_struct_4i14di().unpack(str[start:end])
       return self
     except struct.error as e:
       raise genpy.DeserializationError(e)  # most likely buffer underfill
@@ -149,7 +153,7 @@ float64 ungasp_diam
     """
     try:
       _x = self
-      buff.write(_get_struct_4i14d().pack(_x.command_id, _x.send_ack, _x.real_robot, _x.w_time, _x.coord_x, _x.coord_y, _x.coord_z, _x.rot_roll, _x.rot_pitch, _x.rot_yaw, _x.gasp_diam, _x.dest_x, _x.dest_y, _x.dest_z, _x.dest_roll, _x.dest_pitch, _x.dest_yaw, _x.ungasp_diam))
+      buff.write(_get_struct_4i14di().pack(_x.command_id, _x.send_ack, _x.real_robot, _x.w_time, _x.coord_x, _x.coord_y, _x.coord_z, _x.rot_roll, _x.rot_pitch, _x.rot_yaw, _x.gasp_diam, _x.dest_x, _x.dest_y, _x.dest_z, _x.dest_roll, _x.dest_pitch, _x.dest_yaw, _x.ungasp_diam, _x.authkey))
     except struct.error as se: self._check_types(struct.error("%s: '%s' when writing '%s'" % (type(se), str(se), str(locals().get('_x', self)))))
     except TypeError as te: self._check_types(ValueError("%s: '%s' when writing '%s'" % (type(te), str(te), str(locals().get('_x', self)))))
 
@@ -165,8 +169,8 @@ float64 ungasp_diam
       end = 0
       _x = self
       start = end
-      end += 128
-      (_x.command_id, _x.send_ack, _x.real_robot, _x.w_time, _x.coord_x, _x.coord_y, _x.coord_z, _x.rot_roll, _x.rot_pitch, _x.rot_yaw, _x.gasp_diam, _x.dest_x, _x.dest_y, _x.dest_z, _x.dest_roll, _x.dest_pitch, _x.dest_yaw, _x.ungasp_diam,) = _get_struct_4i14d().unpack(str[start:end])
+      end += 132
+      (_x.command_id, _x.send_ack, _x.real_robot, _x.w_time, _x.coord_x, _x.coord_y, _x.coord_z, _x.rot_roll, _x.rot_pitch, _x.rot_yaw, _x.gasp_diam, _x.dest_x, _x.dest_y, _x.dest_z, _x.dest_roll, _x.dest_pitch, _x.dest_yaw, _x.ungasp_diam, _x.authkey,) = _get_struct_4i14di().unpack(str[start:end])
       return self
     except struct.error as e:
       raise genpy.DeserializationError(e)  # most likely buffer underfill
@@ -175,9 +179,9 @@ _struct_I = genpy.struct_I
 def _get_struct_I():
     global _struct_I
     return _struct_I
-_struct_4i14d = None
-def _get_struct_4i14d():
-    global _struct_4i14d
-    if _struct_4i14d is None:
-        _struct_4i14d = struct.Struct("<4i14d")
-    return _struct_4i14d
+_struct_4i14di = None
+def _get_struct_4i14di():
+    global _struct_4i14di
+    if _struct_4i14di is None:
+        _struct_4i14di = struct.Struct("<4i14di")
+    return _struct_4i14di

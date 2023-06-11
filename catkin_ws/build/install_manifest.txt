@@ -469,8 +469,8 @@
 /home/utente/Robotics_ICE23_UNITN/catkin_ws/install/share/ros_impedance_controller/config/joint_state_publisher.yaml
 /home/utente/Robotics_ICE23_UNITN/catkin_ws/install/share/ros_impedance_controller/config/operator_floating.rviz
 /home/utente/Robotics_ICE23_UNITN/catkin_ws/install/share/ros_impedance_controller/config/operator.rviz
-/home/utente/Robotics_ICE23_UNITN/catkin_ws/install/share/ros_impedance_controller/worlds/models/tavolo/mesh/tavolo.stl
-/home/utente/Robotics_ICE23_UNITN/catkin_ws/install/share/ros_impedance_controller/worlds/models/tavolo/mesh/rock-texture-surface.jpg
+/home/utente/Robotics_ICE23_UNITN/catkin_ws/install/share/ros_impedance_controller/worlds/models/tavolo/mesh/tavolo.dae
+/home/utente/Robotics_ICE23_UNITN/catkin_ws/install/share/ros_impedance_controller/worlds/models/tavolo/mesh/mat3.png
 /home/utente/Robotics_ICE23_UNITN/catkin_ws/install/share/ros_impedance_controller/worlds/models/tavolo/model.config
 /home/utente/Robotics_ICE23_UNITN/catkin_ws/install/share/ros_impedance_controller/worlds/models/tavolo/model.sdf
 /home/utente/Robotics_ICE23_UNITN/catkin_ws/install/share/ros_impedance_controller/worlds/models/modern_table/meshes/modern_table.dae

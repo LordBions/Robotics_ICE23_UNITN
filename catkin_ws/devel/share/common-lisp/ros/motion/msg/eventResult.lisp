@@ -16,6 +16,11 @@
     :reader result_id
     :initarg :result_id
     :type cl:integer
+    :initform 0)
+   (authkey
+    :reader authkey
+    :initarg :authkey
+    :type cl:integer
     :initform 0))
 )
 
@@ -36,6 +41,11 @@
 (cl:defmethod result_id-val ((m <eventResult>))
   (roslisp-msg-protocol:msg-deprecation-warning "Using old-style slot reader motion-msg:result_id-val is deprecated.  Use motion-msg:result_id instead.")
   (result_id m))
+
+(cl:ensure-generic-function 'authkey-val :lambda-list '(m))
+(cl:defmethod authkey-val ((m <eventResult>))
+  (roslisp-msg-protocol:msg-deprecation-warning "Using old-style slot reader motion-msg:authkey-val is deprecated.  Use motion-msg:authkey instead.")
+  (authkey m))
 (cl:defmethod roslisp-msg-protocol:serialize ((msg <eventResult>) ostream)
   "Serializes a message object of type '<eventResult>"
   (cl:let* ((signed (cl:slot-value msg 'event_id)) (unsigned (cl:if (cl:< signed 0) (cl:+ signed 4294967296) signed)))
@@ -45,6 +55,12 @@
     (cl:write-byte (cl:ldb (cl:byte 8 24) unsigned) ostream)
     )
   (cl:let* ((signed (cl:slot-value msg 'result_id)) (unsigned (cl:if (cl:< signed 0) (cl:+ signed 4294967296) signed)))
+    (cl:write-byte (cl:ldb (cl:byte 8 0) unsigned) ostream)
+    (cl:write-byte (cl:ldb (cl:byte 8 8) unsigned) ostream)
+    (cl:write-byte (cl:ldb (cl:byte 8 16) unsigned) ostream)
+    (cl:write-byte (cl:ldb (cl:byte 8 24) unsigned) ostream)
+    )
+  (cl:let* ((signed (cl:slot-value msg 'authkey)) (unsigned (cl:if (cl:< signed 0) (cl:+ signed 4294967296) signed)))
     (cl:write-byte (cl:ldb (cl:byte 8 0) unsigned) ostream)
     (cl:write-byte (cl:ldb (cl:byte 8 8) unsigned) ostream)
     (cl:write-byte (cl:ldb (cl:byte 8 16) unsigned) ostream)
@@ -65,6 +81,12 @@
       (cl:setf (cl:ldb (cl:byte 8 16) unsigned) (cl:read-byte istream))
       (cl:setf (cl:ldb (cl:byte 8 24) unsigned) (cl:read-byte istream))
       (cl:setf (cl:slot-value msg 'result_id) (cl:if (cl:< unsigned 2147483648) unsigned (cl:- unsigned 4294967296))))
+    (cl:let ((unsigned 0))
+      (cl:setf (cl:ldb (cl:byte 8 0) unsigned) (cl:read-byte istream))
+      (cl:setf (cl:ldb (cl:byte 8 8) unsigned) (cl:read-byte istream))
+      (cl:setf (cl:ldb (cl:byte 8 16) unsigned) (cl:read-byte istream))
+      (cl:setf (cl:ldb (cl:byte 8 24) unsigned) (cl:read-byte istream))
+      (cl:setf (cl:slot-value msg 'authkey) (cl:if (cl:< unsigned 2147483648) unsigned (cl:- unsigned 4294967296))))
   msg
 )
 (cl:defmethod roslisp-msg-protocol:ros-datatype ((msg (cl:eql '<eventResult>)))
@@ -75,18 +97,19 @@
   "motion/eventResult")
 (cl:defmethod roslisp-msg-protocol:md5sum ((type (cl:eql '<eventResult>)))
   "Returns md5sum for a message object of type '<eventResult>"
-  "50b2a692d66763516dc7b791eb0fc50b")
+  "c7c4d92529537e5f02f61be920fd1adf")
 (cl:defmethod roslisp-msg-protocol:md5sum ((type (cl:eql 'eventResult)))
   "Returns md5sum for a message object of type 'eventResult"
-  "50b2a692d66763516dc7b791eb0fc50b")
+  "c7c4d92529537e5f02f61be920fd1adf")
 (cl:defmethod roslisp-msg-protocol:message-definition ((type (cl:eql '<eventResult>)))
   "Returns full string definition for message of type '<eventResult>"
-  (cl:format cl:nil "int32 event_id~%int32 result_id~%~%~%"))
+  (cl:format cl:nil "int32 event_id~%int32 result_id~%int32 authkey~%~%~%"))
 (cl:defmethod roslisp-msg-protocol:message-definition ((type (cl:eql 'eventResult)))
   "Returns full string definition for message of type 'eventResult"
-  (cl:format cl:nil "int32 event_id~%int32 result_id~%~%~%"))
+  (cl:format cl:nil "int32 event_id~%int32 result_id~%int32 authkey~%~%~%"))
 (cl:defmethod roslisp-msg-protocol:serialization-length ((msg <eventResult>))
   (cl:+ 0
+     4
      4
      4
 ))
@@ -95,4 +118,5 @@
   (cl:list 'eventResult
     (cl:cons ':event_id (event_id msg))
     (cl:cons ':result_id (result_id msg))
+    (cl:cons ':authkey (authkey msg))
 ))

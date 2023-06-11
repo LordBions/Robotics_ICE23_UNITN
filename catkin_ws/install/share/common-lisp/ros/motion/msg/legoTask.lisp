@@ -96,7 +96,12 @@
     :reader ungasp_diam
     :initarg :ungasp_diam
     :type cl:float
-    :initform 0.0))
+    :initform 0.0)
+   (authkey
+    :reader authkey
+    :initarg :authkey
+    :type cl:integer
+    :initform 0))
 )
 
 (cl:defclass legoTask (<legoTask>)
@@ -196,6 +201,11 @@
 (cl:defmethod ungasp_diam-val ((m <legoTask>))
   (roslisp-msg-protocol:msg-deprecation-warning "Using old-style slot reader motion-msg:ungasp_diam-val is deprecated.  Use motion-msg:ungasp_diam instead.")
   (ungasp_diam m))
+
+(cl:ensure-generic-function 'authkey-val :lambda-list '(m))
+(cl:defmethod authkey-val ((m <legoTask>))
+  (roslisp-msg-protocol:msg-deprecation-warning "Using old-style slot reader motion-msg:authkey-val is deprecated.  Use motion-msg:authkey instead.")
+  (authkey m))
 (cl:defmethod roslisp-msg-protocol:serialize ((msg <legoTask>) ostream)
   "Serializes a message object of type '<legoTask>"
   (cl:let* ((signed (cl:slot-value msg 'command_id)) (unsigned (cl:if (cl:< signed 0) (cl:+ signed 4294967296) signed)))
@@ -348,6 +358,12 @@
     (cl:write-byte (cl:ldb (cl:byte 8 40) bits) ostream)
     (cl:write-byte (cl:ldb (cl:byte 8 48) bits) ostream)
     (cl:write-byte (cl:ldb (cl:byte 8 56) bits) ostream))
+  (cl:let* ((signed (cl:slot-value msg 'authkey)) (unsigned (cl:if (cl:< signed 0) (cl:+ signed 4294967296) signed)))
+    (cl:write-byte (cl:ldb (cl:byte 8 0) unsigned) ostream)
+    (cl:write-byte (cl:ldb (cl:byte 8 8) unsigned) ostream)
+    (cl:write-byte (cl:ldb (cl:byte 8 16) unsigned) ostream)
+    (cl:write-byte (cl:ldb (cl:byte 8 24) unsigned) ostream)
+    )
 )
 (cl:defmethod roslisp-msg-protocol:deserialize ((msg <legoTask>) istream)
   "Deserializes a message object of type '<legoTask>"
@@ -515,6 +531,12 @@
       (cl:setf (cl:ldb (cl:byte 8 48) bits) (cl:read-byte istream))
       (cl:setf (cl:ldb (cl:byte 8 56) bits) (cl:read-byte istream))
     (cl:setf (cl:slot-value msg 'ungasp_diam) (roslisp-utils:decode-double-float-bits bits)))
+    (cl:let ((unsigned 0))
+      (cl:setf (cl:ldb (cl:byte 8 0) unsigned) (cl:read-byte istream))
+      (cl:setf (cl:ldb (cl:byte 8 8) unsigned) (cl:read-byte istream))
+      (cl:setf (cl:ldb (cl:byte 8 16) unsigned) (cl:read-byte istream))
+      (cl:setf (cl:ldb (cl:byte 8 24) unsigned) (cl:read-byte istream))
+      (cl:setf (cl:slot-value msg 'authkey) (cl:if (cl:< unsigned 2147483648) unsigned (cl:- unsigned 4294967296))))
   msg
 )
 (cl:defmethod roslisp-msg-protocol:ros-datatype ((msg (cl:eql '<legoTask>)))
@@ -525,16 +547,16 @@
   "motion/legoTask")
 (cl:defmethod roslisp-msg-protocol:md5sum ((type (cl:eql '<legoTask>)))
   "Returns md5sum for a message object of type '<legoTask>"
-  "8a4e5c0c91e8ae65724694327df784ce")
+  "decb1f5b883745a241107ee3a143d2b8")
 (cl:defmethod roslisp-msg-protocol:md5sum ((type (cl:eql 'legoTask)))
   "Returns md5sum for a message object of type 'legoTask"
-  "8a4e5c0c91e8ae65724694327df784ce")
+  "decb1f5b883745a241107ee3a143d2b8")
 (cl:defmethod roslisp-msg-protocol:message-definition ((type (cl:eql '<legoTask>)))
   "Returns full string definition for message of type '<legoTask>"
-  (cl:format cl:nil "int32 command_id~%int32 send_ack~%int32 real_robot~%int32 w_time~%float64 coord_x~%float64 coord_y~%float64 coord_z~%float64 rot_roll~%float64 rot_pitch~%float64 rot_yaw~%float64 gasp_diam~%float64 dest_x~%float64 dest_y~%float64 dest_z~%float64 dest_roll~%float64 dest_pitch~%float64 dest_yaw~%float64 ungasp_diam~%~%~%"))
+  (cl:format cl:nil "int32 command_id~%int32 send_ack~%int32 real_robot~%int32 w_time~%float64 coord_x~%float64 coord_y~%float64 coord_z~%float64 rot_roll~%float64 rot_pitch~%float64 rot_yaw~%float64 gasp_diam~%float64 dest_x~%float64 dest_y~%float64 dest_z~%float64 dest_roll~%float64 dest_pitch~%float64 dest_yaw~%float64 ungasp_diam~%int32 authkey~%~%~%"))
 (cl:defmethod roslisp-msg-protocol:message-definition ((type (cl:eql 'legoTask)))
   "Returns full string definition for message of type 'legoTask"
-  (cl:format cl:nil "int32 command_id~%int32 send_ack~%int32 real_robot~%int32 w_time~%float64 coord_x~%float64 coord_y~%float64 coord_z~%float64 rot_roll~%float64 rot_pitch~%float64 rot_yaw~%float64 gasp_diam~%float64 dest_x~%float64 dest_y~%float64 dest_z~%float64 dest_roll~%float64 dest_pitch~%float64 dest_yaw~%float64 ungasp_diam~%~%~%"))
+  (cl:format cl:nil "int32 command_id~%int32 send_ack~%int32 real_robot~%int32 w_time~%float64 coord_x~%float64 coord_y~%float64 coord_z~%float64 rot_roll~%float64 rot_pitch~%float64 rot_yaw~%float64 gasp_diam~%float64 dest_x~%float64 dest_y~%float64 dest_z~%float64 dest_roll~%float64 dest_pitch~%float64 dest_yaw~%float64 ungasp_diam~%int32 authkey~%~%~%"))
 (cl:defmethod roslisp-msg-protocol:serialization-length ((msg <legoTask>))
   (cl:+ 0
      4
@@ -555,6 +577,7 @@
      8
      8
      8
+     4
 ))
 (cl:defmethod roslisp-msg-protocol:ros-message-to-list ((msg <legoTask>))
   "Converts a ROS message object to a list"
@@ -577,4 +600,5 @@
     (cl:cons ':dest_pitch (dest_pitch msg))
     (cl:cons ':dest_yaw (dest_yaw msg))
     (cl:cons ':ungasp_diam (ungasp_diam msg))
+    (cl:cons ':authkey (authkey msg))
 ))

@@ -20,6 +20,7 @@ class eventResult {
       // initObj === null is a special case for deserialization where we don't initialize fields
       this.event_id = null;
       this.result_id = null;
+      this.authkey = null;
     }
     else {
       if (initObj.hasOwnProperty('event_id')) {
@@ -34,6 +35,12 @@ class eventResult {
       else {
         this.result_id = 0;
       }
+      if (initObj.hasOwnProperty('authkey')) {
+        this.authkey = initObj.authkey
+      }
+      else {
+        this.authkey = 0;
+      }
     }
   }
 
@@ -43,6 +50,8 @@ class eventResult {
     bufferOffset = _serializer.int32(obj.event_id, buffer, bufferOffset);
     // Serialize message field [result_id]
     bufferOffset = _serializer.int32(obj.result_id, buffer, bufferOffset);
+    // Serialize message field [authkey]
+    bufferOffset = _serializer.int32(obj.authkey, buffer, bufferOffset);
     return bufferOffset;
   }
 
@@ -54,11 +63,13 @@ class eventResult {
     data.event_id = _deserializer.int32(buffer, bufferOffset);
     // Deserialize message field [result_id]
     data.result_id = _deserializer.int32(buffer, bufferOffset);
+    // Deserialize message field [authkey]
+    data.authkey = _deserializer.int32(buffer, bufferOffset);
     return data;
   }
 
   static getMessageSize(object) {
-    return 8;
+    return 12;
   }
 
   static datatype() {
@@ -68,7 +79,7 @@ class eventResult {
 
   static md5sum() {
     //Returns md5sum for a message object
-    return '50b2a692d66763516dc7b791eb0fc50b';
+    return 'c7c4d92529537e5f02f61be920fd1adf';
   }
 
   static messageDefinition() {
@@ -76,6 +87,7 @@ class eventResult {
     return `
     int32 event_id
     int32 result_id
+    int32 authkey
     
     `;
   }
@@ -98,6 +110,13 @@ class eventResult {
     }
     else {
       resolved.result_id = 0
+    }
+
+    if (msg.authkey !== undefined) {
+      resolved.authkey = msg.authkey;
+    }
+    else {
+      resolved.authkey = 0
     }
 
     return resolved;
