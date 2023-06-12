@@ -444,7 +444,7 @@ void assignment3() {
 
         cout << "Assignment 3 selected!" << endl;
 
-        for (int i = 0; i < 8; i++) { // 8 lego a caso
+        for (int i = 0; i < 6; i++) { // 8 lego a caso
                 
                 spawnLego(true, true, false, -1, -1, default_min_d_between); // random pos, random or, no base giu
         }

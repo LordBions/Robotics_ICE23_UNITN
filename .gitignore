@@ -13,3 +13,4 @@ catkin_ws/src/vision/images/*
 .git
 .git/*
 .gitconfig
+catkin_ws/src/CMakeLists.txt
