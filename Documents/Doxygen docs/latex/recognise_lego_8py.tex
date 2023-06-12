@@ -1,0 +1,78 @@
+\doxysection{recognise\+Lego.\+py File Reference}
+\hypertarget{recognise_lego_8py}{}\label{recognise_lego_8py}\index{recogniseLego.py@{recogniseLego.py}}
+\doxysubsubsection*{Classes}
+\begin{DoxyCompactItemize}
+\item 
+class \mbox{\hyperlink{classrecognise_lego_1_1_recognise_lego}{recognise\+Lego.\+Recognise\+Lego}}
+\begin{DoxyCompactList}\small\item\em Class that uses custom trained weights and detect lego blocks with YOLOv5. \end{DoxyCompactList}\item 
+class \mbox{\hyperlink{classrecognise_lego_1_1_lego}{recognise\+Lego.\+Lego}}
+\begin{DoxyCompactList}\small\item\em class that represent legos \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsubsection*{Variables}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{recognise_lego_8py_ada67a9b0a10a5ef4fae66b592bafb8b9}\label{recognise_lego_8py_ada67a9b0a10a5ef4fae66b592bafb8b9} 
+int {\bfseries recognise\+Lego.\+resize\+\_\+width} = 75
+\begin{DoxyCompactList}\small\item\em new width of image \end{DoxyCompactList}\item 
+\Hypertarget{recognise_lego_8py_a29d6a6e8fee8fcb46d813247710d8a1d}\label{recognise_lego_8py_a29d6a6e8fee8fcb46d813247710d8a1d} 
+{\bfseries recognise\+Lego.\+file\+\_\+path} = Path(\+\_\+\+\_\+file\+\_\+\+\_\+).resolve()
+\begin{DoxyCompactList}\small\item\em path of file \end{DoxyCompactList}\item 
+\Hypertarget{recognise_lego_8py_abadb7c1cfb04cd40c9ed3cbe93d9284a}\label{recognise_lego_8py_abadb7c1cfb04cd40c9ed3cbe93d9284a} 
+{\bfseries recognise\+Lego.\+root\+\_\+path} = file\+\_\+path.\+parents\mbox{[}0\mbox{]}
+\begin{DoxyCompactList}\small\item\em directory which contains \doxylink{recognise_lego_8py}{recognise\+Lego.\+py} \end{DoxyCompactList}\item 
+\Hypertarget{recognise_lego_8py_a201a6ca39f5e6f47faf1035a1b5edda1}\label{recognise_lego_8py_a201a6ca39f5e6f47faf1035a1b5edda1} 
+{\bfseries recognise\+Lego.\+pkg\+\_\+vision\+\_\+path} = os.\+path.\+abspath(os.\+path.\+join(\mbox{\hyperlink{recognise_lego_8py_abadb7c1cfb04cd40c9ed3cbe93d9284a}{root\+\_\+path}}, \"{}..\"{}))
+\begin{DoxyCompactList}\small\item\em vision folder \end{DoxyCompactList}\item 
+\Hypertarget{recognise_lego_8py_ae18629e81e350806544d061a6050439e}\label{recognise_lego_8py_ae18629e81e350806544d061a6050439e} 
+{\bfseries recognise\+Lego.\+zed\+\_\+roi\+\_\+image} = os.\+path.\+join(\mbox{\hyperlink{recognise_lego_8py_a201a6ca39f5e6f47faf1035a1b5edda1}{pkg\+\_\+vision\+\_\+path}}, \"{}../../src/vision/images/img\+\_\+\+Area.\+png\"{})
+\begin{DoxyCompactList}\small\item\em path of image that will contain legos that should be recognise \end{DoxyCompactList}\item 
+\Hypertarget{recognise_lego_8py_ab2d7a025020b5df94fb701563473f03e}\label{recognise_lego_8py_ab2d7a025020b5df94fb701563473f03e} 
+float {\bfseries recognise\+Lego.\+min\+\_\+level\+\_\+confidence} = 0.\+75
+\begin{DoxyCompactList}\small\item\em minimum confidence \end{DoxyCompactList}\item 
+\Hypertarget{recognise_lego_8py_ae0b5dc903a217bdcd86ede6e19355b09}\label{recognise_lego_8py_ae0b5dc903a217bdcd86ede6e19355b09} 
+{\bfseries recognise\+Lego.\+weights\+\_\+path} = os.\+path.\+join(\mbox{\hyperlink{recognise_lego_8py_a201a6ca39f5e6f47faf1035a1b5edda1}{pkg\+\_\+vision\+\_\+path}}, \"{}../../install/include/vision/include/best.\+pt\"{})
+\begin{DoxyCompactList}\small\item\em weights path \end{DoxyCompactList}\item 
+\Hypertarget{recognise_lego_8py_a255b7165f42d36091157897f9045f2fd}\label{recognise_lego_8py_a255b7165f42d36091157897f9045f2fd} 
+{\bfseries recognise\+Lego.\+pkg\+\_\+yolo\+\_\+path} = os.\+path.\+join(\mbox{\hyperlink{recognise_lego_8py_a201a6ca39f5e6f47faf1035a1b5edda1}{pkg\+\_\+vision\+\_\+path}}, \"{}include/yolo5\"{})
+\begin{DoxyCompactList}\small\item\em yolo path \end{DoxyCompactList}\item 
+\Hypertarget{recognise_lego_8py_ae67bc20ab64c684a083ac5d57c164a02}\label{recognise_lego_8py_ae67bc20ab64c684a083ac5d57c164a02} 
+{\bfseries recognise\+Lego.\+lego\+\_\+model} = torch.\+hub.\+load(\textquotesingle{}ultralytics/yolov5\textquotesingle{}, \textquotesingle{}custom\textquotesingle{}, \mbox{\hyperlink{recognise_lego_8py_ae0b5dc903a217bdcd86ede6e19355b09}{weights\+\_\+path}})
+\begin{DoxyCompactList}\small\item\em ~lego model contained in yolo folder \end{DoxyCompactList}\item 
+list \mbox{\hyperlink{recognise_lego_8py_a423a4dae6e50404c293a1f048630f4ee}{recognise\+Lego.\+lego\+\_\+models\+\_\+list}}
+\begin{DoxyCompactList}\small\item\em list of lego classes \end{DoxyCompactList}\item 
+\Hypertarget{recognise_lego_8py_aed3ad2db8925a9861cf468f6e609baff}\label{recognise_lego_8py_aed3ad2db8925a9861cf468f6e609baff} 
+{\bfseries recognise\+Lego.\+lego\+Detect} = Lego\+Detect(img\+\_\+origin\+\_\+path=sys.\+argv\mbox{[}1\mbox{]})
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+\begin{DoxyAuthor}{Authors}
+Filippo Conti, Mattia Meneghin e Nicola Gianuzzi 
+\end{DoxyAuthor}
+
+
+\doxysubsection{Variable Documentation}
+\Hypertarget{recognise_lego_8py_a423a4dae6e50404c293a1f048630f4ee}\label{recognise_lego_8py_a423a4dae6e50404c293a1f048630f4ee} 
+\index{recogniseLego.py@{recogniseLego.py}!lego\_models\_list@{lego\_models\_list}}
+\index{lego\_models\_list@{lego\_models\_list}!recogniseLego.py@{recogniseLego.py}}
+\doxysubsubsection{\texorpdfstring{lego\_models\_list}{lego\_models\_list}}
+{\footnotesize\ttfamily list recognise\+Lego.\+lego\+\_\+models\+\_\+list}
+
+{\bfseries Initial value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ =\ \ [\ \ \textcolor{stringliteral}{'X1-\/Y1-\/Z2'},}
+\DoxyCodeLine{00002\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{'X1-\/Y2-\/Z1'},}
+\DoxyCodeLine{00003\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{'X1-\/Y2-\/Z2'},}
+\DoxyCodeLine{00004\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{'X1-\/Y2-\/Z2-\/CHAMFER'},}
+\DoxyCodeLine{00005\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{'X1-\/Y2-\/Z2-\/TWINFILLET'},}
+\DoxyCodeLine{00006\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{'X1-\/Y3-\/Z2'},}
+\DoxyCodeLine{00007\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{'X1-\/Y3-\/Z2-\/FILLET'},}
+\DoxyCodeLine{00008\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{'X1-\/Y4-\/Z1'},}
+\DoxyCodeLine{00009\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{'X1-\/Y4-\/Z2'},}
+\DoxyCodeLine{00010\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{'X2-\/Y2-\/Z2'},}
+\DoxyCodeLine{00011\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{'X2-\/Y2-\/Z2-\/FILLET'}]}
+
+\end{DoxyCode}
+
+
+list of lego classes 
+

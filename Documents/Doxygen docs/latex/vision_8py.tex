@@ -1,0 +1,119 @@
+\doxysection{vision.\+py File Reference}
+\hypertarget{vision_8py}{}\label{vision_8py}\index{vision.py@{vision.py}}
+\doxysubsubsection*{Namespaces}
+\begin{DoxyCompactItemize}
+\item 
+namespace \mbox{\hyperlink{namespacevision}{vision}}
+\begin{DoxyCompactList}\small\item\em Main vision script. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{namespacevision_a80cdee937ca9e5536eff2e6ed4110959}{vision.\+sub\+Receive\+Image}} (data)
+\begin{DoxyCompactList}\small\item\em Receives the images from zed camera and it will be converted to cv2 image. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{namespacevision_aa75ef3f25c46e2c63d0ca193d61badd0}{vision.\+point\+Cloud\+Call\+Back}} (msg)
+\begin{DoxyCompactList}\small\item\em Receives the msg from ZED camera and use it to find the point cloud. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{namespacevision_a6b008c987127040603bc73136f16a1cd}{vision.\+detect\+Resulter\+Callback}} (ack\+\_\+ready)
+\begin{DoxyCompactList}\small\item\em Checks if the motion planner is ready to receive the position of the lego. \end{DoxyCompactList}\item 
+\Hypertarget{namespacevision_ac503ca6caa07c3d4b3ef4d1ff811894d}\label{namespacevision_ac503ca6caa07c3d4b3ef4d1ff811894d} 
+{\bfseries vision.\+pub\+Planner\+Commander} ()
+\begin{DoxyCompactList}\small\item\em Sends the lego position to planner. \end{DoxyCompactList}\item 
+\Hypertarget{namespacevision_abef1c1cda4c8ad428b17b7b5ceaedf0a}\label{namespacevision_abef1c1cda4c8ad428b17b7b5ceaedf0a} 
+{\bfseries vision.\+pub\+Planner\+Quitter} ()
+\begin{DoxyCompactList}\small\item\em Send quit command to planner. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsubsection*{Variables}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{namespacevision_a6f25c05c81f392951cd3c156dd0db245}\label{namespacevision_a6f25c05c81f392951cd3c156dd0db245} 
+str {\bfseries vision.\+node\+\_\+name} = \"{}vision\"{}
+\begin{DoxyCompactList}\small\item\em Node name ~\newline
+ \end{DoxyCompactList}\item 
+\Hypertarget{namespacevision_ad0fa4501de21ee33891a0c081d3203b9}\label{namespacevision_ad0fa4501de21ee33891a0c081d3203b9} 
+str {\bfseries vision.\+sub\+\_\+detect\+\_\+resulter} = \"{}/planner/detect\+Resulter\"{}
+\begin{DoxyCompactList}\small\item\em Subscriber to planner. \end{DoxyCompactList}\item 
+\Hypertarget{namespacevision_a45d656dd9c60579a8de0312251f7151f}\label{namespacevision_a45d656dd9c60579a8de0312251f7151f} 
+str {\bfseries vision.\+pub\+\_\+detect\+\_\+commander} = \"{}/vision/detect\+Commander\"{}
+\begin{DoxyCompactList}\small\item\em Vision Publisher. \end{DoxyCompactList}\item 
+\Hypertarget{namespacevision_a735a4bf51d6b444df29ef34705d1c139}\label{namespacevision_a735a4bf51d6b444df29ef34705d1c139} 
+str {\bfseries vision.\+sub\+\_\+receive\+\_\+image} = \"{}/ur5/zed\+\_\+node/left\+\_\+raw/image\+\_\+raw\+\_\+color\"{}
+\begin{DoxyCompactList}\small\item\em Subscriber to Zed Camera image. \end{DoxyCompactList}\item 
+\Hypertarget{namespacevision_ae9c9d5a4e1108c1fec29e2bc15c2d9d2}\label{namespacevision_ae9c9d5a4e1108c1fec29e2bc15c2d9d2} 
+str {\bfseries vision.\+sub\+\_\+receive\+\_\+pointcloud} = \"{}/ur5/zed\+\_\+node/point\+\_\+cloud/cloud\+\_\+registered\"{}
+\begin{DoxyCompactList}\small\item\em ~Subscriver to Zed Camera pointcloud \end{DoxyCompactList}\item 
+\Hypertarget{namespacevision_ad0ef7a3ec5eef2bdf5c211e5bcb90805}\label{namespacevision_ad0ef7a3ec5eef2bdf5c211e5bcb90805} 
+int {\bfseries vision.\+is\+\_\+real\+\_\+robot} = 0
+\begin{DoxyCompactList}\small\item\em flag for simulation or real world \end{DoxyCompactList}\item 
+\Hypertarget{namespacevision_a5e76dde00db0e429ef68ba5737eb9589}\label{namespacevision_a5e76dde00db0e429ef68ba5737eb9589} 
+bool {\bfseries vision.\+allow\+\_\+receive\+\_\+image} = True
+\begin{DoxyCompactList}\small\item\em flag used to receive image \end{DoxyCompactList}\item 
+\Hypertarget{namespacevision_a2c7b250aa62d1bfe9905a476df566854}\label{namespacevision_a2c7b250aa62d1bfe9905a476df566854} 
+bool {\bfseries vision.\+allow\+\_\+receive\+\_\+pointcloud} = False
+\begin{DoxyCompactList}\small\item\em flag used to receive lego pointcloud \end{DoxyCompactList}\item 
+\Hypertarget{namespacevision_a54edbdf60bcccd140ab16b0945e3de0f}\label{namespacevision_a54edbdf60bcccd140ab16b0945e3de0f} 
+bool {\bfseries vision.\+vision\+\_\+ready} = False
+\begin{DoxyCompactList}\small\item\em flag used to start vision \end{DoxyCompactList}\item 
+\Hypertarget{namespacevision_a9d4280cb6e3216d405e9ce3f7048e2bb}\label{namespacevision_a9d4280cb6e3216d405e9ce3f7048e2bb} 
+list {\bfseries vision.\+lego\+\_\+position\+\_\+array} = \mbox{[}$\,$\mbox{]}
+\begin{DoxyCompactList}\small\item\em contains all legos poses \end{DoxyCompactList}\item 
+\Hypertarget{namespacevision_ae894e6358b10e5b3679a342921edb9ba}\label{namespacevision_ae894e6358b10e5b3679a342921edb9ba} 
+list {\bfseries vision.\+lego\+\_\+list} = \mbox{[}$\,$\mbox{]}
+\begin{DoxyCompactList}\small\item\em contains all legos detected \end{DoxyCompactList}\item 
+\Hypertarget{namespacevision_a588ccbf72a3774ce4f21d487d9c35f79}\label{namespacevision_a588ccbf72a3774ce4f21d487d9c35f79} 
+{\bfseries vision.\+matrix\+Virtual} = numpy.\+matrix(\mbox{[}\mbox{[}0.\+000, -\/0.\+499, 0.\+866\mbox{]}, \mbox{[}-\/1.\+000, 0.\+000, 0.\+000\mbox{]}, \mbox{[}0.\+000, -\/0.\+866, -\/0.\+499\mbox{]}\mbox{]})
+\begin{DoxyCompactList}\small\item\em virtual matrix used to transform camera coordinates into robot coordinates \end{DoxyCompactList}\item 
+\Hypertarget{namespacevision_a0ef1aa021a55719bc00f471bb5f6a6be}\label{namespacevision_a0ef1aa021a55719bc00f471bb5f6a6be} 
+{\bfseries vision.\+vector\+Virtual} = numpy.\+array(\mbox{[}-\/0.\+900, 0.\+240, -\/0.\+350\mbox{]})
+\begin{DoxyCompactList}\small\item\em virtual vector used to transform camera coordinates into robot coordinates \end{DoxyCompactList}\item 
+\Hypertarget{namespacevision_a25c654b451a91e4f8acc6dcd2defbe33}\label{namespacevision_a25c654b451a91e4f8acc6dcd2defbe33} 
+int {\bfseries vision.\+no\+\_\+command} = 0
+\begin{DoxyCompactList}\small\item\em not used \end{DoxyCompactList}\item 
+\Hypertarget{namespacevision_a67bc001dc780e04d7706195d855286c0}\label{namespacevision_a67bc001dc780e04d7706195d855286c0} 
+int {\bfseries vision.\+command\+\_\+detect} = 1
+\begin{DoxyCompactList}\small\item\em used to define command for motion \end{DoxyCompactList}\item 
+\Hypertarget{namespacevision_a43a3438cfe6f8c60026ebf78507d7f0c}\label{namespacevision_a43a3438cfe6f8c60026ebf78507d7f0c} 
+int {\bfseries vision.\+command\+\_\+quit} = 2
+\begin{DoxyCompactList}\small\item\em used to quit planner in case of exception \end{DoxyCompactList}\item 
+\Hypertarget{namespacevision_ae96791880e32180a93267d74e09c0c95}\label{namespacevision_ae96791880e32180a93267d74e09c0c95} 
+int {\bfseries vision.\+default\+\_\+queque\+\_\+size} = 10
+\begin{DoxyCompactList}\small\item\em default queue size for subscribers \end{DoxyCompactList}\item 
+\Hypertarget{namespacevision_a7fbd866a274764ec82765abded0e1d00}\label{namespacevision_a7fbd866a274764ec82765abded0e1d00} 
+{\bfseries vision.\+base\+\_\+offset} = numpy.\+array(\mbox{[}0.\+500, 0.\+350, 1.\+750\mbox{]})
+\begin{DoxyCompactList}\small\item\em used to transform camera coordinates into robot coordinates \end{DoxyCompactList}\item 
+\Hypertarget{namespacevision_ae54fd0a222d2c3701d5d7800141b37d0}\label{namespacevision_ae54fd0a222d2c3701d5d7800141b37d0} 
+float {\bfseries vision.\+table\+\_\+coord\+\_\+z} = 0.\+860 + 0.\+100
+\begin{DoxyCompactList}\small\item\em z table coordinate \end{DoxyCompactList}\item 
+\Hypertarget{namespacevision_a588b362bc18b3e4eedd3382d2a591054}\label{namespacevision_a588b362bc18b3e4eedd3382d2a591054} 
+{\bfseries vision.\+file\+\_\+path} = Path(\+\_\+\+\_\+file\+\_\+\+\_\+).resolve()
+\begin{DoxyCompactList}\small\item\em path of file \end{DoxyCompactList}\item 
+\Hypertarget{namespacevision_a2714f6e595845009686b91725d06177e}\label{namespacevision_a2714f6e595845009686b91725d06177e} 
+{\bfseries vision.\+root\+\_\+path} = file\+\_\+path.\+parents\mbox{[}0\mbox{]}
+\begin{DoxyCompactList}\small\item\em directory which contains \doxylink{vision_8py}{vision.\+py} \end{DoxyCompactList}\item 
+\Hypertarget{namespacevision_a2c342ad3f0b142814797127d27f936a5}\label{namespacevision_a2c342ad3f0b142814797127d27f936a5} 
+{\bfseries vision.\+pkg\+\_\+vision\+\_\+path} = os.\+path.\+abspath(os.\+path.\+join(\mbox{\hyperlink{namespacevision_a2714f6e595845009686b91725d06177e}{root\+\_\+path}}, \"{}..\"{}))
+\begin{DoxyCompactList}\small\item\em vision folder \end{DoxyCompactList}\item 
+\Hypertarget{namespacevision_ac0a8449659a1e7f20c21c607811e7083}\label{namespacevision_ac0a8449659a1e7f20c21c607811e7083} 
+{\bfseries vision.\+zed\+\_\+image\+\_\+file} = os.\+path.\+join(\mbox{\hyperlink{namespacevision_a2c342ad3f0b142814797127d27f936a5}{pkg\+\_\+vision\+\_\+path}}, \"{}../../src/vision/images/img\+\_\+lego.\+png\"{})
+\begin{DoxyCompactList}\small\item\em path where img\+\_\+lego is located \end{DoxyCompactList}\item 
+\Hypertarget{namespacevision_a4a2968c4c1566ce762a936acf0dc56cf}\label{namespacevision_a4a2968c4c1566ce762a936acf0dc56cf} 
+{\bfseries vision.\+anonymous}
+\item 
+\Hypertarget{namespacevision_a4cc2e061675e1f8647a28c38d73a90b2}\label{namespacevision_a4cc2e061675e1f8647a28c38d73a90b2} 
+{\bfseries vision.\+pos\+\_\+pub} = rospy.\+Publisher(\mbox{\hyperlink{namespacevision_a45d656dd9c60579a8de0312251f7151f}{pub\+\_\+detect\+\_\+commander}}, lego\+Found, queue\+\_\+size = \mbox{\hyperlink{namespacevision_ae96791880e32180a93267d74e09c0c95}{default\+\_\+queque\+\_\+size}})
+\begin{DoxyCompactList}\small\item\em publisher for lego\+Found message \end{DoxyCompactList}\item 
+\Hypertarget{namespacevision_a437a21731aec99e4c8667b76399024ad}\label{namespacevision_a437a21731aec99e4c8667b76399024ad} 
+{\bfseries vision.\+ack\+\_\+sub} = rospy.\+Subscriber(\mbox{\hyperlink{namespacevision_ad0fa4501de21ee33891a0c081d3203b9}{sub\+\_\+detect\+\_\+resulter}}, event\+Result, \mbox{\hyperlink{namespacevision_a6b008c987127040603bc73136f16a1cd}{detect\+Resulter\+Callback}}, queue\+\_\+size = \mbox{\hyperlink{namespacevision_ae96791880e32180a93267d74e09c0c95}{default\+\_\+queque\+\_\+size}})
+\begin{DoxyCompactList}\small\item\em subscriber used to receive ack from planner \end{DoxyCompactList}\item 
+\Hypertarget{namespacevision_a090349f5f09626936f310ffbaccbe1be}\label{namespacevision_a090349f5f09626936f310ffbaccbe1be} 
+{\bfseries vision.\+image\+\_\+sub} = rospy.\+Subscriber(\mbox{\hyperlink{namespacevision_a735a4bf51d6b444df29ef34705d1c139}{sub\+\_\+receive\+\_\+image}}, Image, \mbox{\hyperlink{namespacevision_a80cdee937ca9e5536eff2e6ed4110959}{sub\+Receive\+Image}}, queue\+\_\+size = \mbox{\hyperlink{namespacevision_ae96791880e32180a93267d74e09c0c95}{default\+\_\+queque\+\_\+size}})
+\begin{DoxyCompactList}\small\item\em subscriber used to receive the image from camera \end{DoxyCompactList}\item 
+\Hypertarget{namespacevision_a4df25b6175b92aa77728f661e2db5f82}\label{namespacevision_a4df25b6175b92aa77728f661e2db5f82} 
+{\bfseries vision.\+pointcloud\+\_\+sub} = rospy.\+Subscriber(\mbox{\hyperlink{namespacevision_ae9c9d5a4e1108c1fec29e2bc15c2d9d2}{sub\+\_\+receive\+\_\+pointcloud}}, Point\+Cloud2, \mbox{\hyperlink{namespacevision_aa75ef3f25c46e2c63d0ca193d61badd0}{point\+Cloud\+Call\+Back}}, queue\+\_\+size = \mbox{\hyperlink{namespacevision_ae96791880e32180a93267d74e09c0c95}{default\+\_\+queque\+\_\+size}})
+\begin{DoxyCompactList}\small\item\em subscriber used to receive the pointcloud \end{DoxyCompactList}\item 
+\Hypertarget{namespacevision_a452e4797f7f0a0772e54e99e54c078a3}\label{namespacevision_a452e4797f7f0a0772e54e99e54c078a3} 
+{\bfseries vision.\+bridge} = Cv\+Bridge()
+\begin{DoxyCompactList}\small\item\em cv2 bridge \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+\begin{DoxyAuthor}{Authors}
+Filippo Conti, Mattia Meneghin e Nicola Gianuzzi 
+\end{DoxyAuthor}
