@@ -8,14 +8,14 @@ import struct
 
 
 class eventResult(genpy.Message):
-  _md5sum = "c7c4d92529537e5f02f61be920fd1adf"
+  _md5sum = "fd180d3fc58646647eb38b5dc3a7407b"
   _type = "motion/eventResult"
   _has_header = False  # flag to mark the presence of a Header object
   _full_text = """int32 event_id
 int32 result_id
-int32 authkey
+int32 extra_data
 """
-  __slots__ = ['event_id','result_id','authkey']
+  __slots__ = ['event_id','result_id','extra_data']
   _slot_types = ['int32','int32','int32']
 
   def __init__(self, *args, **kwds):
@@ -26,7 +26,7 @@ int32 authkey
     changes.  You cannot mix in-order arguments and keyword arguments.
 
     The available fields are:
-       event_id,result_id,authkey
+       event_id,result_id,extra_data
 
     :param args: complete set of field values, in .msg order
     :param kwds: use keyword arguments corresponding to message field names
@@ -39,12 +39,12 @@ int32 authkey
         self.event_id = 0
       if self.result_id is None:
         self.result_id = 0
-      if self.authkey is None:
-        self.authkey = 0
+      if self.extra_data is None:
+        self.extra_data = 0
     else:
       self.event_id = 0
       self.result_id = 0
-      self.authkey = 0
+      self.extra_data = 0
 
   def _get_types(self):
     """
@@ -59,7 +59,7 @@ int32 authkey
     """
     try:
       _x = self
-      buff.write(_get_struct_3i().pack(_x.event_id, _x.result_id, _x.authkey))
+      buff.write(_get_struct_3i().pack(_x.event_id, _x.result_id, _x.extra_data))
     except struct.error as se: self._check_types(struct.error("%s: '%s' when writing '%s'" % (type(se), str(se), str(locals().get('_x', self)))))
     except TypeError as te: self._check_types(ValueError("%s: '%s' when writing '%s'" % (type(te), str(te), str(locals().get('_x', self)))))
 
@@ -75,7 +75,7 @@ int32 authkey
       _x = self
       start = end
       end += 12
-      (_x.event_id, _x.result_id, _x.authkey,) = _get_struct_3i().unpack(str[start:end])
+      (_x.event_id, _x.result_id, _x.extra_data,) = _get_struct_3i().unpack(str[start:end])
       return self
     except struct.error as e:
       raise genpy.DeserializationError(e)  # most likely buffer underfill
@@ -89,7 +89,7 @@ int32 authkey
     """
     try:
       _x = self
-      buff.write(_get_struct_3i().pack(_x.event_id, _x.result_id, _x.authkey))
+      buff.write(_get_struct_3i().pack(_x.event_id, _x.result_id, _x.extra_data))
     except struct.error as se: self._check_types(struct.error("%s: '%s' when writing '%s'" % (type(se), str(se), str(locals().get('_x', self)))))
     except TypeError as te: self._check_types(ValueError("%s: '%s' when writing '%s'" % (type(te), str(te), str(locals().get('_x', self)))))
 
@@ -106,7 +106,7 @@ int32 authkey
       _x = self
       start = end
       end += 12
-      (_x.event_id, _x.result_id, _x.authkey,) = _get_struct_3i().unpack(str[start:end])
+      (_x.event_id, _x.result_id, _x.extra_data,) = _get_struct_3i().unpack(str[start:end])
       return self
     except struct.error as e:
       raise genpy.DeserializationError(e)  # most likely buffer underfill

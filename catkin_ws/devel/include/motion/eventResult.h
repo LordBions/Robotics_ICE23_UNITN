@@ -26,12 +26,12 @@ struct eventResult_
   eventResult_()
     : event_id(0)
     , result_id(0)
-    , authkey(0)  {
+    , extra_data(0)  {
     }
   eventResult_(const ContainerAllocator& _alloc)
     : event_id(0)
     , result_id(0)
-    , authkey(0)  {
+    , extra_data(0)  {
   (void)_alloc;
     }
 
@@ -43,8 +43,8 @@ struct eventResult_
    typedef int32_t _result_id_type;
   _result_id_type result_id;
 
-   typedef int32_t _authkey_type;
-  _authkey_type authkey;
+   typedef int32_t _extra_data_type;
+  _extra_data_type extra_data;
 
 
 
@@ -77,7 +77,7 @@ bool operator==(const ::motion::eventResult_<ContainerAllocator1> & lhs, const :
 {
   return lhs.event_id == rhs.event_id &&
     lhs.result_id == rhs.result_id &&
-    lhs.authkey == rhs.authkey;
+    lhs.extra_data == rhs.extra_data;
 }
 
 template<typename ContainerAllocator1, typename ContainerAllocator2>
@@ -134,12 +134,12 @@ struct MD5Sum< ::motion::eventResult_<ContainerAllocator> >
 {
   static const char* value()
   {
-    return "c7c4d92529537e5f02f61be920fd1adf";
+    return "fd180d3fc58646647eb38b5dc3a7407b";
   }
 
   static const char* value(const ::motion::eventResult_<ContainerAllocator>&) { return value(); }
-  static const uint64_t static_value1 = 0xc7c4d92529537e5fULL;
-  static const uint64_t static_value2 = 0x02f61be920fd1adfULL;
+  static const uint64_t static_value1 = 0xfd180d3fc5864664ULL;
+  static const uint64_t static_value2 = 0x7eb38b5dc3a7407bULL;
 };
 
 template<class ContainerAllocator>
@@ -160,7 +160,7 @@ struct Definition< ::motion::eventResult_<ContainerAllocator> >
   {
     return "int32 event_id\n"
 "int32 result_id\n"
-"int32 authkey\n"
+"int32 extra_data\n"
 ;
   }
 
@@ -181,7 +181,7 @@ namespace serialization
     {
       stream.next(m.event_id);
       stream.next(m.result_id);
-      stream.next(m.authkey);
+      stream.next(m.extra_data);
     }
 
     ROS_DECLARE_ALLINONE_SERIALIZER
@@ -204,8 +204,8 @@ struct Printer< ::motion::eventResult_<ContainerAllocator> >
     Printer<int32_t>::stream(s, indent + "  ", v.event_id);
     s << indent << "result_id: ";
     Printer<int32_t>::stream(s, indent + "  ", v.result_id);
-    s << indent << "authkey: ";
-    Printer<int32_t>::stream(s, indent + "  ", v.authkey);
+    s << indent << "extra_data: ";
+    Printer<int32_t>::stream(s, indent + "  ", v.extra_data);
   }
 };
 

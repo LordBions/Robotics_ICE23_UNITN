@@ -47,7 +47,10 @@ using namespace std;
 #define command_def_pos 6
 #define command_fast_catch 7
 #define command_catch 8
+
+// security commands
 #define command_handshake 9
+#define command_auth_key 10
 
 // Constants to identify the results type
 #define result_error -1         // constant used to identify an execution error    
@@ -117,7 +120,7 @@ using namespace std;
 #define class_10_real_ungrasp 100
 
 // class virtual grasp diameter
-#define class_00_virt_grasp 45
+#define class_00_virt_grasp 42
 #define class_01_virt_grasp 45
 #define class_02_virt_grasp 45
 #define class_03_virt_grasp 45
@@ -125,7 +128,7 @@ using namespace std;
 #define class_05_virt_grasp 45
 #define class_06_virt_grasp 45
 #define class_07_virt_grasp 45
-#define class_08_virt_grasp 45
+#define class_08_virt_grasp 43
 #define class_09_virt_grasp 45
 #define class_10_virt_grasp 45
 
@@ -149,22 +152,23 @@ using namespace std;
 #define param0 "-s"
 #define param1 "-secureOn"
 
-bool verbose_flag = true;       // to enable deep logging
+bool verbose_flag = false;       // to enable deep logging
+bool verbose_security_flag = true;
 
 // security section
-bool security_flag;
+bool security_flag = false;
 
-#define key_max_resolution 10000
+#define key_max_resolution 1000000
 
-#define own_secret_key       3568          // never transmit this key!
-#define own_preshared_key    6543          // used to make the first transmission
-#define other_preshared_key  9234          // used to read the first receive
+#define planner_secret_key   35680          // never transmit this key!
+#define planner_preshared_key    65433          // used to make the first transmission
+#define movement_preshared_key  92341          // used to read the first receive
 
-int own_base_key;                               // used to check auth keys
-int other_base_key;                             // used to create auth keys to send
+int planner_comm_key;                               // used to check auth keys
+int movement_comm_key;                             // used to create auth keys to send
 
-int own_auth_random_key;                        // stores the random auth key
-int other_auth_random_key;
+int movement_auth_key;                       // stores the authorization key
+int next_random_key;                         // stores the next random key
 
 // Publishers
 ros::Publisher pub_task_commander_handle, pub_detect_resulter_handle; 
@@ -222,6 +226,10 @@ void catchCommand(Eigen::Vector3f position); // send the complete catch command 
 void selectClass(int lego_cl);  // In relation to lego received from vision, load right lego parameters
 ros::Time getTimeNow(); // Returns the current time
 ros::Duration getInterval(ros::Time start_t); // Returns the difference between the currentTime and the start time
+
+int generateAuthKey();
+int getNextKey(int extra_d);
+void showKeys();
 
 /*---------------------------------------------Main zone---------------------------------------------*/
 
@@ -337,7 +345,6 @@ void readParams(int argc, char **argv) {
 void defaultFunction() {
 
         security_flag = false;
-
         if (verbose_flag) cout << "Default function selected: NO SECURITY" << endl;
 }
 
@@ -346,12 +353,9 @@ void secureEnable() {
         if (verbose_flag) cout << "Security mode selected!" << endl;
 
         if (handShake()) {
-
                 security_flag = true;
-                if (verbose_flag) cout << " Security enabled!" << endl;
-
+                if (verbose_flag) cout << " Security enabled!" << endl;   
         } else {
-
                 security_flag = false;
                 if (verbose_flag) cout << " Fail to enable security system!" << endl;
         }
@@ -370,22 +374,20 @@ void unknownUsage() {
 
 bool handShake() {
 
-        if (verbose_flag) cout << "Starting the handshake..." << endl;
+        if (verbose_security_flag) cout << endl << "PLANNER HANDSHAKE!!!!" << endl;
 
         // generate current base key for the day
-        own_base_key = own_secret_key + randomNumber(key_max_resolution);
-        if (verbose_flag) cout << "Current base key generated:  " << own_base_key << endl;
+        planner_comm_key = planner_secret_key + randomNumber(key_max_resolution);
+        if (verbose_security_flag) cout << "Planner communication key generated: " << planner_comm_key << endl;
 
-        // generate the first key send
-        msg_taskCommand.authkey = own_base_key + own_preshared_key;
-        if (verbose_flag) cout << "First key send:  " << msg_taskCommand.authkey << endl;
-
-        // send the first key
+        // generate the comm key to send
+        msg_taskCommand.authkey = planner_comm_key + planner_preshared_key;
+        if (verbose_security_flag) cout << "Planner encoded communication key to send: " << msg_taskCommand.authkey << endl;
         msg_taskCommand.command_id = command_handshake; 
         pubTaskCommander(true);
 
         // wait handshake answer        
-        if (verbose_flag) cout << "Waiting for handshake answer..." << endl;
+        if (verbose_security_flag) cout << "Waiting for handshake answer..." << endl;
 
         while (ros::ok() && movement_task.busy) {
 
@@ -394,9 +396,45 @@ bool handShake() {
                 ros::spinOnce();
         } 
 
-        // get the other base key
-        other_base_key = msg_evento_task.authkey - other_preshared_key;
-        if (verbose_flag) cout << "Other base key received:  " << other_base_key << endl;
+        if (verbose_security_flag) cout << "Movement encoded communication key received: " << msg_evento_task.extra_data << endl;
+
+        // get the other comm key
+        movement_comm_key = msg_evento_task.extra_data - movement_preshared_key;
+        if (verbose_security_flag) cout << "Movement communication key received: " << movement_comm_key << endl;
+
+        // --------------------- PART 2 ------------------------------------
+
+        // generate next random key
+        next_random_key = randomNumber(key_max_resolution);
+        if (verbose_security_flag) cout << "Random key generated: " << next_random_key << endl;
+
+        // ask for auth key and send next random key
+        msg_taskCommand.authkey = next_random_key + planner_comm_key;
+        if (verbose_security_flag) cout << "Random encoded key to send: " << msg_taskCommand.authkey << endl;
+
+        msg_taskCommand.command_id = command_auth_key; 
+        pubTaskCommander(true);
+        if (verbose_security_flag) cout << "Random encoded key sent!" << endl;
+
+         // wait auth key answer        
+        if (verbose_security_flag) cout << "Waiting for auth key answer..." << endl;
+
+        while (ros::ok() && movement_task.busy) {
+
+                if (quit_planner) { break; }
+
+                ros::spinOnce();
+        }        
+
+        // read the auth key
+        if (verbose_security_flag) cout << "Encoded Auth key received: " << msg_evento_task.extra_data << endl;
+
+        // decode it
+        movement_auth_key = msg_evento_task.extra_data - movement_comm_key;
+        if (verbose_security_flag) cout << "Auth key received: " << movement_auth_key << endl;
+
+        if (verbose_security_flag) cout << "SECURE MODE ON!" << endl;
+        showKeys();
 
         return true;
 }
@@ -410,6 +448,12 @@ int randomNumber(int max_n) {
 /*---------------------------------------------Implemented functions---------------------------------------------*/
 
 void subDetectCommanderCallback(const motion::legoFound::ConstPtr &msg_detect) {
+
+        if (vision_task.busy) {
+
+                if (verbose_flag) cout << "Planner is busy at time..." << endl;
+                return;
+        }
 
         if (msg_detect->command_id == no_command) {
 
@@ -432,24 +476,25 @@ void subDetectCommanderCallback(const motion::legoFound::ConstPtr &msg_detect) {
 
                 is_vision_msg_received = true; 
 
-                if (verbose_flag) cout << "---------------------------------------" << endl;
-                if (verbose_flag) cout << "Subscriber: " << sub_detect_commander << " receved some data:" << endl;      
-                if (verbose_flag) cout << "---------------------------------------" << endl;   
-                if (verbose_flag) cout << "Command ID " << msg_detect->command_id << endl;
-                if (verbose_flag) cout << "Send ack: " << msg_detect->send_ack << endl;
-                if (verbose_flag) cout << "Lego class: " << msg_detect->lego_class << endl;
-                if (verbose_flag) cout << "X coordinate: " << msg_detect->coord_x << endl;
-                if (verbose_flag) cout << "Y coordinate: " << msg_detect->coord_y << endl;
-                if (verbose_flag) cout << "Z coordinate: " << msg_detect->coord_z << endl;
-                if (verbose_flag) cout << "Roll orientation: " << msg_detect->rot_roll << endl;
-                if (verbose_flag) cout << "Pitch orientation: " << msg_detect->rot_pitch << endl;
-                if (verbose_flag) cout << "Yaw orientation: " << msg_detect->rot_yaw << endl;
-                if (verbose_flag) cout << "---------------------------------------" << endl;
+                if (verbose_flag) {
+                        cout << "---------------------------------------" << endl;
+                        cout << "Subscriber: " << sub_detect_commander << " receved some data:" << endl;      
+                        cout << "---------------------------------------" << endl;   
+                        cout << "Command ID " << msg_detect->command_id << endl;
+                        cout << "Send ack: " << msg_detect->send_ack << endl;
+                        cout << "Lego class: " << msg_detect->lego_class << endl;
+                        cout << "X coordinate: " << msg_detect->coord_x << endl;
+                        cout << "Y coordinate: " << msg_detect->coord_y << endl;
+                        cout << "Z coordinate: " << msg_detect->coord_z << endl;
+                        cout << "Roll orientation: " << msg_detect->rot_roll << endl;
+                        cout << "Pitch orientation: " << msg_detect->rot_pitch << endl;
+                        cout << "Yaw orientation: " << msg_detect->rot_yaw << endl;
+                        cout << "---------------------------------------" << endl;
+                }
                 
         } else if (msg_detect->command_id == command_quit) {
 
                 quit_planner = true;
-
                 if (verbose_flag) cout << "Quit request from vision!" << endl;
 
         } else {
@@ -466,42 +511,52 @@ void pubDetectResulter(int risultato) {
         msg_evento_detect.result_id = risultato;
         pub_detect_resulter_handle.publish(msg_evento_detect);
 
-        if (verbose_flag) cout << "---------------------------------------" << endl;
-        if (verbose_flag) cout << "Publisher: " << pub_detect_resulter << " sent some data:" << endl;
-        if (verbose_flag) cout << "---------------------------------------" << endl;
-        if (verbose_flag) cout << "Event ID: " << msg_evento_detect.event_id << endl;
-        if (verbose_flag) cout << "Result ID: " << msg_evento_detect.result_id << endl;
-        if (verbose_flag) cout << "---------------------------------------" << endl;
+        if (verbose_flag) {
+                cout << "---------------------------------------" << endl;
+                cout << "Publisher: " << pub_detect_resulter << " sent some data:" << endl;
+                cout << "---------------------------------------" << endl;
+                cout << "Event ID: " << msg_evento_detect.event_id << endl;
+                cout << "Result ID: " << msg_evento_detect.result_id << endl;
+                cout << "---------------------------------------" << endl;
+        }
+
+        ros::Rate loop_rate(loop_wait_rate);
+        loop_rate.sleep();
 }
 
 void pubTaskCommander(bool s_ack) {
 
         msg_taskCommand.send_ack = s_ack;
+
+        if (security_flag) msg_taskCommand.authkey = generateAuthKey();
+
         pub_task_commander_handle.publish(msg_taskCommand);
 
-        if (verbose_flag) cout << "---------------------------------------" << endl;
-        if (verbose_flag) cout << "Publisher: " << pub_task_commander << " sent some data:" << endl;
-        if (verbose_flag) cout << "---------------------------------------" << endl;
-        if (verbose_flag) cout << "Command ID: " << msg_taskCommand.command_id << endl;
-        if (verbose_flag) cout << "Ack: " << msg_taskCommand.send_ack << endl;
-        if (verbose_flag) cout << "Wait time: " << msg_taskCommand.w_time << endl;       
-        if (verbose_flag) cout << "Is real robot: " << msg_taskCommand.real_robot << endl;
-        if (verbose_flag) cout << "X coordinate: " << msg_taskCommand.coord_x << endl;
-        if (verbose_flag) cout << "Y coordinate: " << msg_taskCommand.coord_y << endl;
-        if (verbose_flag) cout << "Z coordinate: " << msg_taskCommand.coord_z << endl;
-        if (verbose_flag) cout << "Roll orientation: " << msg_taskCommand.rot_roll << endl;
-        if (verbose_flag) cout << "Pitch orientation: " << msg_taskCommand.rot_pitch << endl;
-        if (verbose_flag) cout << "Yaw orientation: " << msg_taskCommand.rot_yaw << endl;
-        if (verbose_flag) cout << "Lego grasp diameter: " << msg_taskCommand.gasp_diam << endl;
-        if (verbose_flag) cout << "X destination coordinate: " << msg_taskCommand.dest_x << endl;
-        if (verbose_flag) cout << "Y destination coordinate: " << msg_taskCommand.dest_y << endl;
-        if (verbose_flag) cout << "Z destination coordinate: " << msg_taskCommand.dest_z << endl;
-        if (verbose_flag) cout << "Roll destination orientation: " << msg_taskCommand.dest_roll << endl;
-        if (verbose_flag) cout << "Pitch destination orientation: " << msg_taskCommand.dest_pitch << endl;
-        if (verbose_flag) cout << "Yaw destination orientation: " << msg_taskCommand.dest_yaw << endl;
-        if (verbose_flag) cout << "Lego ungasp diameter " << msg_taskCommand.ungasp_diam << endl; 
-        if (verbose_flag) cout << "Authorization key " << msg_taskCommand.authkey << endl; 
-        if (verbose_flag) cout << "---------------------------------------" << endl;
+        if (verbose_flag) {
+                cout << "---------------------------------------" << endl;
+                cout << "Publisher: " << pub_task_commander << " sent some data:" << endl;
+                cout << "---------------------------------------" << endl;
+                cout << "Command ID: " << msg_taskCommand.command_id << endl;
+                cout << "Ack: " << msg_taskCommand.send_ack << endl;
+                cout << "Wait time: " << msg_taskCommand.w_time << endl;       
+                cout << "Is real robot: " << msg_taskCommand.real_robot << endl;
+                cout << "X coordinate: " << msg_taskCommand.coord_x << endl;
+                cout << "Y coordinate: " << msg_taskCommand.coord_y << endl;
+                cout << "Z coordinate: " << msg_taskCommand.coord_z << endl;
+                cout << "Roll orientation: " << msg_taskCommand.rot_roll << endl;
+                cout << "Pitch orientation: " << msg_taskCommand.rot_pitch << endl;
+                cout << "Yaw orientation: " << msg_taskCommand.rot_yaw << endl;
+                cout << "Lego grasp diameter: " << msg_taskCommand.gasp_diam << endl;
+                cout << "X destination coordinate: " << msg_taskCommand.dest_x << endl;
+                cout << "Y destination coordinate: " << msg_taskCommand.dest_y << endl;
+                cout << "Z destination coordinate: " << msg_taskCommand.dest_z << endl;
+                cout << "Roll destination orientation: " << msg_taskCommand.dest_roll << endl;
+                cout << "Pitch destination orientation: " << msg_taskCommand.dest_pitch << endl;
+                cout << "Yaw destination orientation: " << msg_taskCommand.dest_yaw << endl;
+                cout << "Lego ungasp diameter: " << msg_taskCommand.ungasp_diam << endl; 
+                cout << "Authorization key: " << msg_taskCommand.authkey << endl; 
+                cout << "---------------------------------------" << endl;
+        }
 
         if (s_ack) {
 
@@ -515,21 +570,26 @@ void pubTaskCommander(bool s_ack) {
 
                 movement_task.busy = false;                
         }        
+
+        ros::Rate loop_rate(loop_wait_rate);
+        loop_rate.sleep();
 }
 
 void subTaskResulterCallback(const motion::eventResult::ConstPtr &msg_event) {
 
         msg_evento_task.event_id = msg_event->event_id;
         msg_evento_task.result_id = msg_event->result_id;
-        msg_evento_task.authkey = msg_event->authkey;
+        msg_evento_task.extra_data = msg_event->extra_data;
 
-        if (verbose_flag) cout << "---------------------------------------" << endl;
-        if (verbose_flag) cout << "Subscriber: " << sub_task_resulter << " receved some data:" << endl;
-        if (verbose_flag) cout << "---------------------------------------" << endl;
-        if (verbose_flag) cout << "Event ID: " << msg_event->event_id << endl;
-        if (verbose_flag) cout << "Result ID: " << msg_event->result_id << endl;
-        if (verbose_flag) cout << "Authorization key: " << msg_event->authkey << endl;
-        if (verbose_flag) cout << "---------------------------------------" << endl;
+        if (verbose_flag) {
+                cout << "---------------------------------------" << endl;
+                cout << "Subscriber: " << sub_task_resulter << " receved some data:" << endl;
+                cout << "---------------------------------------" << endl;
+                cout << "Event ID: " << msg_evento_task.event_id << endl;
+                cout << "Result ID: " << msg_evento_task.result_id << endl;
+                cout << "Extra data: " << msg_evento_task.extra_data << endl;
+                cout << "---------------------------------------" << endl;
+        }
 
         if (movement_task.busy) {
 
@@ -539,9 +599,8 @@ void subTaskResulterCallback(const motion::eventResult::ConstPtr &msg_event) {
                         movement_task.busy = false;
                         if (verbose_flag) cout << "Processo " << movement_task.command_id << " completato" << endl;
 
-                        cout << endl << " Movement process ID: " << movement_task.command_id << " KPI: " << movement_task.interval_moment << " seconds!" << endl;
+                        if (security_flag) next_random_key = getNextKey(msg_evento_task.extra_data);
                 }
-                
         }
 
         if (vision_task.busy) {
@@ -553,7 +612,7 @@ void subTaskResulterCallback(const motion::eventResult::ConstPtr &msg_event) {
                         vision_task.busy = false;
                         if (verbose_flag) cout << "Task visione " << vision_task.command_id << " completato" << endl;
 
-                        cout << endl << " Vision process ID: " << vision_task.command_id << " KPI: " << vision_task.interval_moment << " seconds!" << endl;
+                        cout << endl << " Planner process ID: " << vision_task.command_id << " KPI: " << vision_task.interval_moment << " seconds!" << endl << endl;
                 }
         }       
 }
@@ -836,4 +895,35 @@ ros::Duration getInterval(ros::Time start_t) {
         if (verbose_flag) cout << "momento intervallo in secondi: " << interval_moment.sec << endl;
         if (verbose_flag) cout << "momento intervallo in nano secondi: " << interval_moment.nsec << endl;
         return interval_moment;
+}
+
+int generateAuthKey() {
+
+        int auth_key = movement_auth_key + next_random_key;
+        if (verbose_security_flag) cout << "Generated authorization code: " << auth_key << endl;
+
+        auth_key = auth_key + planner_comm_key;
+        if (verbose_security_flag) cout << "Encoded authorization code: " << auth_key << endl;
+        return auth_key;
+}
+
+int getNextKey(int extra_d) {
+
+        if (verbose_security_flag) cout << "Next random encoded received: " << extra_d << endl;
+
+        int next_r = extra_d - movement_comm_key;
+        if (verbose_security_flag) cout << "Next random received: " << next_r << endl;
+
+        return next_r;
+}
+
+void showKeys() {
+        cout << endl;
+        cout << "------------- PLANNER KEY LIST ---------------" << endl;
+        cout << "Planner comm key: " << planner_comm_key << endl;
+        cout << "Movement comm key: " << movement_comm_key << endl;
+        cout << "Movement auth key: " << movement_auth_key << endl;
+        cout << "Next random key: " << next_random_key << endl;
+        cout << "--------------------------------------" << endl;
+        cout << endl;
 }

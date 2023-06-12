@@ -1,3 +1,3 @@
 int32 event_id
 int32 result_id
-int32 authkey
+int32 extra_data

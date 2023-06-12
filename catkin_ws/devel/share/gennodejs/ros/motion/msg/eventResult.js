@@ -20,7 +20,7 @@ class eventResult {
       // initObj === null is a special case for deserialization where we don't initialize fields
       this.event_id = null;
       this.result_id = null;
-      this.authkey = null;
+      this.extra_data = null;
     }
     else {
       if (initObj.hasOwnProperty('event_id')) {
@@ -35,11 +35,11 @@ class eventResult {
       else {
         this.result_id = 0;
       }
-      if (initObj.hasOwnProperty('authkey')) {
-        this.authkey = initObj.authkey
+      if (initObj.hasOwnProperty('extra_data')) {
+        this.extra_data = initObj.extra_data
       }
       else {
-        this.authkey = 0;
+        this.extra_data = 0;
       }
     }
   }
@@ -50,8 +50,8 @@ class eventResult {
     bufferOffset = _serializer.int32(obj.event_id, buffer, bufferOffset);
     // Serialize message field [result_id]
     bufferOffset = _serializer.int32(obj.result_id, buffer, bufferOffset);
-    // Serialize message field [authkey]
-    bufferOffset = _serializer.int32(obj.authkey, buffer, bufferOffset);
+    // Serialize message field [extra_data]
+    bufferOffset = _serializer.int32(obj.extra_data, buffer, bufferOffset);
     return bufferOffset;
   }
 
@@ -63,8 +63,8 @@ class eventResult {
     data.event_id = _deserializer.int32(buffer, bufferOffset);
     // Deserialize message field [result_id]
     data.result_id = _deserializer.int32(buffer, bufferOffset);
-    // Deserialize message field [authkey]
-    data.authkey = _deserializer.int32(buffer, bufferOffset);
+    // Deserialize message field [extra_data]
+    data.extra_data = _deserializer.int32(buffer, bufferOffset);
     return data;
   }
 
@@ -79,7 +79,7 @@ class eventResult {
 
   static md5sum() {
     //Returns md5sum for a message object
-    return 'c7c4d92529537e5f02f61be920fd1adf';
+    return 'fd180d3fc58646647eb38b5dc3a7407b';
   }
 
   static messageDefinition() {
@@ -87,7 +87,7 @@ class eventResult {
     return `
     int32 event_id
     int32 result_id
-    int32 authkey
+    int32 extra_data
     
     `;
   }
@@ -112,11 +112,11 @@ class eventResult {
       resolved.result_id = 0
     }
 
-    if (msg.authkey !== undefined) {
-      resolved.authkey = msg.authkey;
+    if (msg.extra_data !== undefined) {
+      resolved.extra_data = msg.extra_data;
     }
     else {
-      resolved.authkey = 0
+      resolved.extra_data = 0
     }
 
     return resolved;
