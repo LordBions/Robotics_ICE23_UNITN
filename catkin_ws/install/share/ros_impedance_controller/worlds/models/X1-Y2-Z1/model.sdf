@@ -35,7 +35,6 @@
                      <max_contacts>20</max_contacts> 
  
                     <pose>0 0 0 0 -0 0</pose> 
-
  
                      <geometry> 
                          <mesh> 
@@ -58,6 +57,7 @@
  
                          <script> 
                              <uri>file://media/materials/scripts/gazebo.material</uri>
+                             
                              <name>Gazebo/Red</name>
                          </script>
                          <shader type="vertex">

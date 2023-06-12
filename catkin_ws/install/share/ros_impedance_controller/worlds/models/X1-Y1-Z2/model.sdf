@@ -1,43 +1,88 @@
 <?xml version="1.0"?>
-<sdf version="1.4">
+<sdf version="1.6"> 
+
   <model name="X1-Y1-Z2">
-    <static>false</static>
+    <static>0</static>
+    <self_collide>0</self_collide> 
+    <allow_auto_disable>1</allow_auto_disable> 
+
+    <pose>0 0 0 0 -0 0</pose> 
+
     <link name="link">
-      <pose>0 0 0 0 0 0</pose>
+
+        <gravity>1</gravity> 
+        <self_collide>0</self_collide> 
+        <kinematic>0</kinematic> 
+
       <inertial>
-        <pose>0 0 -0.064e-02 0 0 0</pose>
-        <mass>7.975e-6</mass>
+
+        <mass>1.0</mass>
+
+        <pose>  6.0000000000e-07  4.5600000000e-06  1.9002950000e-02 0 0 0 </pose>
+
         <inertia>
-          <ixx>31.065e-10</ixx>
+
+          <ixx>  5.1220598241e-04 </ixx>
+          <ixy>  5.0978057652e-08 </ixy>
+          <ixz> -3.7212469384e-09 </ixz>
+          <iyy>  2.3708169125e-04 </iyy>
+          <iyz> -5.1441952935e-08 </iyz>
+          <izz>  5.0510161777e-04 </izz>
+
+<!--           <ixx>31.065e-10</ixx>
           <ixy>0.000027e-10</ixy>
           <ixz>-0.002403e-10</ixz>
           <iyy>31.066e-10</iyy>
           <iyz>-0.000221e-10</iyz>
-          <izz>19.7979e-10</izz>
+          <izz>19.7979e-10</izz> -->
         </inertia>
       </inertial>
-      
-      <visual name="visual">
+
+      <collision name="collision">
+
+        <max_contacts>20</max_contacts> 
+
+        <pose>0 0 0 0 -0 0</pose> 
+
         <geometry>
           <mesh>
             <uri>model://X1-Y1-Z2/meshes/X1-Y1-Z2.stl</uri>
+
+          <scale>1.0 1.0 1.0</scale>   
           </mesh>
         </geometry>
+
+        <surface></surface> 
+      </collision>
+      
+      <visual name="visual">
+
+        <cast_shadows>1</cast_shadows>
+        <transparency>0</transparency>
+
+        <pose>0 0 0 0 -0 0</pose>
+
         <material>
+
           <script>
             <uri>file://media/materials/scripts/gazebo.material</uri>
             <name>Gazebo/Red</name>
           </script>
+
+          <shader type="vertex">
+            <normal_map>__default__</normal_map>
+          </shader>
+        
         </material>
-      </visual>
-      
-      <collision name="collision">
+
         <geometry>
           <mesh>
             <uri>model://X1-Y1-Z2/meshes/X1-Y1-Z2.stl</uri>
+
+            <scale>1.0 1.0 1.0</scale> 
           </mesh>
         </geometry>
-      </collision>
+      </visual>
     </link>
   </model>
 </sdf>

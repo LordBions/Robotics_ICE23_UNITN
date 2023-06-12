@@ -29,13 +29,16 @@
       <uri>model://sun</uri>
     </include>
 
-   <include>
-      <name>tavolo</name>
+  <!-- Robot's table -->
+    <model name="tavolo">
+      <static>true</static>
+      <include>
       <uri>model://tavolo</uri>
       <pose>0.0 0.0 0.0 0 0 0</pose>
-    </include>
+      </include>
+    </model>
   
-        <!-- Table -->
+        <!-- Our Table -->
     <model name="modern_table">
       <static>true</static>
       <include>
@@ -45,7 +48,7 @@
     </model>
     
         <!-- person 1 -->
-    <model name="person_standing">
+    <model name="person_standing_1">
       <static>true</static>
       <include>
         <uri>model://person_standing</uri>

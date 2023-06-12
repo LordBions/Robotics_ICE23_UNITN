@@ -13,8 +13,6 @@
                  <gravity>1</gravity> 
                  <self_collide>0</self_collide> 
                  <kinematic>0</kinematic> 
- 
-                <pose>0 0 0 0 -0 0</pose> 
 
                 <inertial>
 
@@ -23,12 +21,12 @@
                     <pose> -4.0000000000e-08 -1.8759000000e-04  2.9235880000e-02 0 0 0 </pose>
 
                     <inertia>
-                        <ixx>  1.7712896805e-03 </ixx>
-                        <ixy> -7.1129436583e-12 </ixy>
-                        <ixz>  9.6736033753e-10 </ixz>
-                        <iyy>  4.0430172694e-04 </iyy>
-                        <iyz> -2.0788538089e-06 </iyz>
-                        <izz>  1.6332190615e-03 </izz>
+                        <ixx>  5.1220598241e-04 </ixx>
+                        <ixy>  5.0978057652e-08 </ixy>
+                        <ixz> -3.7212469384e-09 </ixz>
+                        <iyy>  2.3708169125e-04 </iyy>
+                        <iyz> -5.1441952935e-08 </iyz>
+                        <izz>  5.0510161777e-04 </izz>
                     </inertia>
                 </inertial> 
                  
@@ -60,7 +58,7 @@
                          <script> 
                              <uri>file://media/materials/scripts/gazebo.material</uri>
 
-                             <name>Gazebo/Blue</name>
+                             <name>Gazebo/Red</name>
                          </script>
                          <shader type="vertex">
                            <normal_map>__default__</normal_map>

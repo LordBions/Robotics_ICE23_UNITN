@@ -14,7 +14,6 @@
                  <self_collide>0</self_collide> 
                  <kinematic>0</kinematic> 
  
- 
                  <inertial>
 
                     <mass> 1.0 </mass>

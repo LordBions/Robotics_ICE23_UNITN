@@ -60,7 +60,7 @@
                          <script> 
                              <uri>file://media/materials/scripts/gazebo.material</uri>
 
-                             <name>Gazebo/Green</name>
+                             <name>Gazebo/Red</name>
                          </script>
                          <shader type="vertex">
                            <normal_map>__default__</normal_map>
