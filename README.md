@@ -23,16 +23,16 @@ First of all, you need to prepare our project and its requirements following the
 Enjoy
 
 ## Assignment 1
-<img src="https://github.com/LordBions/Robotics_ICE23_UNITN/blob/main/Documents/videos/GIF_assignment_1.gif">
+<img src="https://github.com/LordBions/Robotics_ICE23_UNITN/blob/main/Documents/videos/assignment_1.gif">
 
->Note: Real video into [Documents](https://github.com/LordBions/Robotics_ICE23_UNITN/tree/main/Documents/) folder, this gif is 3x faster than real video
+>Note: Real video into [Documents](https://github.com/LordBions/Robotics_ICE23_UNITN/tree/main/documents/) folder, this gif is 3x faster than real video
 
 ## Assignment 2
-<img src="https://github.com/LordBions/Robotics_ICE23_UNITN/blob/main/Documents/videos/GIF_assignment_2.gif">
+<img src="https://github.com/LordBions/Robotics_ICE23_UNITN/blob/main/Documents/videos/assignment_2.gif">
 
->Note: Real video into [Documents](https://github.com/LordBions/Robotics_ICE23_UNITN/tree/main/Documents/) folder, this gif is 5x faster than real video
+>Note: Real video into [Documents](https://github.com/LordBions/Robotics_ICE23_UNITN/tree/main/documents/) folder, this gif is 5x faster than real video
 
 ## Assignment 3
-<img src="https://github.com/LordBions/Robotics_ICE23_UNITN/blob/main/Documents/videos/GIF_assignment_3.gif">
+<img src="https://github.com/LordBions/Robotics_ICE23_UNITN/blob/main/Documents/videos/assignment_3.gif">
 
->Note: Real video into [Documents](https://github.com/LordBions/Robotics_ICE23_UNITN/tree/main/Documents/) folder, this gif is 5x faster than real video
+>Note: Real video into [Documents](https://github.com/LordBions/Robotics_ICE23_UNITN/tree/main/documents/) folder, this gif is 5x faster than real video
