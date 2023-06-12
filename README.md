@@ -7,6 +7,8 @@ This project requires ROS Noetic Ninjemys in ubuntu focal fossa(20.04) operative
 ----------------------------
 First of all, you need to prepare our project and its requirements following the full report guidelines.
 
+>It's better to have a stable internet connection in order to exploit as well as possible yolov5 features
+
 1. Open the terminal
 2. move into catkin_ws folder with `cd ~/Robotics_ICE23_UNITN/catkin_ws`
 3. Do a catkin_make `catkin_make install`

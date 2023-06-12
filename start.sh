@@ -6,7 +6,10 @@ start(){
     printf "   \n"
     printf "   \e[100m\e[1;77m:: Would you like to use the secure operating way? ::\e[0m\n"
     printf "Press [\e[1;92mS\e[0m] to continue in a SECURE way\n"
-    printf "Press [\e[1;91mn\e[0m] to continue in a NORMAL way\n"
+    printf "Press [\e[1;93mN\e[0m] to continue in a NORMAL way\n"
+    printf "Press [\e[1;91mK\e[0m] to EXIT \e[0m\n"
+    printf "Press [\e[1;91mr\e[0m] to restart\n"
+    printf "Press [\e[1;91mR\e[0m] to rebuild and restart\n"
     read -p "" sec
 
 
@@ -30,6 +33,23 @@ start(){
         movement
         planner
         printf "\n\e[1;92mALL STARTED - NORMAL WAY\e[0m\n"
+    elif [[ $sec == K ]]; then
+        killNode
+    elif [[ $sec == k ]]; then
+        killNode
+    elif [[ $sec == R ]]; then
+        killNode
+        sleep 3
+        cd ~/Robotics_ICE23_UNITN/catkin_ws && catkin_make install
+        sleep 5
+        bash ~/Robotics_ICE23_UNITN/start.sh
+    elif [[ $sec == r ]]; then
+        killNode
+        sleep 5
+        bash ~/Robotics_ICE23_UNITN/start.sh
+
+
+
     else
         printf "\e[1;93m [!] Invalid option!\e[0m\n"
         start
@@ -184,8 +204,8 @@ killNode(){
 }
 
 again() {
-    printf "\nDo you need to re-call some modules? [\e[1;92mY\e[0m/\e[1;91mn\e[0m]\n"
-    printf "\e[1;91mn\e[0m - Kill all the ROS node\n"
+    printf "\n\e[1;91mY\e[0m to re-call some modules?\n"
+    printf "\e[1;91mk\e[0m - Kill all the ROS node\n"
     printf "\e[1;93mr\e[0m - If you want to restart\n"
     printf "\e[1;93mR\e[0m - If you want to rebuild and restart\n"
     read -p "" _exit
@@ -194,14 +214,14 @@ again() {
         selectModule
     elif [[ $_exit == y ]]; then
         selectModule
-    elif [[ $_exit == N ]]; then
+    elif [[ $_exit == K ]]; then
         killNode
-    elif [[ $_exit == n ]]; then
+    elif [[ $_exit == k ]]; then
         killNode
     elif [[ $_exit == R ]]; then
         killNode
         sleep 3
-        cd catkin_ws && catkin_make install
+        cd ~/Robotics_ICE23_UNITN/catkin_ws && catkin_make install
         sleep 5
         bash ~/Robotics_ICE23_UNITN/start.sh
     elif [[ $_exit == r ]]; then

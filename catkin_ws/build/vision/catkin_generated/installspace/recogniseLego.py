@@ -26,7 +26,7 @@ zed_roi_image = os.path.join(pkg_vision_path, "../../src/vision/images/img_Area.
 # yolo settings
 min_level_confidence = 0.75 # minimum confidence
 weights_path = os.path.join(pkg_vision_path, "../../install/include/vision/include/best.pt")
-pkg_yolo_path = os.path.join(pkg_vision_path, "include/yolo5")
+pkg_yolo_path = os.path.join(pkg_vision_path, "../../install/include/vision/include/yolo5")
 lego_model = torch.hub.load('ultralytics/yolov5', 'custom', weights_path)
 
 lego_models_list = [  'X1-Y1-Z2',

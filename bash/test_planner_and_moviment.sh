@@ -17,5 +17,5 @@ sleep 3
 
 echo " "
 echo "Starting the planner module..."
-gnome-terminal -- rosrun motion planner
+gnome-terminal -- rosrun motion planner -s
 sleep 3
