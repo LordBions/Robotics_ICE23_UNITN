@@ -129,8 +129,8 @@ using namespace std;
 #define class_06_virt_grasp 40
 #define class_07_virt_grasp 40
 #define class_08_virt_grasp 40
-#define class_09_virt_grasp 45
-#define class_10_virt_grasp 45
+#define class_09_virt_grasp 43
+#define class_10_virt_grasp 43
 
 // class virtual ungrasp diameter
 #define class_00_virt_ungrasp 100
