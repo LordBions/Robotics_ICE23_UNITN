@@ -1,0 +1,407 @@
+\doxysection{movement.\+cpp File Reference}
+\hypertarget{movement_8cpp}{}\label{movement_8cpp}\index{movement.cpp@{movement.cpp}}
+
+
+script used to move the ur5  
+
+
+{\ttfamily \#include $<$iostream$>$}\newline
+{\ttfamily \#include $<$cmath$>$}\newline
+{\ttfamily \#include $<$ctime$>$}\newline
+{\ttfamily \#include $<$complex$>$}\newline
+{\ttfamily \#include $<$Eigen/\+Dense$>$}\newline
+{\ttfamily \#include \"{}ros/ros.\+h\"{}}\newline
+{\ttfamily \#include \"{}kinetics.\+h\"{}}\newline
+{\ttfamily \#include \"{}motion/lego\+Task.\+h\"{}}\newline
+{\ttfamily \#include \"{}motion/event\+Result.\+h\"{}}\newline
+{\ttfamily \#include $<$std\+\_\+msgs/\+Int32.\+h$>$}\newline
+{\ttfamily \#include $<$std\+\_\+msgs/\+Float64\+Multi\+Array.\+h$>$}\newline
+{\ttfamily \#include $<$ros\+\_\+impedance\+\_\+controller/generic\+\_\+float.\+h$>$}\newline
+\doxysubsubsection*{Classes}
+\begin{DoxyCompactItemize}
+\item 
+struct \mbox{\hyperlink{struct_executing_task}{Executing\+Task}}
+\begin{DoxyCompactList}\small\item\em Structure used to coordinate messages between planner and movement. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsubsection*{Macros}
+\begin{DoxyCompactItemize}
+\item 
+\#define \mbox{\hyperlink{movement_8cpp_a2e3fbc2b85ea8e9900001b33ff7334db}{node\+\_\+name}}~\"{}moviment\+\_\+module\"{}
+\begin{DoxyCompactList}\small\item\em Ros node name. \end{DoxyCompactList}\item 
+\#define \mbox{\hyperlink{movement_8cpp_aa637b5003635fc220fe7c4862d28eb56}{sub\+\_\+task\+\_\+commander}}~\"{}/planner/task\+Commander\"{}
+\begin{DoxyCompactList}\small\item\em topic where \textquotesingle{}moviment\+\_\+module\textquotesingle{} is subscribed \end{DoxyCompactList}\item 
+\#define \mbox{\hyperlink{movement_8cpp_a36d851211b1ee2698a8d4e96fa5fd682}{pub\+\_\+task\+\_\+resulter}}~\"{}/motion/task\+Resulter\"{}
+\begin{DoxyCompactList}\small\item\em topic that \textquotesingle{}moviment\+\_\+module\textquotesingle{} publishes envet\+Result messages \end{DoxyCompactList}\item 
+\#define \mbox{\hyperlink{movement_8cpp_a5b4603c4163f0f3079ba67a5fe32331b}{pub\+\_\+joint\+\_\+commander}}~\"{}/ur5/joint\+\_\+group\+\_\+pos\+\_\+controller/command\"{}
+\begin{DoxyCompactList}\small\item\em publisher which talks to locosim joint \end{DoxyCompactList}\item 
+\#define \mbox{\hyperlink{movement_8cpp_a0149d83a675cff97f1cbdb39d18e1182}{client\+\_\+gripper\+\_\+commander}}~\"{}/move\+\_\+gripper\"{}
+\begin{DoxyCompactList}\small\item\em It is a topic where a client could command real robot gripper \mbox{[}Only in real robot, no simulation\mbox{]}. \end{DoxyCompactList}\item 
+\Hypertarget{movement_8cpp_ace246c0e1f5c31780970faf1b8ac2fe3}\label{movement_8cpp_ace246c0e1f5c31780970faf1b8ac2fe3} 
+\#define {\bfseries queque\+\_\+size}~10
+\begin{DoxyCompactList}\small\item\em buffer size \end{DoxyCompactList}\item 
+\Hypertarget{movement_8cpp_a8713b92fd5ea2712b26af98c6ea7e3a1}\label{movement_8cpp_a8713b92fd5ea2712b26af98c6ea7e3a1} 
+\#define {\bfseries loop\+\_\+wait\+\_\+rate}~1000
+\begin{DoxyCompactList}\small\item\em 1 msec of waiting \end{DoxyCompactList}\item 
+\Hypertarget{movement_8cpp_ae2569a199902c635635b903b4da80b99}\label{movement_8cpp_ae2569a199902c635635b903b4da80b99} 
+\#define {\bfseries joint\+\_\+number}~9
+\begin{DoxyCompactList}\small\item\em number of ur5 joints \end{DoxyCompactList}\item 
+\Hypertarget{movement_8cpp_a29f8523a31b90289146d70ee17f85d83}\label{movement_8cpp_a29f8523a31b90289146d70ee17f85d83} 
+\#define {\bfseries position\+\_\+gain}~5
+\begin{DoxyCompactList}\small\item\em parameter used to scale matrices \end{DoxyCompactList}\item 
+\Hypertarget{movement_8cpp_a02495cc3ecc6ad5d02c97e78b9444a15}\label{movement_8cpp_a02495cc3ecc6ad5d02c97e78b9444a15} 
+\#define {\bfseries orientation\+\_\+gain}~30
+\begin{DoxyCompactList}\small\item\em parameter used to scale matrices \end{DoxyCompactList}\item 
+\#define {\bfseries no\+\_\+command}~0
+\begin{DoxyCompactList}\small\item\em no command \end{DoxyCompactList}\item 
+\#define {\bfseries command\+\_\+test}~1
+\begin{DoxyCompactList}\small\item\em test \end{DoxyCompactList}\item 
+\#define {\bfseries command\+\_\+wait}~2
+\begin{DoxyCompactList}\small\item\em wait ~\newline
+ \end{DoxyCompactList}\item 
+\#define {\bfseries command\+\_\+move}~3
+\begin{DoxyCompactList}\small\item\em move \end{DoxyCompactList}\item 
+\#define {\bfseries command\+\_\+grasp}~4
+\begin{DoxyCompactList}\small\item\em grasp \end{DoxyCompactList}\item 
+\#define {\bfseries command\+\_\+ungrasp}~5
+\begin{DoxyCompactList}\small\item\em ungrasp \end{DoxyCompactList}\item 
+\#define {\bfseries command\+\_\+def\+\_\+pos}~6
+\begin{DoxyCompactList}\small\item\em define position \end{DoxyCompactList}\item 
+\#define {\bfseries command\+\_\+fast\+\_\+catch}~7
+\begin{DoxyCompactList}\small\item\em fast catch \end{DoxyCompactList}\item 
+\#define {\bfseries command\+\_\+catch}~8
+\begin{DoxyCompactList}\small\item\em normal catch \end{DoxyCompactList}\item 
+\#define {\bfseries command\+\_\+handshake}~9
+\begin{DoxyCompactList}\small\item\em command to begin the handshake sequence \end{DoxyCompactList}\item 
+\#define {\bfseries command\+\_\+auth\+\_\+key}~10
+\begin{DoxyCompactList}\small\item\em command to request the authorization code from the movement module \end{DoxyCompactList}\item 
+\Hypertarget{movement_8cpp_ab151b659af28791dc73791e3ad61e63d}\label{movement_8cpp_ab151b659af28791dc73791e3ad61e63d} 
+\#define {\bfseries result\+\_\+error}~-\/1
+\begin{DoxyCompactList}\small\item\em constant used to identify an execution error \end{DoxyCompactList}\item 
+\Hypertarget{movement_8cpp_a93b81002e279ff675476c29fb6cb8673}\label{movement_8cpp_a93b81002e279ff675476c29fb6cb8673} 
+\#define {\bfseries result\+\_\+unknown}~0
+\begin{DoxyCompactList}\small\item\em constant used to identify an unknown result \end{DoxyCompactList}\item 
+\Hypertarget{movement_8cpp_ac7e190c11ef9f063991d8adb8890cdb0}\label{movement_8cpp_ac7e190c11ef9f063991d8adb8890cdb0} 
+\#define {\bfseries result\+\_\+completed}~1
+\begin{DoxyCompactList}\small\item\em constant used to identify an execution success \end{DoxyCompactList}\item 
+\Hypertarget{movement_8cpp_a48ad08a0a0f1ceb3bb9e48892f11ba24}\label{movement_8cpp_a48ad08a0a0f1ceb3bb9e48892f11ba24} 
+\#define {\bfseries z\+\_\+above\+\_\+object}~0.\+7
+\begin{DoxyCompactList}\small\item\em z default value to place the arm above an object \end{DoxyCompactList}\item 
+\Hypertarget{movement_8cpp_a209bef44bbb006e61af4cba6551f88bd}\label{movement_8cpp_a209bef44bbb006e61af4cba6551f88bd} 
+\#define {\bfseries default\+\_\+joint\+\_\+state\+\_\+vector}~-\/0.\+32, -\/0.\+78, -\/2.\+56, -\/1.\+63, -\/1.\+57, 3.\+49
+\begin{DoxyCompactList}\small\item\em default values for the joints \end{DoxyCompactList}\item 
+\Hypertarget{movement_8cpp_acfe6c011643e97874e9e188edf730581}\label{movement_8cpp_acfe6c011643e97874e9e188edf730581} 
+\#define {\bfseries default\+\_\+target\+\_\+position}~-\/0.\+3, -\/0.\+6, 0.\+4
+\begin{DoxyCompactList}\small\item\em x, y, z homing \end{DoxyCompactList}\item 
+\Hypertarget{movement_8cpp_a3f86e28e623e6f07b1cbb9c9a800dc75}\label{movement_8cpp_a3f86e28e623e6f07b1cbb9c9a800dc75} 
+\#define {\bfseries half\+\_\+point}~0.\+0, -\/0.\+4, 0.\+6
+\begin{DoxyCompactList}\small\item\em x, y, z -\/-\/\texorpdfstring{$>$}{>} used to avoid arm unknown position \end{DoxyCompactList}\item 
+\Hypertarget{movement_8cpp_a2a670cc6a85de4e38cfe99fa23a546c4}\label{movement_8cpp_a2a670cc6a85de4e38cfe99fa23a546c4} 
+\#define {\bfseries default\+\_\+dt}~0.\+001
+\begin{DoxyCompactList}\small\item\em default time variation \end{DoxyCompactList}\item 
+\Hypertarget{movement_8cpp_a1b569cbc218cda1ad48530062addfcf6}\label{movement_8cpp_a1b569cbc218cda1ad48530062addfcf6} 
+\#define {\bfseries default\+\_\+max\+\_\+traj\+\_\+time}~4
+\begin{DoxyCompactList}\small\item\em max trajectory time\+: max time that robot can make a trajectory \end{DoxyCompactList}\item 
+\Hypertarget{movement_8cpp_a58c8625014951477e8ca79959824fafd}\label{movement_8cpp_a58c8625014951477e8ca79959824fafd} 
+\#define {\bfseries sleep\+\_\+time}~50
+\begin{DoxyCompactList}\small\item\em default time used to wait a command \end{DoxyCompactList}\item 
+\Hypertarget{movement_8cpp_aa278921339d2106ba9a5b74bcd86087c}\label{movement_8cpp_aa278921339d2106ba9a5b74bcd86087c} 
+\#define {\bfseries damping\+\_\+exponent}~-\/5
+\begin{DoxyCompactList}\small\item\em exponent for the damping coefficient \end{DoxyCompactList}\item 
+\Hypertarget{movement_8cpp_ab7f763d0a2957d58ec3c78b0d682311c}\label{movement_8cpp_ab7f763d0a2957d58ec3c78b0d682311c} 
+\#define {\bfseries max\+\_\+joint\+\_\+speed}~1.\+5
+\begin{DoxyCompactList}\small\item\em max joint speed \end{DoxyCompactList}\item 
+\Hypertarget{movement_8cpp_abfca06d5de2795d22190468ba9c57bda}\label{movement_8cpp_abfca06d5de2795d22190468ba9c57bda} 
+\#define {\bfseries min\+\_\+joint\+\_\+speed}~-\/1.\+5
+\begin{DoxyCompactList}\small\item\em min joint speed \end{DoxyCompactList}\item 
+\Hypertarget{movement_8cpp_a981a4f0abda7b70b715951034c3acf98}\label{movement_8cpp_a981a4f0abda7b70b715951034c3acf98} 
+\#define {\bfseries max\+\_\+diameter\+\_\+ext}~130
+\begin{DoxyCompactList}\small\item\em max fingers space ~\newline
+ \end{DoxyCompactList}\item 
+\Hypertarget{movement_8cpp_adce1a9aaf8ebf6dc6b14ff00c300d021}\label{movement_8cpp_adce1a9aaf8ebf6dc6b14ff00c300d021} 
+\#define {\bfseries min\+\_\+diameter\+\_\+ext}~22
+\begin{DoxyCompactList}\small\item\em min fingers space \end{DoxyCompactList}\item 
+\Hypertarget{movement_8cpp_a764ff6c6240abd31b0f770a5cfee75bb}\label{movement_8cpp_a764ff6c6240abd31b0f770a5cfee75bb} 
+\#define {\bfseries key\+\_\+max\+\_\+resolution}~1000000
+\begin{DoxyCompactList}\small\item\em max key size \end{DoxyCompactList}\item 
+\Hypertarget{movement_8cpp_a488362dbd910f0b1f4cf22b10d06897c}\label{movement_8cpp_a488362dbd910f0b1f4cf22b10d06897c} 
+\#define {\bfseries movement\+\_\+secret\+\_\+key}~73560
+\begin{DoxyCompactList}\small\item\em never transmit this key! \end{DoxyCompactList}\item 
+\Hypertarget{movement_8cpp_a127dce9395cad2779d5dacff923bc6b7}\label{movement_8cpp_a127dce9395cad2779d5dacff923bc6b7} 
+\#define {\bfseries movement\+\_\+preshared\+\_\+key}~92341
+\begin{DoxyCompactList}\small\item\em used to make the first transmission \end{DoxyCompactList}\item 
+\Hypertarget{movement_8cpp_aea88abb29c35c3c7dc468dbc614cb8a4}\label{movement_8cpp_aea88abb29c35c3c7dc468dbc614cb8a4} 
+\#define {\bfseries planner\+\_\+preshared\+\_\+key}~65433
+\begin{DoxyCompactList}\small\item\em used to read the first receive \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{movement_8cpp_aa81e620d47a03726b0de435536b40960}\label{movement_8cpp_aa81e620d47a03726b0de435536b40960} 
+Eigen\+::\+Vector\+Xf {\bfseries joint\+\_\+state\+\_\+vector} (6)
+\item 
+\Hypertarget{movement_8cpp_aecb5b8b9d90fcc18e119f42c9af8671b}\label{movement_8cpp_aecb5b8b9d90fcc18e119f42c9af8671b} 
+Eigen\+::\+Vector\+Xf {\bfseries gripper\+\_\+state\+\_\+vector} (3)
+\item 
+\Hypertarget{movement_8cpp_ac88318802790e2cd6c81cce5b400095e}\label{movement_8cpp_ac88318802790e2cd6c81cce5b400095e} 
+void {\bfseries task\+Commander\+Callback} (const motion\+::lego\+Task\+::\+Const\+Ptr \&\mbox{\hyperlink{planner_8cpp_a178d4c3b5e7babb6157fd119f838d505}{msg\+\_\+task\+Command}})
+\begin{DoxyCompactList}\small\item\em reception and analysis of a received request. If it find an ack request in the end, it will publish event\+Result message \end{DoxyCompactList}\item 
+\Hypertarget{movement_8cpp_aa8444cbba6552255cce375753da727e4}\label{movement_8cpp_aa8444cbba6552255cce375753da727e4} 
+void {\bfseries pub\+Task\+Resulter} (int risultato)
+\item 
+\Hypertarget{movement_8cpp_aecc81f3f28a5cb976545090e05e34931}\label{movement_8cpp_aecc81f3f28a5cb976545090e05e34931} 
+Eigen\+::\+Vector3f {\bfseries get\+Trajectory} (double time, Eigen\+::\+Vector3f begin\+\_\+position, Eigen\+::\+Vector3f final\+\_\+position)
+\begin{DoxyCompactList}\small\item\em it returns the Trajectory vector using time and positions (start and end positions) \end{DoxyCompactList}\item 
+\Hypertarget{movement_8cpp_af2d8b137639984a05aa1ef432f51fec6}\label{movement_8cpp_af2d8b137639984a05aa1ef432f51fec6} 
+Eigen\+::\+Vector\+Xf {\bfseries get\+Joint\+Speeds} (Eigen\+::\+Vector\+Xf joint\+\_\+st, Eigen\+::\+Vector3f curr\+\_\+position, Eigen\+::\+Vector3f destin\+\_\+position, Eigen\+::\+Vector3f velocity, Eigen\+::\+Matrix3f curr\+\_\+orientation, Eigen\+::\+Vector3f final\+\_\+orientation)
+\begin{DoxyCompactList}\small\item\em it returns the joints speed \end{DoxyCompactList}\item 
+\Hypertarget{movement_8cpp_a53312896a643aa096efd602a1bc8caac}\label{movement_8cpp_a53312896a643aa096efd602a1bc8caac} 
+void {\bfseries update\+Joint\+States} ()
+\begin{DoxyCompactList}\small\item\em update joint state \end{DoxyCompactList}\item 
+\Hypertarget{movement_8cpp_a03ea37fadaf2032bcb50d099d1f16c75}\label{movement_8cpp_a03ea37fadaf2032bcb50d099d1f16c75} 
+float {\bfseries gripper2joints} (float diameter)
+\begin{DoxyCompactList}\small\item\em returns the converted diameter of fingers \end{DoxyCompactList}\item 
+\Hypertarget{movement_8cpp_ab4c1f55c0a8d054e6fc658e23b75398c}\label{movement_8cpp_ab4c1f55c0a8d054e6fc658e23b75398c} 
+void {\bfseries null\+Command\+Execute} ()
+\begin{DoxyCompactList}\small\item\em used when motion has no command to execute \end{DoxyCompactList}\item 
+\Hypertarget{movement_8cpp_a8037a27a26b7cc3da26087b114da035b}\label{movement_8cpp_a8037a27a26b7cc3da26087b114da035b} 
+void {\bfseries wait\+Command\+Execute} (int wait\+\_\+time)
+\begin{DoxyCompactList}\small\item\em used to wait a command from planner \end{DoxyCompactList}\item 
+\Hypertarget{movement_8cpp_a1c0f275c3b9c9c289234fa98ef1fa2c5}\label{movement_8cpp_a1c0f275c3b9c9c289234fa98ef1fa2c5} 
+void {\bfseries move\+Procedure} (Eigen\+::\+Vector3f v\+\_\+position, Eigen\+::\+Vector3f v\+\_\+orientation, float dt)
+\begin{DoxyCompactList}\small\item\em used to move the arm \end{DoxyCompactList}\item 
+\Hypertarget{movement_8cpp_a1ecd52a212f5edd2553bc02fd2bab5a4}\label{movement_8cpp_a1ecd52a212f5edd2553bc02fd2bab5a4} 
+void {\bfseries grasp\+Object} (bool catch\+It)
+\begin{DoxyCompactList}\small\item\em used to grasp objects (open-\/close fingers) \end{DoxyCompactList}\item 
+\Hypertarget{movement_8cpp_a0ba3c52945415c7babbc333ced53b948}\label{movement_8cpp_a0ba3c52945415c7babbc333ced53b948} 
+void {\bfseries move\+Default\+Position} ()
+\begin{DoxyCompactList}\small\item\em move the arm to a default position \end{DoxyCompactList}\item 
+\Hypertarget{movement_8cpp_a89fd8e869c93c5c2ba16af5295c7d022}\label{movement_8cpp_a89fd8e869c93c5c2ba16af5295c7d022} 
+void {\bfseries fast\+Catch\+Procedure} ()
+\begin{DoxyCompactList}\small\item\em used when the command received is command\+\_\+fast\+\_\+catch\+: goes to the object in a fast way \end{DoxyCompactList}\item 
+\Hypertarget{movement_8cpp_a36a8dc3ff24b712593c59cb52ff3acee}\label{movement_8cpp_a36a8dc3ff24b712593c59cb52ff3acee} 
+void {\bfseries catch\+Procedure} ()
+\begin{DoxyCompactList}\small\item\em used when the command received is command\+\_\+catch\+: goes to the object using a full protocol \end{DoxyCompactList}\item 
+\Hypertarget{movement_8cpp_af9976014960088de9978fa071166da17}\label{movement_8cpp_af9976014960088de9978fa071166da17} 
+ros\+::\+Time {\bfseries get\+Time\+Now} ()
+\begin{DoxyCompactList}\small\item\em return the current time \end{DoxyCompactList}\item 
+\Hypertarget{movement_8cpp_a25299f5cb1a8a60f103e48ffb4b3ced2}\label{movement_8cpp_a25299f5cb1a8a60f103e48ffb4b3ced2} 
+ros\+::\+Duration {\bfseries get\+Interval} (ros\+::\+Time start\+\_\+t)
+\begin{DoxyCompactList}\small\item\em return the interval between the start time and the current time \end{DoxyCompactList}\item 
+\Hypertarget{movement_8cpp_a476fcefff71a744c4e8c2ab3594967e3}\label{movement_8cpp_a476fcefff71a744c4e8c2ab3594967e3} 
+void {\bfseries hand\+Shake} ()
+\begin{DoxyCompactList}\small\item\em the procedure to pass the security keys \end{DoxyCompactList}\item 
+\Hypertarget{movement_8cpp_a295534c4d110bb249516365143427836}\label{movement_8cpp_a295534c4d110bb249516365143427836} 
+int {\bfseries random\+Number} (int max\+\_\+n)
+\begin{DoxyCompactList}\small\item\em to generate random numbers \end{DoxyCompactList}\item 
+\Hypertarget{movement_8cpp_a84f4b961b4e28d370328a3a515316f10}\label{movement_8cpp_a84f4b961b4e28d370328a3a515316f10} 
+void {\bfseries Auth\+Key\+Send} ()
+\item 
+\Hypertarget{movement_8cpp_a70c5e6113fe2c204a120062585dfc27b}\label{movement_8cpp_a70c5e6113fe2c204a120062585dfc27b} 
+bool {\bfseries verify\+Auth\+Key} (int auth\+\_\+key)
+\begin{DoxyCompactList}\small\item\em routine that checks if planner have sent the correct authorization code \end{DoxyCompactList}\item 
+\Hypertarget{movement_8cpp_ae9a9fcb72f6f2601d22096179a059db8}\label{movement_8cpp_ae9a9fcb72f6f2601d22096179a059db8} 
+int {\bfseries generate\+Next\+Random} ()
+\begin{DoxyCompactList}\small\item\em generates the next authorization code \end{DoxyCompactList}\item 
+\Hypertarget{movement_8cpp_a3df5c7f15619cc90a3c5ff065e9a6f21}\label{movement_8cpp_a3df5c7f15619cc90a3c5ff065e9a6f21} 
+void {\bfseries show\+Keys} ()
+\begin{DoxyCompactList}\small\item\em shows the movement and planner keys \end{DoxyCompactList}\item 
+\Hypertarget{movement_8cpp_a3c04138a5bfe5d72780bb7e82a18e627}\label{movement_8cpp_a3c04138a5bfe5d72780bb7e82a18e627} 
+int {\bfseries main} (int argc, char \texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*}argv)
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Variables}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{movement_8cpp_a9b1e300752249beb0fa4908bcd8b2716}\label{movement_8cpp_a9b1e300752249beb0fa4908bcd8b2716} 
+bool {\bfseries verbose\+\_\+flag} = false
+\begin{DoxyCompactList}\small\item\em flag used to enable deep logging \end{DoxyCompactList}\item 
+\Hypertarget{movement_8cpp_ac6b7676a945805d1e15714550a30ee5c}\label{movement_8cpp_ac6b7676a945805d1e15714550a30ee5c} 
+bool {\bfseries verbose\+\_\+security\+\_\+flag} = true
+\begin{DoxyCompactList}\small\item\em used to show security logs \end{DoxyCompactList}\item 
+\Hypertarget{movement_8cpp_a9e853b7854acfb04981e26132119939a}\label{movement_8cpp_a9e853b7854acfb04981e26132119939a} 
+bool {\bfseries security\+\_\+flag} = false
+\begin{DoxyCompactList}\small\item\em indicates the authentication system is active \end{DoxyCompactList}\item 
+\Hypertarget{movement_8cpp_aeb5d8caefbfc832d870b7bf5a6234231}\label{movement_8cpp_aeb5d8caefbfc832d870b7bf5a6234231} 
+bool {\bfseries bypass\+\_\+main\+\_\+ack\+\_\+once} = false
+\item 
+\Hypertarget{movement_8cpp_ab71fa54fd5f835506d0d0d99ead78c33}\label{movement_8cpp_ab71fa54fd5f835506d0d0d99ead78c33} 
+int {\bfseries movement\+\_\+comm\+\_\+key}
+\begin{DoxyCompactList}\small\item\em used to check auth keys \end{DoxyCompactList}\item 
+\Hypertarget{movement_8cpp_a442331fb530a1c43d6b893f0139dfdec}\label{movement_8cpp_a442331fb530a1c43d6b893f0139dfdec} 
+int {\bfseries planner\+\_\+comm\+\_\+key}
+\begin{DoxyCompactList}\small\item\em used to create auth keys to send \end{DoxyCompactList}\item 
+\Hypertarget{movement_8cpp_a6b3d458ba6f5cdf16e88eb7b90cb5785}\label{movement_8cpp_a6b3d458ba6f5cdf16e88eb7b90cb5785} 
+int {\bfseries movement\+\_\+auth\+\_\+key}
+\begin{DoxyCompactList}\small\item\em stores the authorization key \end{DoxyCompactList}\item 
+\Hypertarget{movement_8cpp_add61d67afa630711ecd4bcc5dedc3073}\label{movement_8cpp_add61d67afa630711ecd4bcc5dedc3073} 
+int {\bfseries next\+\_\+random\+\_\+key}
+\begin{DoxyCompactList}\small\item\em stores the next random key \end{DoxyCompactList}\item 
+ros\+::\+Publisher \mbox{\hyperlink{movement_8cpp_ac0268964a5964063406a4fbe54c3470e}{pub\+\_\+joint\+\_\+commander\+\_\+handle}}
+\begin{DoxyCompactList}\small\item\em Movement publisher. \end{DoxyCompactList}\item 
+ros\+::\+Publisher \mbox{\hyperlink{movement_8cpp_ac644be591a006ae46c9e3e82bfae7a03}{pub\+\_\+task\+\_\+resulter\+\_\+handle}}
+\begin{DoxyCompactList}\small\item\em Movement publisher. \end{DoxyCompactList}\item 
+ros\+::\+Subscriber \mbox{\hyperlink{movement_8cpp_a7c431f9b034f8cf24ea590e0ba23894f}{sub\+\_\+task\+\_\+commander\+\_\+handle}}
+\begin{DoxyCompactList}\small\item\em movement subscriber \end{DoxyCompactList}\item 
+ros\+::\+Service\+Client \mbox{\hyperlink{movement_8cpp_a2dc5a66611fb891b386e97d6c4cf403b}{client\+\_\+gripper\+\_\+commander\+\_\+handle}}
+\begin{DoxyCompactList}\small\item\em Service\+Client object. \end{DoxyCompactList}\item 
+motion\+::lego\+Task \mbox{\hyperlink{movement_8cpp_ae39aa67a820b10519525adbecf3df175}{task\+\_\+command}}
+\begin{DoxyCompactList}\small\item\em Communication message that planner send to movement. \end{DoxyCompactList}\item 
+motion\+::event\+Result \mbox{\hyperlink{movement_8cpp_abdbf0a6c175408c3ae331bb197cf2736}{evento}}
+\begin{DoxyCompactList}\small\item\em Ack that movement uses to respond. \end{DoxyCompactList}\item 
+int \mbox{\hyperlink{movement_8cpp_acc4ee6dcb5f91c980a8e5e6d4253bff2}{risultato\+\_\+var}}
+\begin{DoxyCompactList}\small\item\em Used to store the success of the task. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{struct_executing_task}{Executing\+Task}} \mbox{\hyperlink{movement_8cpp_a60d4144df968d566e1637319a07b7655}{planner\+\_\+eseguendo}}
+\begin{DoxyCompactList}\small\item\em Structure to coordinate messages between planner and movement. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+script used to move the ur5 
+
+\begin{DoxyAuthor}{Authors}
+Filippo Conti, Mattia Meneghin e Nicola Gianuzzi 
+\end{DoxyAuthor}
+\begin{DoxyVersion}{Version}
+0.\+1 
+\end{DoxyVersion}
+\begin{DoxyDate}{Date}
+2023-\/06-\/12
+\end{DoxyDate}
+\begin{DoxyCopyright}{Copyright}
+Copyright (c) 2023 
+\end{DoxyCopyright}
+
+
+\doxysubsection{Macro Definition Documentation}
+\Hypertarget{movement_8cpp_a0149d83a675cff97f1cbdb39d18e1182}\label{movement_8cpp_a0149d83a675cff97f1cbdb39d18e1182} 
+\index{movement.cpp@{movement.cpp}!client\_gripper\_commander@{client\_gripper\_commander}}
+\index{client\_gripper\_commander@{client\_gripper\_commander}!movement.cpp@{movement.cpp}}
+\doxysubsubsection{\texorpdfstring{client\_gripper\_commander}{client\_gripper\_commander}}
+{\footnotesize\ttfamily \#define client\+\_\+gripper\+\_\+commander~\"{}/move\+\_\+gripper\"{}}
+
+
+
+It is a topic where a client could command real robot gripper \mbox{[}Only in real robot, no simulation\mbox{]}. 
+
+\Hypertarget{movement_8cpp_a2e3fbc2b85ea8e9900001b33ff7334db}\label{movement_8cpp_a2e3fbc2b85ea8e9900001b33ff7334db} 
+\index{movement.cpp@{movement.cpp}!node\_name@{node\_name}}
+\index{node\_name@{node\_name}!movement.cpp@{movement.cpp}}
+\doxysubsubsection{\texorpdfstring{node\_name}{node\_name}}
+{\footnotesize\ttfamily \#define node\+\_\+name~\"{}moviment\+\_\+module\"{}}
+
+
+
+Ros node name. 
+
+\Hypertarget{movement_8cpp_a5b4603c4163f0f3079ba67a5fe32331b}\label{movement_8cpp_a5b4603c4163f0f3079ba67a5fe32331b} 
+\index{movement.cpp@{movement.cpp}!pub\_joint\_commander@{pub\_joint\_commander}}
+\index{pub\_joint\_commander@{pub\_joint\_commander}!movement.cpp@{movement.cpp}}
+\doxysubsubsection{\texorpdfstring{pub\_joint\_commander}{pub\_joint\_commander}}
+{\footnotesize\ttfamily \#define pub\+\_\+joint\+\_\+commander~\"{}/ur5/joint\+\_\+group\+\_\+pos\+\_\+controller/command\"{}}
+
+
+
+publisher which talks to locosim joint 
+
+\Hypertarget{movement_8cpp_a36d851211b1ee2698a8d4e96fa5fd682}\label{movement_8cpp_a36d851211b1ee2698a8d4e96fa5fd682} 
+\index{movement.cpp@{movement.cpp}!pub\_task\_resulter@{pub\_task\_resulter}}
+\index{pub\_task\_resulter@{pub\_task\_resulter}!movement.cpp@{movement.cpp}}
+\doxysubsubsection{\texorpdfstring{pub\_task\_resulter}{pub\_task\_resulter}}
+{\footnotesize\ttfamily \#define pub\+\_\+task\+\_\+resulter~\"{}/motion/task\+Resulter\"{}}
+
+
+
+topic that \textquotesingle{}moviment\+\_\+module\textquotesingle{} publishes envet\+Result messages 
+
+\Hypertarget{movement_8cpp_aa637b5003635fc220fe7c4862d28eb56}\label{movement_8cpp_aa637b5003635fc220fe7c4862d28eb56} 
+\index{movement.cpp@{movement.cpp}!sub\_task\_commander@{sub\_task\_commander}}
+\index{sub\_task\_commander@{sub\_task\_commander}!movement.cpp@{movement.cpp}}
+\doxysubsubsection{\texorpdfstring{sub\_task\_commander}{sub\_task\_commander}}
+{\footnotesize\ttfamily \#define sub\+\_\+task\+\_\+commander~\"{}/planner/task\+Commander\"{}}
+
+
+
+topic where \textquotesingle{}moviment\+\_\+module\textquotesingle{} is subscribed 
+
+
+
+\doxysubsection{Variable Documentation}
+\Hypertarget{movement_8cpp_a2dc5a66611fb891b386e97d6c4cf403b}\label{movement_8cpp_a2dc5a66611fb891b386e97d6c4cf403b} 
+\index{movement.cpp@{movement.cpp}!client\_gripper\_commander\_handle@{client\_gripper\_commander\_handle}}
+\index{client\_gripper\_commander\_handle@{client\_gripper\_commander\_handle}!movement.cpp@{movement.cpp}}
+\doxysubsubsection{\texorpdfstring{client\_gripper\_commander\_handle}{client\_gripper\_commander\_handle}}
+{\footnotesize\ttfamily ros\+::\+Service\+Client client\+\_\+gripper\+\_\+commander\+\_\+handle}
+
+
+
+Service\+Client object. 
+
+\begin{DoxyNote}{Note}
+Another way to communicate instead of topics 
+\end{DoxyNote}
+\Hypertarget{movement_8cpp_abdbf0a6c175408c3ae331bb197cf2736}\label{movement_8cpp_abdbf0a6c175408c3ae331bb197cf2736} 
+\index{movement.cpp@{movement.cpp}!evento@{evento}}
+\index{evento@{evento}!movement.cpp@{movement.cpp}}
+\doxysubsubsection{\texorpdfstring{evento}{evento}}
+{\footnotesize\ttfamily motion\+::event\+Result evento}
+
+
+
+Ack that movement uses to respond. 
+
+\Hypertarget{movement_8cpp_a60d4144df968d566e1637319a07b7655}\label{movement_8cpp_a60d4144df968d566e1637319a07b7655} 
+\index{movement.cpp@{movement.cpp}!planner\_eseguendo@{planner\_eseguendo}}
+\index{planner\_eseguendo@{planner\_eseguendo}!movement.cpp@{movement.cpp}}
+\doxysubsubsection{\texorpdfstring{planner\_eseguendo}{planner\_eseguendo}}
+{\footnotesize\ttfamily \mbox{\hyperlink{struct_executing_task}{Executing\+Task}} planner\+\_\+eseguendo}
+
+
+
+Structure to coordinate messages between planner and movement. 
+
+\Hypertarget{movement_8cpp_ac0268964a5964063406a4fbe54c3470e}\label{movement_8cpp_ac0268964a5964063406a4fbe54c3470e} 
+\index{movement.cpp@{movement.cpp}!pub\_joint\_commander\_handle@{pub\_joint\_commander\_handle}}
+\index{pub\_joint\_commander\_handle@{pub\_joint\_commander\_handle}!movement.cpp@{movement.cpp}}
+\doxysubsubsection{\texorpdfstring{pub\_joint\_commander\_handle}{pub\_joint\_commander\_handle}}
+{\footnotesize\ttfamily ros\+::\+Publisher pub\+\_\+joint\+\_\+commander\+\_\+handle}
+
+
+
+Movement publisher. 
+
+\Hypertarget{movement_8cpp_ac644be591a006ae46c9e3e82bfae7a03}\label{movement_8cpp_ac644be591a006ae46c9e3e82bfae7a03} 
+\index{movement.cpp@{movement.cpp}!pub\_task\_resulter\_handle@{pub\_task\_resulter\_handle}}
+\index{pub\_task\_resulter\_handle@{pub\_task\_resulter\_handle}!movement.cpp@{movement.cpp}}
+\doxysubsubsection{\texorpdfstring{pub\_task\_resulter\_handle}{pub\_task\_resulter\_handle}}
+{\footnotesize\ttfamily ros\+::\+Publisher pub\+\_\+task\+\_\+resulter\+\_\+handle}
+
+
+
+Movement publisher. 
+
+\Hypertarget{movement_8cpp_acc4ee6dcb5f91c980a8e5e6d4253bff2}\label{movement_8cpp_acc4ee6dcb5f91c980a8e5e6d4253bff2} 
+\index{movement.cpp@{movement.cpp}!risultato\_var@{risultato\_var}}
+\index{risultato\_var@{risultato\_var}!movement.cpp@{movement.cpp}}
+\doxysubsubsection{\texorpdfstring{risultato\_var}{risultato\_var}}
+{\footnotesize\ttfamily int risultato\+\_\+var}
+
+
+
+Used to store the success of the task. 
+
+\Hypertarget{movement_8cpp_a7c431f9b034f8cf24ea590e0ba23894f}\label{movement_8cpp_a7c431f9b034f8cf24ea590e0ba23894f} 
+\index{movement.cpp@{movement.cpp}!sub\_task\_commander\_handle@{sub\_task\_commander\_handle}}
+\index{sub\_task\_commander\_handle@{sub\_task\_commander\_handle}!movement.cpp@{movement.cpp}}
+\doxysubsubsection{\texorpdfstring{sub\_task\_commander\_handle}{sub\_task\_commander\_handle}}
+{\footnotesize\ttfamily ros\+::\+Subscriber sub\+\_\+task\+\_\+commander\+\_\+handle}
+
+
+
+movement subscriber 
+
+\Hypertarget{movement_8cpp_ae39aa67a820b10519525adbecf3df175}\label{movement_8cpp_ae39aa67a820b10519525adbecf3df175} 
+\index{movement.cpp@{movement.cpp}!task\_command@{task\_command}}
+\index{task\_command@{task\_command}!movement.cpp@{movement.cpp}}
+\doxysubsubsection{\texorpdfstring{task\_command}{task\_command}}
+{\footnotesize\ttfamily motion\+::lego\+Task task\+\_\+command}
+
+
+
+Communication message that planner send to movement. 
+

@@ -1,0 +1,489 @@
+\doxysection{planner.\+cpp File Reference}
+\hypertarget{planner_8cpp}{}\label{planner_8cpp}\index{planner.cpp@{planner.cpp}}
+
+
+Planner module in charge of communicate with the vision package.  
+
+
+{\ttfamily \#include $<$iostream$>$}\newline
+{\ttfamily \#include $<$cmath$>$}\newline
+{\ttfamily \#include $<$ctime$>$}\newline
+{\ttfamily \#include $<$complex$>$}\newline
+{\ttfamily \#include $<$Eigen/\+Dense$>$}\newline
+{\ttfamily \#include \"{}ros/ros.\+h\"{}}\newline
+{\ttfamily \#include \"{}kinetics.\+h\"{}}\newline
+{\ttfamily \#include \"{}motion/lego\+Found.\+h\"{}}\newline
+{\ttfamily \#include \"{}motion/lego\+Task.\+h\"{}}\newline
+{\ttfamily \#include \"{}motion/event\+Result.\+h\"{}}\newline
+\doxysubsubsection*{Classes}
+\begin{DoxyCompactItemize}
+\item 
+struct \mbox{\hyperlink{struct_waiting_task}{Waiting\+Task}}
+\begin{DoxyCompactList}\small\item\em used to coordinate messages between planner and movement \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsubsection*{Macros}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{planner_8cpp_a2e3fbc2b85ea8e9900001b33ff7334db}\label{planner_8cpp_a2e3fbc2b85ea8e9900001b33ff7334db} 
+\#define {\bfseries node\+\_\+name}~\"{}planner\+\_\+module\"{}
+\begin{DoxyCompactList}\small\item\em Node name. \end{DoxyCompactList}\item 
+\Hypertarget{planner_8cpp_acdd3f8c88422903d55cd432a13a3f325}\label{planner_8cpp_acdd3f8c88422903d55cd432a13a3f325} 
+\#define {\bfseries sub\+\_\+detect\+\_\+commander}~\"{}/vision/detect\+Commander\"{}
+\begin{DoxyCompactList}\small\item\em topic where \textquotesingle{}planner\+\_\+module\textquotesingle{} is subscribed \end{DoxyCompactList}\item 
+\Hypertarget{planner_8cpp_a6210607bc670fb32d4e0a1352f7c00e8}\label{planner_8cpp_a6210607bc670fb32d4e0a1352f7c00e8} 
+\#define {\bfseries pub\+\_\+detect\+\_\+resulter}~\"{}/planner/detect\+Resulter\"{}
+\begin{DoxyCompactList}\small\item\em topic that \textquotesingle{}planner\+\_\+module\textquotesingle{} publishes envet\+Result messages \end{DoxyCompactList}\item 
+\Hypertarget{planner_8cpp_a1e5eab0e726b8f94a84db61d03965b19}\label{planner_8cpp_a1e5eab0e726b8f94a84db61d03965b19} 
+\#define {\bfseries pub\+\_\+task\+\_\+commander}~\"{}/planner/task\+Commander\"{}
+\begin{DoxyCompactList}\small\item\em topic that \textquotesingle{}planner\+\_\+module\textquotesingle{} publishes commands \end{DoxyCompactList}\item 
+\Hypertarget{planner_8cpp_a6644f0032c26a78be1c5c32b7ca7da76}\label{planner_8cpp_a6644f0032c26a78be1c5c32b7ca7da76} 
+\#define {\bfseries sub\+\_\+task\+\_\+resulter}~\"{}/motion/task\+Resulter\"{}
+\begin{DoxyCompactList}\small\item\em topic that \textquotesingle{}planner\+\_\+module\textquotesingle{} subscribes to take task from motion \end{DoxyCompactList}\item 
+\#define {\bfseries no\+\_\+command}~0
+\begin{DoxyCompactList}\small\item\em no command \end{DoxyCompactList}\item 
+\#define {\bfseries command\+\_\+detect}~1
+\begin{DoxyCompactList}\small\item\em detect command \end{DoxyCompactList}\item 
+\#define {\bfseries command\+\_\+quit}~2
+\begin{DoxyCompactList}\small\item\em quit command \end{DoxyCompactList}\item 
+\#define {\bfseries command\+\_\+test}~1
+\begin{DoxyCompactList}\small\item\em test \end{DoxyCompactList}\item 
+\#define {\bfseries command\+\_\+wait}~2
+\begin{DoxyCompactList}\small\item\em wait \end{DoxyCompactList}\item 
+\#define {\bfseries command\+\_\+move}~3
+\begin{DoxyCompactList}\small\item\em move \end{DoxyCompactList}\item 
+\#define {\bfseries command\+\_\+grasp}~4
+\begin{DoxyCompactList}\small\item\em grasp \end{DoxyCompactList}\item 
+\#define {\bfseries command\+\_\+ungrasp}~5
+\begin{DoxyCompactList}\small\item\em ungrasp \end{DoxyCompactList}\item 
+\#define {\bfseries command\+\_\+def\+\_\+pos}~6
+\begin{DoxyCompactList}\small\item\em define position \end{DoxyCompactList}\item 
+\#define {\bfseries command\+\_\+fast\+\_\+catch}~7
+\begin{DoxyCompactList}\small\item\em fast catch \end{DoxyCompactList}\item 
+\#define {\bfseries command\+\_\+catch}~8
+\begin{DoxyCompactList}\small\item\em normal catch \end{DoxyCompactList}\item 
+\#define {\bfseries command\+\_\+handshake}~9
+\begin{DoxyCompactList}\small\item\em handshake command \end{DoxyCompactList}\item 
+\#define {\bfseries command\+\_\+auth\+\_\+key}~10
+\begin{DoxyCompactList}\small\item\em authentication key command \end{DoxyCompactList}\item 
+\#define {\bfseries result\+\_\+error}~-\/1
+\begin{DoxyCompactList}\small\item\em constant used to identify an execution error ~\newline
+ \end{DoxyCompactList}\item 
+\#define {\bfseries result\+\_\+unknown}~0
+\begin{DoxyCompactList}\small\item\em constant used to identify an unknown result \end{DoxyCompactList}\item 
+\#define {\bfseries result\+\_\+completed}~1
+\begin{DoxyCompactList}\small\item\em constant used to identify an execution success \end{DoxyCompactList}\item 
+\Hypertarget{planner_8cpp_ace246c0e1f5c31780970faf1b8ac2fe3}\label{planner_8cpp_ace246c0e1f5c31780970faf1b8ac2fe3} 
+\#define {\bfseries queque\+\_\+size}~10
+\begin{DoxyCompactList}\small\item\em buffer size \end{DoxyCompactList}\item 
+\Hypertarget{planner_8cpp_a8713b92fd5ea2712b26af98c6ea7e3a1}\label{planner_8cpp_a8713b92fd5ea2712b26af98c6ea7e3a1} 
+\#define {\bfseries loop\+\_\+wait\+\_\+rate}~100
+\begin{DoxyCompactList}\small\item\em 10 msec of waiting \end{DoxyCompactList}\item 
+\Hypertarget{planner_8cpp_ae5a296603e7fbdaf20eb6483568e539b}\label{planner_8cpp_ae5a296603e7fbdaf20eb6483568e539b} 
+\#define {\bfseries lego\+\_\+coord\+\_\+z}~0.\+835
+\begin{DoxyCompactList}\small\item\em z lego coordinate as the table height \end{DoxyCompactList}\item 
+\#define \mbox{\hyperlink{planner_8cpp_a364865b71228c8f76c4958c4480d39e9}{default\+\_\+sim2bas\+\_\+matrix}}~1.\+000, 0.\+000, 0.\+000, 0.\+500, 0.\+000, -\/1.\+000, 0.\+000, 0.\+350, 0.\+000, 0.\+000, -\/1.\+000, 1.\+750, 0.\+000, 0.\+000, 0.\+000, 1.\+000
+\begin{DoxyCompactList}\small\item\em base matrix for functions \end{DoxyCompactList}\item 
+\#define \mbox{\hyperlink{planner_8cpp_a856e25e1641e03ee02e484540abb7457}{default\+\_\+cam2sim\+\_\+matrix}}~0.\+866, 0.\+000, 0.\+500, -\/0.\+400, 0.\+000, 1.\+000, 0.\+000, 0.\+530, -\/0.\+500, 0.\+000, 0.\+866, 1.\+400, 0.\+000, 0.\+000, 0.\+000, 1.\+000
+\begin{DoxyCompactList}\small\item\em base matrix for functions \end{DoxyCompactList}\item 
+\#define {\bfseries class\+\_\+00\+\_\+relocation}~0.\+42, -\/0.\+000, 0.\+82
+\begin{DoxyCompactList}\small\item\em X1-\/\+Y1-\/\+Z2 x=0.\+913 y=0.\+288 z=0.\+869. \end{DoxyCompactList}\item 
+\#define {\bfseries class\+\_\+01\+\_\+relocation}~0.\+42, -\/0.\+111, 0.\+82
+\begin{DoxyCompactList}\small\item\em X1-\/\+Y2-\/\+Z1. \end{DoxyCompactList}\item 
+\#define {\bfseries class\+\_\+02\+\_\+relocation}~0.\+42, -\/0.\+227, 0.\+82
+\begin{DoxyCompactList}\small\item\em X1-\/\+Y2-\/\+Z2. \end{DoxyCompactList}\item 
+\#define {\bfseries class\+\_\+03\+\_\+relocation}~0.\+42, -\/0.\+355, 0.\+82
+\begin{DoxyCompactList}\small\item\em X1-\/\+Y2-\/\+Z2-\/\+CHAMFER x=0.\+913 y=0.\+693 //\+OK. \end{DoxyCompactList}\item 
+\#define {\bfseries class\+\_\+04\+\_\+relocation}~0.\+3, -\/0.\+000, 0.\+82
+\begin{DoxyCompactList}\small\item\em X1-\/\+Y2-\/\+Z2-\/\+TWINFILLET. \end{DoxyCompactList}\item 
+\#define {\bfseries class\+\_\+05\+\_\+relocation}~0.\+3, -\/0.\+111, 0.\+82
+\begin{DoxyCompactList}\small\item\em X1-\/\+Y3-\/\+Z2. \end{DoxyCompactList}\item 
+\#define {\bfseries class\+\_\+06\+\_\+relocation}~0.\+3, -\/0.\+227, 0.\+82
+\begin{DoxyCompactList}\small\item\em X1-\/\+Y3-\/\+Z2-\/\+FILLET. \end{DoxyCompactList}\item 
+\#define {\bfseries class\+\_\+07\+\_\+relocation}~0.\+3, -\/0.\+355, 0.\+82
+\begin{DoxyCompactList}\small\item\em X1-\/\+Y4-\/\+Z1. \end{DoxyCompactList}\item 
+\#define {\bfseries class\+\_\+08\+\_\+relocation}~0.\+16, -\/0.\+000, 0.\+82
+\begin{DoxyCompactList}\small\item\em X1-\/\+Y4-\/\+Z2 x=0.\+613 y=0.\+331. \end{DoxyCompactList}\item 
+\#define {\bfseries class\+\_\+09\+\_\+relocation}~0.\+16, -\/0.\+227, 0.\+82
+\begin{DoxyCompactList}\small\item\em X2-\/\+Y2-\/\+Z2. \end{DoxyCompactList}\item 
+\#define {\bfseries class\+\_\+10\+\_\+relocation}~0.\+16, -\/0.\+355, 0.\+82
+\begin{DoxyCompactList}\small\item\em X2-\/\+Y2-\/\+Z2-\/\+FILLET x=0.\+616 y=0.\+693. \end{DoxyCompactList}\item 
+\Hypertarget{planner_8cpp_a75a555f65286e86db14d0c7036d31e13}\label{planner_8cpp_a75a555f65286e86db14d0c7036d31e13} 
+\#define {\bfseries class\+\_\+00\+\_\+orient}~0.\+0, 0.\+0, 0.\+0
+\begin{DoxyCompactList}\small\item\em orientation of lego class 0 \end{DoxyCompactList}\item 
+\Hypertarget{planner_8cpp_afbd1a77c38cb81b6a266b516cdaaa866}\label{planner_8cpp_afbd1a77c38cb81b6a266b516cdaaa866} 
+\#define {\bfseries class\+\_\+01\+\_\+orient}~0.\+0, 0.\+0, 0.\+0
+\begin{DoxyCompactList}\small\item\em orientation of lego class 1 \end{DoxyCompactList}\item 
+\Hypertarget{planner_8cpp_a05fb82b20b84832d38ce7fb595c7cf9e}\label{planner_8cpp_a05fb82b20b84832d38ce7fb595c7cf9e} 
+\#define {\bfseries class\+\_\+02\+\_\+orient}~0.\+0, 0.\+0, 0.\+0
+\begin{DoxyCompactList}\small\item\em orientation of lego class 2 \end{DoxyCompactList}\item 
+\Hypertarget{planner_8cpp_ac36a139835b85508c935f70a0ca430a4}\label{planner_8cpp_ac36a139835b85508c935f70a0ca430a4} 
+\#define {\bfseries class\+\_\+03\+\_\+orient}~0.\+0, 0.\+0, 0.\+0
+\begin{DoxyCompactList}\small\item\em orientation of lego class 3 \end{DoxyCompactList}\item 
+\Hypertarget{planner_8cpp_ade3e0a6b106f674f552b232861eb875b}\label{planner_8cpp_ade3e0a6b106f674f552b232861eb875b} 
+\#define {\bfseries class\+\_\+04\+\_\+orient}~0.\+0, 0.\+0, 0.\+0
+\begin{DoxyCompactList}\small\item\em orientation of lego class 4 \end{DoxyCompactList}\item 
+\Hypertarget{planner_8cpp_ad47cc5c7addb59873d0230564e11eec5}\label{planner_8cpp_ad47cc5c7addb59873d0230564e11eec5} 
+\#define {\bfseries class\+\_\+05\+\_\+orient}~0.\+0, 0.\+0, 0.\+0
+\begin{DoxyCompactList}\small\item\em orientation of lego class 5 \end{DoxyCompactList}\item 
+\Hypertarget{planner_8cpp_a70f22629f51c1f798cc2efaea63b70eb}\label{planner_8cpp_a70f22629f51c1f798cc2efaea63b70eb} 
+\#define {\bfseries class\+\_\+06\+\_\+orient}~0.\+0, 0.\+0, 0.\+0
+\begin{DoxyCompactList}\small\item\em orientation of lego class 6 \end{DoxyCompactList}\item 
+\Hypertarget{planner_8cpp_ad39584fefeca6928868ff117aeea3c35}\label{planner_8cpp_ad39584fefeca6928868ff117aeea3c35} 
+\#define {\bfseries class\+\_\+07\+\_\+orient}~0.\+0, 0.\+0, 0.\+0
+\begin{DoxyCompactList}\small\item\em orientation of lego class 7 \end{DoxyCompactList}\item 
+\Hypertarget{planner_8cpp_aa68b7215dbf1f8b36b518cacafbe09fe}\label{planner_8cpp_aa68b7215dbf1f8b36b518cacafbe09fe} 
+\#define {\bfseries class\+\_\+08\+\_\+orient}~0.\+0, 0.\+0, 0.\+0
+\begin{DoxyCompactList}\small\item\em orientation of lego class 8 \end{DoxyCompactList}\item 
+\Hypertarget{planner_8cpp_afc47bd449e0f309ab0fc8e8377ca7ab7}\label{planner_8cpp_afc47bd449e0f309ab0fc8e8377ca7ab7} 
+\#define {\bfseries class\+\_\+09\+\_\+orient}~0.\+0, 0.\+0, 0.\+0
+\begin{DoxyCompactList}\small\item\em orientation of lego class 9 \end{DoxyCompactList}\item 
+\Hypertarget{planner_8cpp_a53e5202d47d3861661a4eb85e09ac1ec}\label{planner_8cpp_a53e5202d47d3861661a4eb85e09ac1ec} 
+\#define {\bfseries class\+\_\+10\+\_\+orient}~0.\+0, 0.\+0, 0.\+0
+\begin{DoxyCompactList}\small\item\em orientation of lego class 10 \end{DoxyCompactList}\item 
+\Hypertarget{planner_8cpp_a79e9957ff578b1b1f110f4f885a8786e}\label{planner_8cpp_a79e9957ff578b1b1f110f4f885a8786e} 
+\#define {\bfseries class\+\_\+00\+\_\+real\+\_\+grasp}~60
+\begin{DoxyCompactList}\small\item\em diameter of end effector to grasp lego class 0 in real world \end{DoxyCompactList}\item 
+\Hypertarget{planner_8cpp_a5880271373686d68249920fe57493349}\label{planner_8cpp_a5880271373686d68249920fe57493349} 
+\#define {\bfseries class\+\_\+01\+\_\+real\+\_\+grasp}~60
+\begin{DoxyCompactList}\small\item\em diameter of end effector to grasp lego class 1 in real world \end{DoxyCompactList}\item 
+\Hypertarget{planner_8cpp_abba7da7da058747e330740dc39dece4b}\label{planner_8cpp_abba7da7da058747e330740dc39dece4b} 
+\#define {\bfseries class\+\_\+02\+\_\+real\+\_\+grasp}~60
+\begin{DoxyCompactList}\small\item\em diameter of end effector to grasp lego class 2 in real world \end{DoxyCompactList}\item 
+\Hypertarget{planner_8cpp_af05865d82793b8e32898a6f627999be9}\label{planner_8cpp_af05865d82793b8e32898a6f627999be9} 
+\#define {\bfseries class\+\_\+03\+\_\+real\+\_\+grasp}~60
+\begin{DoxyCompactList}\small\item\em diameter of end effector to grasp lego class 3 in real world \end{DoxyCompactList}\item 
+\Hypertarget{planner_8cpp_a7122db61ace8e993b48e4ec6d2298d39}\label{planner_8cpp_a7122db61ace8e993b48e4ec6d2298d39} 
+\#define {\bfseries class\+\_\+04\+\_\+real\+\_\+grasp}~60
+\begin{DoxyCompactList}\small\item\em diameter of end effector to grasp lego class 4 in real world \end{DoxyCompactList}\item 
+\Hypertarget{planner_8cpp_a3ba01f360831c894f22346eab6a27004}\label{planner_8cpp_a3ba01f360831c894f22346eab6a27004} 
+\#define {\bfseries class\+\_\+05\+\_\+real\+\_\+grasp}~60
+\begin{DoxyCompactList}\small\item\em diameter of end effector to grasp lego class 5 in real world \end{DoxyCompactList}\item 
+\Hypertarget{planner_8cpp_ab190c4fdf3ef604ba79018cf578ede62}\label{planner_8cpp_ab190c4fdf3ef604ba79018cf578ede62} 
+\#define {\bfseries class\+\_\+06\+\_\+real\+\_\+grasp}~60
+\begin{DoxyCompactList}\small\item\em diameter of end effector to grasp lego class 6 in real world \end{DoxyCompactList}\item 
+\Hypertarget{planner_8cpp_a9006ccafb133b7563ace915432175a37}\label{planner_8cpp_a9006ccafb133b7563ace915432175a37} 
+\#define {\bfseries class\+\_\+07\+\_\+real\+\_\+grasp}~60
+\begin{DoxyCompactList}\small\item\em diameter of end effector to grasp lego class 7 in real world \end{DoxyCompactList}\item 
+\Hypertarget{planner_8cpp_a69f3d5f5e9fb7b5a5788755ce4d346f9}\label{planner_8cpp_a69f3d5f5e9fb7b5a5788755ce4d346f9} 
+\#define {\bfseries class\+\_\+08\+\_\+real\+\_\+grasp}~60
+\begin{DoxyCompactList}\small\item\em diameter of end effector to grasp lego class 8 in real world \end{DoxyCompactList}\item 
+\Hypertarget{planner_8cpp_a802849fcf0e6dddaca4244b68303cb00}\label{planner_8cpp_a802849fcf0e6dddaca4244b68303cb00} 
+\#define {\bfseries class\+\_\+09\+\_\+real\+\_\+grasp}~60
+\begin{DoxyCompactList}\small\item\em diameter of end effector to grasp lego class 9 in real world \end{DoxyCompactList}\item 
+\Hypertarget{planner_8cpp_a9d14ec15c3d833c60e31771cc2b18914}\label{planner_8cpp_a9d14ec15c3d833c60e31771cc2b18914} 
+\#define {\bfseries class\+\_\+10\+\_\+real\+\_\+grasp}~60
+\begin{DoxyCompactList}\small\item\em diameter of end effector to grasp lego class 10 in real world \end{DoxyCompactList}\item 
+\Hypertarget{planner_8cpp_ae229bd7197d523aac6646c9f2b20b46d}\label{planner_8cpp_ae229bd7197d523aac6646c9f2b20b46d} 
+\#define {\bfseries class\+\_\+00\+\_\+real\+\_\+ungrasp}~100
+\begin{DoxyCompactList}\small\item\em diameter of end effector to ungrasp lego class 0 in real world \end{DoxyCompactList}\item 
+\Hypertarget{planner_8cpp_a05746e7b18091796a10abab80cf7b88e}\label{planner_8cpp_a05746e7b18091796a10abab80cf7b88e} 
+\#define {\bfseries class\+\_\+01\+\_\+real\+\_\+ungrasp}~100
+\begin{DoxyCompactList}\small\item\em diameter of end effector to ungrasp lego class 1 in real world \end{DoxyCompactList}\item 
+\Hypertarget{planner_8cpp_a0da6b065c00df77c05ce9b2183e57a30}\label{planner_8cpp_a0da6b065c00df77c05ce9b2183e57a30} 
+\#define {\bfseries class\+\_\+02\+\_\+real\+\_\+ungrasp}~100
+\begin{DoxyCompactList}\small\item\em diameter of end effector to ungrasp lego class 2 in real world \end{DoxyCompactList}\item 
+\Hypertarget{planner_8cpp_ab3f7e883ebb284c1cccdde8f449bcc5a}\label{planner_8cpp_ab3f7e883ebb284c1cccdde8f449bcc5a} 
+\#define {\bfseries class\+\_\+03\+\_\+real\+\_\+ungrasp}~100
+\begin{DoxyCompactList}\small\item\em diameter of end effector to ungrasp lego class 3 in real world \end{DoxyCompactList}\item 
+\Hypertarget{planner_8cpp_a9e673d9bd824600ec1d7d04a9240e93e}\label{planner_8cpp_a9e673d9bd824600ec1d7d04a9240e93e} 
+\#define {\bfseries class\+\_\+04\+\_\+real\+\_\+ungrasp}~100
+\begin{DoxyCompactList}\small\item\em diameter of end effector to ungrasp lego class 4 in real world \end{DoxyCompactList}\item 
+\Hypertarget{planner_8cpp_abeb73bfe1e1620c7afc6c7d7c42c77b2}\label{planner_8cpp_abeb73bfe1e1620c7afc6c7d7c42c77b2} 
+\#define {\bfseries class\+\_\+05\+\_\+real\+\_\+ungrasp}~100
+\begin{DoxyCompactList}\small\item\em diameter of end effector to ungrasp lego class 5 in real world \end{DoxyCompactList}\item 
+\Hypertarget{planner_8cpp_ad7b2f0bae3bb9e272b8e0338562263b9}\label{planner_8cpp_ad7b2f0bae3bb9e272b8e0338562263b9} 
+\#define {\bfseries class\+\_\+06\+\_\+real\+\_\+ungrasp}~100
+\begin{DoxyCompactList}\small\item\em diameter of end effector to ungrasp lego class 6 in real world \end{DoxyCompactList}\item 
+\Hypertarget{planner_8cpp_af214596cea0302569c9c6801b8bdf5e4}\label{planner_8cpp_af214596cea0302569c9c6801b8bdf5e4} 
+\#define {\bfseries class\+\_\+07\+\_\+real\+\_\+ungrasp}~100
+\begin{DoxyCompactList}\small\item\em diameter of end effector to ungrasp lego class 7 in real world \end{DoxyCompactList}\item 
+\Hypertarget{planner_8cpp_a28032519188d2619a055e63b73b4c8bc}\label{planner_8cpp_a28032519188d2619a055e63b73b4c8bc} 
+\#define {\bfseries class\+\_\+08\+\_\+real\+\_\+ungrasp}~100
+\begin{DoxyCompactList}\small\item\em diameter of end effector to ungrasp lego class 8 in real world \end{DoxyCompactList}\item 
+\Hypertarget{planner_8cpp_ab2f6d35294514f4de03099cc2c694e9d}\label{planner_8cpp_ab2f6d35294514f4de03099cc2c694e9d} 
+\#define {\bfseries class\+\_\+09\+\_\+real\+\_\+ungrasp}~100
+\begin{DoxyCompactList}\small\item\em diameter of end effector to ungrasp lego class 9 in real world \end{DoxyCompactList}\item 
+\Hypertarget{planner_8cpp_aeb3d3b72291b28c20598e512b69ec338}\label{planner_8cpp_aeb3d3b72291b28c20598e512b69ec338} 
+\#define {\bfseries class\+\_\+10\+\_\+real\+\_\+ungrasp}~100
+\begin{DoxyCompactList}\small\item\em diameter of end effector to ungrasp lego class 10 in real world \end{DoxyCompactList}\item 
+\Hypertarget{planner_8cpp_aa4822cc924a75cee95469701cbd16a7a}\label{planner_8cpp_aa4822cc924a75cee95469701cbd16a7a} 
+\#define {\bfseries class\+\_\+00\+\_\+virt\+\_\+grasp}~38
+\begin{DoxyCompactList}\small\item\em diameter of end effector to grasp lego class 0 in the simulation \end{DoxyCompactList}\item 
+\Hypertarget{planner_8cpp_af24c0ac1d69a57d78e959872654b5360}\label{planner_8cpp_af24c0ac1d69a57d78e959872654b5360} 
+\#define {\bfseries class\+\_\+01\+\_\+virt\+\_\+grasp}~40
+\begin{DoxyCompactList}\small\item\em diameter of end effector to grasp lego class 1 in the simulation \end{DoxyCompactList}\item 
+\Hypertarget{planner_8cpp_ab7386b4de3766e62283b0c9a0909c4ac}\label{planner_8cpp_ab7386b4de3766e62283b0c9a0909c4ac} 
+\#define {\bfseries class\+\_\+02\+\_\+virt\+\_\+grasp}~40
+\begin{DoxyCompactList}\small\item\em diameter of end effector to grasp lego class 2 in the simulation \end{DoxyCompactList}\item 
+\Hypertarget{planner_8cpp_a6172e8e7846279af7f5b61467756eed8}\label{planner_8cpp_a6172e8e7846279af7f5b61467756eed8} 
+\#define {\bfseries class\+\_\+03\+\_\+virt\+\_\+grasp}~40
+\begin{DoxyCompactList}\small\item\em diameter of end effector to grasp lego class 3 in the simulation \end{DoxyCompactList}\item 
+\Hypertarget{planner_8cpp_a61999d4f4f074dfd7073c3455e035753}\label{planner_8cpp_a61999d4f4f074dfd7073c3455e035753} 
+\#define {\bfseries class\+\_\+04\+\_\+virt\+\_\+grasp}~40
+\begin{DoxyCompactList}\small\item\em diameter of end effector to grasp lego class 4 in the simulation \end{DoxyCompactList}\item 
+\Hypertarget{planner_8cpp_a1ae6229b23e0d2347bcbf826b28c08fb}\label{planner_8cpp_a1ae6229b23e0d2347bcbf826b28c08fb} 
+\#define {\bfseries class\+\_\+05\+\_\+virt\+\_\+grasp}~40
+\begin{DoxyCompactList}\small\item\em diameter of end effector to grasp lego class 5 in the simulation \end{DoxyCompactList}\item 
+\Hypertarget{planner_8cpp_af98b001455ad8b8d921f86cfa3fa3065}\label{planner_8cpp_af98b001455ad8b8d921f86cfa3fa3065} 
+\#define {\bfseries class\+\_\+06\+\_\+virt\+\_\+grasp}~40
+\begin{DoxyCompactList}\small\item\em diameter of end effector to grasp lego class 6 in the simulation \end{DoxyCompactList}\item 
+\Hypertarget{planner_8cpp_ab0e041e9b5976d67f428138dd525674c}\label{planner_8cpp_ab0e041e9b5976d67f428138dd525674c} 
+\#define {\bfseries class\+\_\+07\+\_\+virt\+\_\+grasp}~40
+\begin{DoxyCompactList}\small\item\em diameter of end effector to grasp lego class 7 in the simulation \end{DoxyCompactList}\item 
+\Hypertarget{planner_8cpp_abaadcba9c183662d9bcf92b07fbeb8e1}\label{planner_8cpp_abaadcba9c183662d9bcf92b07fbeb8e1} 
+\#define {\bfseries class\+\_\+08\+\_\+virt\+\_\+grasp}~40
+\begin{DoxyCompactList}\small\item\em diameter of end effector to grasp lego class 8 in the simulation \end{DoxyCompactList}\item 
+\Hypertarget{planner_8cpp_a3cda49227be090521b1ab48c9089bb14}\label{planner_8cpp_a3cda49227be090521b1ab48c9089bb14} 
+\#define {\bfseries class\+\_\+09\+\_\+virt\+\_\+grasp}~43
+\begin{DoxyCompactList}\small\item\em diameter of end effector to grasp lego class 9 in the simulation \end{DoxyCompactList}\item 
+\Hypertarget{planner_8cpp_a055b4f1ba28f3235fdbfc07cf0e9798a}\label{planner_8cpp_a055b4f1ba28f3235fdbfc07cf0e9798a} 
+\#define {\bfseries class\+\_\+10\+\_\+virt\+\_\+grasp}~43
+\begin{DoxyCompactList}\small\item\em diameter of end effector to grasp lego class 10 in the simulation \end{DoxyCompactList}\item 
+\Hypertarget{planner_8cpp_aec51270592e3e488270433aa227e118a}\label{planner_8cpp_aec51270592e3e488270433aa227e118a} 
+\#define {\bfseries class\+\_\+00\+\_\+virt\+\_\+ungrasp}~100
+\begin{DoxyCompactList}\small\item\em diameter of end effector to ungrasp lego class 0 in the simulation \end{DoxyCompactList}\item 
+\Hypertarget{planner_8cpp_aa0b6046ecb2c1d665208a956272c839d}\label{planner_8cpp_aa0b6046ecb2c1d665208a956272c839d} 
+\#define {\bfseries class\+\_\+01\+\_\+virt\+\_\+ungrasp}~100
+\begin{DoxyCompactList}\small\item\em diameter of end effector to ungrasp lego class 1 in the simulation \end{DoxyCompactList}\item 
+\Hypertarget{planner_8cpp_a6b64f935b44eb92e8ce5a45823a1d608}\label{planner_8cpp_a6b64f935b44eb92e8ce5a45823a1d608} 
+\#define {\bfseries class\+\_\+02\+\_\+virt\+\_\+ungrasp}~100
+\begin{DoxyCompactList}\small\item\em diameter of end effector to ungrasp lego class 2 in the simulation \end{DoxyCompactList}\item 
+\Hypertarget{planner_8cpp_a27fd56f0d8c4f888443a157c1abcfa6c}\label{planner_8cpp_a27fd56f0d8c4f888443a157c1abcfa6c} 
+\#define {\bfseries class\+\_\+03\+\_\+virt\+\_\+ungrasp}~100
+\begin{DoxyCompactList}\small\item\em diameter of end effector to ungrasp lego class 3 in the simulation \end{DoxyCompactList}\item 
+\Hypertarget{planner_8cpp_abc3291955ba8270896fb4f50bf6cd571}\label{planner_8cpp_abc3291955ba8270896fb4f50bf6cd571} 
+\#define {\bfseries class\+\_\+04\+\_\+virt\+\_\+ungrasp}~100
+\begin{DoxyCompactList}\small\item\em diameter of end effector to ungrasp lego class 4 in the simulation \end{DoxyCompactList}\item 
+\Hypertarget{planner_8cpp_aa6e879abd56bb842a4914348cd9afbad}\label{planner_8cpp_aa6e879abd56bb842a4914348cd9afbad} 
+\#define {\bfseries class\+\_\+05\+\_\+virt\+\_\+ungrasp}~100
+\begin{DoxyCompactList}\small\item\em diameter of end effector to ungrasp lego class 5 in the simulation \end{DoxyCompactList}\item 
+\Hypertarget{planner_8cpp_a277ac168823c0ab57e0241a898f4c290}\label{planner_8cpp_a277ac168823c0ab57e0241a898f4c290} 
+\#define {\bfseries class\+\_\+06\+\_\+virt\+\_\+ungrasp}~100
+\begin{DoxyCompactList}\small\item\em diameter of end effector to ungrasp lego class 6 in the simulation \end{DoxyCompactList}\item 
+\Hypertarget{planner_8cpp_a89f3979cbe081fa5475e369f685e749c}\label{planner_8cpp_a89f3979cbe081fa5475e369f685e749c} 
+\#define {\bfseries class\+\_\+07\+\_\+virt\+\_\+ungrasp}~100
+\begin{DoxyCompactList}\small\item\em diameter of end effector to ungrasp lego class 7 in the simulation \end{DoxyCompactList}\item 
+\Hypertarget{planner_8cpp_a660bf54bc06f8171491e073e3caa0731}\label{planner_8cpp_a660bf54bc06f8171491e073e3caa0731} 
+\#define {\bfseries class\+\_\+08\+\_\+virt\+\_\+ungrasp}~100
+\begin{DoxyCompactList}\small\item\em diameter of end effector to ungrasp lego class 8 in the simulation \end{DoxyCompactList}\item 
+\Hypertarget{planner_8cpp_a6683cd30d52eeae42555c25f70d48126}\label{planner_8cpp_a6683cd30d52eeae42555c25f70d48126} 
+\#define {\bfseries class\+\_\+09\+\_\+virt\+\_\+ungrasp}~100
+\begin{DoxyCompactList}\small\item\em diameter of end effector to ungrasp lego class 9 in the simulation \end{DoxyCompactList}\item 
+\Hypertarget{planner_8cpp_a3cc49c73f58defe6f8054ab3dc3d0061}\label{planner_8cpp_a3cc49c73f58defe6f8054ab3dc3d0061} 
+\#define {\bfseries class\+\_\+10\+\_\+virt\+\_\+ungrasp}~100
+\begin{DoxyCompactList}\small\item\em diameter of end effector to ungrasp lego class 10 in the simulation \end{DoxyCompactList}\item 
+\Hypertarget{planner_8cpp_a98b1c64c05e83daf12678395c4a0f75a}\label{planner_8cpp_a98b1c64c05e83daf12678395c4a0f75a} 
+\#define {\bfseries default\+\_\+ungrasp\+\_\+diam}~100
+\begin{DoxyCompactList}\small\item\em default value for ungrasp diameter \end{DoxyCompactList}\item 
+\Hypertarget{planner_8cpp_a63738f66e429aff9edc952fe9a8c421d}\label{planner_8cpp_a63738f66e429aff9edc952fe9a8c421d} 
+\#define {\bfseries param0}~\"{}-\/s\"{}
+\begin{DoxyCompactList}\small\item\em command line parameter \end{DoxyCompactList}\item 
+\Hypertarget{planner_8cpp_a4bd21ff720e3c611cb94ceb4f2b2aa67}\label{planner_8cpp_a4bd21ff720e3c611cb94ceb4f2b2aa67} 
+\#define {\bfseries param1}~\"{}-\/secure\+On\"{}
+\begin{DoxyCompactList}\small\item\em command line parameter \end{DoxyCompactList}\item 
+\Hypertarget{planner_8cpp_a764ff6c6240abd31b0f770a5cfee75bb}\label{planner_8cpp_a764ff6c6240abd31b0f770a5cfee75bb} 
+\#define {\bfseries key\+\_\+max\+\_\+resolution}~1000000
+\begin{DoxyCompactList}\small\item\em max key size \end{DoxyCompactList}\item 
+\Hypertarget{planner_8cpp_a87aee93661b50615922d71ea8d1928d5}\label{planner_8cpp_a87aee93661b50615922d71ea8d1928d5} 
+\#define {\bfseries planner\+\_\+secret\+\_\+key}~35680
+\begin{DoxyCompactList}\small\item\em never transmit this key! \end{DoxyCompactList}\item 
+\Hypertarget{planner_8cpp_aea88abb29c35c3c7dc468dbc614cb8a4}\label{planner_8cpp_aea88abb29c35c3c7dc468dbc614cb8a4} 
+\#define {\bfseries planner\+\_\+preshared\+\_\+key}~65433
+\begin{DoxyCompactList}\small\item\em used to make the first transmission \end{DoxyCompactList}\item 
+\Hypertarget{planner_8cpp_a127dce9395cad2779d5dacff923bc6b7}\label{planner_8cpp_a127dce9395cad2779d5dacff923bc6b7} 
+\#define {\bfseries movement\+\_\+preshared\+\_\+key}~92341
+\begin{DoxyCompactList}\small\item\em used to read the first receive \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{planner_8cpp_a96d45a43485aa727199f59f9a922d7d0}\label{planner_8cpp_a96d45a43485aa727199f59f9a922d7d0} 
+void {\bfseries read\+Params} (int argc, char \texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*}argv)
+\begin{DoxyCompactList}\small\item\em parameters functions \end{DoxyCompactList}\item 
+\Hypertarget{planner_8cpp_a0e157ec11bcaf61efe0a91bf16791dce}\label{planner_8cpp_a0e157ec11bcaf61efe0a91bf16791dce} 
+void {\bfseries default\+Function} ()
+\begin{DoxyCompactList}\small\item\em function executed if there are no parameters inserted \end{DoxyCompactList}\item 
+\Hypertarget{planner_8cpp_aa503e7ca61752baa2e42bc6fdb0a2913}\label{planner_8cpp_aa503e7ca61752baa2e42bc6fdb0a2913} 
+void {\bfseries secure\+Enable} ()
+\begin{DoxyCompactList}\small\item\em function used to enable security \end{DoxyCompactList}\item 
+\Hypertarget{planner_8cpp_acb11b2604528d074b3267622d4710088}\label{planner_8cpp_acb11b2604528d074b3267622d4710088} 
+void {\bfseries unknown\+Usage} ()
+\begin{DoxyCompactList}\small\item\em function executed in error case \end{DoxyCompactList}\item 
+\Hypertarget{planner_8cpp_a476fcefff71a744c4e8c2ab3594967e3}\label{planner_8cpp_a476fcefff71a744c4e8c2ab3594967e3} 
+bool {\bfseries hand\+Shake} ()
+\begin{DoxyCompactList}\small\item\em start the handshake process \end{DoxyCompactList}\item 
+\Hypertarget{planner_8cpp_a295534c4d110bb249516365143427836}\label{planner_8cpp_a295534c4d110bb249516365143427836} 
+int {\bfseries random\+Number} (int max\+\_\+n)
+\begin{DoxyCompactList}\small\item\em to generate random numbers \end{DoxyCompactList}\item 
+\Hypertarget{planner_8cpp_a895ef80e9964508d370deb640cf8d94f}\label{planner_8cpp_a895ef80e9964508d370deb640cf8d94f} 
+void {\bfseries sub\+Detect\+Commander\+Callback} (const motion\+::lego\+Found\+::\+Const\+Ptr \&msg\+\_\+detect)
+\begin{DoxyCompactList}\small\item\em reception and analysis of a received request. \end{DoxyCompactList}\item 
+\Hypertarget{planner_8cpp_a2a09f26624aaa0e35d7edaa8216b0055}\label{planner_8cpp_a2a09f26624aaa0e35d7edaa8216b0055} 
+void {\bfseries pub\+Detect\+Resulter} (int risultato)
+\begin{DoxyCompactList}\small\item\em publish the result \end{DoxyCompactList}\item 
+\Hypertarget{planner_8cpp_aea3c0610e3e741ccedf0a7bbc3e27816}\label{planner_8cpp_aea3c0610e3e741ccedf0a7bbc3e27816} 
+void {\bfseries pub\+Task\+Commander} (bool s\+\_\+ack)
+\begin{DoxyCompactList}\small\item\em publish the task \end{DoxyCompactList}\item 
+\Hypertarget{planner_8cpp_a83c30eaa51305cb501a18fd431d0cf9d}\label{planner_8cpp_a83c30eaa51305cb501a18fd431d0cf9d} 
+void {\bfseries sub\+Task\+Resulter\+Callback} (const motion\+::event\+Result\+::\+Const\+Ptr \&msg\+\_\+event)
+\begin{DoxyCompactList}\small\item\em read ack sent by movement \end{DoxyCompactList}\item 
+\Hypertarget{planner_8cpp_ac71013fade435e421bdc6d888a769f69}\label{planner_8cpp_ac71013fade435e421bdc6d888a769f69} 
+Eigen\+::\+Vector3f {\bfseries camera2\+SimulationR} (Eigen\+::\+Vector3f simul\+\_\+lego\+\_\+pos)
+\begin{DoxyCompactList}\small\item\em adapt camera point values in virtual world for robot \end{DoxyCompactList}\item 
+\Hypertarget{planner_8cpp_a7da74b7f343b5d7e2ade95382ae84e09}\label{planner_8cpp_a7da74b7f343b5d7e2ade95382ae84e09} 
+Eigen\+::\+Vector3f {\bfseries camera2\+RealR} (Eigen\+::\+Vector3f camera\+\_\+lego\+\_\+pos)
+\begin{DoxyCompactList}\small\item\em adapt camera point values in real world for robot \end{DoxyCompactList}\item 
+\Hypertarget{planner_8cpp_aee01794b53839260c6e321e1a5f5f086}\label{planner_8cpp_aee01794b53839260c6e321e1a5f5f086} 
+void {\bfseries ungrasp\+Command} ()
+\begin{DoxyCompactList}\small\item\em Enlarge robot fingers. \end{DoxyCompactList}\item 
+\Hypertarget{planner_8cpp_aa7c15e8e4d741f131c330cc440c1ff0e}\label{planner_8cpp_aa7c15e8e4d741f131c330cc440c1ff0e} 
+void {\bfseries homing\+Command} ()
+\begin{DoxyCompactList}\small\item\em move the arm to default to avoid camera interferences \end{DoxyCompactList}\item 
+\Hypertarget{planner_8cpp_aa6102fe9d367864c9e2dbc26a2703ebe}\label{planner_8cpp_aa6102fe9d367864c9e2dbc26a2703ebe} 
+void {\bfseries catch\+Command} (Eigen\+::\+Vector3f position)
+\begin{DoxyCompactList}\small\item\em send the complete catch command to the moviment module \end{DoxyCompactList}\item 
+\Hypertarget{planner_8cpp_a16a23807748b413b120d431924db34c3}\label{planner_8cpp_a16a23807748b413b120d431924db34c3} 
+void {\bfseries select\+Class} (int lego\+\_\+cl)
+\begin{DoxyCompactList}\small\item\em In relation to lego received from vision, load right lego parameters. \end{DoxyCompactList}\item 
+\Hypertarget{planner_8cpp_af9976014960088de9978fa071166da17}\label{planner_8cpp_af9976014960088de9978fa071166da17} 
+ros\+::\+Time {\bfseries get\+Time\+Now} ()
+\begin{DoxyCompactList}\small\item\em Returns the current time. \end{DoxyCompactList}\item 
+\Hypertarget{planner_8cpp_a25299f5cb1a8a60f103e48ffb4b3ced2}\label{planner_8cpp_a25299f5cb1a8a60f103e48ffb4b3ced2} 
+ros\+::\+Duration {\bfseries get\+Interval} (ros\+::\+Time start\+\_\+t)
+\begin{DoxyCompactList}\small\item\em Returns the difference between the current\+Time and the start time. \end{DoxyCompactList}\item 
+\Hypertarget{planner_8cpp_a9bcebc379dad45c6520f95ef747ca4e1}\label{planner_8cpp_a9bcebc379dad45c6520f95ef747ca4e1} 
+int {\bfseries generate\+Auth\+Key} ()
+\begin{DoxyCompactList}\small\item\em generates an encrypted authorization key \end{DoxyCompactList}\item 
+\Hypertarget{planner_8cpp_a6aabf876045fc456ad75db6e06415cc1}\label{planner_8cpp_a6aabf876045fc456ad75db6e06415cc1} 
+int {\bfseries get\+Next\+Key} (int extra\+\_\+d)
+\begin{DoxyCompactList}\small\item\em used to obtain a random key used to generate authorization key received from movement \end{DoxyCompactList}\item 
+\Hypertarget{planner_8cpp_a3df5c7f15619cc90a3c5ff065e9a6f21}\label{planner_8cpp_a3df5c7f15619cc90a3c5ff065e9a6f21} 
+void {\bfseries show\+Keys} ()
+\begin{DoxyCompactList}\small\item\em shows the movement and planner keys \end{DoxyCompactList}\item 
+\Hypertarget{planner_8cpp_a3c04138a5bfe5d72780bb7e82a18e627}\label{planner_8cpp_a3c04138a5bfe5d72780bb7e82a18e627} 
+int {\bfseries main} (int argc, char \texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*}argv)
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Variables}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{planner_8cpp_a9b1e300752249beb0fa4908bcd8b2716}\label{planner_8cpp_a9b1e300752249beb0fa4908bcd8b2716} 
+bool {\bfseries verbose\+\_\+flag} = false
+\begin{DoxyCompactList}\small\item\em to enable deep logging \end{DoxyCompactList}\item 
+\Hypertarget{planner_8cpp_ac6b7676a945805d1e15714550a30ee5c}\label{planner_8cpp_ac6b7676a945805d1e15714550a30ee5c} 
+bool {\bfseries verbose\+\_\+security\+\_\+flag} = true
+\begin{DoxyCompactList}\small\item\em used to show security logs \end{DoxyCompactList}\item 
+\Hypertarget{planner_8cpp_a9e853b7854acfb04981e26132119939a}\label{planner_8cpp_a9e853b7854acfb04981e26132119939a} 
+bool {\bfseries security\+\_\+flag} = false
+\begin{DoxyCompactList}\small\item\em indicates the authentication system is active \end{DoxyCompactList}\item 
+\Hypertarget{planner_8cpp_a442331fb530a1c43d6b893f0139dfdec}\label{planner_8cpp_a442331fb530a1c43d6b893f0139dfdec} 
+int {\bfseries planner\+\_\+comm\+\_\+key}
+\begin{DoxyCompactList}\small\item\em used to check auth keys \end{DoxyCompactList}\item 
+\Hypertarget{planner_8cpp_ab71fa54fd5f835506d0d0d99ead78c33}\label{planner_8cpp_ab71fa54fd5f835506d0d0d99ead78c33} 
+int {\bfseries movement\+\_\+comm\+\_\+key}
+\begin{DoxyCompactList}\small\item\em used to create auth keys to send \end{DoxyCompactList}\item 
+\Hypertarget{planner_8cpp_a6b3d458ba6f5cdf16e88eb7b90cb5785}\label{planner_8cpp_a6b3d458ba6f5cdf16e88eb7b90cb5785} 
+int {\bfseries movement\+\_\+auth\+\_\+key}
+\begin{DoxyCompactList}\small\item\em stores the authorization key \end{DoxyCompactList}\item 
+\Hypertarget{planner_8cpp_add61d67afa630711ecd4bcc5dedc3073}\label{planner_8cpp_add61d67afa630711ecd4bcc5dedc3073} 
+int {\bfseries next\+\_\+random\+\_\+key}
+\begin{DoxyCompactList}\small\item\em stores the next random key \end{DoxyCompactList}\item 
+\Hypertarget{planner_8cpp_aa842ed488f94b44da4154daf72909aa1}\label{planner_8cpp_aa842ed488f94b44da4154daf72909aa1} 
+ros\+::\+Publisher {\bfseries pub\+\_\+task\+\_\+commander\+\_\+handle}
+\begin{DoxyCompactList}\small\item\em publisher \end{DoxyCompactList}\item 
+\Hypertarget{planner_8cpp_a89a7f2907ad73f9c1667bc01dee32289}\label{planner_8cpp_a89a7f2907ad73f9c1667bc01dee32289} 
+ros\+::\+Publisher {\bfseries pub\+\_\+detect\+\_\+resulter\+\_\+handle}
+\begin{DoxyCompactList}\small\item\em publisher \end{DoxyCompactList}\item 
+\Hypertarget{planner_8cpp_afd67d002ba3ee775ab4fd6043f44fe62}\label{planner_8cpp_afd67d002ba3ee775ab4fd6043f44fe62} 
+ros\+::\+Subscriber {\bfseries sub\+\_\+detect\+\_\+commander\+\_\+handle}
+\begin{DoxyCompactList}\small\item\em subscriber \end{DoxyCompactList}\item 
+\Hypertarget{planner_8cpp_a7582dcc7140d090f4b2eb63698c9754c}\label{planner_8cpp_a7582dcc7140d090f4b2eb63698c9754c} 
+ros\+::\+Subscriber {\bfseries sub\+\_\+task\+\_\+resulter\+\_\+handle}
+\begin{DoxyCompactList}\small\item\em subscriber \end{DoxyCompactList}\item 
+\Hypertarget{planner_8cpp_a0cf0cd753eeac4c07d36fd9fc8431811}\label{planner_8cpp_a0cf0cd753eeac4c07d36fd9fc8431811} 
+bool {\bfseries is\+\_\+real\+\_\+robot} = false
+\begin{DoxyCompactList}\small\item\em false -\/-\/\texorpdfstring{$>$}{>} simulation; true -\/-\/\texorpdfstring{$>$}{>} real robot \end{DoxyCompactList}\item 
+\Hypertarget{planner_8cpp_aaeedf67dd0bff76b579d37fd1428a793}\label{planner_8cpp_aaeedf67dd0bff76b579d37fd1428a793} 
+bool {\bfseries keep\+\_\+orientation} = false
+\begin{DoxyCompactList}\small\item\em false -\/-\/\texorpdfstring{$>$}{>} load classes orientation from lego classes; true -\/-\/\texorpdfstring{$>$}{>} keep vision orientation \end{DoxyCompactList}\item 
+\Hypertarget{planner_8cpp_afb5ed20b559332fe7249a34588a87cd1}\label{planner_8cpp_afb5ed20b559332fe7249a34588a87cd1} 
+bool {\bfseries quit\+\_\+planner} = false
+\begin{DoxyCompactList}\small\item\em false -\/-\/\texorpdfstring{$>$}{>} planner active ~\newline
+ \end{DoxyCompactList}\item 
+\Hypertarget{planner_8cpp_aa1a5549c9b6ee596a2534a9550cad629}\label{planner_8cpp_aa1a5549c9b6ee596a2534a9550cad629} 
+bool {\bfseries request\+\_\+motion\+\_\+ack} = true
+\begin{DoxyCompactList}\small\item\em request an ack from movement \end{DoxyCompactList}\item 
+\Hypertarget{planner_8cpp_a0c94f7e2e99e5c25cf209fa999adc8ef}\label{planner_8cpp_a0c94f7e2e99e5c25cf209fa999adc8ef} 
+bool {\bfseries is\+\_\+vision\+\_\+msg\+\_\+received} = false
+\begin{DoxyCompactList}\small\item\em if planner receives a command from vision, this var becomes true \end{DoxyCompactList}\item 
+\mbox{\hyperlink{struct_waiting_task}{Waiting\+Task}} \mbox{\hyperlink{planner_8cpp_ad8a5d2062b7d28e98c0c9c1819603ced}{movement\+\_\+task}}
+\begin{DoxyCompactList}\small\item\em struct used to coordinate msgs between planner and movement \end{DoxyCompactList}\item 
+\Hypertarget{planner_8cpp_a4879fe1cceb0a3fe0d0aef05a58bca61}\label{planner_8cpp_a4879fe1cceb0a3fe0d0aef05a58bca61} 
+\mbox{\hyperlink{struct_waiting_task}{Waiting\+Task}} {\bfseries vision\+\_\+task}
+\item 
+\Hypertarget{planner_8cpp_a35c1ed8fc188c380e87b9783ef301f33}\label{planner_8cpp_a35c1ed8fc188c380e87b9783ef301f33} 
+motion\+::lego\+Found {\bfseries msg\+\_\+lego\+\_\+detect}
+\begin{DoxyCompactList}\small\item\em message used by vision to talk to planner \end{DoxyCompactList}\item 
+\Hypertarget{planner_8cpp_a178d4c3b5e7babb6157fd119f838d505}\label{planner_8cpp_a178d4c3b5e7babb6157fd119f838d505} 
+motion\+::lego\+Task {\bfseries msg\+\_\+task\+Command}
+\begin{DoxyCompactList}\small\item\em message used by vision to talk to planner ~\newline
+ \end{DoxyCompactList}\item 
+\Hypertarget{planner_8cpp_ab94d0d1147c4b1e4de8157c98a4e115f}\label{planner_8cpp_ab94d0d1147c4b1e4de8157c98a4e115f} 
+motion\+::event\+Result {\bfseries msg\+\_\+evento\+\_\+task}
+\item 
+\Hypertarget{planner_8cpp_a89e301be92209d108feeb2dde1932b4b}\label{planner_8cpp_a89e301be92209d108feeb2dde1932b4b} 
+motion\+::event\+Result {\bfseries msg\+\_\+evento\+\_\+detect}
+\begin{DoxyCompactList}\small\item\em message used by vision to talk to planner \end{DoxyCompactList}\item 
+\Hypertarget{planner_8cpp_a621ea49c70648912c95aae2eb182e501}\label{planner_8cpp_a621ea49c70648912c95aae2eb182e501} 
+\mbox{\hyperlink{structobject_position_orientation}{object\+Position\+Orientation}} {\bfseries lego\+\_\+dest}
+\begin{DoxyCompactList}\small\item\em lego destination \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+Planner module in charge of communicate with the vision package. 
+
+\begin{DoxyAuthor}{Authors}
+Filippo Conti, Mattia Meneghin e Nicola Gianuzzi 
+\end{DoxyAuthor}
+\begin{DoxyVersion}{Version}
+0.\+1 
+\end{DoxyVersion}
+\begin{DoxyDate}{Date}
+2023-\/06-\/12
+\end{DoxyDate}
+\begin{DoxyCopyright}{Copyright}
+Copyright (c) 2023 
+\end{DoxyCopyright}
+
+
+\doxysubsection{Macro Definition Documentation}
+\Hypertarget{planner_8cpp_a856e25e1641e03ee02e484540abb7457}\label{planner_8cpp_a856e25e1641e03ee02e484540abb7457} 
+\index{planner.cpp@{planner.cpp}!default\_cam2sim\_matrix@{default\_cam2sim\_matrix}}
+\index{default\_cam2sim\_matrix@{default\_cam2sim\_matrix}!planner.cpp@{planner.cpp}}
+\doxysubsubsection{\texorpdfstring{default\_cam2sim\_matrix}{default\_cam2sim\_matrix}}
+{\footnotesize\ttfamily \#define default\+\_\+cam2sim\+\_\+matrix~0.\+866, 0.\+000, 0.\+500, -\/0.\+400, 0.\+000, 1.\+000, 0.\+000, 0.\+530, -\/0.\+500, 0.\+000, 0.\+866, 1.\+400, 0.\+000, 0.\+000, 0.\+000, 1.\+000}
+
+
+
+base matrix for functions 
+
+\Hypertarget{planner_8cpp_a364865b71228c8f76c4958c4480d39e9}\label{planner_8cpp_a364865b71228c8f76c4958c4480d39e9} 
+\index{planner.cpp@{planner.cpp}!default\_sim2bas\_matrix@{default\_sim2bas\_matrix}}
+\index{default\_sim2bas\_matrix@{default\_sim2bas\_matrix}!planner.cpp@{planner.cpp}}
+\doxysubsubsection{\texorpdfstring{default\_sim2bas\_matrix}{default\_sim2bas\_matrix}}
+{\footnotesize\ttfamily \#define default\+\_\+sim2bas\+\_\+matrix~1.\+000, 0.\+000, 0.\+000, 0.\+500, 0.\+000, -\/1.\+000, 0.\+000, 0.\+350, 0.\+000, 0.\+000, -\/1.\+000, 1.\+750, 0.\+000, 0.\+000, 0.\+000, 1.\+000}
+
+
+
+base matrix for functions 
+
+
+
+\doxysubsection{Variable Documentation}
+\Hypertarget{planner_8cpp_ad8a5d2062b7d28e98c0c9c1819603ced}\label{planner_8cpp_ad8a5d2062b7d28e98c0c9c1819603ced} 
+\index{planner.cpp@{planner.cpp}!movement\_task@{movement\_task}}
+\index{movement\_task@{movement\_task}!planner.cpp@{planner.cpp}}
+\doxysubsubsection{\texorpdfstring{movement\_task}{movement\_task}}
+{\footnotesize\ttfamily \mbox{\hyperlink{struct_waiting_task}{Waiting\+Task}} movement\+\_\+task}
+
+
+
+struct used to coordinate msgs between planner and movement 
+

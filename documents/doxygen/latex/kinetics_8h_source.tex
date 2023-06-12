@@ -1,0 +1,376 @@
+\doxysection{kinetics.\+h}
+\hypertarget{kinetics_8h_source}{}\label{kinetics_8h_source}\mbox{\hyperlink{kinetics_8h}{Go to the documentation of this file.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ }
+\DoxyCodeLine{00009\ \textcolor{preprocessor}{\#ifndef\ KINETICS\_H}}
+\DoxyCodeLine{00010\ \textcolor{preprocessor}{\#define\ KINETICS\_H}}
+\DoxyCodeLine{00011\ }
+\DoxyCodeLine{00012\ \textcolor{preprocessor}{\#include\ <iostream>}}
+\DoxyCodeLine{00013\ \textcolor{preprocessor}{\#include\ <cmath>}}
+\DoxyCodeLine{00014\ }
+\DoxyCodeLine{00016\ \textcolor{preprocessor}{\#include\ <complex>}}
+\DoxyCodeLine{00017\ }
+\DoxyCodeLine{00018\ \textcolor{comment}{//\ Dense\ module\ of\ the\ Eigen\ library}}
+\DoxyCodeLine{00019\ \textcolor{comment}{//\ includes\ the\ necessary\ classes\ and\ functions\ for\ dense\ matrix\ operations}}
+\DoxyCodeLine{00020\ \textcolor{comment}{//\ provides\ a\ wide\ range\ of\ functionalities,\ including\ matrix\ arithmetic\ operations}}
+\DoxyCodeLine{00021\ \textcolor{preprocessor}{\#include\ <Eigen/Dense>}}
+\DoxyCodeLine{00022\ }
+\DoxyCodeLine{00023\ \textcolor{keyword}{using\ namespace\ }std;}
+\DoxyCodeLine{00024\ }
+\DoxyCodeLine{00028\ \textcolor{preprocessor}{\#define\ null\_vector\ 0,\ 0,\ 0\ }\textcolor{comment}{//\ this\ is\ the\ vector\ having\ the\ norm\ =\ 0}}
+\DoxyCodeLine{00029\ }
+\DoxyCodeLine{00036\ \textcolor{keyword}{struct\ }\mbox{\hyperlink{structobject_position_orientation}{objectPositionOrientation}}\ \{}
+\DoxyCodeLine{00037\ \ \ \ \ \ \ \ \ Eigen::Vector3f\ position;}
+\DoxyCodeLine{00038\ \ \ \ \ \ \ \ \ Eigen::Vector3f\ orientation;}
+\DoxyCodeLine{00039\ \};}
+\DoxyCodeLine{00040\ }
+\DoxyCodeLine{00046\ \textcolor{keyword}{struct\ }\mbox{\hyperlink{structend__effector}{end\_effector}}\ \{}
+\DoxyCodeLine{00047\ \ \ \ \ Eigen::Vector3f\ posit;}
+\DoxyCodeLine{00048\ \ \ \ \ Eigen::Matrix3f\ orient;}
+\DoxyCodeLine{00049\ \};}
+\DoxyCodeLine{00050\ }
+\DoxyCodeLine{00057\ Eigen::Matrix3f\ \mbox{\hyperlink{kinetics_8h_a5aa39915385f6fb29ee3945895239689}{orient2matrix}}(Eigen::Vector3f\ eu\_angles)\ \{}
+\DoxyCodeLine{00058\ }
+\DoxyCodeLine{00059\ \ \ \ \ Eigen::Matrix3f\ resMatrix;}
+\DoxyCodeLine{00060\ \ \ \ \ resMatrix\ =\ Eigen::AngleAxisf(eu\_angles(0),\ Eigen::Vector3f::UnitZ())\ *\ Eigen::AngleAxisf(eu\_angles(1),\ Eigen::Vector3f::UnitY())\ *\ Eigen::AngleAxisf(eu\_angles(2),\ Eigen::Vector3f::UnitX());}
+\DoxyCodeLine{00061\ \ \ \ \ \textcolor{keywordflow}{return}\ resMatrix;}
+\DoxyCodeLine{00062\ \}}
+\DoxyCodeLine{00063\ }
+\DoxyCodeLine{00064\ \textcolor{comment}{//\ It\ calculates\ the\ orientation\ error\ between\ two\ given\ orientation\ matrices}}
+\DoxyCodeLine{00072\ \textcolor{comment}{}Eigen::Vector3f\ \mbox{\hyperlink{kinetics_8h_ae512b77453ce05504267eebe82a8655b}{correctOrientation}}(Eigen::Matrix3f\ curr\_orientation,\ Eigen::Matrix3f\ final\_orientation)\ \{}
+\DoxyCodeLine{00073\ \ \ \ \ }
+\DoxyCodeLine{00074\ \ \ \ \ \ \ \ \ Eigen::Matrix3f\ relative\_or\_mtx;}
+\DoxyCodeLine{00075\ \ \ \ \ \ \ \ \ relative\_or\_mtx\ =\ final\_orientation.transpose()\ *\ curr\_orientation;}
+\DoxyCodeLine{00076\ }
+\DoxyCodeLine{00077\ \ \ \ \ \ \ \ \ Eigen::MatrixXf\ aux\_mtx(3,\ 2);}
+\DoxyCodeLine{00078\ \ \ \ \ \ \ \ \ aux\_mtx\ <<\ relative\_or\_mtx(2,\ 1),\ -\/relative\_or\_mtx(1,\ 2),\ relative\_or\_mtx(0,\ 2),\ -\/relative\_or\_mtx(2,\ 0),\ relative\_or\_mtx(1,\ 0),\ -\/relative\_or\_mtx(0,\ 1);}
+\DoxyCodeLine{00079\ \ \ \ \ }
+\DoxyCodeLine{00080\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{float}\ delta\_angle\_sin\ =\ (pow(aux\_mtx(0,\ 0),\ 2)\ +\ pow(aux\_mtx(0,\ 1),\ 2)\ +\ pow(aux\_mtx(1,\ 0),\ 2)\ +\ pow(aux\_mtx(1,\ 1),\ 2)\ +\ pow(aux\_mtx(2,\ 0),\ 2)\ +\ pow(aux\_mtx(2,\ 1),\ 2))\ *\ 0.5;}
+\DoxyCodeLine{00081\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{float}\ delta\_angle\_cos\ =\ (relative\_or\_mtx(0,\ 0)\ +\ relative\_or\_mtx(1,\ 1)\ +\ relative\_or\_mtx(2,\ 2)\ -\/\ 1)\ /\ 2;}
+\DoxyCodeLine{00082\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{float}\ tan\_angle\ =\ atan2(delta\_angle\_sin,\ delta\_angle\_cos);}
+\DoxyCodeLine{00083\ \ \ \ \ }
+\DoxyCodeLine{00084\ \ \ \ \ \ \ \ \ Eigen::Vector3f\ axis\_v;}
+\DoxyCodeLine{00085\ \ \ \ \ \ \ \ \ Eigen::Vector3f\ or\_error;}
+\DoxyCodeLine{00086\ \ \ \ \ }
+\DoxyCodeLine{00087\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (tan\_angle\ ==\ 0)\ \{\ or\_error\ <<\ \mbox{\hyperlink{kinetics_8h_add6ed7cc8ef83aa557173938d80497fa}{null\_vector}};\ \}}
+\DoxyCodeLine{00088\ }
+\DoxyCodeLine{00089\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{else}\ \{}
+\DoxyCodeLine{00090\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ axis\_v\ =\ 1\ /\ (2\ *\ delta\_angle\_sin)\ *\ Eigen::Vector3f(relative\_or\_mtx(2,\ 1)\ -\/\ relative\_or\_mtx(1,\ 2),\ relative\_or\_mtx(0,\ 2)\ -\/\ relative\_or\_mtx(2,\ 0),\ relative\_or\_mtx(1,\ 0)\ -\/\ relative\_or\_mtx(0,\ 1));}
+\DoxyCodeLine{00091\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ or\_error\ =\ final\_orientation\ *\ tan\_angle\ *\ axis\_v;}
+\DoxyCodeLine{00092\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00093\ }
+\DoxyCodeLine{00094\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ or\_error;}
+\DoxyCodeLine{00095\ \}}
+\DoxyCodeLine{00096\ }
+\DoxyCodeLine{00103\ Eigen::MatrixXf\ \mbox{\hyperlink{kinetics_8h_ac18192e3fb07f742928c074070d08838}{jacobMatrix}}(Eigen::VectorXf\ jo\_ang)\ \{}
+\DoxyCodeLine{00104\ }
+\DoxyCodeLine{00105\ \ \ \ \ Eigen::VectorXf\ v\_1(6);}
+\DoxyCodeLine{00106\ \ \ \ \ v\_1\ <<\ 0,\ -\/0.425,\ -\/0.3922,\ 0,\ 0,\ 0;}
+\DoxyCodeLine{00107\ }
+\DoxyCodeLine{00108\ \ \ \ \ Eigen::VectorXf\ v\_2(6);}
+\DoxyCodeLine{00109\ \ \ \ \ v\_2\ <<\ 0.1625,\ 0,\ 0,\ 0.1333,\ 0.0997,\ 0.0996\ +\ 0.14;}
+\DoxyCodeLine{00110\ }
+\DoxyCodeLine{00111\ \ \ \ \ Eigen::MatrixXf\ jac\_mtx\_1(6,\ 1);}
+\DoxyCodeLine{00112\ \ \ \ \ jac\_mtx\_1\ <<\ \ \ \ v\_2(4)\ *\ (cos(jo\_ang(0))\ *\ cos(jo\_ang(4))\ +\ cos(jo\_ang(1)\ +\ jo\_ang(2)\ +\ jo\_ang(3))\ *\ sin(jo\_ang(0))\ *\ sin(jo\_ang(4)))\ +\ v\_2(2)\ *\ cos(jo\_ang(0))\ +\ v\_2(3)\ *\ cos(jo\_ang(0))\ -\/\ v\_1(2)\ *\ cos(jo\_ang(1)\ +\ jo\_ang(2))\ *\ sin(jo\_ang(0))\ -\/\ v\_1(1)\ *\ cos(jo\_ang(1))\ *\ sin(jo\_ang(0))\ -\/\ v\_2(4)\ *\ sin(jo\_ang(1)\ +\ jo\_ang(2)\ +\ jo\_ang(3))\ *\ sin(jo\_ang(0)),}
+\DoxyCodeLine{00113\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ v\_2(4)\ *\ (cos(jo\_ang(4))\ *\ sin(jo\_ang(0))\ -\/\ cos(jo\_ang(1)\ +\ jo\_ang(2)\ +\ jo\_ang(3))\ *\ cos(jo\_ang(0))\ *\ sin(jo\_ang(4)))\ +\ v\_2(2)\ *\ sin(jo\_ang(0))\ +\ v\_2(3)\ *\ sin(jo\_ang(0))\ +\ v\_1(2)\ *\ cos(jo\_ang(1)\ +\ jo\_ang(2))\ *\ cos(jo\_ang(0))\ +\ v\_1(1)\ *\ cos(jo\_ang(0))\ *\ cos(jo\_ang(1))\ +\ v\_2(4)\ *\ sin(jo\_ang(1)\ +\ jo\_ang(2)\ +\ jo\_ang(3))\ *\ cos(jo\_ang(0)),}
+\DoxyCodeLine{00114\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ 0,}
+\DoxyCodeLine{00115\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ 0,}
+\DoxyCodeLine{00116\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ 0,}
+\DoxyCodeLine{00117\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ 1;}
+\DoxyCodeLine{00118\ \ \ \ \ }
+\DoxyCodeLine{00119\ \ \ \ \ Eigen::MatrixXf\ jac\_mtx\_2(6,\ 1);}
+\DoxyCodeLine{00120\ \ \ \ \ jac\_mtx\_2\ <<\ \ \ \ -\/cos(jo\_ang(0))\ *\ (v\_1(2)\ *\ sin(jo\_ang(1)\ +\ jo\_ang(2))\ +\ v\_1(1)\ *\ sin(jo\_ang(1))\ +\ v\_2(4)\ *\ (sin(jo\_ang(1)\ +\ jo\_ang(2))\ *\ sin(jo\_ang(3))\ -\/\ cos(jo\_ang(1)\ +\ jo\_ang(2))\ *\ cos(jo\_ang(3)))\ -\/\ v\_2(4)\ *\ sin(jo\_ang(4))\ *\ (cos(jo\_ang(1)\ +\ jo\_ang(2))\ *\ sin(jo\_ang(3))\ +\ sin(jo\_ang(1)\ +\ jo\_ang(2))\ *\ cos(jo\_ang(3)))),}
+\DoxyCodeLine{00121\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ -\/sin(jo\_ang(0))\ *\ (v\_1(2)\ *\ sin(jo\_ang(1)\ +\ jo\_ang(2))\ +\ v\_1(1)\ *\ sin(jo\_ang(1))\ +\ v\_2(4)\ *\ (sin(jo\_ang(1)\ +\ jo\_ang(2))\ *\ sin(jo\_ang(3))\ -\/\ cos(jo\_ang(1)\ +\ jo\_ang(2))\ *\ cos(jo\_ang(3)))\ -\/\ v\_2(4)\ *\ sin(jo\_ang(4))\ *\ (cos(jo\_ang(1)\ +\ jo\_ang(2))\ *\ sin(jo\_ang(3))\ +\ sin(jo\_ang(1)\ +\ jo\_ang(2))\ *\ cos(jo\_ang(3)))),}
+\DoxyCodeLine{00122\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ v\_1(2)\ *\ cos(jo\_ang(1)\ +\ jo\_ang(2))\ -\/\ (v\_2(4)\ *\ sin(jo\_ang(1)\ +\ jo\_ang(2)\ +\ jo\_ang(3)\ +\ jo\_ang(4)))\ /\ 2\ +\ v\_1(1)\ *\ cos(jo\_ang(1))\ +\ (v\_2(4)\ *\ sin(jo\_ang(1)\ +\ jo\_ang(2)\ +\ jo\_ang(3)\ -\/\ jo\_ang(4)))\ /\ 2\ +\ v\_2(4)\ *\ sin(jo\_ang(1)\ +\ jo\_ang(2)\ +\ jo\_ang(3)),}
+\DoxyCodeLine{00123\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ sin(jo\_ang(0)),}
+\DoxyCodeLine{00124\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ -\/cos(jo\_ang(0)),}
+\DoxyCodeLine{00125\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ 0;}
+\DoxyCodeLine{00126\ \ \ \ \ }
+\DoxyCodeLine{00127\ \ \ \ \ Eigen::MatrixXf\ jac\_mtx\_3(6,\ 1);}
+\DoxyCodeLine{00128\ \ \ \ \ jac\_mtx\_3\ <<\ \ \ \ cos(jo\_ang(0))\ *\ (v\_2(4)\ *\ cos(jo\_ang(1)\ +\ jo\_ang(2)\ +\ jo\_ang(3))\ -\/\ v\_1(2)\ *\ sin(jo\_ang(1)\ +\ jo\_ang(2))\ +\ v\_2(4)\ *\ sin(jo\_ang(1)\ +\ jo\_ang(2)\ +\ jo\_ang(3))\ *\ sin(jo\_ang(4))),}
+\DoxyCodeLine{00129\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ sin(jo\_ang(0))\ *\ (v\_2(4)\ *\ cos(jo\_ang(1)\ +\ jo\_ang(2)\ +\ jo\_ang(3))\ -\/\ v\_1(2)\ *\ sin(jo\_ang(1)\ +\ jo\_ang(2))\ +\ v\_2(4)\ *\ sin(jo\_ang(1)\ +\ jo\_ang(2)\ +\ jo\_ang(3))\ *\ sin(jo\_ang(4))),}
+\DoxyCodeLine{00130\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ v\_1(2)\ *\ cos(jo\_ang(1)\ +\ jo\_ang(2))\ -\/\ (v\_2(4)\ *\ sin(jo\_ang(1)\ +\ jo\_ang(2)\ +\ jo\_ang(3)\ +\ jo\_ang(4)))\ /\ 2\ +\ (v\_2(4)\ *\ sin(jo\_ang(1)\ +\ jo\_ang(2)\ +\ jo\_ang(3)\ -\/\ jo\_ang(4)))\ /\ 2\ +\ v\_2(4)\ *\ sin(jo\_ang(1)\ +\ jo\_ang(2)\ +\ jo\_ang(3)),}
+\DoxyCodeLine{00131\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ sin(jo\_ang(0)),}
+\DoxyCodeLine{00132\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ -\/cos(jo\_ang(0)),}
+\DoxyCodeLine{00133\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ 0;}
+\DoxyCodeLine{00134\ \ \ \ \ }
+\DoxyCodeLine{00135\ \ \ \ \ Eigen::MatrixXf\ jac\_mtx\_4(6,\ 1);}
+\DoxyCodeLine{00136\ \ \ \ \ jac\_mtx\_4\ <<\ \ \ \ v\_2(4)\ *\ cos(jo\_ang(0))\ *\ (cos(jo\_ang(1)\ +\ jo\_ang(2)\ +\ jo\_ang(3))\ +\ sin(jo\_ang(1)\ +\ jo\_ang(2)\ +\ jo\_ang(3))\ *\ sin(jo\_ang(4))),}
+\DoxyCodeLine{00137\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ v\_2(4)\ *\ sin(jo\_ang(0))\ *\ (cos(jo\_ang(1)\ +\ jo\_ang(2)\ +\ jo\_ang(3))\ +\ sin(jo\_ang(1)\ +\ jo\_ang(2)\ +\ jo\_ang(3))\ *\ sin(jo\_ang(4))),}
+\DoxyCodeLine{00138\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ v\_2(4)\ *\ (sin(jo\_ang(1)\ +\ jo\_ang(2)\ +\ jo\_ang(3)\ -\/\ jo\_ang(4))\ /\ 2\ +\ sin(jo\_ang(1)\ +\ jo\_ang(2)\ +\ jo\_ang(3))\ -\/\ sin(jo\_ang(1)\ +\ jo\_ang(2)\ +\ jo\_ang(3)\ +\ jo\_ang(4))\ /\ 2),}
+\DoxyCodeLine{00139\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ sin(jo\_ang(0)),}
+\DoxyCodeLine{00140\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ -\/cos(jo\_ang(0)),}
+\DoxyCodeLine{00141\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ 0;}
+\DoxyCodeLine{00142\ \ \ \ \ }
+\DoxyCodeLine{00143\ \ \ \ \ Eigen::MatrixXf\ jac\_mtx\_5(6,\ 1);}
+\DoxyCodeLine{00144\ \ \ \ \ jac\_mtx\_5\ <<\ \ \ \ -\/v\_2(4)\ *\ sin(jo\_ang(0))\ *\ sin(jo\_ang(4))\ -\/\ v\_2(4)\ *\ cos(jo\_ang(1)\ +\ jo\_ang(2)\ +\ jo\_ang(3))\ *\ cos(jo\_ang(0))\ *\ cos(jo\_ang(4)),}
+\DoxyCodeLine{00145\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ v\_2(4)\ *\ cos(jo\_ang(0))\ *\ sin(jo\_ang(4))\ -\/\ v\_2(4)\ *\ cos(jo\_ang(1)\ +\ jo\_ang(2)\ +\ jo\_ang(3))\ *\ cos(jo\_ang(4))\ *\ sin(jo\_ang(0)),}
+\DoxyCodeLine{00146\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ -\/v\_2(4)\ *\ (sin(jo\_ang(1)\ +\ jo\_ang(2)\ +\ jo\_ang(3)\ -\/\ jo\_ang(4))\ /\ 2\ +\ sin(jo\_ang(1)\ +\ jo\_ang(2)\ +\ jo\_ang(3)\ +\ jo\_ang(4))\ /\ 2),}
+\DoxyCodeLine{00147\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ sin(jo\_ang(1)\ +\ jo\_ang(2)\ +\ jo\_ang(3))\ *\ cos(jo\_ang(0)),}
+\DoxyCodeLine{00148\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ sin(jo\_ang(1)\ +\ jo\_ang(2)\ +\ jo\_ang(3))\ *\ sin(jo\_ang(0)),}
+\DoxyCodeLine{00149\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ -\/cos(jo\_ang(1)\ +\ jo\_ang(2)\ +\ jo\_ang(3));}
+\DoxyCodeLine{00150\ \ \ \ \ }
+\DoxyCodeLine{00151\ \ \ \ \ Eigen::MatrixXf\ jac\_mtx\_6(6,\ 1);}
+\DoxyCodeLine{00152\ \ \ \ \ jac\_mtx\_6\ <<\ \ \ \ 0,}
+\DoxyCodeLine{00153\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ 0,}
+\DoxyCodeLine{00154\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ 0,}
+\DoxyCodeLine{00155\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ cos(jo\_ang(4))\ *\ sin(jo\_ang(0))\ -\/\ cos(jo\_ang(1)\ +\ jo\_ang(2)\ +\ jo\_ang(3))\ *\ cos(jo\_ang(0))\ *\ sin(jo\_ang(4)),}
+\DoxyCodeLine{00156\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ -\/cos(jo\_ang(0))\ *\ cos(jo\_ang(4))\ -\/\ cos(jo\_ang(1)\ +\ jo\_ang(2)\ +\ jo\_ang(3))\ *\ sin(jo\_ang(0))\ *\ sin(jo\_ang(4)),}
+\DoxyCodeLine{00157\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ -\/sin(jo\_ang(1)\ +\ jo\_ang(2)\ +\ jo\_ang(3))\ *\ sin(jo\_ang(4));}
+\DoxyCodeLine{00158\ \ \ \ \ }
+\DoxyCodeLine{00159\ \ \ \ \ Eigen::MatrixXf\ jacob\_mtx(6,\ 6);}
+\DoxyCodeLine{00160\ \ \ \ \ jacob\_mtx.setZero();}
+\DoxyCodeLine{00161\ \ \ \ \ jacob\_mtx\ <<\ jac\_mtx\_1,\ jac\_mtx\_2,\ jac\_mtx\_3,\ jac\_mtx\_4,\ jac\_mtx\_5,\ jac\_mtx\_6;}
+\DoxyCodeLine{00162\ \ \ \ \ \textcolor{keywordflow}{return}\ jacob\_mtx;}
+\DoxyCodeLine{00163\ \}}
+\DoxyCodeLine{00164\ }
+\DoxyCodeLine{00171\ Eigen::Matrix4f\ \mbox{\hyperlink{kinetics_8h_ad7f1accfb4df709b15d8e854c8fb5221}{joint1Transf}}(\textcolor{keywordtype}{float}\ j1\_angle)\ \{}
+\DoxyCodeLine{00172\ }
+\DoxyCodeLine{00173\ \ \ \ \ Eigen::VectorXf\ j1\_1(6);}
+\DoxyCodeLine{00174\ \ \ \ \ j1\_1\ <<\ 0,\ -\/0.425,\ -\/0.3922,\ 0,\ 0,\ 0;}
+\DoxyCodeLine{00175\ }
+\DoxyCodeLine{00176\ \ \ \ \ Eigen::VectorXf\ j1\_2(6);}
+\DoxyCodeLine{00177\ \ \ \ \ j1\_2\ <<\ 0.1625,\ 0,\ 0,\ 0.1333,\ 0.0997,\ 0.0996\ +\ 0.14;}
+\DoxyCodeLine{00178\ \ \ \ \ }
+\DoxyCodeLine{00179\ \ \ \ \ Eigen::Matrix4f\ j1\_matrix;}
+\DoxyCodeLine{00180\ \ \ \ \ j1\_matrix\ <<\ cos(j1\_angle),\ -\/sin(j1\_angle),\ 0,\ 0,\ sin(j1\_angle),\ cos(j1\_angle),\ 0,\ 0,\ 0,\ 0,\ 1,\ j1\_2(0),\ 0,\ 0,\ 0,\ 1;}
+\DoxyCodeLine{00181\ \ \ \ \ \textcolor{keywordflow}{return}\ j1\_matrix;}
+\DoxyCodeLine{00182\ \}}
+\DoxyCodeLine{00183\ }
+\DoxyCodeLine{00190\ Eigen::Matrix4f\ \mbox{\hyperlink{kinetics_8h_a6c25914e0db109b02fc000f4535f2d4a}{joint2Transf}}(\textcolor{keywordtype}{float}\ j2\_angle)\ \{}
+\DoxyCodeLine{00191\ }
+\DoxyCodeLine{00192\ \ \ \ \ Eigen::VectorXf\ j2\_1(6);}
+\DoxyCodeLine{00193\ \ \ \ \ j2\_1\ <<\ 0,\ -\/0.425,\ -\/0.3922,\ 0,\ 0,\ 0;}
+\DoxyCodeLine{00194\ }
+\DoxyCodeLine{00195\ \ \ \ \ Eigen::VectorXf\ j2\_2(6);}
+\DoxyCodeLine{00196\ \ \ \ \ j2\_2\ <<\ 0.1625,\ 0,\ 0,\ 0.1333,\ 0.0997,\ 0.0996\ +\ 0.14;}
+\DoxyCodeLine{00197\ }
+\DoxyCodeLine{00198\ \ \ \ \ Eigen::Matrix4f\ j2\_matrix;}
+\DoxyCodeLine{00199\ \ \ \ \ j2\_matrix\ <<\ cos(j2\_angle),\ -\/sin(j2\_angle),\ 0,\ 0,\ 0,\ 0,\ -\/1,\ 0,\ sin(j2\_angle),\ cos(j2\_angle),\ 0,\ 0,\ 0,\ 0,\ 0,\ 1;}
+\DoxyCodeLine{00200\ \ \ \ \ \textcolor{keywordflow}{return}\ j2\_matrix;}
+\DoxyCodeLine{00201\ \}}
+\DoxyCodeLine{00202\ }
+\DoxyCodeLine{00209\ Eigen::Matrix4f\ \mbox{\hyperlink{kinetics_8h_a0d4468db926b1ac1d7e5cdc899e6568b}{joint3Transf}}(\textcolor{keywordtype}{float}\ j3\_angle)\ \{}
+\DoxyCodeLine{00210\ }
+\DoxyCodeLine{00211\ \ \ \ \ Eigen::VectorXf\ j3\_1(6);}
+\DoxyCodeLine{00212\ \ \ \ \ j3\_1\ <<\ 0,\ -\/0.425,\ -\/0.3922,\ 0,\ 0,\ 0;}
+\DoxyCodeLine{00213\ }
+\DoxyCodeLine{00214\ \ \ \ \ Eigen::VectorXf\ j3\_2(6);}
+\DoxyCodeLine{00215\ \ \ \ \ j3\_2\ <<\ 0.1625,\ 0,\ 0,\ 0.1333,\ 0.0997,\ 0.0996\ +\ 0.14;}
+\DoxyCodeLine{00216\ }
+\DoxyCodeLine{00217\ \ \ \ \ Eigen::Matrix4f\ j3\_matrix;}
+\DoxyCodeLine{00218\ \ \ \ \ j3\_matrix\ <<\ cos(j3\_angle),\ -\/sin(j3\_angle),\ 0,\ j3\_1(1),\ sin(j3\_angle),\ cos(j3\_angle),\ 0,\ 0,\ 0,\ 0,\ 1,\ j3\_2(2),\ 0,\ 0,\ 0,\ 1;}
+\DoxyCodeLine{00219\ \ \ \ \ \textcolor{keywordflow}{return}\ j3\_matrix;}
+\DoxyCodeLine{00220\ \}}
+\DoxyCodeLine{00221\ }
+\DoxyCodeLine{00228\ Eigen::Matrix4f\ \mbox{\hyperlink{kinetics_8h_acc2c5adc1f9fe5dfae16753a27e5d1fe}{joint4Transf}}(\textcolor{keywordtype}{float}\ j4\_angle)\ \{}
+\DoxyCodeLine{00229\ }
+\DoxyCodeLine{00230\ \ \ \ \ Eigen::VectorXf\ j4\_1(6);}
+\DoxyCodeLine{00231\ \ \ \ \ j4\_1\ <<\ 0,\ -\/0.425,\ -\/0.3922,\ 0,\ 0,\ 0;}
+\DoxyCodeLine{00232\ }
+\DoxyCodeLine{00233\ \ \ \ \ Eigen::VectorXf\ j4\_2(6);}
+\DoxyCodeLine{00234\ \ \ \ \ j4\_2\ <<\ 0.1625,\ 0,\ 0,\ 0.1333,\ 0.0997,\ 0.0996\ +\ 0.14;}
+\DoxyCodeLine{00235\ }
+\DoxyCodeLine{00236\ \ \ \ \ Eigen::Matrix4f\ j4\_matrix;}
+\DoxyCodeLine{00237\ \ \ \ \ j4\_matrix\ <<\ cos(j4\_angle),\ -\/sin(j4\_angle),\ 0,\ j4\_1(2),\ sin(j4\_angle),\ cos(j4\_angle),\ 0,\ 0,\ 0,\ 0,\ 1,\ j4\_2(3),\ 0,\ 0,\ 0,\ 1;}
+\DoxyCodeLine{00238\ \ \ \ \ \textcolor{keywordflow}{return}\ j4\_matrix;}
+\DoxyCodeLine{00239\ \}}
+\DoxyCodeLine{00240\ }
+\DoxyCodeLine{00247\ Eigen::Matrix4f\ \mbox{\hyperlink{kinetics_8h_a5de718b22cca1c9b69863affb1ce464e}{joint5Transf}}(\textcolor{keywordtype}{float}\ j5\_angle)\ \{}
+\DoxyCodeLine{00248\ }
+\DoxyCodeLine{00249\ \ \ \ \ Eigen::VectorXf\ j5\_1(6);}
+\DoxyCodeLine{00250\ \ \ \ \ j5\_1\ <<\ 0,\ -\/0.425,\ -\/0.3922,\ 0,\ 0,\ 0;}
+\DoxyCodeLine{00251\ }
+\DoxyCodeLine{00252\ \ \ \ \ Eigen::VectorXf\ j5\_2(6);}
+\DoxyCodeLine{00253\ \ \ \ \ j5\_2\ <<\ 0.1625,\ 0,\ 0,\ 0.1333,\ 0.0997,\ 0.0996\ +\ 0.14;}
+\DoxyCodeLine{00254\ }
+\DoxyCodeLine{00255\ \ \ \ \ Eigen::Matrix4f\ j5\_matrix;}
+\DoxyCodeLine{00256\ \ \ \ \ j5\_matrix\ <<\ cos(j5\_angle),\ -\/sin(j5\_angle),\ 0,\ 0,\ 0,\ 0,\ -\/1,\ -\/j5\_2(4),\ sin(j5\_angle),\ cos(j5\_angle),\ 0,\ 0,\ 0,\ 0,\ 0,\ 1;}
+\DoxyCodeLine{00257\ \ \ \ \ \textcolor{keywordflow}{return}\ j5\_matrix;}
+\DoxyCodeLine{00258\ \}}
+\DoxyCodeLine{00259\ }
+\DoxyCodeLine{00266\ Eigen::Matrix4f\ \mbox{\hyperlink{kinetics_8h_a24042dc7f20eb6b9c4fab73bdef89490}{joint6Transf}}(\textcolor{keywordtype}{float}\ j6\_angle)\ \{}
+\DoxyCodeLine{00267\ }
+\DoxyCodeLine{00268\ \ \ \ \ Eigen::VectorXf\ j6\_1(6);}
+\DoxyCodeLine{00269\ \ \ \ \ j6\_1\ <<\ 0,\ -\/0.425,\ -\/0.3922,\ 0,\ 0,\ 0;}
+\DoxyCodeLine{00270\ }
+\DoxyCodeLine{00271\ \ \ \ \ Eigen::VectorXf\ j6\_2(6);}
+\DoxyCodeLine{00272\ \ \ \ \ j6\_2\ <<\ 0.1625,\ 0,\ 0,\ 0.1333,\ 0.0997,\ 0.0996\ +\ 0.14;}
+\DoxyCodeLine{00273\ }
+\DoxyCodeLine{00274\ \ \ \ \ Eigen::Matrix4f\ j6\_matrix;}
+\DoxyCodeLine{00275\ \ \ \ \ j6\_matrix\ <<\ cos(j6\_angle),\ -\/sin(j6\_angle),\ 0,\ 0,\ 0,\ 0,\ 1,\ j6\_2(5),\ -\/sin(j6\_angle),\ -\/cos(j6\_angle),\ 0,\ 0,\ 0,\ 0,\ 0,\ 1;}
+\DoxyCodeLine{00276\ \ \ \ \ \textcolor{keywordflow}{return}\ j6\_matrix;}
+\DoxyCodeLine{00277\ \}}
+\DoxyCodeLine{00278\ }
+\DoxyCodeLine{00285\ \mbox{\hyperlink{structend__effector}{end\_effector}}\ \mbox{\hyperlink{kinetics_8h_aa8dc6eef5d8ad6361c3c8e6ac8c68c33}{directKinematic}}(Eigen::VectorXf\ j\_angles)\ \{}
+\DoxyCodeLine{00286\ }
+\DoxyCodeLine{00287\ \ \ \ \ Eigen::Matrix4f\ temp\_mtx;}
+\DoxyCodeLine{00288\ \ \ \ \ temp\_mtx\ =\ \mbox{\hyperlink{kinetics_8h_ad7f1accfb4df709b15d8e854c8fb5221}{joint1Transf}}(j\_angles(0))\ *\ \mbox{\hyperlink{kinetics_8h_a6c25914e0db109b02fc000f4535f2d4a}{joint2Transf}}(j\_angles(1))\ *\ \mbox{\hyperlink{kinetics_8h_a0d4468db926b1ac1d7e5cdc899e6568b}{joint3Transf}}(j\_angles(2))\ *\ \mbox{\hyperlink{kinetics_8h_acc2c5adc1f9fe5dfae16753a27e5d1fe}{joint4Transf}}(j\_angles(3))\ *\ \mbox{\hyperlink{kinetics_8h_a5de718b22cca1c9b69863affb1ce464e}{joint5Transf}}(j\_angles(4))\ *\ \mbox{\hyperlink{kinetics_8h_a24042dc7f20eb6b9c4fab73bdef89490}{joint6Transf}}(j\_angles(5));}
+\DoxyCodeLine{00289\ }
+\DoxyCodeLine{00290\ \ \ \ \ \mbox{\hyperlink{structend__effector}{end\_effector}}\ retMatrix;}
+\DoxyCodeLine{00291\ \ \ \ \ retMatrix.orient\ =\ temp\_mtx.block(0,\ 0,\ 3,\ 3);}
+\DoxyCodeLine{00292\ \ \ \ \ retMatrix.posit\ =\ temp\_mtx.block(0,\ 3,\ 3,\ 1);}
+\DoxyCodeLine{00293\ \ \ \ \ \textcolor{keywordflow}{return}\ retMatrix;}
+\DoxyCodeLine{00294\ \}}
+\DoxyCodeLine{00295\ }
+\DoxyCodeLine{00296\ \textcolor{comment}{//\ Find\ the\ joint\ motion\ as\ a\ function\ of\ the\ “desired”\ end-\/effector\ motion\ and\ configuration}}
+\DoxyCodeLine{00303\ \textcolor{comment}{}Eigen::MatrixXf\ \mbox{\hyperlink{kinetics_8h_ab89d2a14378db5f83c2cfe44ad4ad308}{inverseKinematic}}(\mbox{\hyperlink{structend__effector}{end\_effector}}\ \&arm)\ \{}
+\DoxyCodeLine{00304\ }
+\DoxyCodeLine{00305\ \ \ \ \ Eigen::VectorXf\ v\_1d(6);}
+\DoxyCodeLine{00306\ \ \ \ \ v\_1d\ <<\ 0,\ -\/0.425,\ -\/0.3922,\ 0,\ 0,\ 0;}
+\DoxyCodeLine{00307\ }
+\DoxyCodeLine{00308\ \ \ \ \ Eigen::VectorXf\ v\_2d(6);}
+\DoxyCodeLine{00309\ \ \ \ \ v\_2d\ <<\ 0.1625,\ 0,\ 0,\ 0.1333,\ 0.0997,\ 0.0996\ +\ 0.14;}
+\DoxyCodeLine{00310\ }
+\DoxyCodeLine{00311\ \ \ \ \ Eigen::Matrix4f\ temp\_mtx;}
+\DoxyCodeLine{00312\ \ \ \ \ temp\_mtx.setZero();}
+\DoxyCodeLine{00313\ \ \ \ \ temp\_mtx.block(0,\ 3,\ 3,\ 1)\ =\ arm.posit;}
+\DoxyCodeLine{00314\ \ \ \ \ temp\_mtx.block(0,\ 0,\ 3,\ 3)\ =\ arm.orient;}
+\DoxyCodeLine{00315\ \ \ \ \ temp\_mtx(3,\ 3)\ =\ 1;}
+\DoxyCodeLine{00316\ }
+\DoxyCodeLine{00317\ \ \ \ \ \textcolor{comment}{//\ finding\ th1}}
+\DoxyCodeLine{00318\ }
+\DoxyCodeLine{00319\ \ \ \ \ Eigen::Vector4f\ j1\_v;}
+\DoxyCodeLine{00320\ \ \ \ \ j1\_v\ =\ temp\_mtx\ *\ Eigen::Vector4f(0,\ 0,\ -\/v\_2d(5),\ 1);}
+\DoxyCodeLine{00321\ \ \ \ \ \textcolor{keywordtype}{float}\ jo1\_1\ =\ real(atan2(j1\_v(1),\ j1\_v(0))\ +\ acos(v\_2d(3)\ /\ hypot(j1\_v(1),\ j1\_v(0))))\ +\ M\_PI\ /\ 2;}
+\DoxyCodeLine{00322\ \ \ \ \ \textcolor{keywordtype}{float}\ jo1\_2\ =\ real(atan2(j1\_v(1),\ j1\_v(0))\ -\/\ acos(v\_2d(3)\ /\ hypot(j1\_v(1),\ j1\_v(0))))\ +\ M\_PI\ /\ 2;}
+\DoxyCodeLine{00323\ }
+\DoxyCodeLine{00324\ \ \ \ \ \textcolor{comment}{//\ finding\ th5}}
+\DoxyCodeLine{00325\ }
+\DoxyCodeLine{00326\ \ \ \ \ \textcolor{keywordtype}{float}\ jo5\_1\ =\ +real(acos((arm.posit(0)\ *\ sin(jo1\_1)\ -\/\ arm.posit(1)\ *\ cos(jo1\_1)\ -\/\ v\_2d(3))\ /\ v\_2d(5)));}
+\DoxyCodeLine{00327\ \ \ \ \ \textcolor{keywordtype}{float}\ jo5\_2\ =\ -\/real(acos((arm.posit(0)\ *\ sin(jo1\_1)\ -\/\ arm.posit(1)\ *\ cos(jo1\_1)\ -\/\ v\_2d(3))\ /\ v\_2d(5)));}
+\DoxyCodeLine{00328\ \ \ \ \ \textcolor{keywordtype}{float}\ jo5\_3\ =\ +real(acos((arm.posit(0)\ *\ sin(jo1\_2)\ -\/\ arm.posit(1)\ *\ cos(jo1\_2)\ -\/\ v\_2d(3))\ /\ v\_2d(5)));}
+\DoxyCodeLine{00329\ \ \ \ \ \textcolor{keywordtype}{float}\ jo5\_4\ =\ -\/real(acos((arm.posit(0)\ *\ sin(jo1\_2)\ -\/\ arm.posit(1)\ *\ cos(jo1\_2)\ -\/\ v\_2d(3))\ /\ v\_2d(5)));}
+\DoxyCodeLine{00330\ }
+\DoxyCodeLine{00331\ \ \ \ \ \textcolor{comment}{//\ finding\ th6}}
+\DoxyCodeLine{00332\ }
+\DoxyCodeLine{00333\ \ \ \ \ Eigen::Matrix4f\ inv\_mtx;}
+\DoxyCodeLine{00334\ \ \ \ \ inv\_mtx\ =\ temp\_mtx.inverse();}
+\DoxyCodeLine{00335\ }
+\DoxyCodeLine{00336\ \ \ \ \ Eigen::Vector3f\ x\_vect;}
+\DoxyCodeLine{00337\ \ \ \ \ x\_vect\ =\ inv\_mtx.block(0,\ 0,\ 3,\ 1);}
+\DoxyCodeLine{00338\ }
+\DoxyCodeLine{00339\ \ \ \ \ Eigen::Vector3f\ y\_vect;}
+\DoxyCodeLine{00340\ \ \ \ \ y\_vect\ =\ inv\_mtx.block(0,\ 1,\ 3,\ 1);}
+\DoxyCodeLine{00341\ }
+\DoxyCodeLine{00342\ \ \ \ \ \textcolor{keywordtype}{float}\ jo6\_1\ =\ real(atan2(((-\/x\_vect(1)\ *\ sin(jo1\_1)\ +\ y\_vect(1)\ *\ cos(jo1\_1)))\ /\ sin(jo5\_1),\ ((x\_vect(0)\ *\ sin(jo1\_1)\ -\/\ y\_vect(0)\ *\ cos(jo1\_1)))\ /\ sin(jo5\_1)));}
+\DoxyCodeLine{00343\ \ \ \ \ \textcolor{keywordtype}{float}\ jo6\_2\ =\ real(atan2(((-\/x\_vect(1)\ *\ sin(jo1\_1)\ +\ y\_vect(1)\ *\ cos(jo1\_1)))\ /\ sin(jo5\_2),\ ((x\_vect(0)\ *\ sin(jo1\_1)\ -\/\ y\_vect(0)\ *\ cos(jo1\_1)))\ /\ sin(jo5\_2)));}
+\DoxyCodeLine{00344\ \ \ \ \ \textcolor{keywordtype}{float}\ jo6\_3\ =\ real(atan2(((-\/x\_vect(1)\ *\ sin(jo1\_2)\ +\ y\_vect(1)\ *\ cos(jo1\_2)))\ /\ sin(jo5\_3),\ ((x\_vect(0)\ *\ sin(jo1\_2)\ -\/\ y\_vect(0)\ *\ cos(jo1\_2)))\ /\ sin(jo5\_3)));}
+\DoxyCodeLine{00345\ \ \ \ \ \textcolor{keywordtype}{float}\ jo6\_4\ =\ real(atan2(((-\/x\_vect(1)\ *\ sin(jo1\_2)\ +\ y\_vect(1)\ *\ cos(jo1\_2)))\ /\ sin(jo5\_4),\ ((x\_vect(0)\ *\ sin(jo1\_2)\ -\/\ y\_vect(0)\ *\ cos(jo1\_2)))\ /\ sin(jo5\_4)));}
+\DoxyCodeLine{00346\ }
+\DoxyCodeLine{00347\ \ \ \ \ Eigen::Matrix4f\ transf\_mtx;}
+\DoxyCodeLine{00348\ \ \ \ \ transf\_mtx\ =\ \mbox{\hyperlink{kinetics_8h_ad7f1accfb4df709b15d8e854c8fb5221}{joint1Transf}}(jo1\_1).inverse()\ *\ temp\_mtx\ *\ \mbox{\hyperlink{kinetics_8h_a24042dc7f20eb6b9c4fab73bdef89490}{joint6Transf}}(jo6\_1).inverse()\ *\ \mbox{\hyperlink{kinetics_8h_a5de718b22cca1c9b69863affb1ce464e}{joint5Transf}}(jo5\_1).inverse();}
+\DoxyCodeLine{00349\ }
+\DoxyCodeLine{00350\ \ \ \ \ Eigen::Vector3f\ v4\_1;}
+\DoxyCodeLine{00351\ \ \ \ \ v4\_1\ =\ transf\_mtx.block(0,\ 3,\ 3,\ 1);}
+\DoxyCodeLine{00352\ }
+\DoxyCodeLine{00353\ \ \ \ \ \textcolor{keywordtype}{float}\ f4\_1;}
+\DoxyCodeLine{00354\ \ \ \ \ f4\_1\ =\ hypot(v4\_1(0),\ v4\_1(2));}
+\DoxyCodeLine{00355\ }
+\DoxyCodeLine{00356\ \ \ \ \ transf\_mtx\ =\ \mbox{\hyperlink{kinetics_8h_ad7f1accfb4df709b15d8e854c8fb5221}{joint1Transf}}(jo1\_1).inverse()\ *\ temp\_mtx\ *\ \mbox{\hyperlink{kinetics_8h_a24042dc7f20eb6b9c4fab73bdef89490}{joint6Transf}}(jo6\_2).inverse()\ *\ \mbox{\hyperlink{kinetics_8h_a5de718b22cca1c9b69863affb1ce464e}{joint5Transf}}(jo5\_2).inverse();}
+\DoxyCodeLine{00357\ }
+\DoxyCodeLine{00358\ \ \ \ \ Eigen::Vector3f\ v4\_2;\ \ \ \ }
+\DoxyCodeLine{00359\ \ \ \ \ v4\_2\ =\ transf\_mtx.block(0,\ 3,\ 3,\ 1);}
+\DoxyCodeLine{00360\ }
+\DoxyCodeLine{00361\ \ \ \ \ \textcolor{keywordtype}{float}\ f4\_2;}
+\DoxyCodeLine{00362\ \ \ \ \ f4\_2\ =\ hypot(v4\_2(0),\ v4\_2(2));}
+\DoxyCodeLine{00363\ }
+\DoxyCodeLine{00364\ \ \ \ \ transf\_mtx\ =\ \mbox{\hyperlink{kinetics_8h_ad7f1accfb4df709b15d8e854c8fb5221}{joint1Transf}}(jo1\_2).inverse()\ *\ temp\_mtx\ *\ \mbox{\hyperlink{kinetics_8h_a24042dc7f20eb6b9c4fab73bdef89490}{joint6Transf}}(jo6\_3).inverse()\ *\ \mbox{\hyperlink{kinetics_8h_a5de718b22cca1c9b69863affb1ce464e}{joint5Transf}}(jo5\_3).inverse();}
+\DoxyCodeLine{00365\ }
+\DoxyCodeLine{00366\ \ \ \ \ Eigen::Vector3f\ v4\_3;}
+\DoxyCodeLine{00367\ \ \ \ \ v4\_3\ =\ transf\_mtx.block(0,\ 3,\ 3,\ 1);}
+\DoxyCodeLine{00368\ }
+\DoxyCodeLine{00369\ \ \ \ \ \textcolor{keywordtype}{float}\ f4\_3;}
+\DoxyCodeLine{00370\ \ \ \ \ f4\_3\ =\ hypot(v4\_3(0),\ v4\_3(2));}
+\DoxyCodeLine{00371\ }
+\DoxyCodeLine{00372\ \ \ \ \ transf\_mtx\ =\ \mbox{\hyperlink{kinetics_8h_ad7f1accfb4df709b15d8e854c8fb5221}{joint1Transf}}(jo1\_2).inverse()\ *\ temp\_mtx\ *\ \mbox{\hyperlink{kinetics_8h_a24042dc7f20eb6b9c4fab73bdef89490}{joint6Transf}}(jo6\_4).inverse()\ *\ \mbox{\hyperlink{kinetics_8h_a5de718b22cca1c9b69863affb1ce464e}{joint5Transf}}(jo5\_4).inverse();}
+\DoxyCodeLine{00373\ }
+\DoxyCodeLine{00374\ \ \ \ \ Eigen::Vector3f\ v4\_4;}
+\DoxyCodeLine{00375\ \ \ \ \ v4\_4\ =\ transf\_mtx.block(0,\ 3,\ 3,\ 1);}
+\DoxyCodeLine{00376\ }
+\DoxyCodeLine{00377\ \ \ \ \ \textcolor{keywordtype}{float}\ f4\_4;}
+\DoxyCodeLine{00378\ \ \ \ \ f4\_4\ =\ hypot(v4\_4(0),\ v4\_4(2));}
+\DoxyCodeLine{00379\ }
+\DoxyCodeLine{00380\ \ \ \ \ \textcolor{comment}{//\ find\ th3}}
+\DoxyCodeLine{00381\ }
+\DoxyCodeLine{00382\ \ \ \ \ \textcolor{keywordtype}{float}\ jo3\_1;}
+\DoxyCodeLine{00383\ \ \ \ \ \textcolor{keywordflow}{if}\ ((pow(f4\_1,\ 2)\ -\/\ pow(v\_1d(1),\ 2)\ -\/\ pow(v\_1d(2),\ 2))\ /\ (2\ *\ v\_1d(1)\ *\ v\_1d(2))\ >\ 1)\ \{\ jo3\_1\ =\ 0;\ \}}
+\DoxyCodeLine{00384\ \ \ \ \ \textcolor{keywordflow}{else}\ \textcolor{keywordflow}{if}\ ((pow(f4\_1,\ 2)\ -\/\ pow(v\_1d(1),\ 2)\ -\/\ pow(v\_1d(2),\ 2))\ /\ (2\ *\ v\_1d(1)\ *\ v\_1d(2))\ <\ -\/1)\ \{\ jo3\_1\ =\ M\_PI;\ \}}
+\DoxyCodeLine{00385\ \ \ \ \ \textcolor{keywordflow}{else}\ \{\ jo3\_1\ =\ acos((pow(f4\_1,\ 2)\ -\/\ pow(v\_1d(1),\ 2)\ -\/\ pow(v\_1d(2),\ 2))\ /\ (2\ *\ v\_1d(1)\ *\ v\_1d(2)));\ \}}
+\DoxyCodeLine{00386\ \ \ \ \ \textcolor{keywordtype}{float}\ jo3\_5\ =\ -\/jo3\_1;}
+\DoxyCodeLine{00387\ }
+\DoxyCodeLine{00388\ \ \ \ \ \textcolor{keywordtype}{float}\ jo3\_2;}
+\DoxyCodeLine{00389\ \ \ \ \ \textcolor{keywordflow}{if}\ ((pow(f4\_2,\ 2)\ -\/\ pow(v\_1d(1),\ 2)\ -\/\ pow(v\_1d(2),\ 2))\ /\ (2\ *\ v\_1d(1)\ *\ v\_1d(2))\ >\ 1)\ \{\ jo3\_2\ =\ 0;\ \}}
+\DoxyCodeLine{00390\ \ \ \ \ \textcolor{keywordflow}{else}\ \textcolor{keywordflow}{if}\ ((pow(f4\_2,\ 2)\ -\/\ pow(v\_1d(1),\ 2)\ -\/\ pow(v\_1d(2),\ 2))\ /\ (2\ *\ v\_1d(1)\ *\ v\_1d(2))\ <\ -\/1)\ \{\ jo3\_2\ =\ M\_PI;\ \}}
+\DoxyCodeLine{00391\ \ \ \ \ \textcolor{keywordflow}{else}\ \{\ jo3\_2\ =\ acos((pow(f4\_2,\ 2)\ -\/\ pow(v\_1d(1),\ 2)\ -\/\ pow(v\_1d(2),\ 2))\ /\ (2\ *\ v\_1d(1)\ *\ v\_1d(2)));\ \}}
+\DoxyCodeLine{00392\ \ \ \ \ \textcolor{keywordtype}{float}\ jo3\_6\ =\ -\/jo3\_2;\ \ \ \ }
+\DoxyCodeLine{00393\ }
+\DoxyCodeLine{00394\ \ \ \ \ \textcolor{keywordtype}{float}\ jo3\_3;}
+\DoxyCodeLine{00395\ \ \ \ \ \textcolor{keywordflow}{if}\ ((pow(f4\_3,\ 2)\ -\/\ pow(v\_1d(1),\ 2)\ -\/\ pow(v\_1d(2),\ 2))\ /\ (2\ *\ v\_1d(1)\ *\ v\_1d(2))\ >\ 1)\ \{\ jo3\_3\ =\ 0;\ \}}
+\DoxyCodeLine{00396\ \ \ \ \ \textcolor{keywordflow}{else}\ \textcolor{keywordflow}{if}\ ((pow(f4\_3,\ 2)\ -\/\ pow(v\_1d(1),\ 2)\ -\/\ pow(v\_1d(2),\ 2))\ /\ (2\ *\ v\_1d(1)\ *\ v\_1d(2))\ <\ -\/1)\ \{\ jo3\_3\ =\ M\_PI;\ \}}
+\DoxyCodeLine{00397\ \ \ \ \ \textcolor{keywordflow}{else}\ \{\ jo3\_3\ =\ acos((pow(f4\_3,\ 2)\ -\/\ pow(v\_1d(1),\ 2)\ -\/\ pow(v\_1d(2),\ 2))\ /\ (2\ *\ v\_1d(1)\ *\ v\_1d(2)));\ \}}
+\DoxyCodeLine{00398\ \ \ \ \ \textcolor{keywordtype}{float}\ jo3\_7\ =\ -\/jo3\_3;}
+\DoxyCodeLine{00399\ }
+\DoxyCodeLine{00400\ \ \ \ \ \textcolor{keywordtype}{float}\ jo3\_4;}
+\DoxyCodeLine{00401\ \ \ \ \ \textcolor{keywordflow}{if}\ ((pow(f4\_4,\ 2)\ -\/\ pow(v\_1d(1),\ 2)\ -\/\ pow(v\_1d(2),\ 2))\ /\ (2\ *\ v\_1d(1)\ *\ v\_1d(2))\ >\ 1)\ \{\ jo3\_4\ =\ 0;\ \}}
+\DoxyCodeLine{00402\ \ \ \ \ \textcolor{keywordflow}{else}\ \textcolor{keywordflow}{if}\ ((pow(f4\_4,\ 2)\ -\/\ pow(v\_1d(1),\ 2)\ -\/\ pow(v\_1d(2),\ 2))\ /\ (2\ *\ v\_1d(1)\ *\ v\_1d(2))\ <\ -\/1)\ \{\ jo3\_4\ =\ M\_PI;\ \}}
+\DoxyCodeLine{00403\ \ \ \ \ \textcolor{keywordflow}{else}\ \{\ jo3\_4\ =\ acos((pow(f4\_4,\ 2)\ -\/\ pow(v\_1d(1),\ 2)\ -\/\ pow(v\_1d(2),\ 2))\ /\ (2\ *\ v\_1d(1)\ *\ v\_1d(2)));\ \}}
+\DoxyCodeLine{00404\ \ \ \ \ \textcolor{keywordtype}{float}\ jo3\_8\ =\ -\/jo3\_4;}
+\DoxyCodeLine{00405\ }
+\DoxyCodeLine{00406\ \ \ \ \ \textcolor{comment}{//\ find\ th2}}
+\DoxyCodeLine{00407\ }
+\DoxyCodeLine{00408\ \ \ \ \ \textcolor{keywordtype}{float}\ jo2\_1\ =\ atan2(-\/v4\_1(2),\ -\/v4\_1(0))\ -\/\ asin((-\/v\_1d(2)\ *\ sin(jo3\_1))\ /\ f4\_1);}
+\DoxyCodeLine{00409\ \ \ \ \ \textcolor{keywordtype}{float}\ jo2\_2\ =\ atan2(-\/v4\_2(2),\ -\/v4\_2(0))\ -\/\ asin((-\/v\_1d(2)\ *\ sin(jo3\_2))\ /\ f4\_2);}
+\DoxyCodeLine{00410\ \ \ \ \ \textcolor{keywordtype}{float}\ jo2\_3\ =\ atan2(-\/v4\_3(2),\ -\/v4\_3(0))\ -\/\ asin((-\/v\_1d(2)\ *\ sin(jo3\_3))\ /\ f4\_3);}
+\DoxyCodeLine{00411\ \ \ \ \ \textcolor{keywordtype}{float}\ jo2\_4\ =\ atan2(-\/v4\_4(2),\ -\/v4\_4(0))\ -\/\ asin((-\/v\_1d(2)\ *\ sin(jo3\_4))\ /\ f4\_4);}
+\DoxyCodeLine{00412\ \ \ \ \ \textcolor{keywordtype}{float}\ jo2\_5\ =\ atan2(-\/v4\_1(2),\ -\/v4\_1(0))\ -\/\ asin((v\_1d(2)\ *\ sin(jo3\_1))\ /\ f4\_1);}
+\DoxyCodeLine{00413\ \ \ \ \ \textcolor{keywordtype}{float}\ jo2\_6\ =\ atan2(-\/v4\_2(2),\ -\/v4\_2(0))\ -\/\ asin((v\_1d(2)\ *\ sin(jo3\_2))\ /\ f4\_2);}
+\DoxyCodeLine{00414\ \ \ \ \ \textcolor{keywordtype}{float}\ jo2\_7\ =\ atan2(-\/v4\_3(2),\ -\/v4\_3(0))\ -\/\ asin((v\_1d(2)\ *\ sin(jo3\_3))\ /\ f4\_3);}
+\DoxyCodeLine{00415\ \ \ \ \ \textcolor{keywordtype}{float}\ jo2\_8\ =\ atan2(-\/v4\_4(2),\ -\/v4\_4(0))\ -\/\ asin((v\_1d(2)\ *\ sin(jo3\_4))\ /\ f4\_4);}
+\DoxyCodeLine{00416\ }
+\DoxyCodeLine{00417\ \ \ \ \ \textcolor{comment}{//\ find\ th4}}
+\DoxyCodeLine{00418\ }
+\DoxyCodeLine{00419\ \ \ \ \ Eigen::Matrix4f\ j4\_mtx;\ \ \ \ }
+\DoxyCodeLine{00420\ \ \ \ \ j4\_mtx\ =\ \mbox{\hyperlink{kinetics_8h_a0d4468db926b1ac1d7e5cdc899e6568b}{joint3Transf}}(jo3\_1).inverse()\ *\ \mbox{\hyperlink{kinetics_8h_a6c25914e0db109b02fc000f4535f2d4a}{joint2Transf}}(jo2\_1).inverse()\ *\ \mbox{\hyperlink{kinetics_8h_ad7f1accfb4df709b15d8e854c8fb5221}{joint1Transf}}(jo1\_1).inverse()\ *\ temp\_mtx\ *\ \mbox{\hyperlink{kinetics_8h_a24042dc7f20eb6b9c4fab73bdef89490}{joint6Transf}}(jo6\_1).inverse()\ *\ \mbox{\hyperlink{kinetics_8h_a5de718b22cca1c9b69863affb1ce464e}{joint5Transf}}(jo5\_1).inverse();}
+\DoxyCodeLine{00421\ \ \ \ \ }
+\DoxyCodeLine{00422\ \ \ \ \ Eigen::Vector3f\ x\_4v;}
+\DoxyCodeLine{00423\ \ \ \ \ x\_4v\ =\ j4\_mtx.block(0,\ 0,\ 3,\ 1);}
+\DoxyCodeLine{00424\ \ \ \ \ \textcolor{keywordtype}{float}\ jo4\_1\ =\ atan2(x\_4v(1),\ x\_4v(0));}
+\DoxyCodeLine{00425\ }
+\DoxyCodeLine{00426\ \ \ \ \ j4\_mtx\ =\ \mbox{\hyperlink{kinetics_8h_a0d4468db926b1ac1d7e5cdc899e6568b}{joint3Transf}}(jo3\_2).inverse()\ *\ \mbox{\hyperlink{kinetics_8h_a6c25914e0db109b02fc000f4535f2d4a}{joint2Transf}}(jo2\_2).inverse()\ *\ \mbox{\hyperlink{kinetics_8h_ad7f1accfb4df709b15d8e854c8fb5221}{joint1Transf}}(jo1\_1).inverse()\ *\ temp\_mtx\ *\ \mbox{\hyperlink{kinetics_8h_a24042dc7f20eb6b9c4fab73bdef89490}{joint6Transf}}(jo6\_2).inverse()\ *\ \mbox{\hyperlink{kinetics_8h_a5de718b22cca1c9b69863affb1ce464e}{joint5Transf}}(jo5\_2).inverse();}
+\DoxyCodeLine{00427\ \ \ \ \ x\_4v\ =\ j4\_mtx.block(0,\ 0,\ 3,\ 1);}
+\DoxyCodeLine{00428\ \ \ \ \ \textcolor{keywordtype}{float}\ jo4\_2\ =\ atan2(x\_4v(1),\ x\_4v(0));}
+\DoxyCodeLine{00429\ }
+\DoxyCodeLine{00430\ \ \ \ \ j4\_mtx\ =\ \mbox{\hyperlink{kinetics_8h_a0d4468db926b1ac1d7e5cdc899e6568b}{joint3Transf}}(jo3\_3).inverse()\ *\ \mbox{\hyperlink{kinetics_8h_a6c25914e0db109b02fc000f4535f2d4a}{joint2Transf}}(jo2\_3).inverse()\ *\ \mbox{\hyperlink{kinetics_8h_ad7f1accfb4df709b15d8e854c8fb5221}{joint1Transf}}(jo1\_2).inverse()\ *\ temp\_mtx\ *\ \mbox{\hyperlink{kinetics_8h_a24042dc7f20eb6b9c4fab73bdef89490}{joint6Transf}}(jo6\_3).inverse()\ *\ \mbox{\hyperlink{kinetics_8h_a5de718b22cca1c9b69863affb1ce464e}{joint5Transf}}(jo5\_3).inverse();}
+\DoxyCodeLine{00431\ \ \ \ \ x\_4v\ =\ j4\_mtx.block(0,\ 0,\ 3,\ 1);}
+\DoxyCodeLine{00432\ \ \ \ \ \textcolor{keywordtype}{float}\ jo4\_3\ =\ atan2(x\_4v(1),\ x\_4v(0));}
+\DoxyCodeLine{00433\ }
+\DoxyCodeLine{00434\ \ \ \ \ j4\_mtx\ =\ \mbox{\hyperlink{kinetics_8h_a0d4468db926b1ac1d7e5cdc899e6568b}{joint3Transf}}(jo3\_4).inverse()\ *\ \mbox{\hyperlink{kinetics_8h_a6c25914e0db109b02fc000f4535f2d4a}{joint2Transf}}(jo2\_4).inverse()\ *\ \mbox{\hyperlink{kinetics_8h_ad7f1accfb4df709b15d8e854c8fb5221}{joint1Transf}}(jo1\_2).inverse()\ *\ temp\_mtx\ *\ \mbox{\hyperlink{kinetics_8h_a24042dc7f20eb6b9c4fab73bdef89490}{joint6Transf}}(jo6\_4).inverse()\ *\ \mbox{\hyperlink{kinetics_8h_a5de718b22cca1c9b69863affb1ce464e}{joint5Transf}}(jo5\_4).inverse();}
+\DoxyCodeLine{00435\ \ \ \ \ x\_4v\ =\ j4\_mtx.block(0,\ 0,\ 3,\ 1);}
+\DoxyCodeLine{00436\ \ \ \ \ \textcolor{keywordtype}{float}\ jo4\_4\ =\ atan2(x\_4v(1),\ x\_4v(0));}
+\DoxyCodeLine{00437\ }
+\DoxyCodeLine{00438\ \ \ \ \ j4\_mtx\ =\ \mbox{\hyperlink{kinetics_8h_a0d4468db926b1ac1d7e5cdc899e6568b}{joint3Transf}}(jo3\_5).inverse()\ *\ \mbox{\hyperlink{kinetics_8h_a6c25914e0db109b02fc000f4535f2d4a}{joint2Transf}}(jo2\_5).inverse()\ *\ \mbox{\hyperlink{kinetics_8h_ad7f1accfb4df709b15d8e854c8fb5221}{joint1Transf}}(jo1\_1).inverse()\ *\ temp\_mtx\ *\ \mbox{\hyperlink{kinetics_8h_a24042dc7f20eb6b9c4fab73bdef89490}{joint6Transf}}(jo6\_1).inverse()\ *\ \mbox{\hyperlink{kinetics_8h_a5de718b22cca1c9b69863affb1ce464e}{joint5Transf}}(jo5\_1).inverse();}
+\DoxyCodeLine{00439\ \ \ \ \ x\_4v\ =\ j4\_mtx.block(0,\ 0,\ 3,\ 1);}
+\DoxyCodeLine{00440\ \ \ \ \ \textcolor{keywordtype}{float}\ jo4\_5\ =\ atan2(x\_4v(1),\ x\_4v(0));}
+\DoxyCodeLine{00441\ }
+\DoxyCodeLine{00442\ \ \ \ \ j4\_mtx\ =\ \mbox{\hyperlink{kinetics_8h_a0d4468db926b1ac1d7e5cdc899e6568b}{joint3Transf}}(jo3\_6).inverse()\ *\ \mbox{\hyperlink{kinetics_8h_a6c25914e0db109b02fc000f4535f2d4a}{joint2Transf}}(jo2\_6).inverse()\ *\ \mbox{\hyperlink{kinetics_8h_ad7f1accfb4df709b15d8e854c8fb5221}{joint1Transf}}(jo1\_1).inverse()\ *\ temp\_mtx\ *\ \mbox{\hyperlink{kinetics_8h_a24042dc7f20eb6b9c4fab73bdef89490}{joint6Transf}}(jo6\_2).inverse()\ *\ \mbox{\hyperlink{kinetics_8h_a5de718b22cca1c9b69863affb1ce464e}{joint5Transf}}(jo5\_2).inverse();}
+\DoxyCodeLine{00443\ \ \ \ \ x\_4v\ =\ j4\_mtx.block(0,\ 0,\ 3,\ 1);}
+\DoxyCodeLine{00444\ \ \ \ \ \textcolor{keywordtype}{float}\ jo4\_6\ =\ atan2(x\_4v(1),\ x\_4v(0));}
+\DoxyCodeLine{00445\ }
+\DoxyCodeLine{00446\ \ \ \ \ j4\_mtx\ =\ \mbox{\hyperlink{kinetics_8h_a0d4468db926b1ac1d7e5cdc899e6568b}{joint3Transf}}(jo3\_7).inverse()\ *\ \mbox{\hyperlink{kinetics_8h_a6c25914e0db109b02fc000f4535f2d4a}{joint2Transf}}(jo2\_7).inverse()\ *\ \mbox{\hyperlink{kinetics_8h_ad7f1accfb4df709b15d8e854c8fb5221}{joint1Transf}}(jo1\_2).inverse()\ *\ temp\_mtx\ *\ \mbox{\hyperlink{kinetics_8h_a24042dc7f20eb6b9c4fab73bdef89490}{joint6Transf}}(jo6\_3).inverse()\ *\ \mbox{\hyperlink{kinetics_8h_a5de718b22cca1c9b69863affb1ce464e}{joint5Transf}}(jo5\_3).inverse();}
+\DoxyCodeLine{00447\ \ \ \ \ x\_4v\ =\ j4\_mtx.block(0,\ 0,\ 3,\ 1);}
+\DoxyCodeLine{00448\ \ \ \ \ \textcolor{keywordtype}{float}\ jo4\_7\ =\ atan2(x\_4v(1),\ x\_4v(0));}
+\DoxyCodeLine{00449\ }
+\DoxyCodeLine{00450\ \ \ \ \ j4\_mtx\ =\ \mbox{\hyperlink{kinetics_8h_a0d4468db926b1ac1d7e5cdc899e6568b}{joint3Transf}}(jo3\_8).inverse()\ *\ \mbox{\hyperlink{kinetics_8h_a6c25914e0db109b02fc000f4535f2d4a}{joint2Transf}}(jo2\_8).inverse()\ *\ \mbox{\hyperlink{kinetics_8h_ad7f1accfb4df709b15d8e854c8fb5221}{joint1Transf}}(jo1\_2).inverse()\ *\ temp\_mtx\ *\ \mbox{\hyperlink{kinetics_8h_a24042dc7f20eb6b9c4fab73bdef89490}{joint6Transf}}(jo6\_4).inverse()\ *\ \mbox{\hyperlink{kinetics_8h_a5de718b22cca1c9b69863affb1ce464e}{joint5Transf}}(jo5\_4).inverse();}
+\DoxyCodeLine{00451\ \ \ \ \ x\_4v\ =\ j4\_mtx.block(0,\ 0,\ 3,\ 1);}
+\DoxyCodeLine{00452\ \ \ \ \ \textcolor{keywordtype}{float}\ jo4\_8\ =\ atan2(x\_4v(1),\ x\_4v(0));}
+\DoxyCodeLine{00453\ }
+\DoxyCodeLine{00454\ \ \ \ \ Eigen::MatrixXf\ result\_mtx(8,\ 6);}
+\DoxyCodeLine{00455\ \ \ \ \ result\_mtx\ <<\ \ \ jo1\_1,\ jo2\_1,\ jo3\_1,\ jo4\_1,\ jo5\_1,\ jo6\_1,\ jo1\_1,\ jo2\_2,\ jo3\_2,\ jo4\_2,\ jo5\_2,\ jo6\_2,\ jo1\_2,\ jo2\_3,\ jo3\_3,\ jo4\_3,\ jo5\_3,\ jo6\_3,\ jo1\_2,\ jo2\_4,\ jo3\_4,\ jo4\_4,\ jo5\_4,\ jo6\_4,}
+\DoxyCodeLine{00456\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ jo1\_1,\ jo2\_5,\ jo3\_5,\ jo4\_5,\ jo5\_1,\ jo6\_1,\ jo1\_1,\ jo2\_6,\ jo3\_6,\ jo4\_6,\ jo5\_2,\ jo6\_2,\ jo1\_2,\ jo2\_7,\ jo3\_7,\ jo4\_7,\ jo5\_3,\ jo6\_3,\ jo1\_2,\ jo2\_8,\ jo3\_8,\ jo4\_8,\ jo5\_4,\ jo6\_4;}
+\DoxyCodeLine{00457\ \ \ \ \ \textcolor{keywordflow}{return}\ result\_mtx;}
+\DoxyCodeLine{00458\ \}}
+\DoxyCodeLine{00459\ }
+\DoxyCodeLine{00460\ \textcolor{preprocessor}{\#endif}}
+
+\end{DoxyCode}

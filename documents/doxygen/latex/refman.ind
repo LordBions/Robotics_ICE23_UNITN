@@ -1,0 +1,228 @@
+\begin{theindex}
+
+  \item {\_\_init\_\_}
+    \subitem {recogniseArea.RecogniseArea}, \hyperpage{23}
+    \subitem {recogniseLego.Lego}, \hyperpage{21}
+    \subitem {recogniseLego.RecogniseLego}, \hyperpage{24}
+
+  \indexspace
+
+  \item {assignments}, \hyperpage{12}
+
+  \indexspace
+
+  \item {calculateRandomOr}
+    \subitem {spawnLego.cpp}, \hyperpage{55}
+  \item {calculateRandomPose}
+    \subitem {spawnLego.cpp}, \hyperpage{56}
+  \item {checkCollitions}
+    \subitem {spawnLego.cpp}, \hyperpage{56}
+  \item {client\_gripper\_commander}
+    \subitem {movement.cpp}, \hyperpage{41}
+  \item {client\_gripper\_commander\_handle}
+    \subitem {movement.cpp}, \hyperpage{42}
+  \item {correctOrientation}
+    \subitem {kinetics.h}, \hyperpage{28}
+
+  \indexspace
+
+  \item {default\_cam2sim\_matrix}
+    \subitem {planner.cpp}, \hyperpage{50}
+  \item {default\_sim2bas\_matrix}
+    \subitem {planner.cpp}, \hyperpage{50}
+  \item {detectArea}
+    \subitem {recogniseLego.RecogniseLego}, \hyperpage{24}
+  \item {detectLegos}
+    \subitem {recogniseLego.RecogniseLego}, \hyperpage{25}
+  \item {detectResulterCallback}
+    \subitem {vision}, \hyperpage{17}
+  \item {directKinematic}
+    \subitem {kinetics.h}, \hyperpage{28}
+
+  \indexspace
+
+  \item {end\_effector}, \hyperpage{19}
+  \item {evento}
+    \subitem {movement.cpp}, \hyperpage{42}
+  \item {execute}
+    \subitem {recogniseArea.RecogniseArea}, \hyperpage{23}
+  \item {ExecutingTask}, \hyperpage{19}
+
+  \indexspace
+
+  \item {getModelXML}
+    \subitem {spawnLego.cpp}, \hyperpage{56}
+
+  \indexspace
+
+  \item {inverseKinematic}
+    \subitem {kinetics.h}, \hyperpage{29}
+
+  \indexspace
+
+  \item {jacobMatrix}
+    \subitem {kinetics.h}, \hyperpage{29}
+  \item {joint1Transf}
+    \subitem {kinetics.h}, \hyperpage{29}
+  \item {joint2Transf}
+    \subitem {kinetics.h}, \hyperpage{30}
+  \item {joint3Transf}
+    \subitem {kinetics.h}, \hyperpage{30}
+  \item {joint4Transf}
+    \subitem {kinetics.h}, \hyperpage{30}
+  \item {joint5Transf}
+    \subitem {kinetics.h}, \hyperpage{31}
+  \item {joint6Transf}
+    \subitem {kinetics.h}, \hyperpage{31}
+
+  \indexspace
+
+  \item {kinetics.h}, \hyperpage{27}
+    \subitem {correctOrientation}, \hyperpage{28}
+    \subitem {directKinematic}, \hyperpage{28}
+    \subitem {inverseKinematic}, \hyperpage{29}
+    \subitem {jacobMatrix}, \hyperpage{29}
+    \subitem {joint1Transf}, \hyperpage{29}
+    \subitem {joint2Transf}, \hyperpage{30}
+    \subitem {joint3Transf}, \hyperpage{30}
+    \subitem {joint4Transf}, \hyperpage{30}
+    \subitem {joint5Transf}, \hyperpage{31}
+    \subitem {joint6Transf}, \hyperpage{31}
+    \subitem {orient2matrix}, \hyperpage{31}
+
+  \indexspace
+
+  \item {lego\_models\_list}
+    \subitem {recogniseLego.py}, \hyperpage{52}
+
+  \indexspace
+
+  \item {movement.cpp}, \hyperpage{37}
+    \subitem {client\_gripper\_commander}, \hyperpage{41}
+    \subitem {client\_gripper\_commander\_handle}, \hyperpage{42}
+    \subitem {evento}, \hyperpage{42}
+    \subitem {node\_name}, \hyperpage{41}
+    \subitem {planner\_eseguendo}, \hyperpage{42}
+    \subitem {pub\_joint\_commander}, \hyperpage{41}
+    \subitem {pub\_joint\_commander\_handle}, \hyperpage{42}
+    \subitem {pub\_task\_resulter}, \hyperpage{42}
+    \subitem {pub\_task\_resulter\_handle}, \hyperpage{42}
+    \subitem {risultato\_var}, \hyperpage{43}
+    \subitem {sub\_task\_commander}, \hyperpage{42}
+    \subitem {sub\_task\_commander\_handle}, \hyperpage{43}
+    \subitem {task\_command}, \hyperpage{43}
+  \item {Movement\_commands}, \hyperpage{9}
+  \item {Movement\_security\_commands}, \hyperpage{9}
+  \item {movement\_task}
+    \subitem {planner.cpp}, \hyperpage{50}
+
+  \indexspace
+
+  \item {node\_name}
+    \subitem {movement.cpp}, \hyperpage{41}
+
+  \indexspace
+
+  \item {objectDistance}
+    \subitem {spawnLego.cpp}, \hyperpage{57}
+  \item {objectPositionOrientation}, \hyperpage{22}
+  \item {orient2matrix}
+    \subitem {kinetics.h}, \hyperpage{31}
+
+  \indexspace
+
+  \item {planner.cpp}, \hyperpage{43}
+    \subitem {default\_cam2sim\_matrix}, \hyperpage{50}
+    \subitem {default\_sim2bas\_matrix}, \hyperpage{50}
+    \subitem {movement\_task}, \hyperpage{50}
+  \item {Planner\_commands}, \hyperpage{10}
+  \item {planner\_eseguendo}
+    \subitem {movement.cpp}, \hyperpage{42}
+  \item {Planner\_relocation\_classes}, \hyperpage{11}
+  \item {Planner\_result\_type}, \hyperpage{11}
+  \item {Planner\_security\_commands}, \hyperpage{11}
+  \item {Planner\_to\_vision\_commands}, \hyperpage{10}
+  \item {pointCloudCallBack}
+    \subitem {vision}, \hyperpage{17}
+  \item {pub\_joint\_commander}
+    \subitem {movement.cpp}, \hyperpage{41}
+  \item {pub\_joint\_commander\_handle}
+    \subitem {movement.cpp}, \hyperpage{42}
+  \item {pub\_task\_resulter}
+    \subitem {movement.cpp}, \hyperpage{42}
+  \item {pub\_task\_resulter\_handle}
+    \subitem {movement.cpp}, \hyperpage{42}
+  \item {pubSpawnerAck}
+    \subitem {spawnLego.cpp}, \hyperpage{57}
+
+  \indexspace
+
+  \item {randomInInterval}
+    \subitem {spawnLego.cpp}, \hyperpage{57}
+  \item {randomNumber}
+    \subitem {spawnLego.cpp}, \hyperpage{58}
+  \item {readParams}
+    \subitem {spawnLego.cpp}, \hyperpage{58}
+  \item {recogniseArea.py}, \hyperpage{51}
+  \item {recogniseArea.RecogniseArea}, \hyperpage{22}
+    \subitem {\_\_init\_\_}, \hyperpage{23}
+    \subitem {execute}, \hyperpage{23}
+  \item {recogniseLego.Lego}, \hyperpage{20}
+    \subitem {\_\_init\_\_}, \hyperpage{21}
+  \item {recogniseLego.py}, \hyperpage{51}
+    \subitem {lego\_models\_list}, \hyperpage{52}
+  \item {recogniseLego.RecogniseLego}, \hyperpage{24}
+    \subitem {\_\_init\_\_}, \hyperpage{24}
+    \subitem {detectArea}, \hyperpage{24}
+    \subitem {detectLegos}, \hyperpage{25}
+  \item {risultato\_var}
+    \subitem {movement.cpp}, \hyperpage{43}
+
+  \indexspace
+
+  \item {setColour}
+    \subitem {spawnLego.cpp}, \hyperpage{59}
+  \item {spawnedLego}, \hyperpage{25}
+  \item {spawnLego}
+    \subitem {spawnLego.cpp}, \hyperpage{59}
+  \item {spawnLego.cpp}, \hyperpage{52}
+    \subitem {calculateRandomOr}, \hyperpage{55}
+    \subitem {calculateRandomPose}, \hyperpage{56}
+    \subitem {checkCollitions}, \hyperpage{56}
+    \subitem {getModelXML}, \hyperpage{56}
+    \subitem {objectDistance}, \hyperpage{57}
+    \subitem {pubSpawnerAck}, \hyperpage{57}
+    \subitem {randomInInterval}, \hyperpage{57}
+    \subitem {randomNumber}, \hyperpage{58}
+    \subitem {readParams}, \hyperpage{58}
+    \subitem {setColour}, \hyperpage{59}
+    \subitem {spawnLego}, \hyperpage{59}
+    \subitem {subSpawnCommanderCallback}, \hyperpage{59}
+  \item {specials}, \hyperpage{13}
+  \item {sub\_task\_commander}
+    \subitem {movement.cpp}, \hyperpage{42}
+  \item {sub\_task\_commander\_handle}
+    \subitem {movement.cpp}, \hyperpage{43}
+  \item {subReceiveImage}
+    \subitem {vision}, \hyperpage{17}
+  \item {subSpawnCommanderCallback}
+    \subitem {spawnLego.cpp}, \hyperpage{59}
+
+  \indexspace
+
+  \item {task\_command}
+    \subitem {movement.cpp}, \hyperpage{43}
+
+  \indexspace
+
+  \item {vision}, \hyperpage{15}
+    \subitem {detectResulterCallback}, \hyperpage{17}
+    \subitem {pointCloudCallBack}, \hyperpage{17}
+    \subitem {subReceiveImage}, \hyperpage{17}
+  \item {vision.py}, \hyperpage{60}
+
+  \indexspace
+
+  \item {WaitingTask}, \hyperpage{25}
+
+\end{theindex}

@@ -1,0 +1,126 @@
+\@ifundefined {etoctocstyle}{\let \etoc@startlocaltoc \@gobble \let \etoc@settocdepth \@gobble \let \etoc@depthtag \@gobble \let \etoc@setlocaltop \@gobble }{}
+\contentsline {chapter}{\numberline {1}Module Index}{1}{chapter.1}%
+\contentsline {section}{\numberline {1.1}Modules}{1}{section.1.1}%
+\contentsline {chapter}{\numberline {2}Namespace Index}{3}{chapter.2}%
+\contentsline {section}{\numberline {2.1}Namespace List}{3}{section.2.1}%
+\contentsline {chapter}{\numberline {3}Class Index}{5}{chapter.3}%
+\contentsline {section}{\numberline {3.1}Class List}{5}{section.3.1}%
+\contentsline {chapter}{\numberline {4}File Index}{7}{chapter.4}%
+\contentsline {section}{\numberline {4.1}File List}{7}{section.4.1}%
+\contentsline {chapter}{\numberline {5}Module Documentation}{9}{chapter.5}%
+\contentsline {section}{\numberline {5.1}Movement\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}\_\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}commands}{9}{section.5.1}%
+\contentsline {subsection}{\numberline {5.1.1}Detailed Description}{9}{subsection.5.1.1}%
+\contentsline {section}{\numberline {5.2}Movement\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}\_\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}security\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}\_\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}commands}{9}{section.5.2}%
+\contentsline {subsection}{\numberline {5.2.1}Detailed Description}{10}{subsection.5.2.1}%
+\contentsline {section}{\numberline {5.3}Planner\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}\_\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}to\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}\_\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}vision\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}\_\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}commands}{10}{section.5.3}%
+\contentsline {subsection}{\numberline {5.3.1}Detailed Description}{10}{subsection.5.3.1}%
+\contentsline {section}{\numberline {5.4}Planner\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}\_\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}commands}{10}{section.5.4}%
+\contentsline {subsection}{\numberline {5.4.1}Detailed Description}{11}{subsection.5.4.1}%
+\contentsline {section}{\numberline {5.5}Planner\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}\_\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}security\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}\_\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}commands}{11}{section.5.5}%
+\contentsline {subsection}{\numberline {5.5.1}Detailed Description}{11}{subsection.5.5.1}%
+\contentsline {section}{\numberline {5.6}Planner\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}\_\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}result\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}\_\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}type}{11}{section.5.6}%
+\contentsline {subsection}{\numberline {5.6.1}Detailed Description}{11}{subsection.5.6.1}%
+\contentsline {section}{\numberline {5.7}Planner\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}\_\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}relocation\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}\_\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}classes}{11}{section.5.7}%
+\contentsline {subsection}{\numberline {5.7.1}Detailed Description}{12}{subsection.5.7.1}%
+\contentsline {section}{\numberline {5.8}assignments}{12}{section.5.8}%
+\contentsline {subsection}{\numberline {5.8.1}Detailed Description}{12}{subsection.5.8.1}%
+\contentsline {section}{\numberline {5.9}specials}{13}{section.5.9}%
+\contentsline {subsection}{\numberline {5.9.1}Detailed Description}{13}{subsection.5.9.1}%
+\contentsline {chapter}{\numberline {6}Namespace Documentation}{15}{chapter.6}%
+\contentsline {section}{\numberline {6.1}vision Namespace Reference}{15}{section.6.1}%
+\contentsline {subsection}{\numberline {6.1.1}Detailed Description}{16}{subsection.6.1.1}%
+\contentsline {subsection}{\numberline {6.1.2}Function Documentation}{17}{subsection.6.1.2}%
+\contentsline {subsubsection}{\numberline {6.1.2.1}detectResulterCallback()}{17}{subsubsection.6.1.2.1}%
+\contentsline {subsubsection}{\numberline {6.1.2.2}pointCloudCallBack()}{17}{subsubsection.6.1.2.2}%
+\contentsline {subsubsection}{\numberline {6.1.2.3}subReceiveImage()}{17}{subsubsection.6.1.2.3}%
+\contentsline {chapter}{\numberline {7}Class Documentation}{19}{chapter.7}%
+\contentsline {section}{\numberline {7.1}end\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}\_\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}effector Struct Reference}{19}{section.7.1}%
+\contentsline {subsection}{\numberline {7.1.1}Detailed Description}{19}{subsection.7.1.1}%
+\contentsline {section}{\numberline {7.2}Executing\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}Task Struct Reference}{19}{section.7.2}%
+\contentsline {subsection}{\numberline {7.2.1}Detailed Description}{20}{subsection.7.2.1}%
+\contentsline {section}{\numberline {7.3}recognise\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}Lego.\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}Lego Class Reference}{20}{section.7.3}%
+\contentsline {subsection}{\numberline {7.3.1}Detailed Description}{21}{subsection.7.3.1}%
+\contentsline {subsection}{\numberline {7.3.2}Constructor \& Destructor Documentation}{21}{subsection.7.3.2}%
+\contentsline {subsubsection}{\numberline {7.3.2.1}\_\_init\_\_()}{21}{subsubsection.7.3.2.1}%
+\contentsline {section}{\numberline {7.4}object\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}Position\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}Orientation Struct Reference}{22}{section.7.4}%
+\contentsline {subsection}{\numberline {7.4.1}Detailed Description}{22}{subsection.7.4.1}%
+\contentsline {section}{\numberline {7.5}recognise\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}Area.\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}Recognise\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}Area Class Reference}{22}{section.7.5}%
+\contentsline {subsection}{\numberline {7.5.1}Detailed Description}{23}{subsection.7.5.1}%
+\contentsline {subsection}{\numberline {7.5.2}Constructor \& Destructor Documentation}{23}{subsection.7.5.2}%
+\contentsline {subsubsection}{\numberline {7.5.2.1}\_\_init\_\_()}{23}{subsubsection.7.5.2.1}%
+\contentsline {subsection}{\numberline {7.5.3}Member Function Documentation}{23}{subsection.7.5.3}%
+\contentsline {subsubsection}{\numberline {7.5.3.1}execute()}{23}{subsubsection.7.5.3.1}%
+\contentsline {section}{\numberline {7.6}recognise\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}Lego.\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}Recognise\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}Lego Class Reference}{24}{section.7.6}%
+\contentsline {subsection}{\numberline {7.6.1}Detailed Description}{24}{subsection.7.6.1}%
+\contentsline {subsection}{\numberline {7.6.2}Constructor \& Destructor Documentation}{24}{subsection.7.6.2}%
+\contentsline {subsubsection}{\numberline {7.6.2.1}\_\_init\_\_()}{24}{subsubsection.7.6.2.1}%
+\contentsline {subsection}{\numberline {7.6.3}Member Function Documentation}{24}{subsection.7.6.3}%
+\contentsline {subsubsection}{\numberline {7.6.3.1}detectArea()}{24}{subsubsection.7.6.3.1}%
+\contentsline {subsubsection}{\numberline {7.6.3.2}detectLegos()}{25}{subsubsection.7.6.3.2}%
+\contentsline {section}{\numberline {7.7}spawned\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}Lego Struct Reference}{25}{section.7.7}%
+\contentsline {section}{\numberline {7.8}Waiting\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}Task Struct Reference}{25}{section.7.8}%
+\contentsline {subsection}{\numberline {7.8.1}Detailed Description}{26}{subsection.7.8.1}%
+\contentsline {chapter}{\numberline {8}File Documentation}{27}{chapter.8}%
+\contentsline {section}{\numberline {8.1}kinetics.\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}h File Reference}{27}{section.8.1}%
+\contentsline {subsection}{\numberline {8.1.1}Detailed Description}{28}{subsection.8.1.1}%
+\contentsline {subsection}{\numberline {8.1.2}Function Documentation}{28}{subsection.8.1.2}%
+\contentsline {subsubsection}{\numberline {8.1.2.1}correctOrientation()}{28}{subsubsection.8.1.2.1}%
+\contentsline {subsubsection}{\numberline {8.1.2.2}directKinematic()}{29}{subsubsection.8.1.2.2}%
+\contentsline {subsubsection}{\numberline {8.1.2.3}inverseKinematic()}{29}{subsubsection.8.1.2.3}%
+\contentsline {subsubsection}{\numberline {8.1.2.4}jacobMatrix()}{29}{subsubsection.8.1.2.4}%
+\contentsline {subsubsection}{\numberline {8.1.2.5}joint1Transf()}{29}{subsubsection.8.1.2.5}%
+\contentsline {subsubsection}{\numberline {8.1.2.6}joint2Transf()}{30}{subsubsection.8.1.2.6}%
+\contentsline {subsubsection}{\numberline {8.1.2.7}joint3Transf()}{30}{subsubsection.8.1.2.7}%
+\contentsline {subsubsection}{\numberline {8.1.2.8}joint4Transf()}{30}{subsubsection.8.1.2.8}%
+\contentsline {subsubsection}{\numberline {8.1.2.9}joint5Transf()}{31}{subsubsection.8.1.2.9}%
+\contentsline {subsubsection}{\numberline {8.1.2.10}joint6Transf()}{31}{subsubsection.8.1.2.10}%
+\contentsline {subsubsection}{\numberline {8.1.2.11}orient2matrix()}{31}{subsubsection.8.1.2.11}%
+\contentsline {section}{\numberline {8.2}kinetics.\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}h}{32}{section.8.2}%
+\contentsline {section}{\numberline {8.3}movement.\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}cpp File Reference}{37}{section.8.3}%
+\contentsline {subsection}{\numberline {8.3.1}Detailed Description}{41}{subsection.8.3.1}%
+\contentsline {subsection}{\numberline {8.3.2}Macro Definition Documentation}{41}{subsection.8.3.2}%
+\contentsline {subsubsection}{\numberline {8.3.2.1}client\_gripper\_commander}{41}{subsubsection.8.3.2.1}%
+\contentsline {subsubsection}{\numberline {8.3.2.2}node\_name}{41}{subsubsection.8.3.2.2}%
+\contentsline {subsubsection}{\numberline {8.3.2.3}pub\_joint\_commander}{42}{subsubsection.8.3.2.3}%
+\contentsline {subsubsection}{\numberline {8.3.2.4}pub\_task\_resulter}{42}{subsubsection.8.3.2.4}%
+\contentsline {subsubsection}{\numberline {8.3.2.5}sub\_task\_commander}{42}{subsubsection.8.3.2.5}%
+\contentsline {subsection}{\numberline {8.3.3}Variable Documentation}{42}{subsection.8.3.3}%
+\contentsline {subsubsection}{\numberline {8.3.3.1}client\_gripper\_commander\_handle}{42}{subsubsection.8.3.3.1}%
+\contentsline {subsubsection}{\numberline {8.3.3.2}evento}{42}{subsubsection.8.3.3.2}%
+\contentsline {subsubsection}{\numberline {8.3.3.3}planner\_eseguendo}{42}{subsubsection.8.3.3.3}%
+\contentsline {subsubsection}{\numberline {8.3.3.4}pub\_joint\_commander\_handle}{42}{subsubsection.8.3.3.4}%
+\contentsline {subsubsection}{\numberline {8.3.3.5}pub\_task\_resulter\_handle}{43}{subsubsection.8.3.3.5}%
+\contentsline {subsubsection}{\numberline {8.3.3.6}risultato\_var}{43}{subsubsection.8.3.3.6}%
+\contentsline {subsubsection}{\numberline {8.3.3.7}sub\_task\_commander\_handle}{43}{subsubsection.8.3.3.7}%
+\contentsline {subsubsection}{\numberline {8.3.3.8}task\_command}{43}{subsubsection.8.3.3.8}%
+\contentsline {section}{\numberline {8.4}planner.\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}cpp File Reference}{43}{section.8.4}%
+\contentsline {subsection}{\numberline {8.4.1}Detailed Description}{50}{subsection.8.4.1}%
+\contentsline {subsection}{\numberline {8.4.2}Macro Definition Documentation}{50}{subsection.8.4.2}%
+\contentsline {subsubsection}{\numberline {8.4.2.1}default\_cam2sim\_matrix}{50}{subsubsection.8.4.2.1}%
+\contentsline {subsubsection}{\numberline {8.4.2.2}default\_sim2bas\_matrix}{50}{subsubsection.8.4.2.2}%
+\contentsline {subsection}{\numberline {8.4.3}Variable Documentation}{50}{subsection.8.4.3}%
+\contentsline {subsubsection}{\numberline {8.4.3.1}movement\_task}{50}{subsubsection.8.4.3.1}%
+\contentsline {section}{\numberline {8.5}recognise\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}Area.\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}py File Reference}{51}{section.8.5}%
+\contentsline {subsection}{\numberline {8.5.1}Detailed Description}{51}{subsection.8.5.1}%
+\contentsline {section}{\numberline {8.6}recognise\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}Lego.\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}py File Reference}{51}{section.8.6}%
+\contentsline {subsection}{\numberline {8.6.1}Detailed Description}{52}{subsection.8.6.1}%
+\contentsline {subsection}{\numberline {8.6.2}Variable Documentation}{52}{subsection.8.6.2}%
+\contentsline {subsubsection}{\numberline {8.6.2.1}lego\_models\_list}{52}{subsubsection.8.6.2.1}%
+\contentsline {section}{\numberline {8.7}spawn\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}Lego.\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}cpp File Reference}{52}{section.8.7}%
+\contentsline {subsection}{\numberline {8.7.1}Detailed Description}{55}{subsection.8.7.1}%
+\contentsline {subsection}{\numberline {8.7.2}Function Documentation}{55}{subsection.8.7.2}%
+\contentsline {subsubsection}{\numberline {8.7.2.1}calculateRandomOr()}{55}{subsubsection.8.7.2.1}%
+\contentsline {subsubsection}{\numberline {8.7.2.2}calculateRandomPose()}{56}{subsubsection.8.7.2.2}%
+\contentsline {subsubsection}{\numberline {8.7.2.3}checkCollitions()}{56}{subsubsection.8.7.2.3}%
+\contentsline {subsubsection}{\numberline {8.7.2.4}getModelXML()}{56}{subsubsection.8.7.2.4}%
+\contentsline {subsubsection}{\numberline {8.7.2.5}objectDistance()}{57}{subsubsection.8.7.2.5}%
+\contentsline {subsubsection}{\numberline {8.7.2.6}pubSpawnerAck()}{57}{subsubsection.8.7.2.6}%
+\contentsline {subsubsection}{\numberline {8.7.2.7}randomInInterval()}{58}{subsubsection.8.7.2.7}%
+\contentsline {subsubsection}{\numberline {8.7.2.8}randomNumber()}{58}{subsubsection.8.7.2.8}%
+\contentsline {subsubsection}{\numberline {8.7.2.9}readParams()}{58}{subsubsection.8.7.2.9}%
+\contentsline {subsubsection}{\numberline {8.7.2.10}setColour()}{59}{subsubsection.8.7.2.10}%
+\contentsline {subsubsection}{\numberline {8.7.2.11}spawnLego()}{59}{subsubsection.8.7.2.11}%
+\contentsline {subsubsection}{\numberline {8.7.2.12}subSpawnCommanderCallback()}{59}{subsubsection.8.7.2.12}%
+\contentsline {section}{\numberline {8.8}vision.\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}py File Reference}{60}{section.8.8}%
+\contentsline {subsection}{\numberline {8.8.1}Detailed Description}{61}{subsection.8.8.1}%
+\contentsline {chapter}{Index}{63}{section*.45}%
