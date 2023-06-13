@@ -59,7 +59,7 @@ using namespace std;
 
 #define queque_size 10          // buffer size
 #define loop_wait_rate 100     // 10 msec of waiting
-#define lego_coord_z 0.835      // z lego coordinate as the table height
+#define lego_coord_z 0.84      // z lego coordinate as the table height
 
 // base matrix for functions
 #define default_sim2bas_matrix 1.000, 0.000, 0.000, 0.500, 0.000, -1.000, 0.000, 0.350, 0.000, 0.000, -1.000, 1.750, 0.000, 0.000, 0.000, 1.000
@@ -121,16 +121,16 @@ using namespace std;
 
 // class virtual grasp diameter
 #define class_00_virt_grasp 38
-#define class_01_virt_grasp 40
-#define class_02_virt_grasp 40
-#define class_03_virt_grasp 40
-#define class_04_virt_grasp 40
-#define class_05_virt_grasp 40
-#define class_06_virt_grasp 40
-#define class_07_virt_grasp 40
-#define class_08_virt_grasp 40
-#define class_09_virt_grasp 43
-#define class_10_virt_grasp 43
+#define class_01_virt_grasp 38
+#define class_02_virt_grasp 38
+#define class_03_virt_grasp 38
+#define class_04_virt_grasp 38
+#define class_05_virt_grasp 38
+#define class_06_virt_grasp 38
+#define class_07_virt_grasp 38
+#define class_08_virt_grasp 38
+#define class_09_virt_grasp 38
+#define class_10_virt_grasp 38
 
 // class virtual ungrasp diameter
 #define class_00_virt_ungrasp 100

@@ -10,4 +10,4 @@ echo " "
 echo "When the environment is ready and homing complete, "
 read -p "PRESS ANY KEY to continue or close terminal in case of faliure " answer
 
-rosrun environment spawnLego -s2
+rosrun environment spawnLego -bastardSon
