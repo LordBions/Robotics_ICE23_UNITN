@@ -3,7 +3,7 @@ For our university exam
 
 This project requires ROS Noetic Ninjemys in ubuntu focal fossa(20.04) operative system, and gazebo software in order to run correctly.
 
-## Set up
+## Set up the environment
 ----------------------------
 First of all, you need to prepare our project and its requirements following the full report guidelines in the documents folder.
 1. Install ROS (Report: page 3 - chapt 2.1)
@@ -11,11 +11,12 @@ First of all, you need to prepare our project and its requirements following the
 3. Install and configure git (Report: page 4 - chapt 2.3)
 4. Install pip3 (Report: page 5 . chapt 2.4)
 5. Install catkin (Report: page 5 - chapt 2.5)
-6. Install locosim (optional) and configure our .bashrc (mandatory) (Report. page 6 - chapt 2.6)
+6. Install locosim (optional) and our .bashrc (mandatory) (Report. page 6 - chapt 2.6)
 7. Install Yolov5 (Report: page 6 - chapt 2.7)
-8. Install Pythorc (Report: page 6 - chapt 2.8)
-9. Install Eigen and Ipython (Report. page 7 - chapt: 2.9)
-10. Clone our repo (Report: page 7 - chapter 2.10)
+8. Install Eigen and Ipython (Report: page 6 - chapt 2.8)
+9. Install Pythorch (Report: page 7 - chapt: 2.9)
+10. Install Gazebo (Report: page 7 - chapter 2.10)
+11. Clone our repo (Report: page 8 - chapter 2.11)
 
 >It's better to have a stable internet connection in order to exploit as well as possible yolov5 features
 
