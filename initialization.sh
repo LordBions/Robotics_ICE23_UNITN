@@ -3,13 +3,9 @@
 # EXECUTE ONLY ONCE without starting SH
 
 # installare tutte le dipendency ed i requirements nostri
-# sudo apt install Eigen3
-# sudo apt install ipython
-# sudo apt install torch
-
-# git clone yolo5
-# build yolo ?
-# ............
+sudo apt install libeigen3-dev
+pip install ipython
+pip3 install torch==1.9.1+cpu torchvision==0.10.1+cpu -f https://download.pytorch.org/whl/torch_stable.html
 
 # unlock all files
 sudo chmod -R 755 $HOME/Robotics_ICE23_UNITN
