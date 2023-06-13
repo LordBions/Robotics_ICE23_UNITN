@@ -39,9 +39,8 @@ Enjoy
 
 ## Assignment 2
 <img src="https://github.com/LordBions/Robotics_ICE23_UNITN/blob/main/documents/videos/assignment_2.gif">
-<img src="https://github.com/LordBions/Robotics_ICE23_UNITN/blob/main/documents/videos/assignment_2_part_2.gif">
 
->Note: Real videos into [documents](https://github.com/LordBions/Robotics_ICE23_UNITN/tree/main/documents/videos/) folder, this gif is faster than real video
+>Note: Real video into [documents](https://github.com/LordBions/Robotics_ICE23_UNITN/tree/main/documents/videos/) folder, this gif is faster than real video
 
 ## Assignment 3
 <img src="https://github.com/LordBions/Robotics_ICE23_UNITN/blob/main/documents/videos/assignment_3.gif">
