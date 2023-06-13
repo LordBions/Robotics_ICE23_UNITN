@@ -3,7 +3,7 @@ For our university exam
 
 This project requires ROS Noetic Ninjemys in ubuntu focal fossa(20.04) operative system, and gazebo software in order to run correctly.
 
-## Automatic set up
+## Set up
 ----------------------------
 First of all, you need to prepare our project and its requirements following the full report guidelines in the documents folder.
 1. Install ROS (Report: page 3 - chapt 2.1)
