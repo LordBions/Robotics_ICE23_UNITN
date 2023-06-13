@@ -11,7 +11,7 @@ First of all, you need to prepare our project and its requirements following the
 3. Install and configure git (Report: page 4 - chapt 2.3)
 4. Install pip3 (Report: page 5 . chapt 2.4)
 5. Install catkin (Report: page 5 - chapt 2.5)
-6. Install locosim and configure our .bashrc (Report. page 6 - chapt 2.6)ù
+6. Install locosim (optional) and configure our .bashrc (mandatory) (Report. page 6 - chapt 2.6)
 7. Install Yolov5 (Report: page 6 - chapt 2.7)
 8. Install Pythorc (Report: page 6 - chapt 2.8)
 9. Install Eigen and Ipython (Report. page 7 - chapt: 2.9)
